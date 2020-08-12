@@ -4,7 +4,7 @@ import ProductCard from '../ProductCard/ProductCard';
 
 export default function Catalogo({products}) {
 	return (
-		<div>
+		<div className="contenedor">
 			{products.map(p => (
 				<ProductCard imagen={p.imagen} titulo={p.titulo} precio={p.precio} key={p.id} />
 			))}

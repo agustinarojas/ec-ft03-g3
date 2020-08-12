@@ -1,5 +1,5 @@
-.titulo {
-	color: blue;
-	background-color: aqua;
-	border: 2px black solid;
+.contenedor {
+	display: flex !important;
+	flex-direction: row !important;
+	padding: 0;
 }
