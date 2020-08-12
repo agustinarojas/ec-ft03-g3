@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductCard from '../ProductCard/ProductCard';
-// import 'Catalogo.css';
+import './cat.css';
 
 export default function Catalogo({products}) {
 	return (

@@ -14,6 +14,8 @@ function App() {
 	const [products, setProducts] = useState([
 		{imagen: null, titulo: 'jueguete', precio: '$400', id: 1},
 		{imagen: null, titulo: 'otro jueguete', precio: '$500', id: 2},
+		{imagen: null, titulo: 'jueguete', precio: '$400', id: 1},
+		{imagen: null, titulo: 'otro jueguete', precio: '$500', id: 2},
 	]);
 	return (
 		<div className="App">
