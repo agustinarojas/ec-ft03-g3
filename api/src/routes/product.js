@@ -16,7 +16,7 @@ server.get('/:id', (req, res, next) => {
 		}
 	})
 	.then(product => {
-		res.send(product)
+		res.send(product) // O product.dataValues ?
 	})
 })
 
