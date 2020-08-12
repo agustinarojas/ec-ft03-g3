@@ -1,26 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
+import {Route} from 'react-router-dom';
 import './App.css';
+import Catalogo from './Components/Catalogo/Catalogo';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const x = {imagen: null, titulo: 'juguete', precio: '$400'};
+	return (
+		<div className="App">
+			<Route path="/" render={() => <Catalogo products={x} />} />
+		</div>
+	);
 }
 
 export default App;
