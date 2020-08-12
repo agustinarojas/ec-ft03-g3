@@ -1,8 +1,7 @@
 import React from 'react';
-import Product from "../../api/src/models/Product.js"; 
 
-export default function Product  ({ titulo, descripcion, precio, cantidad, imagen}) {
-    
+
+export default function Products ({ titulo, descripcion, precio, cantidad, imagen}) {
     return (
         <div>
             <h1>{titulo}</h1>
@@ -10,10 +9,11 @@ export default function Product  ({ titulo, descripcion, precio, cantidad, image
         <div>
             <p>{descripcion}</p>
         </div>
+        <h6>reviews</h6>
         <div>
-            <h6 onClick = {} >Reviews {}</h6>
+        <div>
+            <p>{cantidad}</p>
         </div>
-        <div>
             <button>Add to cart</button>
         </div>
         <div>
