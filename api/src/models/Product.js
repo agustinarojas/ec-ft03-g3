@@ -8,5 +8,25 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    descripcion: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    precio: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    stock: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    categorias: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    imagen: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
 };
