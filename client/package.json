@@ -9,10 +9,6 @@
     "axios": "^0.19.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-<<<<<<< HEAD
-=======
-    "react-router": "^5.2.0",
->>>>>>> f8f07c522985eb8dedccbec3b50a16ff6ccba38d
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
