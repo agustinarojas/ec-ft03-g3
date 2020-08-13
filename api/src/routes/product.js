@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
+const {Product} = require('../db.js');
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
