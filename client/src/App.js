@@ -4,24 +4,29 @@ import axios from 'axios';
 import SearchBar from './components/SearchBar/SearchBar';
 import Catalogo from './components/Catalogo/Catalogo';
 import Products from './components/producto';
+import Form from './components/Form/Form';
 
 function App() {
-	const [products, setProducts] = useState([
-		{imagen: null, titulo: 'jueguete', precio: '$400', id: 1},
-		{imagen: null, titulo: 'otro jueguete', precio: '$500', id: 2},
-	]);
-	useEffect(() => {
+	const [products, setProducts] = useState([]);
+	const [buscar, setBuscar] = useState('');
+	const apiRequest = buscar => {
+		let url = buscar ? `search?valor=${buscar}` : 'products';
 		axios
-			.get('http://localhost:3000/products')
-			.then(res => console.log(res))
+			.get(`http://localhost:3005/${url}`)
+			.then(res => setProducts(res.data))
 			.catch(err => console.log(err));
-	});
+	};
+	useEffect(() => {
+		apiRequest(buscar);
+	}, [buscar]);
+
 	const search = input => {
-		console.log(input);
+		setBuscar(input);
 	};
 	return (
 		<div className="product">
 			<SearchBar search={search} />
+			<Form />
 			<Route path="/" render={() => <Catalogo products={products} />} />
 			<Route path="/product/:id" render={({match}) => <Products producto={match.params.id} />} />
 		</div>
