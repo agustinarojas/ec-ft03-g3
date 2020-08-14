@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductCard from '../product/productCard';
+import ProductCard from '../ProductCard/ProductCard';
 import './cat.css';
 
 export default function Catalogo({products}) {
