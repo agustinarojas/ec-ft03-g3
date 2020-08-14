@@ -6,18 +6,21 @@ import Catalogo from './Components/Catalogo/Catalogo';
 import Products from './Components/producto';
 
 function App() {
-	const [products, setProducts] = useState([
-		{imagen: null, titulo: 'jueguete', precio: '$400', id: 1},
-		{imagen: null, titulo: 'otro jueguete', precio: '$500', id: 2},
-	]);
-	useEffect(() => {
+	const [products, setProducts] = useState([]);
+	const [buscar, setBuscar] = useState('');
+	const apiRequest = buscar => {
+		let url = buscar ? `search?valor=${buscar}` : 'products';
 		axios
-			.get('http://localhost:3000/products')
-			.then(res => console.log(res))
+			.get(`http://localhost:3005/${url}`)
+			.then(res => setProducts(res.data))
 			.catch(err => console.log(err));
-	});
+	};
+	useEffect(() => {
+		apiRequest(buscar);
+	}, [buscar]);
+
 	const search = input => {
-		console.log(input);
+		setBuscar(input);
 	};
 	return (
 		<div className="product">
