@@ -30,7 +30,6 @@ server.get ("/categorias/:nombreCat", (req, res, next) => {
 		]
 	});
 })
-=======
 
 server.post('/', (req, res) => {
 	Product.create(req.body).then(product => {
