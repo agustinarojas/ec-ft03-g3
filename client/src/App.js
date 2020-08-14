@@ -26,4 +26,12 @@ function App() {
     </div>
   );
   }
+  function filterCat (categoria) {
+	axios.get (`http://localhost:3005/products/categorias/${categoria}`)
+	.then(res => {
+		setProducts(res.data)
+	})
+	.catch(err)
+}
+//ACOMODAR ESA FUNCION
 export default App;
