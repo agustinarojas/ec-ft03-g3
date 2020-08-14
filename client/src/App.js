@@ -1,9 +1,9 @@
 
-import Products from './components/producto';
+import Products from './Components/producto';
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import axios from 'axios';
-import Catalogo from './components/catalogo/Catalogo';
+import Catalogo from './Components/Catalogo/Catalogo';
 
 function App() {
   const [products, setProducts] = useState([
@@ -25,5 +25,5 @@ function App() {
       />
     </div>
   );
-
+}
 export default App;
