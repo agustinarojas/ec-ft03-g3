@@ -18,7 +18,6 @@ server.get('/:id', (req, res, next) => {
 		res.send(product); // O product.dataValues ?
 	});
 });
-
 server.post('/', (req, res) => {
 	Product.create(req.body).then(product => {
 		res.status(201);
