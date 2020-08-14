@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import axios from 'axios';
 import SearchBar from './Components/SearchBar/SearchBar';
-import Catalogo from './Components/Catalogo/Catalogo';
+import Catalogo from './Components/catalogo/Catalogo';
 import Products from './Components/producto';
+import Form from './Components/Form/Form';
 
 function App() {
   const [products, setProducts] = useState([
