@@ -19,15 +19,6 @@ server.get('/:id', (req, res, next) => {
 	});
 });
 
-server.get('/categorias/:nombreCat', (req, res, next) => {
-	Product.findAll({
-		where: {
-			'Cat.titulo': req.params.nombreCat,
-		},
-		include: [{model: Cat, as: Cat.tableName}],
-	});
-});
-
 server.post('/', (req, res) => {
 	Product.create(req.body).then(product => {
 		res.status(201);
@@ -49,7 +40,6 @@ server.put('/:id', (req, res) => {
 				descripcion: data.descripcion,
 				precio: data.precio,
 				stock: data.stock,
-				categorias: data.categorias,
 				imagen: data.imagen,
 			});
 			product.save();
@@ -70,6 +60,58 @@ server.delete('/:id', (req, res) => {
 		.then(product => {
 			product.destroy();
 			res.status(200).send('Producto Eliminado');
+		})
+		.catch(error => {
+			res.status(400).send('Producto inexistente');
+		});
+});
+
+
+server.get ("/category/:nombreCat", (req, res, next) => {
+	Cat.findByPk(req.params.nombreCat).then(cat => {
+		cat.getProducts({ attributes: ['titulo', 'descripcion'] }).then(products => {
+			res.send(products)
+		})
+	});
+})
+
+server.post ('/category', (req,res) => {
+    Cat.create(req.body).then((category) => {
+        res.status(201).send(category)
+    })
+})
+
+server.delete('/category/:id', (req, res) => {
+	var categoriaId = req.params.id;
+	Cat.findOne({
+		where: {
+			id: categoriaId,
+		},
+	})
+		.then(category => {
+			category.destroy();
+			res.status(200).send('Categoria Eliminada');
+		})
+		.catch(error => {
+			res.status(400).send('Categoria inexistente');
+		});
+});
+
+server.put('/category/:id', (req, res) => {
+	var categoriaId = req.params.id;
+	var data = req.body;
+	Cat.findOne({
+		where: {
+			id: categoriaId,
+		},
+	})
+		.then(category => {
+			category.update({
+				titulo: data.titulo,
+				descripcion: data.descripcion
+			});
+			category.save();
+			res.status(200).send('Categoria Actualizada');
 		})
 		.catch(error => {
 			res.status(400).send('Producto inexistente');
