@@ -1,7 +1,6 @@
 const server = require('express').Router();
 const {Product, Cat} = require('../db.js');
 
-
 server.get('/', (req, res, next) => {
 	Product.findAll()
 		.then(products => {
@@ -67,6 +66,7 @@ server.delete('/:id', (req, res) => {
 		});
 });
 
+
 server.get ("/category/:nombreCat", (req, res, next) => {
 	Cat.findByPk(req.params.nombreCat).then(cat => {
 		cat.getProducts({ attributes: ['titulo', 'descripcion'] }).then(products => {
@@ -117,6 +117,5 @@ server.put('/category/:id', (req, res) => {
 			res.status(400).send('Producto inexistente');
 		});
 });
-
 
 module.exports = server;
