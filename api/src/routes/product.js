@@ -1,5 +1,6 @@
 const server = require('express').Router();
-const {Product} = require('../db.js');
+const {Product, Cat} = require('../db.js');
+
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
@@ -18,6 +19,18 @@ server.get('/:id', (req, res, next) => {
 		res.send(product); // O product.dataValues ?
 	});
 });
+
+server.get ("/categorias/:nombreCat", (req, res, next) => {
+	Product.findAll({
+		where: {
+		'Cat.titulo': req.params.nombreCat
+		},
+		include: [
+			{model: Cat, as: Cat.tableName}
+		]
+	});
+})
+=======
 
 server.post('/', (req, res) => {
 	Product.create(req.body).then(product => {
@@ -66,5 +79,6 @@ server.delete('/:id', (req, res) => {
 			res.status(400).send('Producto inexistente');
 		});
 });
+
 
 module.exports = server;
