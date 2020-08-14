@@ -1,9 +1,9 @@
-
-import Products from './components/producto';
-import React, { useState, useEffect } from 'react';
-import { Route } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Route} from 'react-router-dom';
 import axios from 'axios';
-import Catalogo from './components/catalogo/Catalogo';
+import SearchBar from './Components/SearchBar/SearchBar';
+import Catalogo from './Components/Catalogo/Catalogo';
+import Products from './Components/producto';
 
 function App() {
   const [products, setProducts] = useState([
