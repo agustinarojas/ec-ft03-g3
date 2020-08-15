@@ -5,6 +5,7 @@ export default function ProductCard({imagen, titulo, precio, id}) {
 	return (
 		<div className="card">
 			{/* <img src={imagen} alt="" />
+			<img className="img" src={imagen} alt="" />
 			<h1 className="titulo"> {titulo} </h1>
 			<p> {precio} </p> */}
 

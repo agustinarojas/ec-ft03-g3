@@ -3,7 +3,7 @@ import {Route} from 'react-router-dom';
 import axios from 'axios';
 import SearchBar from './Components/SearchBar/SearchBar';
 import Catalogo from './Components/catalogo/Catalogo';
-import Products from './Components/producto';
+import Products from './Components/product/producto';
 import Form from './Components/Form/Form';
 import ProductCard from './Components/ProductCard/ProductCard';
 
@@ -18,14 +18,15 @@ function App() {
 			.catch(err => console.log(err));
 	};
 
-	function filterCat (categoria) {
+  function filterCat (categoria) {
 		axios.get (`http://localhost:3005/products/categorias/${categoria}`)
 		.then(res => {
-			setProducts(res.data)
+			//setProducts(res.data)
 		})
 		// .catch(err)
 	}
-	useEffect(() => {
+
+  useEffect(() => {
 		apiRequest(buscar);
 	}, [buscar]);
 
@@ -37,10 +38,11 @@ function App() {
 			<SearchBar search={search} />
 			<Form />
 			<ProductCard />
+			<Route exact path="/form" component={Form} />
+			<Route path="/form/category" component={FormCat} />
 			<Route path="/" render={() => <Catalogo products={products} />} />
 			<Route path="/product/:id" render={({match}) => <Products producto={match.params.id} />} />
 		</div>
 	);
 }
-
 export default App;
