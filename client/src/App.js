@@ -5,6 +5,7 @@ import SearchBar from './Components/SearchBar/SearchBar';
 import Catalogo from './Components/catalogo/Catalogo';
 import Products from './Components/producto';
 import Form from './Components/Form/Form';
+import ProductCard from './Components/ProductCard/ProductCard';
 
 function App() {
 	const [products, setProducts] = useState([]);
@@ -16,6 +17,14 @@ function App() {
 			.then(res => setProducts(res.data))
 			.catch(err => console.log(err));
 	};
+
+	function filterCat (categoria) {
+		axios.get (`http://localhost:3005/products/categorias/${categoria}`)
+		.then(res => {
+			setProducts(res.data)
+		})
+		// .catch(err)
+	}
 	useEffect(() => {
 		apiRequest(buscar);
 	}, [buscar]);
@@ -27,16 +36,11 @@ function App() {
 		<div className="product">
 			<SearchBar search={search} />
 			<Form />
+			<ProductCard />
 			<Route path="/" render={() => <Catalogo products={products} />} />
 			<Route path="/product/:id" render={({match}) => <Products producto={match.params.id} />} />
 		</div>
 	);
 }
-function filterCat (categoria) {
-	axios.get (`http://localhost:3005/products/categorias/${categoria}`)
-	.then(res => {
-		setProducts(res.data)
-	})
-	.catch(err)
-}
+
 export default App;

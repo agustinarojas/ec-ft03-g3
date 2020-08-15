@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import './Form.css'
 
 export default function Form() {
 	const [input, setInput] = useState({
@@ -23,16 +24,16 @@ export default function Form() {
 			.catch(err => console.log(err));
 	};
 	return (
-		<form onSubmit={e => handleSubmit(input)}>
-			<label> Titulo </label>
+		<form className = "formulario" onSubmit={e => handleSubmit(input)}>
+			<label><strong> Titulo </strong></label>
 			<input type="text" name="titulo" placeholder="Agregar..." onChange={handleInputChange} />
-			<label> Descripcion </label>
-			<input type="text" name="descripcion" placeholder="Agregar..." onChange={handleInputChange} />
-			<label> Precio </label>
+			<label><strong> Descripcion</strong></label>
+			<textarea type="text" name="descripcion" placeholder="Agregar..." onChange={handleInputChange} />
+			<label> <strong> Precio</strong></label>
 			<input type="number" name="precio" placeholder="Agregar..." onChange={handleInputChange} />
-			<label> Stock </label>
+			<label><strong> Stock </strong></label>
 			<input type="number" name="stock" placeholder="Agregar..." onChange={handleInputChange} />
-			<label> Imagen</label>
+			<label><strong> Imagen </strong></label>
 			<input type="text" name="imagen" placeholder="Agregar..." onChange={handleInputChange} />
 			<input type="submit" />
 		</form>
