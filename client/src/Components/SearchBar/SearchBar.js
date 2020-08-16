@@ -4,6 +4,7 @@ import './SearchBar.css';
 export default function SerchBar({search}) {
 	const [input, setInput] = useState('');
 	return (
+		<div className = "contenedor">
 		<form
 			className="form"
 			onSubmit={e => {
@@ -18,7 +19,10 @@ export default function SerchBar({search}) {
 				placeholder="Buscar..."
 				onChange={event => setInput(event.target.value)}
 			/>
-			<input className="boton" type="submit" value="Buscar" />
+			<div className="boton">
+			<input type="submit" value="Buscar" />
+			</div>
 		</form>
+		</div>
 	);
 }
