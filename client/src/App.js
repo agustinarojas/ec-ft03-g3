@@ -25,6 +25,9 @@ function App() {
 			})
 			.catch(err => console.log(err));
 	}
+	const filtrar = id => {
+		return products.filter(product => product.id == id);
+	};
 
 	useEffect(() => {
 		apiRequest(buscar);
@@ -38,8 +41,11 @@ function App() {
 			<SearchBar search={search} />
 			<Route exact path="/form" component={Form} />
 			<Route path="/form/category" component={FormCat} />
-			<Route path="/" render={() => <Catalogo products={products} />} />
-			<Route path="/product/:id" render={({match}) => <Products producto={match.params.id} />} />
+			<Route exact path="/" render={() => <Catalogo products={products} />} />
+			<Route
+				path="/product/:id"
+				render={({match}) => <Products producto={filtrar(match.params.id)} />}
+			/>
 		</div>
 	);
 }
