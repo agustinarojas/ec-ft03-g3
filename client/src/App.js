@@ -6,6 +6,7 @@ import Catalogo from './Components/catalogo/Catalogo';
 import Products from './Components/product/producto';
 import Form from './Components/Form/Form';
 import FormCat from './Components/Form/FormCat';
+import ProductCard from './Components/ProductCard/ProductCard';
 
 function App() {
 	const [products, setProducts] = useState([]);
@@ -17,9 +18,10 @@ function App() {
 			.then(res => setProducts(res.data))
 			.catch(err => console.log(err));
 	};
+
 	function filterCat(categoria) {
 		axios
-			.get(`http://localhost:3005/category/${categoria}`)
+			.get(`http://localhost:3005/products/categorias/${categoria}`)
 			.then(res => {
 				setProducts(res.data);
 			})
@@ -39,6 +41,7 @@ function App() {
 	return (
 		<div className="product">
 			<SearchBar search={search} />
+			<ProductCard />
 			<Route exact path="/form" component={Form} />
 			<Route path="/form/category" component={FormCat} />
 			<Route exact path="/" render={() => <Catalogo products={products} />} />

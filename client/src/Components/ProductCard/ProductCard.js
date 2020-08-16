@@ -6,9 +6,9 @@ export default function ProductCard({imagen, titulo, precio, id}) {
 	return (
 		<div className="card">
 			<Link to={`/product/${id}`}>
-				<img className="img" src={imagen} alt="" />
+				<img className="foto" src={imagen} alt="" />
 				<h1 className="titulo"> {titulo} </h1>
-				<p> {precio} </p>
+				<p className="precio"> {precio} </p>
 			</Link>
 			<button className="boton">Add to cart</button>
 		</div>

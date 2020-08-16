@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import './Form.css';
 
 export default function Form() {
 	const [input, setInput] = useState({
@@ -43,7 +44,7 @@ export default function Form() {
 	};
 	return (
 		<div>
-			<form onSubmit={e => handleSubmit(input)}>
+			<form className="formulario" onSubmit={e => handleSubmit(input)}>
 				<label> Acción </label>
 				<select name="options" onChange={e => setSelect(e.target.value)}>
 					<option value="post">Crear</option>
