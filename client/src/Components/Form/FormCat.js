@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-
+import './Form.css';
 export default function FormCat() {
 	const [input, setInput] = useState({
 		titulo: '',
@@ -38,7 +38,8 @@ export default function FormCat() {
 		}
 	};
 	return (
-		<form onSubmit={e => handleSubmit(input)}>
+		<form onSubmit={e => handleSubmit(input)} className="formcont">
+			<h2 className="tit"> Crear/Modificar Categorías</h2>
 			<label> Acción </label>
 			<select name="options" onChange={e => setSelect(e.target.value)}>
 				<option value="post">Crear</option>
@@ -69,7 +70,7 @@ export default function FormCat() {
 					/>
 				</span>
 			)}
-			<input type="submit" />
+			<input type="submit" value="+" className="btn-success bot" />
 		</form>
 	);
 }

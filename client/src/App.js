@@ -6,7 +6,7 @@ import Catalogo from './Components/Catalogo/Catalogo';
 import Products from './Components/product/producto';
 import Form from './Components/Form/Form';
 import FormCat from './Components/Form/FormCat';
-
+import NavBar from './Components/NavBar/NavBar';
 function App() {
 	const [products, setProducts] = useState([]);
 	const [buscar, setBuscar] = useState('');
@@ -17,14 +17,18 @@ function App() {
 			.then(res => setProducts(res.data))
 			.catch(err => console.log(err));
 	};
+
 	function filterCat(categoria) {
 		axios
-			.get(`http://localhost:3005/category/${categoria}`)
+			.get(`http://localhost:3005/products/categorias/${categoria}`)
 			.then(res => {
 				setProducts(res.data);
 			})
 			.catch(err => console.log(err));
 	}
+	const filtrar = id => {
+		return products.filter(product => product.id == id);
+	};
 
 	useEffect(() => {
 		apiRequest(buscar);
@@ -35,11 +39,14 @@ function App() {
 	};
 	return (
 		<div className="product">
-			<SearchBar search={search} />
-			<Route exact path="/form" component={Form} />
-			<Route path="/form/category" component={FormCat} />
-			<Route path="/" render={() => <Catalogo products={products} />} />
-			<Route path="/product/:id" render={({match}) => <Products producto={match.params.id} />} />
+			<NavBar search={search} />
+			<Route exact path="/form" render={() => <Form products={products} />} />
+			<Route path="/form" component={FormCat} />
+			<Route exact path="/" render={() => <Catalogo products={products} />} />
+			<Route
+				path="/product/:id"
+				render={({match}) => <Products producto={filtrar(match.params.id)} />}
+			/>
 		</div>
 	);
 }

@@ -73,4 +73,17 @@ server.get('category/:nombreCat', (req, res, next) => {
 	});
 });
 
+server.post('/:idProducto/category/:idCategoria', (req, res) => {
+	const {idProducto, idCategoria} = req.params;
+	let promiseProduct = Product.findByPk(idProducto);
+	let promiseCat = Cat.findByPk(idCategoria);
+	Promise.all([promiseProduct, promiseCat])
+		.then(values => {
+			let product = values[0];
+			let cat = values[1];
+			cat.addProducts(product);
+			res.send(product);
+		})
+		.catch(err => res.sendStatus(400));
+});
 module.exports = server;

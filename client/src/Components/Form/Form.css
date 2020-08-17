@@ -1,0 +1,67 @@
+.formulario {
+	margin: 0 auto;
+	font-style: italic;
+	text-align: center;
+	width: 90%;
+}
+.formcont {
+	margin-top: 50px;
+	margin-left: 50px;
+	margin-bottom: 25px;
+}
+.formulario input,
+.formulario textarea {
+	width: 250px;
+	font-size: 14px;
+	padding: 5px;
+	margin: 5px;
+}
+
+.formulario button {
+	width: 100%;
+	font-size: 100px;
+	padding: 4px;
+	margin: 10px 10px 30px 10px;
+}
+
+label {
+	display: inline;
+}
+
+.clase {
+	display: flex;
+}
+.labels {
+	display: flex;
+	width: 80%;
+	justify-content: space-around;
+	margin-left: 45px;
+}
+.inputs {
+	display: flex;
+	width: 80%;
+}
+input {
+	border: none;
+	text-align: center;
+}
+.labelcat {
+	display: flex;
+	width: 26%;
+	justify-content: space-between;
+}
+.inputcat {
+	display: flex;
+	width: 36%;
+}
+
+.tit {
+	margin: 60px 0px;
+}
+
+.bot {
+	width: 60px;
+	margin-left: 20px;
+	border-radius: 5px;
+	font-size: 18px;
+}

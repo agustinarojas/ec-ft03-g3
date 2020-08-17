@@ -3,6 +3,7 @@ const {Router} = require('express');
 const productRouter = require('./product.js');
 const searchRouter = require('./search');
 const categoryRouter = require('./category');
+const {use} = require('./product.js');
 const router = Router();
 
 // load each router on a route

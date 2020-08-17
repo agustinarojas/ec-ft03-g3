@@ -1,23 +1,43 @@
-.card {
-	border: 2px black solid;
+.cardP {
+	border: 3px rgb(136, 124, 124) solid;
+	background-color: rgb(166, 255, 218);
 	width: 250px;
-	height: 300px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	border-radius: 6px;
-	margin-top: 30px;
+	border-radius: 18px;
+	margin: 20px;
+}
+
+.foto {
+	max-width: 250px;
+	max-height: 250px;
+	object-fit: contain;
 }
 
 .titulo {
-	font-size: 15px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: bold;
+	text-align: center;
+	margin: 0;
+	font-size: 25px;
+}
+
+.precio {
+	font-weight: 700;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	text-align: center;
+	margin: 0;
 }
 
 .boton {
-	height: 40px;
-	width: 100px;
+	background-color: rgb(188 112 164);
+	cursor: pointer;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 12px;
 }
 
-.img {
-	height: 150px;
+.boton:hover {
+	background-color: rgb(251, 158, 251);
+	font-weight: bold;
 }
