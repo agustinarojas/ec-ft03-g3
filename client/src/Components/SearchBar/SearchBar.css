@@ -1,6 +1,11 @@
+.contenedor {
+	background-color: rgb(248, 144, 74);
+	
+}
+
 .form {
 	display: flex;
-	align-items: center;
+	justify-content: flex-end;	
 }
 
 .input {
@@ -11,12 +16,13 @@
 	font-size: 16px;
 	margin: 15px;
 	margin-right: 5px;
+	display: flex;
 }
 
-.boton {
+.boton input{
 	border-radius: 5px;
 	width: 90px;
 	height: 35px;
-	margin-right: 10px;
 	font-size: 17px;
+	text-align: center;
 }
