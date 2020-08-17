@@ -1,11 +1,11 @@
 .contenedor {
-	background-color: rgb(248, 144, 74);
-	
+	/* background-color: rgb(248, 144, 74); */
+	background-color: indianred;
 }
 
 .form {
 	display: flex;
-	justify-content: flex-end;	
+	justify-content: flex-end;
 }
 
 .input {
@@ -19,7 +19,7 @@
 	display: flex;
 }
 
-.boton input{
+.boton input {
 	border-radius: 5px;
 	width: 90px;
 	height: 35px;
