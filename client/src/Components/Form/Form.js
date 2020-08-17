@@ -3,14 +3,7 @@ import axios from 'axios';
 import './Form.css';
 
 export default function Form({products}) {
-	const [input, setInput] = useState({
-		titulo: '',
-		descripcion: '',
-		precio: 0,
-		stock: 0,
-		imagen: '',
-		categoria: '',
-	});
+	const [input, setInput] = useState({});
 	const [select, setSelect] = useState('post');
 	const [id, setId] = useState();
 	const [catId, setCatId] = useState();
