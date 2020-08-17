@@ -6,7 +6,7 @@ import Catalogo from './Components/catalogo/Catalogo';
 import Products from './Components/product/producto';
 import Form from './Components/Form/Form';
 import FormCat from './Components/Form/FormCat';
-
+import NavBar from './Components/NavBar/NavBar';
 function App() {
 	const [products, setProducts] = useState([]);
 	const [buscar, setBuscar] = useState('');
@@ -39,9 +39,9 @@ function App() {
 	};
 	return (
 		<div className="product">
-			<SearchBar search={search} />
-			<Route exact path="/form" component={Form} />
-			<Route path="/form/category" component={FormCat} />
+			<NavBar search={search} />
+			<Route exact path="/form" render={() => <Form products={products} />} />
+			<Route path="/form" component={FormCat} />
 			<Route exact path="/" render={() => <Catalogo products={products} />} />
 			<Route
 				path="/product/:id"

@@ -1,0 +1,7 @@
+.wrapper {
+	margin-left: 47%;
+	width: 25rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
