@@ -42,7 +42,7 @@ function App({productos, getProducts}) {
 	const filtrar = id => {
 		return products.filter(product => product.id == id);
 	};
-
+	console.log('Hola Marcos');
 	useEffect(() => {
 		getProducts();
 		getCategory();
