@@ -6,9 +6,10 @@ const inicialState = {
 export default function rootReducer(state = inicialState, action) {
 	switch (action.type) {
 		case GET_PRODUCTS:
+			console.log(action);
 			return {
 				...state,
-				products: [...state.products, action.products],
+				products: action.products,
 			};
 		default:
 			return state;

@@ -43,8 +43,8 @@ function App({productos, getProducts}) {
 	};
 
 	useEffect(() => {
-		apiRequest(buscar);
-		console.log(getProducts());
+		// apiRequest(buscar);
+		getProducts();
 		getCategory();
 		console.log(productos);
 	}, [buscar]);
@@ -57,7 +57,7 @@ function App({productos, getProducts}) {
 			<NavBar search={search} category={category} />
 			<Route exact path="/form" render={() => <Form products={products} />} />
 			<Route path="/form" component={FormCat} />
-			<Route exact path="/" render={() => <Catalogo products={products} />} />
+			<Route exact path="/" render={() => <Catalogo products={productos} />} />
 			<Route path="/category" render={() => <Catalogo products={products} />} />
 			<Route
 				path="/product/:id"
