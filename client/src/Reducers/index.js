@@ -1,15 +1,14 @@
 import {
-	GET_PRODUCTS,
-	DELETE_PRODUCT,
+	PUT_CATEGORY,
+	POST_CATEGORY,
 	DELETE_CATEGORY,
 	SET_CATEGORY,
 	DELETE_PROD_CATEGORY,
-	POST_CATEGORY,
-	PUT_CATEGORY,
+	DELETE_PRODUCT,
 	POST_PRODUCTS,
 	PUT_PRODUCTS,
+	GET_PRODUCTS,
 } from '../Constants/ProductsConstants';
-
 const inicialState = {
 	products: [],
 	product: {},
@@ -37,7 +36,6 @@ export default function rootReducer(state = inicialState, action) {
 			};
 		case SET_CATEGORY:
 			return state;
-
 		case DELETE_PROD_CATEGORY:
 			return state;
 		case POST_PRODUCTS:
@@ -50,13 +48,17 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				putProduct: action.putProduct,
 			};
+			case POST_CATEGORY:
+    	return {
+        ...state,
+        category: state.category,
+    	};
 		case PUT_CATEGORY:
 			return {
 				...state,
 				putCat: action.putCat,
 			};
 		default:
-			return state;
 			return state;
 	}
 }
