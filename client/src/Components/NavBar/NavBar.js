@@ -47,5 +47,6 @@ export default function NavBar({search, category}) {
 		    </div>
 		  </div>
 		</div>
+
 	);
 }

@@ -98,4 +98,17 @@ server.delete('/:idProducto/category/:idCategoria', (req, res) => {
 		})
 		.catch(err => res.sendStatus(400));
 });
+
+server.get('/category/:nombreCat', (req, res) => {
+	Cat.findAll({
+		where: {
+			titulo: req.params.nombreCat,
+		},
+		include: [
+			{
+				model: Product,
+			},
+		],
+	}).then(cat => res.send(cat[0].products));
+});
 module.exports = server;

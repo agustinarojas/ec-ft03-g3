@@ -58,6 +58,13 @@ export default function Form({products}) {
 		switch (selectCat) {
 			case 'post':
 				axios.post(`http://localhost:3005/products/${id}/category/${catId}`);
+				break;
+			case 'delete':
+				axios
+					.delete(`http://localhost:3005/products/${id}`)
+					.then(res => console.log(res))
+					.catch(err => console.log(err));
+				break;
 		}
 	};
 	return (

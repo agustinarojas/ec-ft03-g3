@@ -45,6 +45,16 @@ input {
 	border: none;
 	text-align: center;
 }
+.tdinputb {
+	background-color: #343a40;
+	color: white;
+	width: 55px;
+}
+.tdinput {
+	background-color: #3e444a;
+	color: white;
+	width: 55px;
+}
 .labelcat {
 	display: flex;
 	width: 26%;
