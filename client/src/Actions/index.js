@@ -1,5 +1,10 @@
 import axios from 'axios';
-import {GET_PRODUCTS, SET_CATEGORY, DELETE_PROD_CATEGORY} from '../Constants/ProductsConstants';
+import {
+	GET_PRODUCTS,
+	DELETE_PRODUCT,
+	SET_CATEGORY,
+	 DELETE_PROD_CATEGORY
+} from '../Constants/ProductsConstants';
 
 export function getProducts() {
 	return function (dispatch) {
@@ -10,6 +15,15 @@ export function getProducts() {
 			})
 			.catch(err => console.log(err));
 	};
+}
+
+export function deleteProduct(id) {
+	return axios.delete('http://localhost:3005/products/' + id)
+	
+}
+
+export function deleteCategory(id) {
+	return axios.delete('http://localhost:3005/category/' + id)
 }
 
 export function setCategory(prodId, catId) {
