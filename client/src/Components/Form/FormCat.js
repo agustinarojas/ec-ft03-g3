@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import './Form.css';
+import {deleteCategory} from '../../Actions/index'
+
 export default function FormCat() {
 	const [input, setInput] = useState({
 		titulo: '',
@@ -29,11 +31,7 @@ export default function FormCat() {
 					.catch(err => console.log(err));
 				break;
 			case 'delete':
-				console.log(id);
-				axios
-					.delete(`http://localhost:3005/category/${id}`)
-					.then(res => console.log(res))
-					.catch(err => console.log(err));
+				deleteCategory(id)
 				break;
 		}
 	};

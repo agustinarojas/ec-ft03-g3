@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import axios from 'axios';
-import Catalogo from './Components/catalogo/Catalogo';
+import Catalogo from './Components/Catalogo/Catalogo';
 import Products from './Components/product/producto';
 import Form from './Components/Form/Form';
 import FormCat from './Components/Form/FormCat';
@@ -43,10 +43,8 @@ function App({productos, getProducts}) {
 	};
 
 	useEffect(() => {
-		// apiRequest(buscar);
 		getProducts();
 		getCategory();
-		console.log(productos);
 	}, [buscar]);
 
 	const search = input => {
@@ -72,4 +70,5 @@ const mapStateToProps = state => {
 		productos: state.products,
 	};
 };
+
 export default connect(mapStateToProps, {getProducts})(App);

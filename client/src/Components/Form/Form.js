@@ -1,27 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './Form.css';
+import { deleteProduct } from '../../Actions/index.js'
+import { connect } from 'react-redux'
 
-export default function Form({products}) {
+
+export function Form({products}) {
 	const [input, setInput] = useState({});
 	const [select, setSelect] = useState('post');
 	const [id, setId] = useState();
 	const [catId, setCatId] = useState();
 	const [selectCat, setSelectCat] = useState('post');
-	const [productos, setProductos] = useState(products)
+
+
 	const handleInputChange = event => {
 		setInput({
 			...input,
 			[event.target.name]: event.target.value,
 		});
 	};
-
-	const handleOnClick = (e) => {
-		axios
-			.delete(`http://localhost:3005/products/${e.target.name}`)
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
-	}
 
 	const handleOnClickEdit = (e, state) => {
 		axios
@@ -46,10 +43,7 @@ export default function Form({products}) {
 					.catch(err => console.log(err));
 				break;
 			case 'delete':
-				axios
-					.delete(`http://localhost:3005/products/${id}`)
-					.then(res => console.log(res))
-					.catch(err => console.log(err));
+				deleteProduct(id)
 				break;
 		}
 	};
@@ -92,7 +86,7 @@ export default function Form({products}) {
 							<td contenteditable='true'>{p.stock}</td>
 							<td contenteditable='true'>{p.imagen}</td>
 							<td contenteditable='true'>{p.categoria}</td>
-							<td><button onClick={e => handleOnClick(e)} name={p.id}>Del</button><button onClick={e => handleOnClickEdit(e)} name={p.id}>Edit</button></td>
+							<td><button onClick={e => deleteProduct(e.target.name)} name={p.id}>Del</button><button onClick={e => handleOnClickEdit(e)} name={p.id}>Edit</button></td>
 							<td></td>
 						</tr>
 					))}
@@ -202,3 +196,9 @@ export default function Form({products}) {
 		</div>
 	);
 }
+const mapStateToProps = state => {
+    return {
+        products: state.products,
+    };
+};
+export default connect(mapStateToProps)(Form);
