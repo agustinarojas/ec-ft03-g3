@@ -2,8 +2,10 @@ import React from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import './NavBar.css';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {filterByCategory} from '../../Actions/index';
 
-export default function NavBar({search, category}) {
+function NavBar({search, category, filterByCategory}) {
 	return (
 		// <nav class="nav navbar navbar-expand-lg navbar-light ">
 		// 	<a class="navbar-brand" href="/">
@@ -31,22 +33,29 @@ export default function NavBar({search, category}) {
 		// 	</div>
 		// </nav>
 
-		<div class="navbar">
-		<Link to="/">
-		  <a href="#home">Home</a>
-		</Link>
-		<Link to="/form">
-		  <a href="#form">Form</a>
-		</Link>
-		  <div class="dropdown">
-		    <button class="dropbtn">Categorias
-		      <i class="fa fa-caret-down"></i>
-		    </button>
-		    <div class="dropdown-content">
-		     {category?.map(c => <a href="#">{c.titulo}</a>)}
-		    </div>
-		  </div>
+		<div class="navigatorbar">
+			<Link to="/">
+				<a href="#home">Home</a>
+			</Link>
+			<Link to="/form">
+				<a href="#form">Form</a>
+			</Link>
+			<div class="dropd">
+				<button class="dropdbtn">
+					Categorias
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropd-cont">
+					{category?.map(c => (
+						<Link to={c.titulo} onClick={e => filterByCategory(c.titulo)}>
+							{c.titulo}
+						</Link>
+					))}
+				</div>
+			</div>
+			<SearchBar search={search} />
 		</div>
-
 	);
 }
+
+export default connect(null, {filterByCategory})(NavBar);
