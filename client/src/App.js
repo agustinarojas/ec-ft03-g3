@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import axios from 'axios';
-import SearchBar from './Components/SearchBar/SearchBar';
 import Catalogo from './Components/Catalogo/Catalogo';
 import Products from './Components/product/producto';
 import Form from './Components/Form/Form';
@@ -10,6 +9,8 @@ import NavBar from './Components/NavBar/NavBar';
 function App() {
 	const [products, setProducts] = useState([]);
 	const [buscar, setBuscar] = useState('');
+	const [category, setCategory] = useState([]);
+	console.log(category)
 	const apiRequest = buscar => {
 		let url = buscar ? `search?valor=${buscar}` : 'products';
 		axios
@@ -18,9 +19,18 @@ function App() {
 			.catch(err => console.log(err));
 	};
 
+	function getCategory() {
+		axios
+			.get('http://localhost:3005/category')
+			.then(res => {
+				setCategory(res.data);
+			})
+			.catch(err => console.log(err));
+	}
+
 	function filterCat(categoria) {
 		axios
-			.get(`http://localhost:3005/products/categorias/${categoria}`)
+			.get(`http://localhost:3005/products/category/${categoria}`)
 			.then(res => {
 				setProducts(res.data);
 			})
@@ -32,6 +42,8 @@ function App() {
 
 	useEffect(() => {
 		apiRequest(buscar);
+		getCategory();
+		console.log(category)
 	}, [buscar]);
 
 	const search = input => {
@@ -39,10 +51,11 @@ function App() {
 	};
 	return (
 		<div className="product">
-			<NavBar search={search} />
+			<NavBar search={search} category={category} />
 			<Route exact path="/form" render={() => <Form products={products} />} />
 			<Route path="/form" component={FormCat} />
 			<Route exact path="/" render={() => <Catalogo products={products} />} />
+			<Route path="/category" render={() => <Catalogo products={products} />} />
 			<Route
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
