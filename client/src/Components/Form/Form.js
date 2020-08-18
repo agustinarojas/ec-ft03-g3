@@ -3,24 +3,33 @@ import axios from 'axios';
 import './Form.css';
 
 export default function Form({products}) {
-	const [input, setInput] = useState({
-		titulo: '',
-		descripcion: '',
-		precio: 0,
-		stock: 0,
-		imagen: '',
-		categoria: '',
-	});
+	const [input, setInput] = useState({});
 	const [select, setSelect] = useState('post');
 	const [id, setId] = useState();
 	const [catId, setCatId] = useState();
 	const [selectCat, setSelectCat] = useState('post');
+	const [productos, setProductos] = useState(products)
 	const handleInputChange = event => {
 		setInput({
 			...input,
 			[event.target.name]: event.target.value,
 		});
 	};
+
+	const handleOnClick = (e) => {
+		axios
+			.delete(`http://localhost:3005/products/${e.target.name}`)
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
+	}
+
+	const handleOnClickEdit = (e, state) => {
+		axios
+			.put(`http://localhost:3005/products/${id}`, state)
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
+	}
+
 	const handleSubmit = (e, state) => {
 		e.preventDefault();
 		switch (select) {
@@ -49,6 +58,13 @@ export default function Form({products}) {
 		switch (selectCat) {
 			case 'post':
 				axios.post(`http://localhost:3005/products/${id}/category/${catId}`);
+				break;
+			case 'delete':
+				axios
+					.delete(`http://localhost:3005/products/${id}`)
+					.then(res => console.log(res))
+					.catch(err => console.log(err));
+				break;
 		}
 	};
 	return (
@@ -70,12 +86,13 @@ export default function Form({products}) {
 					{products?.map((p, i) => (
 						<tr>
 							<th scope="row">{p.id}</th>
-							<td>{p.titulo}</td>
-							<td>{p.descripcion}</td>
-							<td>{p.precio}</td>
-							<td>{p.stock}</td>
-							<td>{p.imagen}</td>
-							<td>{p.categoria}</td>
+							<td contenteditable='true'>{p.titulo}</td>
+							<td contenteditable='true'>{p.descripcion}</td>
+							<td contenteditable='true'>{p.precio}</td>
+							<td contenteditable='true'>{p.stock}</td>
+							<td contenteditable='true'>{p.imagen}</td>
+							<td contenteditable='true'>{p.categoria}</td>
+							<td><button onClick={e => handleOnClick(e)} name={p.id}>Del</button><button onClick={e => handleOnClickEdit(e)} name={p.id}>Edit</button></td>
 							<td></td>
 						</tr>
 					))}
