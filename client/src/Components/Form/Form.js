@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './Form.css';
-import { deleteProduct } from '../../Actions/index.js'
+import { deleteProduct, setCategory, deleteProdCategory } from '../../Actions/index.js'
 import { connect } from 'react-redux'
 
 
-export function Form({products}) {
+function Form({products, setCategory, deleteProdCategory}) {
 	const [input, setInput] = useState({});
 	const [select, setSelect] = useState('post');
 	const [id, setId] = useState();
@@ -25,7 +25,7 @@ export function Form({products}) {
 			.put(`http://localhost:3005/products/${id}`, state)
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
-	}
+	};
 
 	const handleSubmit = (e, state) => {
 		e.preventDefault();
@@ -47,17 +47,14 @@ export function Form({products}) {
 				break;
 		}
 	};
-	const setCategory = event => {
+
+	const handleCatSubmit = event => {
 		event.preventDefault();
 		switch (selectCat) {
 			case 'post':
-				axios.post(`http://localhost:3005/products/${id}/category/${catId}`);
-				break;
+				setCategory(id, catId);
 			case 'delete':
-				axios
-					.delete(`http://localhost:3005/products/${id}`)
-					.then(res => console.log(res))
-					.catch(err => console.log(err));
+				deleteProdCategory(id, catId);
 				break;
 		}
 	};
@@ -166,7 +163,7 @@ export function Form({products}) {
 				</span>
 			</form>
 
-			<form onSubmit={setCategory} className="formcont">
+			<form onSubmit={e => handleCatSubmit(e)} className="formcont">
 				<h2 className="tit"> Agregar Categorías a un Producto</h2>
 				<span className="labelcat">
 					<label> Acción </label>
@@ -196,9 +193,10 @@ export function Form({products}) {
 		</div>
 	);
 }
+
 const mapStateToProps = state => {
-    return {
-        products: state.products,
-    };
+	return {
+		products: state.products,
+	};
 };
-export default connect(mapStateToProps)(Form);
+export default connect(mapStateToProps, {setCategory, deleteProdCategory})(Form);

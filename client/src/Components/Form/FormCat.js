@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import './Form.css';
 import {deleteCategory} from '../../Actions/index'
+import {connect} from 'react-redux';
 
-export default function FormCat() {
+function FormCat() {
 	const [input, setInput] = useState({
 		titulo: '',
 		descripcion: '',
@@ -72,3 +73,10 @@ export default function FormCat() {
 		</form>
 	);
 }
+
+const mapStateToProps = state => {
+	return {
+		products: state.products,
+	};
+};
+export default connect(mapStateToProps)(FormCat);
