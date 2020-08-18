@@ -1,11 +1,12 @@
-import { GET_PRODUCTS, POST_PRODUCTS, PUT_PRODUCTS } from '../Constants/ProductsConstants.js';
 
-const initialState = {
-  products:[],
+import {GET_PRODUCTS, POST_CATEGORY, PUT_CATEGORY, POST_PRODUCTS, PUT_PRODUCTS} from '../Constants/ProductsConstants';
+const inicialState = {
+	products: [],
+	category: {},
+	putCat: {}
   product: {},
   putProduct: {}
-}
-
+};
 function rootReducer (state = initialState, action) {
   switch(action.type){
     case GET_PRODUCTS:
@@ -23,6 +24,16 @@ function rootReducer (state = initialState, action) {
       ...state,
       putProduct: action.putProduct
     }
+      case POST_CATEGORY:
+				return {
+					...state,
+					category: state.category
+				}
+				case PUT_CATEGORY:
+					return {
+						...state,
+						putCat: action.putCat
+					}
   }
   return state;
 
