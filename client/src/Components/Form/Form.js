@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './Form.css';
-import { deleteProduct, setCategory, deleteProdCategory } from '../../Actions/index.js'
-import { connect } from 'react-redux'
-
+import {
+	deleteProduct,
+	setCategory,
+	deleteProdCategory,
+	postProducts,
+	putProducts,
+} from '../../Actions/index.js';
+import {connect} from 'react-redux';
 
 function Form({products, setCategory, deleteProdCategory}) {
 	const [input, setInput] = useState({});
@@ -11,13 +16,18 @@ function Form({products, setCategory, deleteProdCategory}) {
 	const [id, setId] = useState();
 	const [catId, setCatId] = useState();
 	const [selectCat, setSelectCat] = useState('post');
-
-
 	const handleInputChange = event => {
 		setInput({
 			...input,
 			[event.target.name]: event.target.value,
 		});
+	};
+
+	const handleOnClick = e => {
+		axios
+			.delete(`http://localhost:3005/products/${e.target.name}`)
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
 	};
 
 	const handleOnClickEdit = (e, state) => {
@@ -31,19 +41,13 @@ function Form({products, setCategory, deleteProdCategory}) {
 		e.preventDefault();
 		switch (select) {
 			case 'post':
-				axios
-					.post('http://localhost:3005/products', state)
-					.then(res => console.log(res))
-					.catch(err => console.log(err));
+				postProducts(state);
 				break;
 			case 'put':
-				axios
-					.put(`http://localhost:3005/products/${id}`, state)
-					.then(res => console.log(res))
-					.catch(err => console.log(err));
+				putProducts(state, id);
 				break;
 			case 'delete':
-				deleteProduct(id)
+				deleteProduct(id);
 				break;
 		}
 	};
@@ -77,13 +81,20 @@ function Form({products, setCategory, deleteProdCategory}) {
 					{products?.map((p, i) => (
 						<tr>
 							<th scope="row">{p.id}</th>
-							<td contenteditable='true'>{p.titulo}</td>
-							<td contenteditable='true'>{p.descripcion}</td>
-							<td contenteditable='true'>{p.precio}</td>
-							<td contenteditable='true'>{p.stock}</td>
-							<td contenteditable='true'>{p.imagen}</td>
-							<td contenteditable='true'>{p.categoria}</td>
-							<td><button onClick={e => deleteProduct(e.target.name)} name={p.id}>Del</button><button onClick={e => handleOnClickEdit(e)} name={p.id}>Edit</button></td>
+							<td contenteditable="true">{p.titulo}</td>
+							<td contenteditable="true">{p.descripcion}</td>
+							<td contenteditable="true">{p.precio}</td>
+							<td contenteditable="true">{p.stock}</td>
+							<td contenteditable="true">{p.imagen}</td>
+							<td contenteditable="true">{p.categoria}</td>
+							<td>
+								<button onClick={e => deleteProduct(e.target.name)} name={p.id}>
+									Del
+								</button>
+								<button onClick={e => handleOnClickEdit(e)} name={p.id}>
+									Edit
+								</button>
+							</td>
 							<td></td>
 						</tr>
 					))}
@@ -197,6 +208,13 @@ function Form({products, setCategory, deleteProdCategory}) {
 const mapStateToProps = state => {
 	return {
 		products: state.products,
+		product: state.product,
+		putProduct: state.putProduct,
 	};
 };
-export default connect(mapStateToProps, {setCategory, deleteProdCategory})(Form);
+export default connect(mapStateToProps, {
+	setCategory,
+	deleteProdCategory,
+	postProducts,
+	putProducts,
+})(Form);

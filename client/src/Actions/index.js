@@ -3,7 +3,9 @@ import {
 	GET_PRODUCTS,
 	DELETE_PRODUCT,
 	SET_CATEGORY,
-	 DELETE_PROD_CATEGORY
+	DELETE_PROD_CATEGORY,
+	POST_PRODUCTS,
+	PUT_PRODUCTS,
 } from '../Constants/ProductsConstants';
 
 export function getProducts() {
@@ -18,12 +20,11 @@ export function getProducts() {
 }
 
 export function deleteProduct(id) {
-	return axios.delete('http://localhost:3005/products/' + id)
-	
+	return axios.delete('http://localhost:3005/products/' + id);
 }
 
 export function deleteCategory(id) {
-	return axios.delete('http://localhost:3005/category/' + id)
+	return axios.delete('http://localhost:3005/category/' + id);
 }
 
 export function setCategory(prodId, catId) {
@@ -45,6 +46,27 @@ export function deleteProdCategory(prodId, catId) {
 			.then(res => {
 				console.log(res.data);
 				dispatch({type: DELETE_PROD_CATEGORY});
+			})
+			.catch(err => console.log(err));
+	};
+}
+
+export function postProducts(product) {
+	return function (dispatch) {
+		return axios
+			.post('http://localhost:3005/products', product)
+			.then(res => {
+				dispatch({type: POST_PRODUCTS, product});
+			})
+			.catch(err => console.log(err));
+	};
+}
+export function putProducts(product, id) {
+	return function (dispatch) {
+		return axios
+			.put(`http://localhost:3005/products/${id}`, product)
+			.then(res => {
+				dispatch({type: PUT_PRODUCTS, product});
 			})
 			.catch(err => console.log(err));
 	};
