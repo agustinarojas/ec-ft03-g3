@@ -7,32 +7,6 @@ import {filterByCategory} from '../../Actions/index';
 
 function NavBar({search, category, filterByCategory}) {
 	return (
-		// <nav class="nav navbar navbar-expand-lg navbar-light ">
-		// 	<a class="navbar-brand" href="/">
-		// 		Navbar
-		// 	</a>
-		// 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		// 		<ul class="navbar-nav mr-auto">
-		// 			<li class="nav-item active">
-		// 				<Link to="/">
-		// 					<span class="nav-link">Home</span>
-		// 				</Link>
-		// 			</li>
-		// 			<li class="nav-item">
-		// 				<Link to="/form">
-		// 					<span class="nav-link"> Form </span>
-		// 				</Link>
-		// 			</li>
-		// 			<li class="nav-item">
-		// 			 <select>
-		// 			  {category?.map(c => <Link><span>{c.titulo}</span>)}
-		// 		   </select>
-		// 			</li>
-		// 		</ul>
-		// 		<SearchBar search={search} />
-		// 	</div>
-		// </nav>
-
 		<nav class="navigatorbar">
 			<Link to="/">
 				<a href="#home">Home</a>
