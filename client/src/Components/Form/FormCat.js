@@ -1,19 +1,10 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import './Form.css';
-<<<<<<< HEAD
-import {deleteCategory} from '../../Actions/index'
 import {connect} from 'react-redux';
-
-function FormCat() {
-=======
-import { connect } from 'react-redux'
-import {postCategory,putCategory} from "../../Actions/index"
-
-
+import {postCategory, putCategory, deleteCategory} from '../../Actions/index';
 
 function FormCat({postCategory, putCategory}) {
->>>>>>> master
 	const [input, setInput] = useState({
 		titulo: '',
 		descripcion: '',
@@ -29,13 +20,13 @@ function FormCat({postCategory, putCategory}) {
 	const handleSubmit = state => {
 		switch (select) {
 			case 'post':
-				postCategory(state)
-				break; 
+				postCategory(state);
+				break;
 			case 'put':
-				putCategory(state, id)
+				putCategory(state, id);
 				break;
 			case 'delete':
-				deleteCategory(id)
+				deleteCategory(id);
 				break;
 		}
 	};
@@ -76,20 +67,11 @@ function FormCat({postCategory, putCategory}) {
 		</form>
 	);
 }
-<<<<<<< HEAD
-
 const mapStateToProps = state => {
 	return {
+		category: state.category,
+		putCat: state.putCat,
 		products: state.products,
 	};
 };
-export default connect(mapStateToProps)(FormCat);
-=======
-const mapStateToProps = state => {
-	return {
-		category: state.category, 
-		putCat: state.putCat
-	}
-}
-export default connect (mapStateToProps, {postCategory, putCategory})(FormCat)
->>>>>>> master
+export default connect(mapStateToProps, {postCategory, putCategory, deleteCategory})(FormCat);

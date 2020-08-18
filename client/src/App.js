@@ -6,7 +6,11 @@ import Products from './Components/product/producto';
 import Form from './Components/Form/Form';
 import FormCat from './Components/Form/FormCat';
 import NavBar from './Components/NavBar/NavBar';
-function App() {
+import {getProducts} from './Actions/index';
+import {connect} from 'react-redux';
+
+function App({productos, getProducts}) {
+	const [products, setProducts] = useState([]);
 	const [buscar, setBuscar] = useState('');
 	const [category, setCategory] = useState([]);
 
@@ -17,6 +21,15 @@ function App() {
 	// 		.then(res => setProducts(res.data))
 	// 		.catch(err => console.log(err));
 	// };
+
+	function getCategory() {
+		axios
+			.get('http://localhost:3005/category')
+			.then(res => {
+				setCategory(res.data);
+			})
+			.catch(err => console.log(err));
+	}
 
 	function filterCat(categoria) {
 		axios
@@ -52,4 +65,10 @@ function App() {
 		</div>
 	);
 }
-export default App;
+
+const mapStateToProps = state => {
+	return {
+		productos: state.products,
+	};
+};
+export default connect(mapStateToProps, {getProducts})(App);
