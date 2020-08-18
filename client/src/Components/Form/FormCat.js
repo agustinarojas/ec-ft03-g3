@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import './Form.css';
-export default function FormCat() {
+import {connect} from 'react-redux';
+import {postCategory, putCategory, deleteCategory} from '../../Actions/index';
+
+function FormCat({postCategory, putCategory}) {
 	const [input, setInput] = useState({
 		titulo: '',
 		descripcion: '',
@@ -17,23 +20,13 @@ export default function FormCat() {
 	const handleSubmit = state => {
 		switch (select) {
 			case 'post':
-				axios
-					.post('http://localhost:3005/category', state)
-					.then(res => console.log(res))
-					.catch(err => console.log(err));
+				postCategory(state);
 				break;
 			case 'put':
-				axios
-					.put(`http://localhost:3005/category/${id}`, state)
-					.then(res => console.log(res))
-					.catch(err => console.log(err));
+				putCategory(state, id);
 				break;
 			case 'delete':
-				console.log(id);
-				axios
-					.delete(`http://localhost:3005/category/${id}`)
-					.then(res => console.log(res))
-					.catch(err => console.log(err));
+				deleteCategory(id);
 				break;
 		}
 	};
@@ -74,3 +67,11 @@ export default function FormCat() {
 		</form>
 	);
 }
+const mapStateToProps = state => {
+	return {
+		category: state.category,
+		putCat: state.putCat,
+		products: state.products,
+	};
+};
+export default connect(mapStateToProps, {postCategory, putCategory, deleteCategory})(FormCat);
