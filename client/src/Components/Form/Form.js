@@ -3,14 +3,7 @@ import axios from 'axios';
 import './Form.css';
 
 export default function Form({products}) {
-	const [input, setInput] = useState({
-		titulo: '',
-		descripcion: '',
-		precio: 0,
-		stock: 0,
-		imagen: '',
-		categoria: '',
-	});
+	const [input, setInput] = useState({});
 	const [select, setSelect] = useState('post');
 	const [id, setId] = useState();
 	const [catId, setCatId] = useState();
@@ -49,6 +42,13 @@ export default function Form({products}) {
 		switch (selectCat) {
 			case 'post':
 				axios.post(`http://localhost:3005/products/${id}/category/${catId}`);
+				break;
+			case 'delete':
+				axios
+					.delete(`http://localhost:3005/products/${id}`)
+					.then(res => console.log(res))
+					.catch(err => console.log(err));
+				break;
 		}
 	};
 	return (

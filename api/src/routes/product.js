@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const {Product, Cat, productCat} = require('../db.js');
+const {Product, Cat, productcat} = require('../db.js');
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
@@ -85,5 +85,32 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
 			res.send(product);
 		})
 		.catch(err => res.sendStatus(400));
+});
+
+server.delete('/:idProducto/category/:idCategoria', (req, res) => {
+	const {idProducto, idCategoria} = req.params;
+	let promiseProduct = Product.findByPk(idProducto);
+	let promiseCat = Cat.findByPk(idCategoria);
+	Promise.all([promiseProduct, promiseCat])
+		.then(values => {
+			let product = values[0];
+			let cat = values[1];
+			cat.removeProducts(product);
+			res.send(product);
+		})
+		.catch(err => res.sendStatus(400));
+});
+
+server.get('/category/:nombreCat', (req, res) => {
+	Cat.findAll({
+		where: {
+			titulo: req.params.nombreCat,
+		},
+		include: [
+			{
+				model: Product,
+			},
+		],
+	}).then(cat => res.send(cat[0].products));
 });
 module.exports = server;

@@ -34,7 +34,7 @@ export default function NavBar({search}) {
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="#">
-								Action
+								una cosa
 							</a>
 							<a class="dropdown-item" href="#">
 								Another action
