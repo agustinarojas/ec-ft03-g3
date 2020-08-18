@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const {Product, Cat, productCat} = require('../db.js');
+const {Product, Cat, productcat} = require('../db.js');
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
@@ -57,21 +57,19 @@ server.delete('/:id', (req, res) => {
 		},
 	})
 		.then(product => {
+			if(!product) {
+			 res.status(400).send('Producto inexistente');
+		 } else {
 			product.destroy();
 			res.status(200).send('Producto Eliminado');
+		}
 		})
 		.catch(error => {
-			res.status(400).send('Producto inexistente');
+			res.status(400).send('Se produjo un error');
 		});
 });
 
-server.get('category/:nombreCat', (req, res, next) => {
-	Cat.findByPk(req.params.nombreCat).then(cat => {
-		cat.getProducts({attributes: ['titulo', 'descripcion']}).then(products => {
-			res.send(products);
-		});
-	});
-});
+
 
 server.post('/:idProducto/category/:idCategoria', (req, res) => {
 	const {idProducto, idCategoria} = req.params;
@@ -82,6 +80,20 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
 			let product = values[0];
 			let cat = values[1];
 			cat.addProducts(product);
+			res.send(product);
+		})
+		.catch(err => res.sendStatus(400));
+});
+
+server.delete('/:idProducto/category/:idCategoria', (req, res) => {
+	const {idProducto, idCategoria} = req.params;
+	let promiseProduct = Product.findByPk(idProducto);
+	let promiseCat = Cat.findByPk(idCategoria);
+	Promise.all([promiseProduct, promiseCat])
+		.then(values => {
+			let product = values[0];
+			let cat = values[1];
+			cat.removeProducts(product);
 			res.send(product);
 		})
 		.catch(err => res.sendStatus(400));
