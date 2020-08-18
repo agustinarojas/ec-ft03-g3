@@ -1,24 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import axios from 'axios';
-import Catalogo from './Components/Catalogo/Catalogo';
+import Catalogo from './Components/catalogo/Catalogo';
 import Products from './Components/product/producto';
 import Form from './Components/Form/Form';
 import FormCat from './Components/Form/FormCat';
 import NavBar from './Components/NavBar/NavBar';
-function App() {
+import {getProducts} from './Actions/index';
+import {connect} from 'react-redux';
+
+function App({productos, getProducts}) {
 	const [products, setProducts] = useState([]);
 	const [buscar, setBuscar] = useState('');
 	const [category, setCategory] = useState([]);
-
-	console.log(category)
-	const apiRequest = buscar => {
-		let url = buscar ? `search?valor=${buscar}` : 'products';
-		axios
-			.get(`http://localhost:3005/${url}`)
-			.then(res => setProducts(res.data))
-			.catch(err => console.log(err));
-	};
 
 	// const apiRequest = buscar => {
 	// 	let url = buscar ? `search?valor=${buscar}` : 'products';
@@ -27,7 +21,6 @@ function App() {
 	// 		.then(res => setProducts(res.data))
 	// 		.catch(err => console.log(err));
 	// };
-
 
 	function getCategory() {
 		axios
@@ -51,10 +44,8 @@ function App() {
 	};
 
 	useEffect(() => {
-		//apiRequest(buscar);
 		getProducts();
 		getCategory();
-		console.log(category)
 	}, [buscar]);
 
 	const search = input => {
@@ -74,6 +65,10 @@ function App() {
 		</div>
 	);
 }
-export default App;
 
-
+const mapStateToProps = state => {
+	return {
+		productos: state.products,
+	};
+};
+export default connect(mapStateToProps, {getProducts})(App);
