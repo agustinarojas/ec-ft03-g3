@@ -33,7 +33,7 @@ function NavBar({search, category, filterByCategory}) {
 		// 	</div>
 		// </nav>
 
-		<div class="navigatorbar">
+		<nav class="navigatorbar">
 			<Link to="/">
 				<a href="#home">Home</a>
 			</Link>
@@ -54,7 +54,7 @@ function NavBar({search, category, filterByCategory}) {
 				</div>
 			</div>
 			<SearchBar search={search} />
-		</div>
+		</nav>
 	);
 }
 
