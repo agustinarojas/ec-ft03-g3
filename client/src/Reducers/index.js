@@ -1,22 +1,20 @@
-import { GET_PRODUCTS} from '../Constants/productsConstant.js'
-
-const initialState = {
-    products: []
-   
+import {GET_PRODUCTS, SET_CATEGORY, DELETE_PROD_CATEGORY} from '../Constants/ProductsConstants';
+const inicialState = {
+	products: [],
 };
 
-function rootReducer(state = initialState, action) {
-    switch (action.type) {
-        case GET_PRODUCTS: 
-        console.log(action + 'ACTIONS')
-        return {
-            ...state,
-            products: [action.products]
-        } 
-        default: return {
-            ...state
-        }
-    }
-
+export default function rootReducer(state = inicialState, action) {
+	switch (action.type) {
+		case GET_PRODUCTS:
+			return {
+				...state,
+				products: action.products,
+			};
+		case SET_CATEGORY:
+			return state;
+		case DELETE_PROD_CATEGORY:
+			return state;
+		default:
+			return state;
+	}
 }
-export default rootReducer
