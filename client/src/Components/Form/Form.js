@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './Form.css';
+import {connect} from 'react-redux';
+import {postProducts, putProducts} from '../../Actions/index';
 
-export default function Form({products}) {
+export  function Form({products, postProducts, putProducts}) {
 	const [input, setInput] = useState({});
 	const [select, setSelect] = useState('post');
 	const [id, setId] = useState();
@@ -33,17 +35,11 @@ export default function Form({products}) {
 	const handleSubmit = (e, state) => {
 		e.preventDefault();
 		switch (select) {
-			case 'post':
-				axios
-					.post('http://localhost:3005/products', state)
-					.then(res => console.log(res))
-					.catch(err => console.log(err));
-				break;
+			 case 'post':
+			 postProducts(state)
+			 	break;
 			case 'put':
-				axios
-					.put(`http://localhost:3005/products/${id}`, state)
-					.then(res => console.log(res))
-					.catch(err => console.log(err));
+			putProducts(state, id)
 				break;
 			case 'delete':
 				axios
@@ -202,3 +198,12 @@ export default function Form({products}) {
 		</div>
 	);
 }
+
+const mapStateToProps = state => {
+	return {
+		products:state.products,
+		product: state.product,
+		putProduct: state.putProduct,
+	};
+};
+export default connect(mapStateToProps, {postProducts, putProducts})(Form);

@@ -10,6 +10,7 @@ function App() {
 	const [products, setProducts] = useState([]);
 	const [buscar, setBuscar] = useState('');
 	const [category, setCategory] = useState([]);
+
 	console.log(category)
 	const apiRequest = buscar => {
 		let url = buscar ? `search?valor=${buscar}` : 'products';
@@ -18,6 +19,15 @@ function App() {
 			.then(res => setProducts(res.data))
 			.catch(err => console.log(err));
 	};
+
+	// const apiRequest = buscar => {
+	// 	let url = buscar ? `search?valor=${buscar}` : 'products';
+	// 	axios
+	// 		.get(`http://localhost:3005/${url}`)
+	// 		.then(res => setProducts(res.data))
+	// 		.catch(err => console.log(err));
+	// };
+
 
 	function getCategory() {
 		axios
@@ -41,7 +51,8 @@ function App() {
 	};
 
 	useEffect(() => {
-		apiRequest(buscar);
+		//apiRequest(buscar);
+		getProducts();
 		getCategory();
 		console.log(category)
 	}, [buscar]);
@@ -54,7 +65,7 @@ function App() {
 			<NavBar search={search} category={category} />
 			<Route exact path="/form" render={() => <Form products={products} />} />
 			<Route path="/form" component={FormCat} />
-			<Route exact path="/" render={() => <Catalogo products={products} />} />
+			<Route exact path="/" render={() => <Catalogo products={productos} />} />
 			<Route path="/category" render={() => <Catalogo products={products} />} />
 			<Route
 				path="/product/:id"
