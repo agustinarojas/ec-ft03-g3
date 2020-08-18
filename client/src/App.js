@@ -43,7 +43,6 @@ function App({productos, getProducts}) {
 	};
 
 	useEffect(() => {
-		// apiRequest(buscar);
 		getProducts();
 		getCategory();
 		console.log(productos);
