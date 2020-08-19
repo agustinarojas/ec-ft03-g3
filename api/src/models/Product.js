@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const {DataTypes} = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = sequelize => {
@@ -35,24 +35,24 @@ module.exports = sequelize => {
 			allowNull: false,
 		},
 	});
-	const Carrito = sequelize.define("carrito", {
+	const Carrito = sequelize.define('carrito', {
 		precio: {
 			type: DataTypes.INTEGER,
-			allowNull: false
+			allowNull: false,
 		},
 		productId: {
 			type: DataTypes.INTEGER,
-			allowNull: false
+			allowNull: false,
 		},
 		cantidad: {
 			type: DataTypes.INTEGER,
-			allowNull: false
+			allowNull: false,
 		},
 		estado: {
-			type: DataTypes.ENUM("carrito", "creada", "procesando", "cancelada", "completa")
-		}
-	})
-	const User = sequelize.define("user", {
+			type: DataTypes.ENUM('carrito', 'creada', 'procesando', 'cancelada', 'completa'),
+		},
+	});
+	const User = sequelize.define('user', {
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -60,20 +60,20 @@ module.exports = sequelize => {
 			validate: {
 				isEmail: true,
 			},
-		}
-	})
-	const lineorder = sequelize.define("lineorder", {
+		},
+	});
+	const lineorder = sequelize.define('lineorder', {
 		cantidad: {
 			type: DataTypes.INTEGER,
-			allowNull: false
+			allowNull: false,
 		},
 		precio: {
 			type: DataTypes.INTEGER,
-			allowNull: false
-		}
-	})
-	Carrito.belongsToMany(Product, { through: lineorder });
-	Product.belongsToMany(Carrito, { through: lineorder });
-	Product.belongsToMany(Cat, { through: 'productcat' });
-	Cat.belongsToMany(Product, { through: 'productcat' });
-}
+			allowNull: false,
+		},
+	});
+	Carrito.belongsToMany(Product, {through: lineorder});
+	Product.belongsToMany(Carrito, {through: lineorder});
+	Product.belongsToMany(Cat, {through: 'productcat'});
+	Cat.belongsToMany(Product, {through: 'productcat'});
+};
