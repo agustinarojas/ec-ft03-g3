@@ -74,6 +74,7 @@ const lineorder = sequelize.define("lineorder", {
     })
     Carrito.belongsToMany(Product, { through: lineorder });
     Product.belongsToMany(Carrito, { through: lineorder });
+    Carrito.belongsTo(User);
     Product.belongsToMany(Cat, { through: 'productcat' });
     Cat.belongsToMany(Product, { through: 'productcat' });
 }

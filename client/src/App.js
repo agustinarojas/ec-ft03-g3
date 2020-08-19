@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import axios from 'axios';
-import Catalogo from './Components/catalogo/Catalogo';
+import Catalogo from './Components/Catalogo/Catalogo';
 import Products from './Components/product/producto';
-import Form from './Components/Form/Form';
+import Table from './Components/Table';
 import FormCat from './Components/Form/FormCat';
 import NavBar from './Components/NavBar/NavBar';
 import {getProducts, filterByCategory} from './Actions/index';
@@ -43,8 +43,8 @@ function App({productos, catProducts, getProducts}) {
 	return (
 		<div className="product">
 			<NavBar search={search} category={category} />
-			<Route exact path="/form" render={() => <Form products={productos} />} />
-			<Route path="/form" component={FormCat} />
+			<Route exact path="/form" render={() => <Table products={productos} />} />
+			
 			<Route exact path="/" render={() => <Catalogo products={productos} />} />
 			<Route path="/:category" render={() => <Catalogo products={catProducts} />} />
 			<Route
