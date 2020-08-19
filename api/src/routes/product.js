@@ -69,8 +69,6 @@ server.delete('/:id', (req, res) => {
 		});
 });
 
-
-
 server.post('/:idProducto/category/:idCategoria', (req, res) => {
 	const {idProducto, idCategoria} = req.params;
 	let promiseProduct = Product.findByPk(idProducto);
