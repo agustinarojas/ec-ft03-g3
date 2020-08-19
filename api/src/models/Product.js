@@ -69,27 +69,16 @@ module.exports = sequelize => {
 		},
 		precio: {
 			type: DataTypes.INTEGER,
-<<<<<<< HEAD
 			allowNull: false,
 		},
 	});
-	Carrito.belongsToMany(Product, {through: lineorder});
-	Product.belongsToMany(Carrito, {through: lineorder});
-	Product.belongsToMany(Cat, {through: 'productcat'});
-	Cat.belongsToMany(Product, {through: 'productcat'});
-};
-=======
-			allowNull: false
-		}
-	})
 
 	User.hasOne(Carrito);
 	Carrito.belongsTo(User);
-	
-	Carrito.belongsToMany(Product, { through: lineorder });
-	Product.belongsToMany(Carrito, { through: lineorder });
 
-	Product.belongsToMany(Cat, { through: 'productcat' });
-	Cat.belongsToMany(Product, { through: 'productcat' });
-}
->>>>>>> master
+	Carrito.belongsToMany(Product, {through: lineorder});
+	Product.belongsToMany(Carrito, {through: lineorder});
+
+	Product.belongsToMany(Cat, {through: 'productcat'});
+	Cat.belongsToMany(Product, {through: 'productcat'});
+};
