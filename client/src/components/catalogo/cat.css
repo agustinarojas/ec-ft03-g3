@@ -1,5 +1,9 @@
-.contenedor {
+.contcatal {
 	display: flex;
-	justify-content: space-around;
-	padding: 0;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	background-color: whitesmoke;
+	padding-top: 30px;
 }

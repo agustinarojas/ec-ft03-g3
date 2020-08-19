@@ -12,6 +12,7 @@ import {connect} from 'react-redux';
 function App({productos, catProducts, getProducts}) {
 	const [buscar, setBuscar] = useState('');
 	const [category, setCategory] = useState([]);
+
 	// const apiRequest = buscar => {
 	// 	let url = buscar ? `search?valor=${buscar}` : 'products';
 	// 	axios
@@ -19,6 +20,7 @@ function App({productos, catProducts, getProducts}) {
 	// 		.then(res => setProducts(res.data))
 	// 		.catch(err => console.log(err));
 	// };
+
 
 	function getCategory() {
 		axios
