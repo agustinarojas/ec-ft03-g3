@@ -10,7 +10,7 @@ import {
 } from '../../Actions/index.js';
 import {connect} from 'react-redux';
 
-function Form({products, setCategory, deleteProdCategory}) {
+function Form({products, setCategory, deleteProdCategory, postProducts, putProducts}) {
 	const [input, setInput] = useState({});
 	const [select, setSelect] = useState('post');
 	const [id, setId] = useState();
@@ -30,9 +30,24 @@ function Form({products, setCategory, deleteProdCategory}) {
 			.catch(err => console.log(err));
 	};
 
+	// const handleOnClickEdit = (e, state) => {
+	// 	axios
+	// 		.put(`http://localhost:3005/products/${id}`, state)
+	// 		.then(res => console.log(res))
+	// 		.catch(err => console.log(err));
+	// };
+	const [table, setTable] = useState({
+
+	});
+	const handleTableChange = event => {
+		setTable({
+			...table,
+			[event.target.name]: event.target.value,
+		});
+	};
 	const handleOnClickEdit = (e, state) => {
 		axios
-			.put(`http://localhost:3005/products/${id}`, state)
+			.put(`http://localhost:3005/products/${e.target.name}`, state)
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	};
@@ -81,7 +96,7 @@ function Form({products, setCategory, deleteProdCategory}) {
 					{products?.map((p, i) => (
 						<tr>
 							<th scope="row">{p.id}</th>
-							<td contenteditable="true">{p.titulo}</td>
+							<td contenteditable="true" name='titulo' onChange={handleTableChange}>{p.titulo}</td>
 							<td contenteditable="true">{p.descripcion}</td>
 							<td contenteditable="true">{p.precio}</td>
 							<td contenteditable="true">{p.stock}</td>
@@ -216,5 +231,5 @@ export default connect(mapStateToProps, {
 	setCategory,
 	deleteProdCategory,
 	postProducts,
-	putProducts,
+	putProducts
 })(Form);
