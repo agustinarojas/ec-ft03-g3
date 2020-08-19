@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import axios from 'axios';
-import Catalogo from './Components/catalogo/Catalogo';
+import Catalogo from './Components/Catalogo/Catalogo';
 import Products from './Components/product/producto';
 import Form from './Components/Form/Form';
 import FormCat from './Components/Form/FormCat';
@@ -13,14 +13,6 @@ function App({productos, getProducts}) {
 	const [products, setProducts] = useState([]);
 	const [buscar, setBuscar] = useState('');
 	const [category, setCategory] = useState([]);
-
-	// const apiRequest = buscar => {
-	// 	let url = buscar ? `search?valor=${buscar}` : 'products';
-	// 	axios
-	// 		.get(`http://localhost:3005/${url}`)
-	// 		.then(res => setProducts(res.data))
-	// 		.catch(err => console.log(err));
-	// };
 
 	function getCategory() {
 		axios
