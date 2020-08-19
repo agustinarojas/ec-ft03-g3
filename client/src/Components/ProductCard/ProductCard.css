@@ -1,43 +1,39 @@
-.cardP {
-	border: 3px rgb(136, 124, 124) solid;
-	background-color: rgb(166, 255, 218);
-	width: 250px;
-	border-radius: 18px;
-	margin: 20px;
+.contein {
+    width: 300px;
+    margin-left: 25px;
+}
+.imagen {
+    width: auto;
+    height: auto;
+}
+.card-product .img-wrap {
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
+    position: relative;
+    height: 220px;
+    text-align: center;
+}
+.card-product .img-wrap img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.card-product .info-wrap {
+    overflow: hidden;
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+.card-product .bottom-wrap {
+    padding: 15px;
+    border-top: 1px solid #eee;
 }
 
-.foto {
-	max-width: 250px;
-	max-height: 250px;
-	object-fit: contain;
+.label-rating { margin-right:10px;
+    color: #333;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-.titulo {
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
-	font-weight: bold;
-	text-align: center;
-	margin: 0;
-	font-size: 25px;
-}
-
-.precio {
-	font-weight: 700;
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
-	text-align: center;
-	margin: 0;
-}
-
-.boton {
-	background-color: rgb(188 112 164);
-	cursor: pointer;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 12px;
-}
-
-.boton:hover {
-	background-color: rgb(251, 158, 251);
-	font-weight: bold;
+.card-product .price-old {
+    color: #999;
 }
