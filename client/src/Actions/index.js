@@ -9,6 +9,7 @@ import {
 	POST_CATEGORY,
 	PUT_CATEGORY,
 	FILTER_BY_CATEGORY,
+	GET_CATEGORIES
 } from '../Constants/ProductsConstants';
 
 export function getProducts() {
@@ -28,6 +29,7 @@ export function deleteProduct(id) {
 
 export function deleteCategory(id) {
 	return axios.delete('http://localhost:3005/category/' + id);
+
 }
 
 export function setCategory(prodId, catId) {
@@ -105,4 +107,15 @@ export function filterByCategory(categoria) {
 			})
 			.catch(err => console.log(err));
 	};
+}
+
+export function getCategories() {
+    return function (dispatch) {
+        return axios
+            .get('http://localhost:3005/category')
+            .then(res => {
+                dispatch({type: GET_CATEGORIES, categories: res.data});
+            })
+            .catch(err => console.log(err));
+    };
 }
