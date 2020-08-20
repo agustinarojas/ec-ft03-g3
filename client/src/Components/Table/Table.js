@@ -2,17 +2,11 @@ import React from 'react';
 import MaterialTable from 'material-table';
 import TableCategory from './TableCategory';
 import FormProductCat from './FormProductCat';
+import axios from 'axios';
 import './table.css';
-import {
-	deleteProduct,
-	setCategory,
-	deleteProdCategory,
-	postProducts,
-	putProducts,
-} from '../../Actions/index.js';
 import {connect} from 'react-redux';
 
-function Table({products, postProducts, putProducts}) {
+function Table({products}) {
 	const columns = [
 		{title: 'Titulo', field: 'titulo'},
 		{title: 'Descripción', field: 'descripcion'},
@@ -20,6 +14,22 @@ function Table({products, postProducts, putProducts}) {
 		{title: 'Stock', field: 'stock', type: 'numeric'},
 		{title: 'Imagen', field: 'imagen'},
 	];
+	const postProduct = product => {
+		return axios
+			.post('http://localhost:3005/products', product)
+			.then(res => console.log(res.data))
+			.catch(err => console.log(err));
+	};
+	function deleteProduct(id) {
+		return axios.delete('http://localhost:3005/products/' + id);
+	}
+
+	function putProducts(product, id) {
+		return axios
+			.put(`http://localhost:3005/products/${id}`, product)
+			.then(res => console.log(res.data))
+			.catch(err => console.log(err));
+	}
 	return (
 		<div>
 			<MaterialTable
@@ -27,7 +37,7 @@ function Table({products, postProducts, putProducts}) {
 				columns={columns}
 				data={products}
 				editable={{
-					onRowAdd: newData => postProducts(newData),
+					onRowAdd: newData => postProduct(newData),
 					onRowUpdate: (newData, oldData) => putProducts(newData, oldData.id),
 					onRowDelete: oldData => deleteProduct(oldData.id),
 				}}
@@ -42,13 +52,6 @@ function Table({products, postProducts, putProducts}) {
 const mapStateToProps = state => {
 	return {
 		products: state.products,
-		product: state.product,
-		putProduct: state.putProduct,
 	};
 };
-export default connect(mapStateToProps, {
-	setCategory,
-	deleteProdCategory,
-	postProducts,
-	putProducts,
-})(Table);
+export default connect(mapStateToProps)(Table);

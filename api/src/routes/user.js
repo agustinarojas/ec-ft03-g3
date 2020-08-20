@@ -63,6 +63,7 @@ server.delete('/:id', (req, res) => {
 server.post('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
 	const {id} = req.body;
+	console.log(req.body);
 	let pProduct = Product.findByPk(id);
 	let pCarrito = Carrito.findOrCreate({
 		where: {
@@ -72,6 +73,7 @@ server.post('/:ids/cart', (req, res) => {
 	});
 	Promise.all([pCarrito, pProduct])
 		.then(values => {
+			console.log(values);
 			let carrito = values[0][0];
 			let producto = values[1];
 			producto.addCarritos(carrito, {through: {cantidad: 1, precio: producto.precio}});
@@ -92,7 +94,7 @@ server.get('/:ids/cart', (req, res) => {
 		},
 	})
 		.then(carrito => {
-			res.send(carrito);
+			res.send(carrito.products);
 		})
 		.catch(err => {
 			console.log(err);
@@ -101,13 +103,14 @@ server.get('/:ids/cart', (req, res) => {
 
 server.delete('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
-	Carrito.findAll({
+	Carrito.findOne({
 		where: {
 			userId: ids,
+			estado: 'activo',
 		},
 	})
 		.then(carrito => {
-			carrito.map(c => c.destroy());
+			carrito.destroy();
 			res.status(201).send('Carrito vaciado.');
 		})
 		.catch(err => {
@@ -121,14 +124,18 @@ server.put('/:ids/cart', (req, res) => {
 	Carrito.findOne({
 		where: {
 			userId: ids,
-			productId: req.body.id,
+			estado: 'activo',
+		},
+		include: {
+			model: Product,
 		},
 	})
 		.then(carrito => {
-			carrito.update({
+			let result = carrito.products.filter(el => el.id === data.id);
+			result[0].lineorder.update({
 				cantidad: data.cantidad,
 			});
-			carrito.save();
+			result[0].lineorder.save();
 			res.send('Cantidad actualizada');
 		})
 		.catch(err => {

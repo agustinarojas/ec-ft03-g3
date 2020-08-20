@@ -20,7 +20,7 @@ function App({productos, catProducts, getProducts, getCategories, categories}) {
 	// };
 
 	const filtrar = id => {
-		return productos.filter(product => product.id === id);
+		return productos.filter(product => product.id == id);
 	};
 	useEffect(() => {
 		getProducts();
@@ -35,7 +35,7 @@ function App({productos, catProducts, getProducts, getCategories, categories}) {
 			<NavBar search={search} category={categories} />
 			<Route
 				exact
-				path="/form"
+				path="/admin"
 				render={() => <Table products={productos} categories={categories} />}
 			/>
 			<Route exact path="/" render={() => <Catalogo products={productos} />} />
@@ -45,7 +45,7 @@ function App({productos, catProducts, getProducts, getCategories, categories}) {
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
 			<Route path="/cart" render={() => <Cart products={productos} />} />
-			<Route path="/log_in" component={FormUsuario} />
+			<Route path="/sign_up" component={FormUsuario} />
 		</div>
 	);
 }
