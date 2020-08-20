@@ -73,11 +73,9 @@ module.exports = sequelize => {
 		},
 	});
 
-	User.hasOne(Carrito);
-	Carrito.belongsTo(User);
+	User.hasMany(Carrito);
 	Product.belongsToMany(Cat, { through: 'productcat' });
 	Cat.belongsToMany(Product, { through: 'productcat' });
-	Carrito.belongsTo(User);
 	Carrito.belongsToMany(Product, {through: lineorder});
 	Product.belongsToMany(Carrito, {through: lineorder});
 }
