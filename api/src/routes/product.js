@@ -58,8 +58,8 @@ server.delete('/:id', (req, res) => {
 	})
 		.then(product => {
 			if(!product) {
-			 res.status(400).send('Producto inexistente');
-		 } else {
+			res.status(400).send('Producto inexistente');
+		} else {
 			product.destroy();
 			res.status(200).send('Producto Eliminado');
 		}
