@@ -9,9 +9,9 @@ function NavBar({search, category, filterByCategory}) {
 	return (
 		<nav className="navigatorbar">
 			<Link to="/">Home</Link>
-			<Link to="/form">Form</Link>
+			<Link to="/admin">Form</Link>
 			<Link to="/cart">Carrito</Link>
-			<Link to="/log_in"> Log In </Link>
+			<Link to="/sign_up"> Sign Up </Link>
 			<div className="dropd">
 				<button className="dropdbtn">
 					Categorias

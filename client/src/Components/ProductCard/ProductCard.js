@@ -4,10 +4,9 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 export default function ProductCard({imagen, titulo, precio, review, id}) {
-	// const handleOnCLick(userId){
-	// 	axios.get('http://localhost:3005/users//')
-	// 	axios.post(`http://localhost:3005/users/${userId}/cart`)
-	// }
+	const handleOnCLick = (id, userId) => {
+		axios.post(`http://localhost:3005/users/${userId}/cart`, {id});
+	};
 	return (
 		<div>
 			<figure className="card card-product contein">
@@ -23,7 +22,12 @@ export default function ProductCard({imagen, titulo, precio, review, id}) {
 					</div>
 				</figcaption>
 				<div className="bottom-wrap">
-					<button className="btn btn-sm btn-primary float-right">Order Now</button>
+					<button
+						className="btn btn-sm btn-primary float-right"
+						onClick={e => handleOnCLick(e.target.name, 2)}
+						name={id}>
+						Agregar al Carrito
+					</button>
 					<div className="price-wrap h5">
 						<span className="price-new">${precio}</span>
 					</div>
