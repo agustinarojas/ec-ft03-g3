@@ -19,6 +19,7 @@ function Table({products, postProducts, putProducts}) {
     { title: 'Precio', field: 'precio', type: 'numeric' },
     { title: 'Stock', field: 'stock', type: 'numeric' },
     { title: 'Imagen', field: 'imagen' },
+		{ title: 'Categoria', field: 'categoria', lookup: {1:'Vehiculos',2:'Peluches'}}
   ]
   return (
 		<div>

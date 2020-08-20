@@ -4,6 +4,7 @@ import axios from 'axios';
 import Catalogo from './Components/Catalogo/Catalogo';
 import Products from './Components/product/producto';
 import Table from './Components/Table/Table';
+import Cart from './Components/Carrito/Cart';
 import NavBar from './Components/NavBar/NavBar';
 import {getProducts, getCategories} from './Actions/index';
 import {connect} from 'react-redux';
