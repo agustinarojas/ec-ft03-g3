@@ -1,12 +1,12 @@
 const server = require('express').Router();
 const {Cat} = require('../db.js');
 
-// server.get('/', (req, res) => {
-// 	//prettier-ignore
-// 	Cat.findAll()
-// 	.then(cats => res.send(cats)
-// 	.catch(err => res.status(400).send(err)));
-// });
+server.get('/', (req, res) => {
+	//prettier-ignore
+	Cat.findAll()
+	.then(cats => res.send(cats)
+	.catch(err => res.status(400).send(err)));
+});
 
 server.post('/', (req, res) => {
 	Cat.create(req.body).then(category => {

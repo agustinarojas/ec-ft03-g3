@@ -9,16 +9,12 @@ import {
 	PUT_PRODUCTS,
 	GET_PRODUCTS,
 	FILTER_BY_CATEGORY,
-	GET_CATEGORIES
+	GET_CATEGORIES,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
-	product: {},
-	putProduct: {},
-	category: {},
-	putCat: {},
 	catProducts: [],
-	categories: []
+	categories: [],
 };
 
 export default function rootReducer(state = inicialState, action) {
@@ -65,11 +61,11 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				catProducts: action.catProducts,
 			};
-			case GET_CATEGORIES:
-            return {
-                ...state,
-                categories: action.categories,
-      };
+		case GET_CATEGORIES:
+			return {
+				...state,
+				categories: action.categories,
+			};
 		default:
 			return state;
 	}

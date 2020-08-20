@@ -57,12 +57,12 @@ server.delete('/:id', (req, res) => {
 		},
 	})
 		.then(product => {
-			if(!product) {
-			res.status(400).send('Producto inexistente');
-		} else {
-			product.destroy();
-			res.status(200).send('Producto Eliminado');
-		}
+			if (!product) {
+				res.status(400).send('Producto inexistente');
+			} else {
+				product.destroy();
+				res.status(200).send('Producto Eliminado');
+			}
 		})
 		.catch(error => {
 			res.status(400).send('Se produjo un error');
