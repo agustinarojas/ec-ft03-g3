@@ -36,20 +36,16 @@ module.exports = sequelize => {
 		},
 	});
 	const Carrito = sequelize.define('carrito', {
-		precio: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-		},
-		productId: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-		},
-		cantidad: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-		},
+		// precio: {
+		// 	type: DataTypes.INTEGER,
+		// 	allowNull: false,
+		// },
+		// cantidad: {
+		// 	type: DataTypes.INTEGER,
+		// 	allowNull: false,
+		// },
 		estado: {
-			type: DataTypes.ENUM('carrito', 'creada', 'procesando', 'cancelada', 'completa'),
+			type: DataTypes.ENUM('activo', 'cancelada', 'completa'),
 		},
 	});
 	const User = sequelize.define('user', {
@@ -73,11 +69,10 @@ module.exports = sequelize => {
 		},
 	});
 
-	User.hasOne(Carrito);
-	Carrito.belongsTo(User);
+	User.hasMany(Carrito);
 
-	Carrito.belongsToMany(Product, {through: lineorder});
-	Product.belongsToMany(Carrito, {through: lineorder});
+	Carrito.belongsToMany(Product, {through: ' lineorder'});
+	Product.belongsToMany(Carrito, {through: 'lineorder'});
 
 	Product.belongsToMany(Cat, {through: 'productcat'});
 	Cat.belongsToMany(Product, {through: 'productcat'});

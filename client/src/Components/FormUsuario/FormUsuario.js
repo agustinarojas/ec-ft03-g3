@@ -14,20 +14,20 @@ export default function FormUsuario() {
 
 	return (
 		<form onSubmit={e => handleSubmit(e, email)}>
-			<div class="form-group">
-				<label for="exampleInputEmail1">Email address</label>
+			<div className="form-group">
+				<label htmlFor="exampleInputEmail1">Email address</label>
 				<input
 					type="email"
-					class="form-control"
+					className="form-control"
 					id="exampleInputEmail1"
 					aria-describedby="emailHelp"
 					onChange={e => setEmail({email: e.target.value})}
 				/>
-				<small id="emailHelp" class="form-text text-muted">
+				<small id="emailHelp" className="form-text text-muted">
 					We'll never share your email with anyone else.
 				</small>
 			</div>
-			<input type="submit" class="btn btn-primary" value="Submit" />
+			<input type="submit" className="btn btn-primary" value="Submit" />
 		</form>
 	);
 }

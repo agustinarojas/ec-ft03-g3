@@ -11,11 +11,13 @@ function FormProductCat({setCategory, deleteProdCategory, categories}) {
 		event.preventDefault();
 		switch (selectCat) {
 			case 'post':
-        setCategory(id, catId)
-			  break;
-			case 'delete':
-				deleteProdCategory(id, catId)
+				setCategory(id, catId);
 				break;
+			case 'delete':
+				deleteProdCategory(id, catId);
+				break;
+			default:
+				return;
 		}
 	};
 	return (
@@ -38,8 +40,10 @@ function FormProductCat({setCategory, deleteProdCategory, categories}) {
 					onChange={e => setId(e.target.value)}
 				/>
 				<select onChange={e => setCatId(e.target.value)}>
-					{categories?.map(c => (
-						<option value={c.id}>{c.titulo}</option>
+					{categories?.map((c, i) => (
+						<option key={i} value={c.id}>
+							{c.titulo}
+						</option>
 					))}
 				</select>
 				<input type="submit" value="+" className="bot btn-success" />

@@ -10,22 +10,22 @@ export default function ProductCard({imagen, titulo, precio, review, id}) {
 	// }
 	return (
 		<div>
-			<figure class="card card-product contein">
+			<figure className="card card-product contein">
 				<Link to={`/product/${id}`}>
-					<div class="img-wrap">
+					<div className="img-wrap">
 						<img src={imagen} className="imagen" />
 					</div>
 				</Link>
-				<figcaption class="info-wrap">
-					<h4 class="title">{titulo}</h4>
-					<div class="rating-wrap">
-						<div class="label-rating"> (Review) </div>
+				<figcaption className="info-wrap">
+					<h4 className="title">{titulo}</h4>
+					<div className="rating-wrap">
+						<div className="label-rating"> (Review) </div>
 					</div>
 				</figcaption>
-				<div class="bottom-wrap">
-					<button class="btn btn-sm btn-primary float-right">Order Now</button>
-					<div class="price-wrap h5">
-						<span class="price-new">${precio}</span>
+				<div className="bottom-wrap">
+					<button className="btn btn-sm btn-primary float-right">Order Now</button>
+					<div className="price-wrap h5">
+						<span className="price-new">${precio}</span>
 					</div>
 				</div>
 			</figure>
