@@ -1,16 +1,34 @@
 import React from 'react';
 import './ProductCard.css';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
-export default function ProductCard({imagen, titulo, precio, id}) {
+export default function ProductCard({imagen, titulo, precio, review, id}) {
+	// const handleOnCLick(userId){
+	// 	axios.get('http://localhost:3005/users//')
+	// 	axios.post(`http://localhost:3005/users/${userId}/cart`)
+	// }
 	return (
-		<div className="cardP">
-			<Link to={`/product/${id}`}>
-				<img className="foto card-img-top" src={imagen} alt="" />
-				<h1 className="titulo"> {titulo} </h1>
-				<p className="precio"> {precio} </p>
-			</Link>
-			<button className="boton btn btn-info">Add to cart</button>
+		<div>
+			<figure class="card card-product contein">
+				<Link to={`/product/${id}`}>
+					<div class="img-wrap">
+						<img src={imagen} className="imagen" />
+					</div>
+				</Link>
+				<figcaption class="info-wrap">
+					<h4 class="title">{titulo}</h4>
+					<div class="rating-wrap">
+						<div class="label-rating"> (Review) </div>
+					</div>
+				</figcaption>
+				<div class="bottom-wrap">
+					<button class="btn btn-sm btn-primary float-right">Order Now</button>
+					<div class="price-wrap h5">
+						<span class="price-new">${precio}</span>
+					</div>
+				</div>
+			</figure>
 		</div>
 	);
 }

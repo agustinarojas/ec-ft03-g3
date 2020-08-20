@@ -7,6 +7,7 @@ import Table from './Components/Table/Table';
 import NavBar from './Components/NavBar/NavBar';
 import {getProducts, getCategories} from './Actions/index';
 import {connect} from 'react-redux';
+import FormUsuario from './Components/FormUsuario/FormUsuario';
 
 function App({productos, catProducts, getProducts, getCategories, categories}) {
 	const [buscar, setBuscar] = useState('');
@@ -40,6 +41,8 @@ function App({productos, catProducts, getProducts, getCategories, categories}) {
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
+			<Route path="/cart" render={() => <Cart products={productos} />} />
+			<Route path="/usuario" render={() => <FormUsuario products={productos} />} />
 		</div>
 	);
 }
