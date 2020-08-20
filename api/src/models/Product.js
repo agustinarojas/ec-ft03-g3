@@ -7,6 +7,7 @@ module.exports = sequelize => {
         titulo: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         descripcion: {
             type: DataTypes.TEXT,
@@ -29,6 +30,7 @@ module.exports = sequelize => {
         titulo: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         descripcion: {
             type: DataTypes.TEXT,
