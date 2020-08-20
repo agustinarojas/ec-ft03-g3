@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import axios from 'axios';
-import Catalogo from './Components/Catalogo/Catalogo';
+import Catalogo from './Components/catalogo/Catalogo';
 import Products from './Components/product/producto';
 import Form from './Components/Form/Form';
 import FormCat from './Components/Form/FormCat';
 import NavBar from './Components/NavBar/NavBar';
+import Cart from './Components/Carrito/Cart';
 import {getProducts, filterByCategory} from './Actions/index';
 import {connect} from 'react-redux';
+import FormUsuario from './Components/FormUsuario/FormUsuario';
 
 function App({productos, catProducts, getProducts}) {
 	const [buscar, setBuscar] = useState('');
@@ -20,7 +22,6 @@ function App({productos, catProducts, getProducts}) {
 	// 		.then(res => setProducts(res.data))
 	// 		.catch(err => console.log(err));
 	// };
-
 
 	function getCategory() {
 		axios
@@ -53,6 +54,8 @@ function App({productos, catProducts, getProducts}) {
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
+			<Route path="/cart" render={() => <Cart products={productos} />} />
+			<Route path="/usuario" render={() => <FormUsuario products={productos} />} />
 		</div>
 	);
 }

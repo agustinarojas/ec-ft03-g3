@@ -8,12 +8,9 @@ import {filterByCategory} from '../../Actions/index';
 function NavBar({search, category, filterByCategory}) {
 	return (
 		<nav class="navigatorbar">
-			<Link to="/">
-				<a href="#home">Home</a>
-			</Link>
-			<Link to="/form">
-				<a href="#form">Form</a>
-			</Link>
+			<Link to="/">Home</Link>
+			<Link to="/form">Form</Link>
+			<Link to="/cart">Carrito</Link>
 			<div class="dropd">
 				<button class="dropdbtn">
 					Categorias
