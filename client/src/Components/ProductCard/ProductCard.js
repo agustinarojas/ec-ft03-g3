@@ -5,7 +5,9 @@ import axios from 'axios';
 
 export default function ProductCard({imagen, titulo, precio, review, id}) {
 	const handleOnCLick = (id, userId) => {
-		axios.post(`http://localhost:3005/users/${userId}/cart`, {id});
+		console.log(typeof parseInt (id))
+			console.log(userId)
+		axios.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt (id)});
 	};
 	return (
 		<div>
@@ -24,7 +26,7 @@ export default function ProductCard({imagen, titulo, precio, review, id}) {
 				<div className="bottom-wrap">
 					<button
 						className="btn btn-sm btn-primary float-right"
-						onClick={e => handleOnCLick(e.target.name, 2)}
+						onClick={e => handleOnCLick(e.target.name, 1)}
 						name={id}>
 						Agregar al Carrito
 					</button>
