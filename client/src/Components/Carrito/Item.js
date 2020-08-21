@@ -40,12 +40,9 @@ function Item({productsCar, getCarrito, match}) {
 							<button className="btn botoncart" onClick={e => handleOnCLickCantidad(e.target.name)}>
 								-
 							</button>
-							<input onChange={e => setCantidad(e.target.value)} className="inpCant" />
+							<input onChange={e => setCantidad(e.target.value)} className="inpCant acomodo" />
 							<button className="btn botoncart" onClick={e => handleOnCLickCantidad(e.target.name)}>
 								+
-							</button>
-							<button name={p.id} onClick={e => handleOnCLick(e.target.name)}>
-								X
 							</button>
 						</div>
 						<div className="precioboton">

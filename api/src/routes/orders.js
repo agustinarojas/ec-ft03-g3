@@ -38,7 +38,6 @@ server.put('/:id', (req, res) => {
 	Carrito.findOne({
 		where: {
 			userId: req.params.id,
-			estado: 'completa',
 		},
 	})
 		.then(completados => {
