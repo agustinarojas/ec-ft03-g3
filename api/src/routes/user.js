@@ -166,7 +166,7 @@ server.put('/:ids/cart', (req, res) => {
 });
 
 server.get('/:ids/orders', (req, res) => {
-	//Ruta trae toda las ordenes de un usuario.
+	//Ruta trae toda las ordenes de un usuario. Dentro de tabla de orden
 	Carrito.findAll({
 		where: {
 			userId: req.params.ids,

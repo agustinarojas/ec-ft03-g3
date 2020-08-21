@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import './Form.css'
 
 export default function FormUsuario() {
 	const [email, setEmail] = useState({email: ''});
@@ -13,6 +14,7 @@ export default function FormUsuario() {
 	};
 
 	return (
+		<div className = 'Formm'>
 		<form onSubmit={e => handleSubmit(e, email)}>
 			<div className="form-group">
 				<label htmlFor="exampleInputEmail1">Email address</label>
@@ -24,10 +26,11 @@ export default function FormUsuario() {
 					onChange={e => setEmail({email: e.target.value})}
 				/>
 				<small id="emailHelp" className="form-text text-muted">
-					We'll never share your email with anyone else.
+					No compartiremos tu e-mail con nadie.
 				</small>
 			</div>
 			<input type="submit" className="btn btn-primary" value="Submit" />
 		</form>
+		</div>
 	);
 }

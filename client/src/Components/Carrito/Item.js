@@ -24,20 +24,25 @@ const handleOnCLickCantidad = (cantidad) => {
 		getCarrito();
 	}, [cantidad]);
 	return (
-		<div>
+		<div className='carritoItem'>
 			{productsCar?.map(p => (
-				<ul className="list-group list-group-flush">
+				<ul className="list-group list-group-flush cartitem">
 					<li class="list-group-item disp">
+
 						<img className='imgCart' src={p.imagen} />
 						<div className='titdes'>
-							<p>{p.titulo}</p>
+							<p className= 'tituloo'>{p.titulo}</p>
 							<p>{p.descripcion}</p>
 						</div>
+						<div className = 'botooon'>
 						<button className="btn botoncart" onClick={(e) => handleOnCLickCantidad(e.target.name)}>-</button>
-						<p>{cantidad}</p>
+						<p className='acomodo'>{cantidad}</p>
 						<button className="btn botoncart" onClick={(e) => handleOnCLickCantidad(e.target.name)}>+</button>
-						<p>$ {cantidad} </p>
-						<button name={p.id} onClick={ e => handleOnCLick(e.target.name)}>X</button>
+						</div>
+						<div className ='precioboton'>
+						<p id='presio'>$ {cantidad} </p>
+						<button id='boton1' name={p.id} onClick={ e => handleOnCLick(e.target.name)}>X</button>
+						</div>
 					</li>
 				</ul>
 			))}
