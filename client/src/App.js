@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
-import Catalogo from './Components/Catalogo/Catalogo';
+import Catalogo from './Components/Catalogue/Catalogo';
 import Products from './Components/product/producto';
 import Table from './Components/Table/Table';
 import Cart from './Components/Carrito/Cart';
@@ -19,9 +19,9 @@ function App({productos, catProducts, getProducts, getCategories, categories}) {
 	// 		.then(res => setProducts(res.data))
 	// 		.catch(err => console.log(err));
 	// };
- 
+
 	const filtrar = id => {
-		console.log(productos, id)
+		console.log(productos, id);
 		return productos.filter(product => product.id == id);
 	};
 
@@ -47,7 +47,7 @@ function App({productos, catProducts, getProducts, getCategories, categories}) {
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
-			<Route path="/cart" render={() => <Cart products={productos} />} />
+			<Route path="/cart/:userId" component={Cart} />
 			<Route path="/sign_up" component={FormUsuario} />
 		</div>
 	);

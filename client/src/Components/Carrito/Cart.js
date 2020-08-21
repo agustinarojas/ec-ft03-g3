@@ -1,10 +1,10 @@
 import React from 'react';
 import Item from './Item';
 
-export default function Cart({products}) {
+export default function Cart({match}) {
 	return (
 		<div>
-			<Item products={products} />
+			<Item match={match} />
 			<button>Comprar</button>
 		</div>
 	);
