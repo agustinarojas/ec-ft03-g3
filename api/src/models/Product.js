@@ -36,14 +36,6 @@ module.exports = sequelize => {
 		},
 	});
 	const Carrito = sequelize.define('carrito', {
-		// precio: {
-		// 	type: DataTypes.INTEGER,
-		// 	allowNull: false,
-		// },
-		// cantidad: {
-		// 	type: DataTypes.INTEGER,
-		// 	allowNull: false,
-		// },
 		estado: {
 			type: DataTypes.ENUM('activo', 'cancelada', 'completa'),
 		},
