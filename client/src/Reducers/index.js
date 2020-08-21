@@ -7,11 +7,13 @@ import {
 	GET_PRODUCTS,
 	FILTER_BY_CATEGORY,
 	GET_CATEGORIES,
+	GET_CARRITO
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
 	catProducts: [],
 	categories: [],
+	productsCar: []
 };
 
 export default function rootReducer(state = inicialState, action) {
@@ -49,6 +51,11 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				categories: action.categories,
 			};
+			case GET_CARRITO:
+				return {
+					...state,
+					productsCar: action.productsCar,
+				};
 		default:
 			return state;
 	}

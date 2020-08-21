@@ -7,6 +7,10 @@ import {
 	PUT_CATEGORY,
 	FILTER_BY_CATEGORY,
 	GET_CATEGORIES,
+<<<<<<< HEAD
+=======
+	GET_CARRITO
+>>>>>>> a4eeb31c79ccc3954e0b9617007c96de0f956f8e
 } from '../Constants/ProductsConstants';
 
 export function getProducts() {
@@ -89,3 +93,28 @@ export function getCategories() {
 			.catch(err => console.log(err));
 	};
 }
+<<<<<<< HEAD
+=======
+
+export function getCategories() {
+    return function (dispatch) {
+        return axios
+            .get('http://localhost:3005/category')
+            .then(res => {
+                dispatch({type: GET_CATEGORIES, categories: res.data});
+            })
+            .catch(err => console.log(err));
+    };
+}
+
+export function getCarrito(userId) {
+	return function (dispatch) {
+		return axios
+			.get(`http://localhost:3005/users/${userId}/cart`)
+			.then(res => {
+				dispatch({type: GET_CARRITO, productsCar: res.data});
+			})
+			.catch(err => console.log(err));
+	};
+}
+>>>>>>> a4eeb31c79ccc3954e0b9617007c96de0f956f8e

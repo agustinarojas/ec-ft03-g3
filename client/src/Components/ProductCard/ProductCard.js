@@ -3,10 +3,13 @@ import './ProductCard.css';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
-export default function ProductCard({imagen, titulo, precio, review, id}) {
+export default function ProductCard({imagen, titulo, precio, review, id, stock}) {
 	const handleOnCLick = (id, userId) => {
-		axios.post(`http://localhost:3005/users/${userId}/cart`, {id});
+		console.log(typeof parseInt (id))
+			console.log(userId)
+		axios.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt (id)});
 	};
+console.log(stock)
 	return (
 		<div>
 			<figure className="card card-product contein">
@@ -24,9 +27,10 @@ export default function ProductCard({imagen, titulo, precio, review, id}) {
 				<div className="bottom-wrap">
 					<button
 						className="btn btn-sm btn-primary float-right"
-						onClick={e => handleOnCLick(e.target.name, 2)}
-						name={id}>
-						Agregar al Carrito
+						onClick={e => handleOnCLick(e.target.name, 1)}
+						name={id}
+						disabled={stock === 0 ? true : false}>
+						{stock === 0 ? 'Sin Stock' : 'Comprar'}
 					</button>
 					<div className="price-wrap h5">
 						<span className="price-new">${precio}</span>
