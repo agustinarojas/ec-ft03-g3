@@ -6,7 +6,7 @@ export default function Cart({match}) {
 	return (
 		<div className="flexend">
 			<button id="compra">Checkout</button>
-			<Item products={products} />
+			<Item match={match} />
 		</div>
 	);
 }
