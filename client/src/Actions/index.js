@@ -91,17 +91,6 @@ export function getCategories() {
 	};
 }
 
-export function getCategories() {
-	return function (dispatch) {
-		return axios
-			.get('http://localhost:3005/category')
-			.then(res => {
-				dispatch({type: GET_CATEGORIES, categories: res.data});
-			})
-			.catch(err => console.log(err));
-	};
-}
-
 export function getCarrito(userId) {
 	return function (dispatch) {
 		return axios
