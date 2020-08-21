@@ -1,6 +1,9 @@
 .contein {
     width: 300px;
     margin-left: 25px;
+    -webkit-box-shadow: 10px 10px 55px -35px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 55px -35px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 55px -35px rgba(0,0,0,0.75);
 }
 .imagen {
     width: auto;
@@ -36,8 +39,4 @@
 
 .card-product .price-old {
     color: #999;
-}
-
-.sinStock {
-  background-color: red;
 }

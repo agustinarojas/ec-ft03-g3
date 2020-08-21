@@ -19,10 +19,12 @@ function App({productos, catProducts, getProducts, getCategories, categories}) {
 	// 		.then(res => setProducts(res.data))
 	// 		.catch(err => console.log(err));
 	// };
-
+ 
 	const filtrar = id => {
+		console.log(productos, id)
 		return productos.filter(product => product.id == id);
 	};
+
 	useEffect(() => {
 		getProducts();
 		getCategories();

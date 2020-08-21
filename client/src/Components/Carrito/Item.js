@@ -28,8 +28,8 @@ const handleOnCLickCantidad = (cantidad) => {
 			{productsCar?.map(p => (
 				<ul className="list-group list-group-flush">
 					<li class="list-group-item disp">
-						<div>
-							<img src={p.imagen} />
+						<img className='imgCart' src={p.imagen} />
+						<div className='titdes'>
 							<p>{p.titulo}</p>
 							<p>{p.descripcion}</p>
 						</div>

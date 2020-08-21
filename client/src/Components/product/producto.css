@@ -4,23 +4,41 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-color:rgb(204, 204, 204);
+	margin-left: 40px;
+	margin-right: 40px;
+	-webkit-box-shadow: 9px 9px 44px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 9px 9px 44px 0px rgba(0,0,0,0.75);
+box-shadow: 9px 9px 44px 0px rgba(0,0,0,0.75);
 }
 .Imga {
 	display: flex;
 	width: 550px;
 	height: 350px;
 	border: 3px white inset;
+	margin-bottom: 70px;
+	-webkit-box-shadow: 9px 9px 44px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 9px 9px 44px 0px rgba(0,0,0,0.75);
+box-shadow: 9px 9px 44px 0px rgba(0,0,0,0.75);
 }
 .Description {
 	display: inline-block;
 	padding-left: 40px;
 	margin-left: 40px;
 	border-left: 5px gray solid;
-	background-color: lightblue;
+	background-color: whitesmoke;
 	width: 450px;
 	height: 300px;
 	border-top-right-radius: 9px;
 	border-bottom-right-radius: 9px;
+	margin-bottom: 70px;
+	-webkit-box-shadow: -2px 19px 97px -18px rgba(252,252,252,1);
+	-moz-box-shadow: -2px 19px 97px -18px rgba(252,252,252,1);
+	box-shadow: -2px 19px 97px -18px rgba(252,252,252,1);
+	border-radius: 0px 7px 8px 0px;
+	-moz-border-radius: 0px 7px 8px 0px;
+	-webkit-border-radius: 0px 7px 8px 0px;
+	border: 6px double #d9f7ff;
 }
 .Precio {
 	margin-top: 50px;
