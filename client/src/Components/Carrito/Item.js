@@ -1,7 +1,9 @@
 import React from 'react';
 import './Item.css';
+import axios from 'axios';
 
-export default function Item({products}) {
+export default function Item({}) {
+	let products = axios.get('http://localhost:3005/$')
 	return (
 		<div>
 			{products?.map(p => (

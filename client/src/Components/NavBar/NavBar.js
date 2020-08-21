@@ -3,14 +3,14 @@ import SearchBar from '../SearchBar/SearchBar';
 import './NavBar.css';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {filterByCategory} from '../../Actions/index';
+import {filterByCategory, getCarrito} from '../../Actions/index';
 
-function NavBar({search, category, filterByCategory}) {
+function NavBar({search, category, filterByCategory, getCarrito}) {
 	return (
 		<nav className="navigatorbar">
 			<Link to="/">Home</Link>
 			<Link to="/admin">Form</Link>
-			<Link to="/cart">Carrito</Link>
+			<Link to="/cart" onClick={() => getCarrito()}>Carrito</Link>
 			<Link to="/sign_up"> Sign Up </Link>
 			<div className="dropd">
 				<button className="dropdbtn">
@@ -30,4 +30,4 @@ function NavBar({search, category, filterByCategory}) {
 	);
 }
 
-export default connect(null, {filterByCategory})(NavBar);
+export default connect(null, {filterByCategory, getCarrito})(NavBar);

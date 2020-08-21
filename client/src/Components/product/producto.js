@@ -25,8 +25,9 @@ export default function Products(producto) {
 						type="button"
 						className="btn btn-primary"
 						onClick={e => handleOnCLick(e.target.name, 2)}
-						name={producto?.producto[0]?.id}>
-						Add to cart
+						name={producto?.producto[0]?.id}
+						disabled={producto?.producto[0]?.stock === 0 ? true : false}>
+						{producto?.producto[0]?.stock === 0 ? 'Sin Stock' : 'Comprar'}
 					</button>
 				</div>
 			</div>
