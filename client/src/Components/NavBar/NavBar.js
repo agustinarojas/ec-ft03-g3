@@ -7,18 +7,19 @@ import {filterByCategory} from '../../Actions/index';
 
 function NavBar({search, category, filterByCategory}) {
 	return (
-		<nav class="navigatorbar">
+		<nav className="navigatorbar">
 			<Link to="/">Home</Link>
-			<Link to="/form">Form</Link>
+			<Link to="/admin">Form</Link>
 			<Link to="/cart">Carrito</Link>
-			<div class="dropd">
-				<button class="dropdbtn">
+			<Link to="/sign_up"> Sign Up </Link>
+			<div className="dropd">
+				<button className="dropdbtn">
 					Categorias
-					<i class="fa fa-caret-down"></i>
+					<i className="fa fa-caret-down"></i>
 				</button>
-				<div class="dropd-cont">
-					{category?.map(c => (
-						<Link to={c.titulo} onClick={e => filterByCategory(c.titulo)}>
+				<div className="dropd-cont">
+					{category?.map((c, i) => (
+						<Link to={c.titulo} onClick={e => filterByCategory(c.titulo)} key={i}>
 							{c.titulo}
 						</Link>
 					))}
