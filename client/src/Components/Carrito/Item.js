@@ -6,16 +6,17 @@ export default function Item({ products }) {
 		<div className='carritoItem'>
 			{products?.map(p => (
 				<ul className="list-group list-group-flush cartitem">
-					<li class="list-group-item disp">
+					<li class="list-group-item disp itemind">
 						<img className='imgCart' src={p.imagen} />
 						<div className='titdes'>
-							<p>{p.titulo}</p>
+							<p className= 'tituloo'>{p.titulo}</p>
 							<p>{p.descripcion}</p>
 						</div>
-						
+						<div className = 'botooon'>
 						<button className="btn botoncart">-</button>
-						<p>{p.cantidad} (cantida)</p>
+						<p className='acomodo'>{p.cantidad} (cantida)</p>
 						<button className="btn botoncart">+</button>
+						</div>
 						<p>$ {p.precio} </p>
 						<button>X</button>
 					</li>

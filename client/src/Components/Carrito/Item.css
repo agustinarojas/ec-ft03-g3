@@ -4,7 +4,27 @@
 	border-radius: 21px;
 	background-color: rgb(202, 202, 202);
 }
+.titdes {
+	margin-left: 20px;
+	padding-bottom: 60px;
+}
 
+.tituloo {
+	font-size: 23px;
+	font-weight: 700;
+	display: flex;
+}
+.acomodo {
+	margin-top: 8px;
+}
+.botooon{
+	display: flex;
+	margin-left: 750px;
+}
+.itemind{
+	display: flex;
+    align-items: center;
+}
 .disp {
 	display: flex;
 }
