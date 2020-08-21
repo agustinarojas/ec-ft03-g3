@@ -1,39 +1,43 @@
 .contein {
-    width: 300px;
-    margin-left: 25px;
+	width: 300px;
+	margin-left: 25px;
+	-webkit-box-shadow: 10px 10px 55px -35px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 10px 10px 55px -35px rgba(0, 0, 0, 0.75);
+	box-shadow: 10px 10px 55px -35px rgba(0, 0, 0, 0.75);
 }
 .imagen {
-    width: auto;
-    height: auto;
+	width: auto;
+	height: auto;
 }
 .card-product .img-wrap {
-    border-radius: 3px 3px 0 0;
-    overflow: hidden;
-    position: relative;
-    height: 220px;
-    text-align: center;
+	border-radius: 3px 3px 0 0;
+	overflow: hidden;
+	position: relative;
+	height: 220px;
+	text-align: center;
 }
 .card-product .img-wrap img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
 }
 .card-product .info-wrap {
-    overflow: hidden;
-    padding: 15px;
-    border-top: 1px solid #eee;
+	overflow: hidden;
+	padding: 15px;
+	border-top: 1px solid #eee;
 }
 .card-product .bottom-wrap {
-    padding: 15px;
-    border-top: 1px solid #eee;
+	padding: 15px;
+	border-top: 1px solid #eee;
 }
 
-.label-rating { margin-right:10px;
-    color: #333;
-    display: inline-block;
-    vertical-align: middle;
+.label-rating {
+	margin-right: 10px;
+	color: #333;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .card-product .price-old {
-    color: #999;
+	color: #999;
 }
