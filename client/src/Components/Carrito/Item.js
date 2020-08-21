@@ -27,25 +27,33 @@ function Item({productsCar, getCarrito, match}) {
 		getCarrito(userId);
 	}, [cantidad]);
 	return (
-		<div>
+		<div className="carritoItem">
 			{productsCar?.map((p, i) => (
-				<ul className="list-group list-group-flush" key={i}>
-					<li className="list-group-item disp">
+				<ul className="list-group list-group-flush cartitem" key={i}>
+					<li className="list-group-item disp itemind">
 						<img className="imgCart" src={p.imagen} />
 						<div className="titdes">
-							<p>{p.titulo}</p>
+							<p className="tituloo">{p.titulo}</p>
 							<p>{p.descripcion}</p>
 						</div>
-						<button className="btn botoncart" onClick={e => handleOnCLickCantidad(e.target.name)}>
-							-
-						</button>
-						<input onChange={e => setCantidad(e.target.value)} className="inpCant" />
-						<button className="btn botoncart" onClick={e => handleOnCLickCantidad(e.target.name)}>
-							+
-						</button>
-						<button name={p.id} onClick={e => handleOnCLick(e.target.name)}>
-							X
-						</button>
+						<div className="botooon">
+							<button className="btn botoncart" onClick={e => handleOnCLickCantidad(e.target.name)}>
+								-
+							</button>
+							<input onChange={e => setCantidad(e.target.value)} className="inpCant" />
+							<button className="btn botoncart" onClick={e => handleOnCLickCantidad(e.target.name)}>
+								+
+							</button>
+							<button name={p.id} onClick={e => handleOnCLick(e.target.name)}>
+								X
+							</button>
+						</div>
+						<div className="precioboton">
+							<p id="presio">$ {p.precio} </p>
+							<button id="boton1" name={p.id} onClick={e => handleOnCLick(e.target.name)}>
+								X
+							</button>
+						</div>
 					</li>
 				</ul>
 			))}
