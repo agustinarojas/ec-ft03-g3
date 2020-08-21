@@ -17,8 +17,10 @@ export default function Item({ products }) {
 						<p className='acomodo'>{p.cantidad} (cantida)</p>
 						<button className="btn botoncart">+</button>
 						</div>
-						<p>$ {p.precio} </p>
-						<button>X</button>
+						<div className ='precioboton'>
+						<p id='presio'>$ {p.precio} </p>
+						<button id='boton1'>X</button>
+						</div>
 					</li>
 				</ul>
 			))}
