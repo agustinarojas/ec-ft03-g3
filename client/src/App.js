@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
-import Catalogo from './Components/Catalogo/Catalogo';
+import Catalogo from './Components/Catalogue/Catalogo';
 import Products from './Components/product/producto';
 import Table from './Components/Table/Table';
 import Cart from './Components/Carrito/Cart';
