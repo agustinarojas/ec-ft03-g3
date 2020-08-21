@@ -8,7 +8,7 @@ import {filterByCategory} from '../../Actions/index';
 function NavBar({search, category, filterByCategory}) {
 	return (
 		<nav className="navigatorbar">
-			<Link to="/">Home</Link>
+			<Link to="/" id='chico'> <img className='logopp' src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRur8gLuus9J0WluNX13m0OfezctZm3xcw2zw&usqp=CAU'/></Link>
 			<Link to="/admin">Form</Link>
 			<Link to="/cart">Carrito</Link>
 			<Link to="/sign_up"> Sign Up </Link>

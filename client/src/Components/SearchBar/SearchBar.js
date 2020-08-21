@@ -13,13 +13,13 @@ export default function SerchBar({search}) {
 					setInput('');
 				}}>
 				<input
-					className="input"
+					className="input3"
 					type="text"
 					value={input}
 					placeholder="Buscar..."
 					onChange={event => setInput(event.target.value)}
 				/>
-				<input className="boton input" type="submit" value="Buscar" />
+				<input className="IBBoton" type="submit" value="Buscar" />
 			</form>
 		</div>
 	);

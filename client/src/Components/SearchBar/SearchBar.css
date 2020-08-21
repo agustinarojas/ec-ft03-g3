@@ -1,6 +1,6 @@
 .contenedor {
-	/* background-color: rgb(248, 144, 74); */
-	background-color: indianred;
+
+	background-color: rgb(6, 154, 246);
 }
 
 .form {
@@ -8,7 +8,7 @@
 	justify-content: flex-end;
 }
 
-.input {
+.input3 {
 	border-radius: 5px;
 	margin-right: 10px;
 	width: 250px;
@@ -17,12 +17,43 @@
 	margin: 15px;
 	margin-right: 5px;
 	display: flex;
+	border-color:#cccccc; padding:5px; font-size:16px; text-align:left; border-style:solid; 
+	border-width:1px; border-radius:10px; box-shadow: 0px 0px 15px 0px rgba(42,42,42,.67);  
+} 
+.input3:focus {
+	border: 0px;
+	outline: none;
 }
 
-.boton input {
-	border-radius: 5px;
-	width: 90px;
-	height: 35px;
-	font-size: 17px;
+
+.IBBoton {
+	font-size: 14px;
 	text-align: center;
+	margin: 15px;
+    border: 0px;
+	box-shadow: 0px 0px 11px 0px #324147;
+	background-color:#3194e0;
+	border-radius:42px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	width: 80px;
+	margin-right: 150px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
 }
+.IBBoton:hover {
+	background-color:#30b3f0;
+	border: 0px;
+}
+.IBBoton:active {
+	position:relative;
+	top:1px;
+	border: 0px;
+}
+.IBBoton:focus {
+	border: 0px;
+	outline: none;
+}
+
