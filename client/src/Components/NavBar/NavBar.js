@@ -10,7 +10,7 @@ function NavBar({search, category, filterByCategory, getCarrito}) {
 		<nav className="navigatorbar">
 			<Link to="/">Home</Link>
 			<Link to="/admin">Form</Link>
-			<Link to="/cart" onClick={() => getCarrito()}>Carrito</Link>
+			<Link to="/cart" onClick={() => getCarrito(1)}>Carrito</Link>
 			<Link to="/sign_up"> Sign Up </Link>
 			<div className="dropd">
 				<button className="dropdbtn">

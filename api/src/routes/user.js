@@ -102,16 +102,36 @@ server.get('/:ids/cart', (req, res) => {
 });
 
 server.delete('/:ids/cart', (req, res) => {
+    var ids = req.params.ids;
+    Carrito.findOne({
+        where: {
+            userId: ids,
+            estado: 'activo',
+        },
+    })
+        .then(carrito => {
+            carrito.destroy();
+            res.status(201).send('Carrito vaciado.');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
+
+server.delete('/:ids/cart/:prodId', (req, res) => {
 	var ids = req.params.ids;
 	Carrito.findOne({
 		where: {
 			userId: ids,
 			estado: 'activo',
 		},
+		include: {model:Product}
 	})
 		.then(carrito => {
-			carrito.destroy();
-			res.status(201).send('Carrito vaciado.');
+			let result = carrito.products.filter(el => (el.id == req.params.prodId));
+			carrito.removeProducts(result[0]);
+			res.status(201).send('Producto Eliminado.');
 		})
 		.catch(err => {
 			console.log(err);

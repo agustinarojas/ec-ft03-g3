@@ -25,7 +25,7 @@ console.log(stock)
 				<div className="bottom-wrap">
 					<button
 						className="btn btn-sm btn-primary float-right"
-						onClick={e => handleOnCLick(e.target.name, 2)}
+						onClick={e => handleOnCLick(e.target.name, 1)}
 						name={id}
 						disabled={stock === 0 ? true : false}>
 						{stock === 0 ? 'Sin Stock' : 'Comprar'}
