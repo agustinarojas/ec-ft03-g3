@@ -3,8 +3,9 @@ import {Route} from 'react-router-dom';
 import Catalogo from './Components/Catalogo/Catalogo';
 import Products from './Components/product/producto';
 import Table from './Components/Table/Table';
-import NavBar from './Components/NavBar/NavBar';
 import Cart from './Components/Carrito/Cart';
+import NavBar from './Components/NavBar/NavBar';
+
 import FormUsuario from './Components/FormUsuario/FormUsuario';
 import {getProducts, getCategories} from './Actions/index';
 import {connect} from 'react-redux';

@@ -63,19 +63,21 @@ server.delete('/:id', (req, res) => {
 server.post('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
 	const {id} = req.body;
+	console.log(ids);
 	console.log(req.body);
 	let pProduct = Product.findByPk(id);
 	let pCarrito = Carrito.findOrCreate({
 		where: {
 			userId: ids,
-			estado: 'activo',
+			estado: 'activo'
 		},
 	});
 	Promise.all([pCarrito, pProduct])
 		.then(values => {
-			console.log(values);
+			console.log(values[1]);
 			let carrito = values[0][0];
 			let producto = values[1];
+			console.log(producto.precio)
 			producto.addCarritos(carrito, {through: {cantidad: 1, precio: producto.precio}});
 			res.send(carrito);
 		})

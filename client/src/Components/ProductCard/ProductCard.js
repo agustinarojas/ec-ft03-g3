@@ -5,7 +5,9 @@ import axios from 'axios';
 
 export default function ProductCard({imagen, titulo, precio, review, id, stock}) {
 	const handleOnCLick = (id, userId) => {
-		axios.post(`http://localhost:3005/users/${userId}/cart`, {id});
+		console.log(typeof parseInt (id))
+			console.log(userId)
+		axios.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt (id)});
 	};
 console.log(stock)
 	return (
