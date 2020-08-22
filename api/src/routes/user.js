@@ -1,6 +1,6 @@
 const server = require('express').Router();
 const {Op} = require('sequelize');
-const {User, Carrito, Product, lineorder} = require('../db.js');
+const {User, Carrito, Product} = require('../db.js');
 
 server.get('/', (req, res) => {
 	User.findAll()
@@ -72,10 +72,8 @@ server.post('/:ids/cart', (req, res) => {
 	});
 	Promise.all([pCarrito, pProduct])
 		.then(values => {
-			console.log(values[1]);
 			let carrito = values[0][0];
 			let producto = values[1];
-			console.log(producto.precio);
 			producto.addCarritos(carrito, {through: {cantidad: 1, precio: producto.precio}});
 			res.send(carrito);
 		})
@@ -140,6 +138,7 @@ server.delete('/:ids/cart/:prodId', (req, res) => {
 server.put('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
 	var data = req.body;
+	console.log(data);
 	Carrito.findOne({
 		where: {
 			userId: ids,
@@ -151,7 +150,7 @@ server.put('/:ids/cart', (req, res) => {
 	})
 		.then(carrito => {
 			let result = carrito.products.filter(el => el.id === data.id);
-			result[0].lineorder.update({
+			result[0]?.lineorder.update({
 				cantidad: data.cantidad,
 			});
 			result[0].lineorder.save();
