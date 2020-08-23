@@ -13,6 +13,7 @@ import {
 	DELETE_PROD_CART,
 	SET_CANTIDAD,
 	ADD_TO_CART,
+	GET_ORDER,
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -177,6 +178,17 @@ export function setCantidad(prodId, cantidad, accion) {
 			.then(res => {
 				console.log(res.data);
 				dispatch({type: SET_CANTIDAD, lineorder: res.data, accion});
+			})
+			.catch(err => console.log(err));
+	};
+}
+
+export function getOrder(id) {
+	return function (dispatch) {
+		return axios
+			.get('http://localhost:3005/orders/1')
+			.then(res => {
+				dispatch({type: GET_ORDER, orders: res.data});
 			})
 			.catch(err => console.log(err));
 	};

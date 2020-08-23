@@ -5,13 +5,18 @@ import Products from './Components/product/producto';
 import Table from './Components/Table/Table';
 import Cart from './Components/Carrito/Cart';
 import NavBar from './Components/NavBar/NavBar';
+<<<<<<< HEAD
 import axios from 'axios';
+=======
+import Order from "./Components/Orders/Order"
+>>>>>>> master
 import FormUsuario from './Components/FormUsuario/FormUsuario';
 import {getProducts, getCategories} from './Actions/index';
 import {connect} from 'react-redux';
 
-function App({productos, catProducts, getProducts, getCategories, categories}) {
+function App({productos, catProducts, getProducts, getCategories, categories, carrito}) {
 	const [buscar, setBuscar] = useState('');
+<<<<<<< HEAD
 	const apiRequest = () => {
 		axios
 			.get(`http://localhost:3005/search?valor=${buscar}`)
@@ -19,6 +24,15 @@ function App({productos, catProducts, getProducts, getCategories, categories}) {
 			.catch(err => console.log(err));
 	};
 
+=======
+	// const apiRequest = buscar => {
+	// 	let url = buscar ? `search?valor=${buscar}` : 'products';
+	// 	axios
+	// 		.get(`http://localhost:3005/${url}`)
+	// 		.then(res => setProducts(res.data))
+	// 		.catch(err => console.log(err));
+	// };
+>>>>>>> master
 	const filtrar = id => {
 		console.log(productos, id);
 		return productos.filter(product => product.id == id);
@@ -47,7 +61,11 @@ function App({productos, catProducts, getProducts, getCategories, categories}) {
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
+
+			<Route path="/cart" render={() => <Cart products={productos} />} />
+			<Route path = "/order/:id" render = {() => <Order products = {productos}/> }/>
 			<Route path="/cart/:userId" component={Cart} />
+
 			<Route path="/sign_up" component={FormUsuario} />
 		</div>
 	);

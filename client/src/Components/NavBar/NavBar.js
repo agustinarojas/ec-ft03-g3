@@ -3,9 +3,15 @@ import SearchBar from '../SearchBar/SearchBar';
 import './NavBar.css';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+<<<<<<< HEAD
 import {filterByCategory} from '../../Actions/index';
 
 function NavBar({search, category, filterByCategory}) {
+=======
+import {filterByCategory, getCarrito, getOrder} from '../../Actions/index';
+
+function NavBar({search, category, filterByCategory, getCarrito,getOrder}) {
+>>>>>>> master
 	return (
 		<nav className="navigatorbar">
 			<Link to="/" id="chico">
@@ -14,8 +20,17 @@ function NavBar({search, category, filterByCategory}) {
 					src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRur8gLuus9J0WluNX13m0OfezctZm3xcw2zw&usqp=CAU"
 				/>
 			</Link>
+<<<<<<< HEAD
 			<Link to="/admin">Admin</Link>
 			<Link to="/cart/1">Carrito</Link>
+=======
+			<Link to="/admin">Form</Link>
+			<Link to="/cart" onClick={() => getCarrito(1)}>Carrito</Link>
+			<Link to = "/order/1" onClick = {() => getOrder(1)}>Ordenes</Link>
+			<Link to="/cart/1" onClick={() => getCarrito(1)}>
+				Carrito
+			</Link>
+>>>>>>> master
 			<Link to="/sign_up"> Sign Up </Link>
 			<div className="dropd">
 				<button className="dropdbtn">
@@ -35,4 +50,8 @@ function NavBar({search, category, filterByCategory}) {
 	);
 }
 
+<<<<<<< HEAD
 export default connect(null, {filterByCategory})(NavBar);
+=======
+export default connect(null, {filterByCategory, getCarrito, getOrder})(NavBar);
+>>>>>>> master

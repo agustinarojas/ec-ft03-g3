@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const {Carrito} = require('../db.js');
+const {Carrito, Product} = require('../db.js');
 
 server.get('/', (req, res) => {
 	//Ruta trae todas las ordenes... Dentro de tabla de orden
@@ -22,6 +22,9 @@ server.get('/:id', (req, res) => {
 		where: {
 			userId: req.params.id,
 			estado: 'completa',
+		},
+		include: {
+			model: Product,
 		},
 	})
 		.then(completados => {

@@ -14,6 +14,7 @@ import {
 	DELETE_PROD_CART,
 	SET_CANTIDAD,
 	ADD_TO_CART,
+	GET_ORDER,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
@@ -117,15 +118,19 @@ export default function rootReducer(state = inicialState, action) {
 				productsCar: productos,
 				totalCarrito: precios.reduce((acum, value) => acum + value),
 			};
-		case SET_CANTIDAD:
-			let operacion =
-				action.accion === 'mas'
-					? parseInt(state.totalCarrito) + parseInt(action.lineorder.precio)
-					: parseInt(state.totalCarrito) - parseInt(action.lineorder.precio);
-
+		// case SET_CANTIDAD:
+		// 	let operacion =
+		// 		action.accion === 'mas'
+		// 			? parseInt(state.totalCarrito) + parseInt(action.lineorder.precio)
+		// 			: parseInt(state.totalCarrito) - parseInt(action.lineorder.precio);
+		// 	return {
+		// 		...state,
+		// 		totalCarrito: operacion,
+		// 	};
+		case GET_ORDER:
 			return {
 				...state,
-				totalCarrito: operacion,
+				orders: action.orders,
 			};
 		default:
 			return state;
