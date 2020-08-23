@@ -1,6 +1,6 @@
 const server = require('express').Router();
 const {Op} = require('sequelize');
-const {User, Carrito, Product, lineorder} = require('../db.js');
+const {User, Carrito, Product} = require('../db.js');
 
 server.get('/', (req, res) => {
 	User.findAll()
@@ -63,21 +63,17 @@ server.delete('/:id', (req, res) => {
 server.post('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
 	const {id} = req.body;
-	console.log(ids);
-	console.log(req.body);
 	let pProduct = Product.findByPk(id);
 	let pCarrito = Carrito.findOrCreate({
 		where: {
 			userId: ids,
-			estado: 'activo'
+			estado: 'activo',
 		},
 	});
 	Promise.all([pCarrito, pProduct])
 		.then(values => {
-			console.log(values[1]);
 			let carrito = values[0][0];
 			let producto = values[1];
-			console.log(producto.precio)
 			producto.addCarritos(carrito, {through: {cantidad: 1, precio: producto.precio}});
 			res.send(carrito);
 		})
@@ -104,22 +100,21 @@ server.get('/:ids/cart', (req, res) => {
 });
 
 server.delete('/:ids/cart', (req, res) => {
-    var ids = req.params.ids;
-    Carrito.findOne({
-        where: {
-            userId: ids,
-            estado: 'activo',
-        },
-    })
-        .then(carrito => {
-            carrito.destroy();
-            res.status(201).send('Carrito vaciado.');
-        })
-        .catch(err => {
-            console.log(err);
-        });
+	var ids = req.params.ids;
+	Carrito.findOne({
+		where: {
+			userId: ids,
+			estado: 'activo',
+		},
+	})
+		.then(carrito => {
+			carrito.destroy();
+			res.status(201).send('Carrito vaciado.');
+		})
+		.catch(err => {
+			console.log(err);
+		});
 });
-
 
 server.delete('/:ids/cart/:prodId', (req, res) => {
 	var ids = req.params.ids;
@@ -128,10 +123,10 @@ server.delete('/:ids/cart/:prodId', (req, res) => {
 			userId: ids,
 			estado: 'activo',
 		},
-		include: {model:Product}
+		include: {model: Product},
 	})
 		.then(carrito => {
-			let result = carrito.products.filter(el => (el.id == req.params.prodId));
+			let result = carrito.products.filter(el => el.id == req.params.prodId);
 			carrito.removeProducts(result[0]);
 			res.status(201).send('Producto Eliminado.');
 		})
@@ -143,6 +138,7 @@ server.delete('/:ids/cart/:prodId', (req, res) => {
 server.put('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
 	var data = req.body;
+	console.log(data);
 	Carrito.findOne({
 		where: {
 			userId: ids,
@@ -154,7 +150,7 @@ server.put('/:ids/cart', (req, res) => {
 	})
 		.then(carrito => {
 			let result = carrito.products.filter(el => el.id === data.id);
-			result[0].lineorder.update({
+			result[0]?.lineorder.update({
 				cantidad: data.cantidad,
 			});
 			result[0].lineorder.save();
@@ -166,7 +162,7 @@ server.put('/:ids/cart', (req, res) => {
 });
 
 server.get('/:ids/orders', (req, res) => {
-	//Ruta trae toda las ordenes de un usuario.
+	//Ruta trae toda las ordenes de un usuario. Dentro de tabla de orden
 	Carrito.findAll({
 		where: {
 			userId: req.params.ids,

@@ -20,7 +20,7 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 	// 		.catch(err => console.log(err));
 	// };
 	const filtrar = id => {
-		console.log(productos, id)
+		console.log(productos, id);
 		return productos.filter(product => product.id == id);
 	};
 
@@ -46,9 +46,11 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
+
 			<Route path="/cart" render={() => <Cart products={productos} />} />
-			{/* <Route path=  "/order" render = {() => <Order carrito = {carrito} />}/> */}
 			<Route path = "/order/:id" render = {() => <Order products = {productos}/> }/>
+			<Route path="/cart/:userId" component={Cart} />
+
 			<Route path="/sign_up" component={FormUsuario} />
 		</div>
 	);

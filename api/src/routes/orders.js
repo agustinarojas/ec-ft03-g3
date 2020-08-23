@@ -2,7 +2,7 @@ const server = require('express').Router();
 const {Carrito, Product} = require('../db.js');
 
 server.get('/', (req, res) => {
-	//Ruta trae todas las ordenes...
+	//Ruta trae todas las ordenes... Dentro de tabla de orden
 	Carrito.findAll({
 		where: {
 			estado: 'completa',
@@ -17,7 +17,7 @@ server.get('/', (req, res) => {
 });
 
 server.get('/:id', (req, res) => {
-	// Ruta trae orden de usuario en especifico, completadas...
+	// Ruta trae orden de usuario en especifico, completadas... de componente orden
 	Carrito.findOne({
 		where: {
 			userId: req.params.id,

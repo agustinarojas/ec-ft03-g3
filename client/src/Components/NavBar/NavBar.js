@@ -8,10 +8,18 @@ import {filterByCategory, getCarrito, getOrder} from '../../Actions/index';
 function NavBar({search, category, filterByCategory, getCarrito,getOrder}) {
 	return (
 		<nav className="navigatorbar">
-			<Link to="/" id='chico'> <img className='logopp' src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRur8gLuus9J0WluNX13m0OfezctZm3xcw2zw&usqp=CAU'/></Link>
+			<Link to="/" id="chico">
+				<img
+					className="logopp"
+					src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRur8gLuus9J0WluNX13m0OfezctZm3xcw2zw&usqp=CAU"
+				/>
+			</Link>
 			<Link to="/admin">Form</Link>
 			<Link to="/cart" onClick={() => getCarrito(1)}>Carrito</Link>
 			<Link to = "/order/1" onClick = {() => getOrder(1)}>Ordenes</Link>
+			<Link to="/cart/1" onClick={() => getCarrito(1)}>
+				Carrito
+			</Link>
 			<Link to="/sign_up"> Sign Up </Link>
 			<div className="dropd">
 				<button className="dropdbtn">

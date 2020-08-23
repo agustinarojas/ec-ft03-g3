@@ -12,6 +12,13 @@ export default function Cart({products}) {
 		<div>
 			<Item products={products} />
 			<button  onClick = {comprar}>Comprar</button>
+import './cart.css';
+
+export default function Cart({match}) {
+	return (
+		<div className="flexend">
+			<button id="compra">Checkout</button>
+			<Item match={match} />
 		</div>
 	);
 }
