@@ -10,3 +10,4 @@ export const POST_CATEGORY = 'POST_CATEGORY';
 export const FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_CARRITO = 'GET_CARRITO';
+export const GET_ORDER = "GET_ORDER";

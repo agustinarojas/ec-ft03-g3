@@ -10,7 +10,8 @@ import {
 	PUT_CATEGORY,
 	FILTER_BY_CATEGORY,
 	GET_CATEGORIES,
-	GET_CARRITO
+	GET_CARRITO,
+	GET_ORDER
 } from '../Constants/ProductsConstants';
 
 export function getProducts() {
@@ -127,6 +128,18 @@ export function getCarrito(userId) {
 			.get(`http://localhost:3005/users/${userId}/cart`)
 			.then(res => {
 				dispatch({type: GET_CARRITO, productsCar: res.data});
+			})
+			.catch(err => console.log(err));
+	};
+}
+
+
+export function getOrder(id) {
+	return function (dispatch) {
+		return axios
+			.get("http://localhost:3005/orders/1")
+			.then(res => {
+				dispatch({type: GET_ORDER, orders: res.data});
 			})
 			.catch(err => console.log(err));
 	};
