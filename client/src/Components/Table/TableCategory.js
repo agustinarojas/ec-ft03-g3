@@ -1,9 +1,9 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import {setCategory, postCategory, putCategory, deleteCategory} from '../../Actions/index.js';
+import {postCategory, putCategory, deleteCategory} from '../../Actions/index.js';
 import {connect} from 'react-redux';
 
-function TableCategory({categories, postCategory, putCategory}) {
+function TableCategory({categories, postCategory, putCategory, deleteCategory}) {
 	const columns = [
 		{title: 'Titulo', field: 'titulo'},
 		{title: 'Descripción', field: 'descripcion'},
@@ -25,13 +25,10 @@ function TableCategory({categories, postCategory, putCategory}) {
 const mapStateToProps = state => {
 	return {
 		categories: state.categories,
-		products: state.products,
-		product: state.product,
-		putProduct: state.putProduct,
 	};
 };
 export default connect(mapStateToProps, {
-	setCategory,
+	deleteCategory,
 	postCategory,
 	putCategory,
 })(TableCategory);

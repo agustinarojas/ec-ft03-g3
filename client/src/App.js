@@ -5,20 +5,19 @@ import Products from './Components/product/producto';
 import Table from './Components/Table/Table';
 import Cart from './Components/Carrito/Cart';
 import NavBar from './Components/NavBar/NavBar';
-
+import axios from 'axios';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
 import {getProducts, getCategories} from './Actions/index';
 import {connect} from 'react-redux';
 
 function App({productos, catProducts, getProducts, getCategories, categories}) {
 	const [buscar, setBuscar] = useState('');
-	// const apiRequest = buscar => {
-	// 	let url = buscar ? `search?valor=${buscar}` : 'products';
-	// 	axios
-	// 		.get(`http://localhost:3005/${url}`)
-	// 		.then(res => setProducts(res.data))
-	// 		.catch(err => console.log(err));
-	// };
+	const apiRequest = () => {
+		axios
+			.get(`http://localhost:3005/search?valor=${buscar}`)
+			.then(res => res.data)
+			.catch(err => console.log(err));
+	};
 
 	const filtrar = id => {
 		console.log(productos, id);
@@ -28,6 +27,7 @@ function App({productos, catProducts, getProducts, getCategories, categories}) {
 	useEffect(() => {
 		getProducts();
 		getCategories();
+		apiRequest();
 	}, [buscar]);
 
 	const search = input => {
