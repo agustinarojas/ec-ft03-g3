@@ -1,16 +1,13 @@
 import axios from 'axios';
 import {
 	GET_PRODUCTS,
-	DELETE_PRODUCT,
-	POST_PRODUCTS,
 	SET_CATEGORY,
 	DELETE_PROD_CATEGORY,
-	PUT_PRODUCTS,
 	POST_CATEGORY,
 	PUT_CATEGORY,
 	FILTER_BY_CATEGORY,
 	GET_CATEGORIES,
-	GET_CARRITO
+	GET_CARRITO,
 } from '../Constants/ProductsConstants';
 
 export function getProducts() {
@@ -24,13 +21,8 @@ export function getProducts() {
 	};
 }
 
-export function deleteProduct(id) {
-	return axios.delete('http://localhost:3005/products/' + id);
-}
-
 export function deleteCategory(id) {
 	return axios.delete('http://localhost:3005/category/' + id);
-
 }
 
 export function setCategory(prodId, catId) {
@@ -50,17 +42,6 @@ export function deleteProdCategory(prodId, catId) {
 			.delete(`http://localhost:3005/products/${prodId}/category/${catId}`)
 			.then(res => {
 				dispatch({type: DELETE_PROD_CATEGORY});
-			})
-			.catch(err => console.log(err));
-	};
-}
-
-export function postProducts(product) {
-	return function (dispatch) {
-		return axios
-			.post('http://localhost:3005/products', product)
-			.then(res => {
-				dispatch({type: POST_PRODUCTS, product});
 			})
 			.catch(err => console.log(err));
 	};
@@ -88,17 +69,6 @@ export function putCategory(category, id) {
 	};
 }
 
-export function putProducts(product, id) {
-	return function (dispatch) {
-		return axios
-			.put(`http://localhost:3005/products/${id}`, product)
-			.then(res => {
-				dispatch({type: PUT_PRODUCTS, product});
-			})
-			.catch(err => console.log(err));
-	};
-}
-
 export function filterByCategory(categoria) {
 	return function (dispatch) {
 		return axios
@@ -111,14 +81,14 @@ export function filterByCategory(categoria) {
 }
 
 export function getCategories() {
-    return function (dispatch) {
-        return axios
-            .get('http://localhost:3005/category')
-            .then(res => {
-                dispatch({type: GET_CATEGORIES, categories: res.data});
-            })
-            .catch(err => console.log(err));
-    };
+	return function (dispatch) {
+		return axios
+			.get('http://localhost:3005/category')
+			.then(res => {
+				dispatch({type: GET_CATEGORIES, categories: res.data});
+			})
+			.catch(err => console.log(err));
+	};
 }
 
 export function getCarrito(userId) {

@@ -4,9 +4,6 @@ import {
 	DELETE_CATEGORY,
 	SET_CATEGORY,
 	DELETE_PROD_CATEGORY,
-	DELETE_PRODUCT,
-	POST_PRODUCTS,
-	PUT_PRODUCTS,
 	GET_PRODUCTS,
 	FILTER_BY_CATEGORY,
 	GET_CATEGORIES,
@@ -26,10 +23,6 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				products: action.products,
 			};
-		case DELETE_PRODUCT:
-			return {
-				...state,
-			};
 		case DELETE_CATEGORY:
 			return {
 				...state,
@@ -38,16 +31,6 @@ export default function rootReducer(state = inicialState, action) {
 			return state;
 		case DELETE_PROD_CATEGORY:
 			return state;
-		case POST_PRODUCTS:
-			return {
-				...state,
-				product: action.product,
-			};
-		case PUT_PRODUCTS:
-			return {
-				...state,
-				putProduct: action.putProduct,
-			};
 		case POST_CATEGORY:
 			return {
 				...state,
