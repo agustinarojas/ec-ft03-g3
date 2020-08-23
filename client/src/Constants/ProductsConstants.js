@@ -8,3 +8,6 @@ export const FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_CARRITO = 'GET_CARRITO';
 export const GET_ORDER = "GET_ORDER";
+export const DELETE_PRODUCT = "DELETE_PRODUCT"
+export const POST_PRODUCTS = "POST_PRODUCTS"
+export const PUT_PRODUCTS = "PUT_PRODUCTS"
