@@ -1,3 +1,4 @@
+
 import React, {useState, useEffect} from 'react';
 import './Item.css';
 import axios from 'axios';
@@ -81,9 +82,9 @@ function Item({productsCar, getCarrito, match}) {
 	);
 }
 
-const mapStateToProps = state => {
-	return {
-		productsCar: state.productsCar,
-	};
+const mapStateToProps = (state) => {
+  return {
+    productsCar: state.productsCar,
+  };
 };
 export default connect(mapStateToProps, {getCarrito})(Item);
