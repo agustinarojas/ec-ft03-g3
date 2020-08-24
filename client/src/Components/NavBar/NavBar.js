@@ -15,7 +15,6 @@ function NavBar({search, category, filterByCategory, getCarrito,getOrder}) {
 				/>
 			</Link>
 			<Link to="/admin">Form</Link>
-			<Link to="/cart" onClick={() => getCarrito(1)}>Carrito</Link>
 			<Link to = "/order/1" onClick = {() => getOrder(1)}>Ordenes</Link>
 			<Link to="/cart/1" onClick={() => getCarrito(1)}>
 				Carrito

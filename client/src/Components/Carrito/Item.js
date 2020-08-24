@@ -11,7 +11,7 @@ function Item({productsCar, getCarrito, match}) {
 		num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
 	const [total, setTotal] = useState(num);
 	const [can, setCantidad] = useState(1);
-	let {userId} = match.params;
+	let userId = match?.params?.userId;
 
 	const handleOnCLick = id => {
 		// setCantidad(cantidad - 1);
