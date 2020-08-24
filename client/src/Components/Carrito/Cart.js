@@ -16,10 +16,18 @@ import './cart.css';
 // 			<button  onClick = {comprar}>Comprar</button>
 
 export default function Cart({match}) {
+	function comprar() {
+		return axios
+			.put('http://localhost:3005/orders/1', {estado: 'completa'})
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
+	}
 	return (
 		<div className="flexend">
-			<button id="compra">Checkout</button>
 			<Item match={match} />
+			<button id="compra" onClick={comprar}>
+				Checkout
+			</button>
 		</div>
 	);
 }

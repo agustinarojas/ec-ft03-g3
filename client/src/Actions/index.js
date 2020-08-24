@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {
 	GET_PRODUCTS,
+	PUT_PRODUCT,
+	DELETE_PRODUCT,
 	SET_CATEGORY,
 	DELETE_PROD_CATEGORY,
 	POST_CATEGORY,
@@ -8,10 +10,13 @@ import {
 	FILTER_BY_CATEGORY,
 	GET_CATEGORIES,
 	GET_CARRITO,
-	GET_ORDER
-
+	DELETE_PROD_CART,
+	SET_CANTIDAD,
+	ADD_TO_CART,
+	GET_ORDER,
 } from '../Constants/ProductsConstants';
 
+//* PRODUCTS
 export function getProducts() {
 	return function (dispatch) {
 		return axios
@@ -22,28 +27,46 @@ export function getProducts() {
 			.catch(err => console.log(err));
 	};
 }
-
-export function deleteCategory(id) {
-	return axios.delete('http://localhost:3005/category/' + id);
-}
-
-export function setCategory(prodId, catId) {
+export function addProduct(product) {
 	return function (dispatch) {
 		return axios
-			.post(`http://localhost:3005/products/${prodId}/category/${catId}`)
+			.post('http://localhost:3005/products', product)
 			.then(res => {
-				dispatch({type: SET_CATEGORY});
+				dispatch({type: 'ADD_PRODUCT', product: res.data});
 			})
 			.catch(err => console.log(err));
 	};
 }
 
-export function deleteProdCategory(prodId, catId) {
+export function putProduct(product, id) {
 	return function (dispatch) {
 		return axios
-			.delete(`http://localhost:3005/products/${prodId}/category/${catId}`)
+			.put(`http://localhost:3005/products/${id}`, product)
 			.then(res => {
-				dispatch({type: DELETE_PROD_CATEGORY});
+				dispatch({type: PUT_PRODUCT, product: res.data});
+			})
+			.catch(err => console.log(err));
+	};
+}
+
+export function deleteProduct(id) {
+	return function (dispatch) {
+		return axios
+			.delete(`http://localhost:3005/products/${id}`)
+			.then(res => {
+				dispatch({type: DELETE_PRODUCT, product: res.data});
+			})
+			.catch(err => console.log(err));
+	};
+}
+
+//* CATEGORY
+export function getCategories() {
+	return function (dispatch) {
+		return axios
+			.get('http://localhost:3005/category')
+			.then(res => {
+				dispatch({type: GET_CATEGORIES, categories: res.data});
 			})
 			.catch(err => console.log(err));
 	};
@@ -65,7 +88,40 @@ export function putCategory(category, id) {
 		return axios
 			.put(`http://localhost:3005/category/${id}`, category)
 			.then(res => {
-				dispatch({type: PUT_CATEGORY, category});
+				dispatch({type: PUT_CATEGORY, category: res.data});
+			})
+			.catch(err => console.log(err));
+	};
+}
+
+export function deleteCategory(id) {
+	return function (dispatch) {
+		return axios
+			.delete('http://localhost:3005/category/' + id)
+			.then(res => {
+				dispatch({type: 'DELETE_CATEGORY', category: res.data});
+			})
+			.catch(err => console.log(err));
+	};
+}
+
+//* PRODUCT-CATEGORY
+export function setCategory(prodId, catId) {
+	return function (dispatch) {
+		return axios
+			.post(`http://localhost:3005/products/${prodId}/category/${catId}`)
+			.then(res => {
+				dispatch({type: SET_CATEGORY});
+			})
+			.catch(err => console.log(err));
+	};
+}
+export function deleteProdCategory(prodId, catId) {
+	return function (dispatch) {
+		return axios
+			.delete(`http://localhost:3005/products/${prodId}/category/${catId}`)
+			.then(res => {
+				dispatch({type: DELETE_PROD_CATEGORY});
 			})
 			.catch(err => console.log(err));
 	};
@@ -82,33 +138,55 @@ export function filterByCategory(categoria) {
 	};
 }
 
-export function getCategories() {
-	return function (dispatch) {
-		return axios
-			.get('http://localhost:3005/category')
-			.then(res => {
-				dispatch({type: GET_CATEGORIES, categories: res.data});
-			})
-			.catch(err => console.log(err));
-	};
-}
-
+//* CARRITO
 export function getCarrito(userId) {
 	return function (dispatch) {
 		return axios
 			.get(`http://localhost:3005/users/${userId}/cart`)
+			.then(res => dispatch({type: GET_CARRITO, productsCar: res.data}))
+			.catch(err => console.log(err));
+	};
+}
+
+export function addToCart(userId, prodId) {
+	return function (dispatch) {
+		return axios
+			.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt(prodId)})
 			.then(res => {
-				dispatch({type: GET_CARRITO, productsCar: res.data});
+				res.data.lineorder = {cantidad: 1};
+				console.log(res.data);
+				dispatch({type: ADD_TO_CART, product: res.data});
+			});
+	};
+}
+
+export function deleteProdCart(prodId) {
+	return function (dispatch) {
+		return axios
+			.delete(`http://localhost:3005/users/1/cart/${prodId}`)
+			.then(res => {
+				dispatch({type: DELETE_PROD_CART, productCar: res.data});
 			})
 			.catch(err => console.log(err));
 	};
 }
 
+export function setCantidad(prodId, cantidad, accion) {
+	return function (dispatch) {
+		return axios
+			.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
+			.then(res => {
+				console.log(res.data);
+				dispatch({type: SET_CANTIDAD, lineorder: res.data, accion});
+			})
+			.catch(err => console.log(err));
+	};
+}
 
 export function getOrder(id) {
 	return function (dispatch) {
 		return axios
-			.get("http://localhost:3005/orders/1")
+			.get('http://localhost:3005/orders/1')
 			.then(res => {
 				dispatch({type: GET_ORDER, orders: res.data});
 			})

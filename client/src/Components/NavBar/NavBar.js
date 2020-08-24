@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {filterByCategory, getCarrito, getOrder} from '../../Actions/index';
 
-function NavBar({search, category, filterByCategory, getCarrito,getOrder}) {
+function NavBar({search, category, filterByCategory, getOrder}) {
 	return (
 		<nav className="navigatorbar">
 			<Link to="/" id="chico">
@@ -18,6 +18,10 @@ function NavBar({search, category, filterByCategory, getCarrito,getOrder}) {
 			<Link to = "/order/1" onClick = {() => getOrder(1)}>Ordenes</Link>
 			<Link to="/cart/1" onClick={() => getCarrito(1)}>
 				Carrito
+			<Link to="/admin">Admin</Link>
+			<Link to="/cart/1">Carrito</Link>
+			<Link to="/order/1" onClick={() => getOrder(1)}>
+				Ordenes
 			</Link>
 			<Link to="/sign_up"> Sign Up </Link>
 			<div className="dropd">
@@ -38,4 +42,4 @@ function NavBar({search, category, filterByCategory, getCarrito,getOrder}) {
 	);
 }
 
-export default connect(null, {filterByCategory, getCarrito, getOrder})(NavBar);
+export default connect(null, {filterByCategory, getOrder})(NavBar);
