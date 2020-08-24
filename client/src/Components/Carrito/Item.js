@@ -11,7 +11,7 @@ function Item({productsCar, getCarrito, match}) {
 		num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
 	const [total, setTotal] = useState(num);
 	const [can, setCantidad] = useState(1);
-	let {userId} = match.params;
+	let userId = match?.params?.userId;
 
 	const handleOnCLick = id => {
 		// setCantidad(cantidad - 1);
@@ -22,7 +22,7 @@ function Item({productsCar, getCarrito, match}) {
 	};
 
 	const handleOnCLickCantidad = (prodId, type) => {
-		let cantidad = productsCar?.filter(prod => prod.id == prodId);
+		let cantidad = productsCar?.filter(prod => prod.id === prodId);
 		let stock = cantidad[0]?.stock;
 		cantidad = cantidad[0]?.lineorder?.cantidad;
 		if (type === 'menos' && cantidad > 1) {
@@ -83,8 +83,8 @@ function Item({productsCar, getCarrito, match}) {
 }
 
 const mapStateToProps = (state) => {
-  return {
+	return {
     productsCar: state.productsCar,
-  };
+	};
 };
 export default connect(mapStateToProps, {getCarrito})(Item);
