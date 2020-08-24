@@ -42,7 +42,7 @@ server.put('/:id', (req, res) => {
 				imagen: data.imagen,
 			});
 			product.save();
-			res.status(200).send('Producto Actualizado');
+			res.status(200).send(product);
 		})
 		.catch(error => {
 			res.status(400).send('Producto inexistente');
@@ -58,10 +58,11 @@ server.delete('/:id', (req, res) => {
 	})
 		.then(product => {
 			if (!product) {
-				res.status(400).send('Producto inexistente');
+				res.status(404).send('Producto inexistente');
 			} else {
+				let prod = product;
 				product.destroy();
-				res.status(200).send('Producto Eliminado');
+				res.status(200).send(prod);
 			}
 		})
 		.catch(error => {

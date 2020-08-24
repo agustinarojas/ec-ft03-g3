@@ -10,12 +10,11 @@ export default function Cart({match}) {
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	}
-
 	return (
 		<div className="flexend">
 			<Item match={match} />
 			<button id="compra" onClick={comprar}>
-				Comprar
+				Checkout
 			</button>
 		</div>
 	);

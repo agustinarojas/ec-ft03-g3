@@ -5,7 +5,7 @@ server.get('/', (req, res) => {
 	//prettier-ignore
 	Cat.findAll()
 	.then(cats => res.send(cats)
-	.catch(err => res.status(400).send(err)));
+	.catch(err => console.log(err)));
 });
 
 server.post('/', (req, res) => {
@@ -22,8 +22,9 @@ server.delete('/:id', (req, res) => {
 		},
 	})
 		.then(category => {
+			let cat = category;
 			category.destroy();
-			res.status(200).send('Categoria Eliminada');
+			res.status(200).send(cat);
 		})
 		.catch(error => {
 			res.status(400).send('Categoria inexistente');
@@ -32,6 +33,7 @@ server.delete('/:id', (req, res) => {
 
 server.put('/:id', (req, res) => {
 	var categoriaId = req.params.id;
+	console.log(categoriaId);
 	var data = req.body;
 	Cat.findOne({
 		where: {
@@ -44,7 +46,7 @@ server.put('/:id', (req, res) => {
 				descripcion: data.descripcion,
 			});
 			category.save();
-			res.status(200).send('Categoria Actualizada');
+			res.send(category);
 		})
 		.catch(error => {
 			res.status(400).send('Producto inexistente');

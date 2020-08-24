@@ -1,25 +1,16 @@
-
 import React, {useState, useEffect} from 'react';
 import './Item.css';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {getCarrito} from '../../Actions/index';
+import {getCarrito, deleteProdCart, setCantidad} from '../../Actions/index';
 
-function Item({productsCar, getCarrito, match}) {
+function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, total}) {
 	let num;
 	if (productsCar[0]?.precio && productsCar[0]?.lineorder?.cantidad)
 		num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
-	const [total, setTotal] = useState(num);
-	const [can, setCantidad] = useState(1);
+	const [totalI, setTotal] = useState(1);
+	const [can, setCantid] = useState(1);
 	let {userId} = match.params;
-
-	const handleOnCLick = id => {
-		// setCantidad(cantidad - 1);
-		axios
-			.delete(`http://localhost:3005/users/1/cart/${id}`)
-			.then(res => res.data)
-			.catch(err => console.log(err));
-	};
 
 	const handleOnCLickCantidad = (prodId, type) => {
 		let cantidad = productsCar?.filter(prod => prod.id == prodId);
@@ -30,18 +21,21 @@ function Item({productsCar, getCarrito, match}) {
 		} else if (type === 'mas' && stock > cantidad) {
 			cantidad = cantidad + 1;
 		}
+		// setCantidad(prodId, cantidad, type);
 		axios
 			.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
 			.then(res => res.data)
 			.catch(err => console.log(err));
 	};
-
+	console.log(productsCar);
 	useEffect(() => {
 		getCarrito(userId);
-		for (let i = 0; i < productsCar.length; i++) {
-			console.log(productsCar);
-			setTotal(total + productsCar[i]?.lineorder.cantidad * productsCar[i]?.lineorder.precio);
-		}
+		if (total !== 0) setTotal(total);
+
+		// for (let i = 0; i < productsCar.length; i++) {
+		// 	console.log(productsCar);
+		// 	// setTotal(totalI + productsCar[i]?.lineorder?.cantidad * productsCar[i]?.lineorder?.precio);
+		// }
 	}, [can]);
 	return (
 		<div className="carritoItem">
@@ -60,7 +54,7 @@ function Item({productsCar, getCarrito, match}) {
 								name={p.id}>
 								-
 							</button>
-							<p className="acomodo">{p.lineorder.cantidad}</p>
+							<p className="acomodo">{p.lineorder?.cantidad}</p>
 							<button
 								className="btn botoncart"
 								onClick={e => handleOnCLickCantidad(e.target.name, 'mas')}
@@ -70,21 +64,22 @@ function Item({productsCar, getCarrito, match}) {
 						</div>
 						<div className="precioboton">
 							<p id="precio">$ {p.precio} </p>
-							<button id="boton1" name={p.id} onClick={e => handleOnCLick(e.target.name)}>
+							<button id="boton1" name={p.id} onClick={e => deleteProdCart(e.target.name)}>
 								X
 							</button>
 						</div>
 					</li>
 				</ul>
 			))}
-			<p>Total:{total} </p>
+			<p>{/* Total:{total} */}</p>
 		</div>
 	);
 }
 
-const mapStateToProps = (state) => {
-  return {
-    productsCar: state.productsCar,
-  };
+const mapStateToProps = state => {
+	return {
+		productsCar: state.productsCar,
+		total: state.totalCarrito,
+	};
 };
-export default connect(mapStateToProps, {getCarrito})(Item);
+export default connect(mapStateToProps, {getCarrito, deleteProdCart, setCantidad})(Item);
