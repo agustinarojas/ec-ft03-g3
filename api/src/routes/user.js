@@ -75,7 +75,7 @@ server.post('/:ids/cart', (req, res) => {
 			let carrito = values[0][0];
 			let producto = values[1];
 			producto.addCarritos(carrito, {through: {cantidad: 1, precio: producto.precio}});
-			res.send(carrito);
+			res.send(producto);
 		})
 		.catch(err => console.log(err));
 });
@@ -128,7 +128,7 @@ server.delete('/:ids/cart/:prodId', (req, res) => {
 		.then(carrito => {
 			let result = carrito.products.filter(el => el.id == req.params.prodId);
 			carrito.removeProducts(result[0]);
-			res.status(201).send('Producto Eliminado.');
+			res.status(201).send(result[0]);
 		})
 		.catch(err => {
 			console.log(err);
@@ -138,7 +138,6 @@ server.delete('/:ids/cart/:prodId', (req, res) => {
 server.put('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
 	var data = req.body;
-	console.log(data);
 	Carrito.findOne({
 		where: {
 			userId: ids,
@@ -154,7 +153,7 @@ server.put('/:ids/cart', (req, res) => {
 				cantidad: data.cantidad,
 			});
 			result[0].lineorder.save();
-			res.send('Cantidad actualizada');
+			res.send(result[0].lineorder);
 		})
 		.catch(err => {
 			console.log(err);
