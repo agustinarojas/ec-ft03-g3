@@ -18,6 +18,7 @@ function NavBar({search, category, filterByCategory, getOrder}) {
 			<Link to = "/order/1" onClick = {() => getOrder(1)}>Ordenes</Link>
 			<Link to="/cart/1" onClick={() => getCarrito(1)}>
 				Carrito
+			</Link>	
 			<Link to="/admin">Admin</Link>
 			<Link to="/cart/1">Carrito</Link>
 			<Link to="/order/1" onClick={() => getOrder(1)}>
