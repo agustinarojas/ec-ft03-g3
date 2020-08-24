@@ -2,11 +2,12 @@ import React from 'react';
 import MaterialTable from 'material-table';
 import TableCategory from './TableCategory';
 import FormProductCat from './FormProductCat';
+import {addProduct, putProduct, deleteProduct} from '../../Actions/index.js';
 import axios from 'axios';
 import './table.css';
 import {connect} from 'react-redux';
 
-function Table({products}) {
+function Table({products, addProduct, putProduct, deleteProduct}) {
 	const columns = [
 		{title: 'Titulo', field: 'titulo'},
 		{title: 'Descripción', field: 'descripcion'},
@@ -14,13 +15,8 @@ function Table({products}) {
 		{title: 'Stock', field: 'stock', type: 'numeric'},
 		{title: 'Imagen', field: 'imagen'},
 	];
-	const postProduct = product => {
-		return axios
-			.post('http://localhost:3005/products', product)
-			.then(res => console.log(res.data))
-			.catch(err => console.log(err));
-	};
-	function deleteProduct(id) {
+
+	function deleteProduc(id) {
 		return axios.delete('http://localhost:3005/products/' + id);
 	}
 
@@ -37,8 +33,8 @@ function Table({products}) {
 				columns={columns}
 				data={products}
 				editable={{
-					onRowAdd: newData => postProduct(newData),
-					onRowUpdate: (newData, oldData) => putProducts(newData, oldData.id),
+					onRowAdd: newData => addProduct(newData),
+					onRowUpdate: (newData, oldData) => putProduct(newData, oldData.id),
 					onRowDelete: oldData => deleteProduct(oldData.id),
 				}}
 			/>
@@ -54,4 +50,4 @@ const mapStateToProps = state => {
 		products: state.products,
 	};
 };
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, {addProduct, putProduct, deleteProduct})(Table);

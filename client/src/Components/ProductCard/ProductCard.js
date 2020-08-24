@@ -2,11 +2,13 @@ import React from 'react';
 import './ProductCard.css';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import {addToCart} from '../../Actions/index';
+import {connect} from 'react-redux';
 
-export default function ProductCard({imagen, titulo, precio, review, id, stock}) {
-	const handleOnCLick = (id, userId) => {
-		axios.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt(id)});
-	};
+function ProductCard({imagen, titulo, precio, review, id, stock, addToCart}) {
+	// const handleOnCLick = (id, userId) => {
+	// 	axios.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt(id)});
+	// };
 
 	return (
 		<div>
@@ -25,7 +27,7 @@ export default function ProductCard({imagen, titulo, precio, review, id, stock})
 				<div className="bottom-wrap">
 					<button
 						className="btn btn-sm btn-primary float-right"
-						onClick={e => handleOnCLick(e.target.name, 1)}
+						onClick={e => addToCart(1, e.target.name)}
 						name={id}
 						disabled={stock === 0 ? true : false}>
 						{stock === 0 ? 'Sin Stock' : 'Comprar'}
@@ -38,3 +40,5 @@ export default function ProductCard({imagen, titulo, precio, review, id, stock})
 		</div>
 	);
 }
+
+export default connect(null, {addToCart})(ProductCard);
