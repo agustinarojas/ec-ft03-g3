@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {setCategory, deleteProdCategory} from '../../Actions/index.js';
 import {connect} from 'react-redux';
+import axios from 'axios';
 
-function FormProductCat({setCategory, deleteProdCategory, categories}) {
-	const [id, setId] = useState();
+function FormProductCat({categories}) {
+	const [prodId, setProdId] = useState();
 	const [catId, setCatId] = useState();
 	const [selectCat, setSelectCat] = useState('post');
 
@@ -11,14 +11,22 @@ function FormProductCat({setCategory, deleteProdCategory, categories}) {
 		event.preventDefault();
 		switch (selectCat) {
 			case 'post':
-				setCategory(id, catId);
-				break;
+				return axios
+					.post(`http://localhost:3005/products/${prodId}/category/${catId}`)
+					.then(res => console.log(res.data))
+					.catch(err => console.log(err));
 			case 'delete':
-				deleteProdCategory(id, catId);
-				break;
+				return axios
+					.delete(`http://localhost:3005/products/${prodId}/category/${catId}`)
+					.then(res => console.log(res.data))
+					.catch(err => console.log(err));
 			default:
 				return;
 		}
+	};
+	const handleOnChange = event => {
+		setProdId(event.target.value);
+		if (!catId) setCatId(categories[0]?.id);
 	};
 	return (
 		<form onSubmit={e => handleCatSubmit(e)} className="formcont">
@@ -33,12 +41,7 @@ function FormProductCat({setCategory, deleteProdCategory, categories}) {
 					<option value="post">Agregar</option>
 					<option value="delete">Eliminar</option>
 				</select>
-				<input
-					type="number"
-					name="productId"
-					placeholder="Agregar..."
-					onChange={e => setId(e.target.value)}
-				/>
+				<input type="number" name="productId" placeholder="Agregar..." onChange={handleOnChange} />
 				<select onChange={e => setCatId(e.target.value)}>
 					{categories?.map((c, i) => (
 						<option key={i} value={c.id}>
@@ -54,12 +57,7 @@ function FormProductCat({setCategory, deleteProdCategory, categories}) {
 
 const mapStateToProps = state => {
 	return {
-		products: state.products,
-		catProducts: state.catProducts,
 		categories: state.categories,
 	};
 };
-export default connect(mapStateToProps, {
-	setCategory,
-	deleteProdCategory,
-})(FormProductCat);
+export default connect(mapStateToProps)(FormProductCat);
