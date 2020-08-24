@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {addToCart} from '../../Actions/index';
 import {connect} from 'react-redux';
+import {useAlert} from "react-alert"
 
 function ProductCard({imagen, titulo, precio, review, id, stock, addToCart}) {
 	// const handleOnCLick = (id, userId) => {
