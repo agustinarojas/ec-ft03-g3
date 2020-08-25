@@ -16,4 +16,7 @@ export const DELETE_PROD_CART = 'DELETE_PROD_CART';
 export const SET_CANTIDAD = 'SET_CANTIDAD';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const GET_ORDER = 'GET_ORDER';
+export const SEARCH_PRODUCT = 'SEARCH_PRODUCT';
+export const EMPTY_CART = 'EMPTY_CART';
 export const GET_ORDERS = 'GET_ORDERS'
+

@@ -25,13 +25,20 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 		let cantidad = productsCar?.filter(prod => prod.id == prodId);
 		let stock = cantidad[0]?.stock;
 		cantidad = cantidad[0]?.lineorder?.cantidad;
+		console.log(prodId);
+		console.log(cantidades);
 
 		if (type === 'menos' && cantidad > 1) {
-			cantidad = cantidad - 1;
-			// setCantidades([...cantidades, cantidades[0] - 1]);
+			setCantidades({
+				...(cantidades ? cantidades[1] : cantidades[1] - 1),
+			});
 		} else if (type === 'mas' && stock > cantidad) {
-			cantidad = cantidad + 1;
+			setCantidades({
+				...(cantidades ? cantidades[prodId] : cantidades[prodId] + 1),
+			});
 		}
+		console.log(cantidades);
+
 		// setCantidad(prodId, cantidad, type);
 		// axios
 		// 	.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
@@ -39,7 +46,6 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 		// 	.catch(err => console.log(err));
 	};
 	console.log(productsCar);
-
 	return (
 		<div className="carritoItem">
 			{productsCar?.map((p, i) => (

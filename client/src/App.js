@@ -5,11 +5,11 @@ import Products from './Components/product/producto';
 import Table from './Components/Table/Table';
 import Cart from './Components/Carrito/Cart';
 import NavBar from './Components/NavBar/NavBar';
-import axios from 'axios';
 import Orders from './Components/Orders/Order';
 import Order from './Components/Orders/OrderI';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
-import {getProducts, getCategories, getOrder} from './Actions/index';
+
+import {getProducts, getCategories, searchProduct, getOrder} from './Actions/index';
 import {connect} from 'react-redux';
 
 function App({
@@ -19,25 +19,20 @@ function App({
 	getCategories,
 	categories,
 	carrito,
-	orders,
+	searchProduct,
 	getOrder,
+	orders,
 }) {
 	const [buscar, setBuscar] = useState('');
-	const apiRequest = () => {
-		axios
-			.get(`http://localhost:3005/search?valor=${buscar}`)
-			.then(res => res.data)
-			.catch(err => console.log(err));
-	};
 
 	const filtrar = id => {
 		return productos.filter(product => product.id == id);
 	};
 
 	useEffect(() => {
-		getProducts();
+		//getProducts();
 		getCategories();
-		apiRequest();
+		searchProduct(buscar);
 	}, [buscar]);
 
 	const search = input => {
@@ -53,12 +48,11 @@ function App({
 				render={() => <Table products={productos} categories={categories} />}
 			/>
 			<Route exact path="/" render={() => <Catalogo products={productos} />} />
-			<Route path="/categorias/:category" render={() => <Catalogo products={catProducts} />} />
+			<Route path="/category/:category" render={() => <Catalogo products={catProducts} />} />
 			<Route
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
-
 			<Route path="/orders" render={() => <Orders orders={orders} />} />
 			<Route path="/order/:id" component={Order} />
 
@@ -77,4 +71,4 @@ const mapStateToProps = state => {
 		orders: state.orders,
 	};
 };
-export default connect(mapStateToProps, {getProducts, getCategories, getOrder})(App);
+export default connect(mapStateToProps, {getProducts, getCategories, searchProduct, getOrder})(App);
