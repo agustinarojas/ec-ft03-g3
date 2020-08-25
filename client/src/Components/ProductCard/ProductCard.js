@@ -1,7 +1,6 @@
 import React from 'react';
 import './ProductCard.css';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
 import {addToCart} from '../../Actions/index';
 import {connect} from 'react-redux';
 
