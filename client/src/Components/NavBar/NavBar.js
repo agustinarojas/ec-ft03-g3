@@ -3,19 +3,19 @@ import SearchBar from '../SearchBar/SearchBar';
 import './NavBar.css';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {filterByCategory, getCarrito, getOrder} from '../../Actions/index';
+import {filterByCategory, getCarrito, getOrder, getProducts} from '../../Actions/index';
 
-function NavBar({search, category, filterByCategory, getOrder}) {
+function NavBar({search, category, filterByCategory, getOrder, searchProduct, getProducts}) {
 	return (
 		<nav className="navigatorbar">
-			<Link to="/" id="chico">
-				<img
-					className="logopp"
-					src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRur8gLuus9J0WluNX13m0OfezctZm3xcw2zw&usqp=CAU"
-				/>
+		 <Link to="/" id="chico">
+							<img
+									className="logopp"
+									src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRur8gLuus9J0WluNX13m0OfezctZm3xcw2zw&usqp=CAU"
+							/>
 			</Link>
 			<Link to="/admin">Admin</Link>
-			<Link to="/cart/1">Carrito</Link>
+			<Link to="/cart/1"><span class="material-icons">shopping_cart</span></Link>
 			<Link to="/order/1" onClick={() => getOrder(1)}>
 				Ordenes
 			</Link>
@@ -27,7 +27,7 @@ function NavBar({search, category, filterByCategory, getOrder}) {
 				</button>
 				<div className="dropd-cont">
 					{category?.map((c, i) => (
-						<Link to={c.titulo} onClick={e => filterByCategory(c.titulo)} key={i}>
+						<Link to={`/category/${c.titulo}`} onClick={e => filterByCategory(c.titulo)} key={i}>
 							{c.titulo}
 						</Link>
 					))}
@@ -38,4 +38,4 @@ function NavBar({search, category, filterByCategory, getOrder}) {
 	);
 }
 
-export default connect(null, {filterByCategory, getOrder})(NavBar);
+export default connect(null, {filterByCategory, getOrder, getProducts})(NavBar);

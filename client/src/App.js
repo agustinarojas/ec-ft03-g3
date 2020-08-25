@@ -8,17 +8,11 @@ import NavBar from './Components/NavBar/NavBar';
 import axios from 'axios';
 import Order from './Components/Orders/Order';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
-import {getProducts, getCategories} from './Actions/index';
+import {getProducts, getCategories, searchProduct} from './Actions/index';
 import {connect} from 'react-redux';
 
-function App({productos, catProducts, getProducts, getCategories, categories, carrito}) {
+function App({productos, catProducts, getProducts, getCategories, categories, carrito, searchProduct}) {
 	const [buscar, setBuscar] = useState('');
-	const apiRequest = () => {
-		axios
-			.get(`http://localhost:3005/search?valor=${buscar}`)
-			.then(res => res.data)
-			.catch(err => console.log(err));
-	};
 
 	const filtrar = id => {
 		console.log(productos, id);
@@ -26,9 +20,9 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 	};
 
 	useEffect(() => {
-		getProducts();
+		//getProducts();
 		getCategories();
-		apiRequest();
+		searchProduct(buscar);
 	}, [buscar]);
 
 	const search = input => {
@@ -43,13 +37,13 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 				render={() => <Table products={productos} categories={categories} />}
 			/>
 			<Route exact path="/" render={() => <Catalogo products={productos} />} />
-			<Route path="/:category" render={() => <Catalogo products={catProducts} />} />
+			<Route path="/category/:category" render={() => <Catalogo products={catProducts} />} />
 			<Route
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
 
-			<Route path="/cart" render={() => <Cart products={productos} />} />
+
 			<Route path="/order/:id" render={() => <Order products={productos} />} />
 			<Route path="/cart/:userId" component={Cart} />
 
@@ -65,4 +59,4 @@ const mapStateToProps = state => {
 		categories: state.categories,
 	};
 };
-export default connect(mapStateToProps, {getProducts, getCategories})(App);
+export default connect(mapStateToProps, {getProducts, getCategories, searchProduct})(App);
