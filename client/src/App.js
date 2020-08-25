@@ -43,13 +43,11 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 				render={() => <Table products={productos} categories={categories} />}
 			/>
 			<Route exact path="/" render={() => <Catalogo products={productos} />} />
-			<Route path="/:category" render={() => <Catalogo products={catProducts} />} />
+			<Route path="/categorias/:category" render={() => <Catalogo products={catProducts} />} />
 			<Route
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
-
-			<Route path="/cart" render={() => <Cart products={productos} />} />
 			<Route path="/order/:id" render={() => <Order products={productos} />} />
 			<Route path="/cart/:userId" component={Cart} />
 
