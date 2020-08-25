@@ -15,7 +15,8 @@ import {
 	ADD_TO_CART,
 	GET_ORDER,
 	SEARCH_PRODUCT,
-	EMPTY_CART
+	EMPTY_CART,
+	GET_ORDERS
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -211,10 +212,21 @@ export function setCantidad(prodId, cantidad, accion) {
 export function getOrder(id) {
 	return function (dispatch) {
 		return axios
-			.get('http://localhost:3005/orders/1')
+			.get(`http://localhost:3005/orders/${id}`)
 			.then(res => {
 				dispatch({type: GET_ORDER, orders: res.data});
 			})
 			.catch(err => console.log(err));
 	};
+}
+
+export function getOrders() {
+	return function (dispatch) {
+		return axios
+		 .get('http://localhost:3005/orders')
+		 .then(res => {
+				dispatch ({type: GET_ORDERS, orders: res.data})
+		 })
+		 .catch (err => {console.log(err)})
+	}
 }

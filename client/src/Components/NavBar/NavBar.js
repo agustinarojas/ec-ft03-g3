@@ -3,9 +3,10 @@ import SearchBar from '../SearchBar/SearchBar';
 import './NavBar.css';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {filterByCategory, getCarrito, getOrder, getProducts} from '../../Actions/index';
 
-function NavBar({search, category, filterByCategory, getOrder, searchProduct, getProducts}) {
+import {filterByCategory, getCarrito, getOrder, getProducts, getOrders} from '../../Actions/index';
+
+function NavBar({search, category, filterByCategory, getOrder, searchProduct, getProducts, getOrders}) {
 	return (
 		<nav className="navigatorbar">
 		 <Link to="/" id="chico">
@@ -15,8 +16,9 @@ function NavBar({search, category, filterByCategory, getOrder, searchProduct, ge
 							/>
 			</Link>
 			<Link to="/admin">Admin</Link>
-			<Link to="/cart/1"><span class="material-icons">shopping_cart</span></Link>
-			<Link to="/order/1" onClick={() => getOrder(1)}>
+
+			<Link to="/cart/1">Carrito</Link>
+			<Link to="/orders" onClick={() => getOrders()}>
 				Ordenes
 			</Link>
 			<Link to="/sign_up"> Sign Up </Link>
@@ -38,4 +40,5 @@ function NavBar({search, category, filterByCategory, getOrder, searchProduct, ge
 	);
 }
 
-export default connect(null, {filterByCategory, getOrder, getProducts})(NavBar);
+export default connect(null, {filterByCategory, getOrder, getProducts, getOrders})(NavBar);
+

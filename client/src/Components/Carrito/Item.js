@@ -8,6 +8,7 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 	let num;
 	if (productsCar[0]?.precio && productsCar[0]?.lineorder?.cantidad)
 		num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
+
 	const [cantidades, setCantidades] = useState({});
 	const [can, setCantid] = useState(1);
 	let userId = match?.params?.userId;
@@ -34,6 +35,7 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 			 })
 		}
 		console.log(cantidades)
+
 		// setCantidad(prodId, cantidad, type);
 		// axios
 		// 	.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
@@ -42,6 +44,7 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 	};
 	console.log(productsCar);
 	useEffect(() => {
+
 		for (let i = 0; i < productsCar.length; i++) {
 	 	//console.log(productsCar);
 

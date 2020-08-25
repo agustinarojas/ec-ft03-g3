@@ -27,15 +27,15 @@
 	border-top: 1px solid #eee;
 }
 .card-product .bottom-wrap {
-	padding: 15px;
-	border-top: 1px solid #eee;
+	padding: 15px !important; 
+	border-top: 1px solid #eee !important;
 }
 
 .label-rating {
 	margin-right: 10px;
 	color: #333;
 	display: inline-block;
-	vertical-align: middle;
+	vertical-align: middle !important; 
 }
 
 .card-product .price-old {
