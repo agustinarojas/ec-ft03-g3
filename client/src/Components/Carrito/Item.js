@@ -8,34 +8,51 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 	let num;
 	if (productsCar[0]?.precio && productsCar[0]?.lineorder?.cantidad)
 		num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
-	const [total, setTotal] = useState(num);
-	const [can, setCantidad] = useState(1);
+
+	const [cantidades, setCantidades] = useState({});
+	const [can, setCantid] = useState(1);
 	let userId = match?.params?.userId;
+	//getCarrito(userId);
+	//setCantidades();
 
 	const handleOnCLickCantidad = (prodId, type) => {
 		let cantidad = productsCar?.filter(prod => prod.id == prodId);
 		let stock = cantidad[0]?.stock;
 		cantidad = cantidad[0]?.lineorder?.cantidad;
+		console.log(prodId)
+		console.log(cantidades)
+
 		if (type === 'menos' && cantidad > 1) {
-			cantidad = cantidad - 1;
+			 setCantidades({
+			 	...cantidades?
+			 	cantidades[1]: cantidades[1] - 1,
+			 })
+
 		} else if (type === 'mas' && stock > cantidad) {
-			cantidad = cantidad + 1;
+			 setCantidades({
+			 	...cantidades?
+			 	cantidades[prodId]: cantidades[prodId] + 1,
+			 })
 		}
+		console.log(cantidades)
+
 		// setCantidad(prodId, cantidad, type);
-		axios
-			.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
-			.then(res => res.data)
-			.catch(err => console.log(err));
+		// axios
+		// 	.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
+		// 	.then(res => res.data)
+		// 	.catch(err => console.log(err));
 	};
 	console.log(productsCar);
 	useEffect(() => {
-		getCarrito(userId);
-		if (total !== 0) setTotal(total);
 
-		// for (let i = 0; i < productsCar.length; i++) {
-		// 	console.log(productsCar);
-		// 	// setTotal(totalI + productsCar[i]?.lineorder?.cantidad * productsCar[i]?.lineorder?.precio);
-		// }
+		for (let i = 0; i < productsCar.length; i++) {
+	 	//console.log(productsCar);
+
+	 	//setTotal(totalI + productsCar[i]?.lineorder?.cantidad * productsCar[i]?.lineorder?.precio);
+	 	setCantidades(cantidades[productsCar[i].id] = 1);
+
+	  }
+   console.log(cantidades);
 	}, [can]);
 	return (
 		<div className="carritoItem">
@@ -50,14 +67,14 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 						<div className="botooon">
 							<button
 								className="btn botoncart"
-								onClick={e => handleOnCLickCantidad(e.target.name, 'menos')}
+								onClick={(e) => handleOnCLickCantidad(e.target.name, 'menos')}
 								name={p.id}>
 								-
 							</button>
-							<p className="acomodo">{p.lineorder?.cantidad}</p>
+							<p className="acomodo">{cantidades[i]}</p>
 							<button
 								className="btn botoncart"
-								onClick={e => handleOnCLickCantidad(e.target.name, 'mas')}
+								onClick={(e) => handleOnCLickCantidad(e.target.name, 'mas')}
 								name={p.id}>
 								+
 							</button>

@@ -3,9 +3,12 @@ import ProductCard from '../ProductCard/ProductCard';
 import './cat.css';
 
 export default function Catalogo({products}) {
+	console.log(products)
 	return (
 		<div className="contcatal">
-			{products?.map(p => (
+			{
+        products.length === 0 ? <p>Producto no encontrado</p>
+				: products?.map(p => (
 				<ProductCard imagen={p.imagen} titulo={p.titulo} precio={p.precio} stock={p.stock} key={p.id} id={p.id} />
 			))
 		}

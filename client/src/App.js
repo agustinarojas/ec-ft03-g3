@@ -6,34 +6,30 @@ import Table from './Components/Table/Table';
 import Cart from './Components/Carrito/Cart';
 import NavBar from './Components/NavBar/NavBar';
 import axios from 'axios';
-import Order from './Components/Orders/Order';
+import Orders from './Components/Orders/Order';
+import Order from './Components/Orders/OrderI'
 import FormUsuario from './Components/FormUsuario/FormUsuario';
-import {getProducts, getCategories} from './Actions/index';
+
+import {getProducts, getCategories, searchProduct, getOrder} from './Actions/index';
 import {connect} from 'react-redux';
 
-function App({productos, catProducts, getProducts, getCategories, categories, carrito}) {
+function App({productos, catProducts, getProducts, getCategories, categories, carrito, searchProduct, getOrder}) {
 	const [buscar, setBuscar] = useState('');
-	const apiRequest = () => {
-		axios
-			.get(`http://localhost:3005/search?valor=${buscar}`)
-			.then(res => res.data)
-			.catch(err => console.log(err));
-	};
 
 	const filtrar = id => {
-		console.log(productos, id);
 		return productos.filter(product => product.id == id);
 	};
 
 	useEffect(() => {
-		getProducts();
+		//getProducts();
 		getCategories();
-		apiRequest();
+		searchProduct(buscar);
 	}, [buscar]);
 
 	const search = input => {
 		setBuscar(input);
 	};
+
 	return (
 		<div className="product">
 			<NavBar search={search} category={categories} />
@@ -43,7 +39,7 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 				render={() => <Table products={productos} categories={categories} />}
 			/>
 			<Route exact path="/" render={() => <Catalogo products={productos} />} />
-			<Route path="/:category" render={() => <Catalogo products={catProducts} />} />
+			<Route path="/category/:category" render={() => <Catalogo products={catProducts} />} />
 			<Route
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
@@ -54,6 +50,11 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 			<Route path = "/order/:id" render = {() => <Order products = {productos}/> }/>
 			<Route path="/cart" render={() => <Cart products={productos} />} />
 			<Route path="/order/:id" render={() => <Order products={productos} />} />
+			<Route path="/orders" render={() => <Orders orders={orders} />} />
+			<Route
+			 path="/order/:id"
+			 component={ Order }
+			/>
 			<Route path="/cart/:userId" component={Cart} />
 
 			<Route path="/sign_up" component={FormUsuario} />
@@ -66,6 +67,7 @@ const mapStateToProps = state => {
 		productos: state.products,
 		catProducts: state.catProducts,
 		categories: state.categories,
+		orders: state.orders
 	};
 };
-export default connect(mapStateToProps, {getProducts, getCategories})(App);
+export default connect(mapStateToProps, {getProducts, getCategories, searchProduct, getOrder})(App);
