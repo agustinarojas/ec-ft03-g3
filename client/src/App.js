@@ -13,7 +13,7 @@ import FormUsuario from './Components/FormUsuario/FormUsuario';
 import {getProducts, getCategories, searchProduct, getOrder} from './Actions/index';
 import {connect} from 'react-redux';
 
-function App({productos, catProducts, getProducts, getCategories, categories, carrito, searchProduct, getOrder}) {
+function App({orders, productos, catProducts, getProducts, getCategories, categories, carrito, searchProduct, getOrder}) {
 	const [buscar, setBuscar] = useState('');
 
 	const filtrar = id => {

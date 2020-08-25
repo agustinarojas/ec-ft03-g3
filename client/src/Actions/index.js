@@ -180,7 +180,6 @@ export function addToCart(userId, prodId) {
 			.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt(prodId)})
 			.then(res => {
 				res.data.lineorder = {cantidad: 1};
-				console.log(res.data);
 				dispatch({type: ADD_TO_CART, product: res.data});
 			});
 	};

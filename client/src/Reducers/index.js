@@ -94,7 +94,8 @@ export default function rootReducer(state = inicialState, action) {
 				// totalCarrito: state.totalCarrito + parseInt(action.productsCar.precio),
 			};
 		case ADD_TO_CART:
-			console.log(action);
+			var sk = state.productsCar.filter(p => p.id != action.product.id)
+			console.log(state.productsCat)
 			return {
 				...state,
 				productsCar: [...state.productsCar, action.product],
@@ -105,7 +106,7 @@ export default function rootReducer(state = inicialState, action) {
 				return {
 					...state,
 					productsCar: [],
-					totalCarrito: 0,
+				//	totalCarrito: 0,
 				};
 			}
 
