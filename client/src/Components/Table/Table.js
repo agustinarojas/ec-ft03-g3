@@ -15,17 +15,6 @@ function Table({products, addProduct, putProduct, deleteProduct}) {
 		{title: 'Stock', field: 'stock', type: 'numeric'},
 		{title: 'Imagen', field: 'imagen'},
 	];
-
-	function deleteProduc(id) {
-		return axios.delete('http://localhost:3005/products/' + id);
-	}
-
-	function putProducts(product, id) {
-		return axios
-			.put(`http://localhost:3005/products/${id}`, product)
-			.then(res => console.log(res.data))
-			.catch(err => console.log(err));
-	}
 	return (
 		<div>
 			<MaterialTable

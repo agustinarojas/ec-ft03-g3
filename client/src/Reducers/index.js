@@ -15,12 +15,15 @@ import {
 	SET_CANTIDAD,
 	ADD_TO_CART,
 	GET_ORDER,
+	GET_ORDERS
+
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
 	catProducts: [],
 	categories: [],
 	productsCar: [],
+	orders: []
 	// totalCarrito: 0,
 };
 
@@ -132,6 +135,13 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				orders: action.orders,
 			};
+
+		case GET_ORDERS:
+			return {
+				...state,
+				orders: action.orders
+			}
+			
 		default:
 			return state;
 	}
