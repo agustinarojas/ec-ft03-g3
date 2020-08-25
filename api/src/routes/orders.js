@@ -7,6 +7,9 @@ server.get('/', (req, res) => {
 		where: {
 			estado: 'completa',
 		},
+		include: {
+			model: Product
+		}
 	})
 		.then(completados => {
 			res.send(completados);
@@ -44,7 +47,6 @@ server.put('/:id', (req, res) => {
 		},
 	})
 		.then(completados => {
-			console.log(completados);
 			completados.update({
 				estado: data.estado,
 			});

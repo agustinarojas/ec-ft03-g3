@@ -5,7 +5,7 @@ server.get('/', (req, res) => {
 	//prettier-ignore
 	Cat.findAll()
 	.then(cats => res.send(cats)
-	.catch(err => console.log(err)));
+	.catch(err => res.send(err)));
 });
 
 server.post('/', (req, res) => {
