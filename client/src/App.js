@@ -13,7 +13,7 @@ import FormUsuario from './Components/FormUsuario/FormUsuario';
 import {getProducts, getCategories, searchProduct, getOrder} from './Actions/index';
 import {connect} from 'react-redux';
 
-function App({productos, catProducts, getProducts, getCategories, categories, carrito, searchProduct, getOrder}) {
+function App({productos, catProducts, getProducts, getCategories, categories, carrito, searchProduct, getOrder, orders}) {
 	const [buscar, setBuscar] = useState('');
 
 	const filtrar = id => {
@@ -45,11 +45,8 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
 
-
-
 			<Route path = "/order/:id" render = {() => <Order products = {productos}/> }/>
-			<Route path="/cart" render={() => <Cart products={productos} />} />
-			<Route path="/order/:id" render={() => <Order products={productos} />} />
+			
 			<Route path="/orders" render={() => <Orders orders={orders} />} />
 			<Route
 			 path="/order/:id"

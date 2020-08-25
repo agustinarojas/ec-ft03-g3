@@ -16,13 +16,12 @@ function NavBar({search, category, filterByCategory, getOrder, searchProduct, ge
 							/>
 			</Link>
 			<Link to="/admin">Form</Link>
-			<Link to = "/order/1" onClick = {() => getOrder(1)}>Ordenes</Link>
+		
 			<Link to="/cart/1" onClick={() => getCarrito(1)}>
 				Carrito
-			</Link>	
+			</Link>
 			<Link to="/admin">Admin</Link>
 
-			<Link to="/cart/1">Carrito</Link>
 			<Link to="/orders" onClick={() => getOrders()}>
 				Ordenes
 			</Link>
@@ -46,4 +45,3 @@ function NavBar({search, category, filterByCategory, getOrder, searchProduct, ge
 }
 
 export default connect(null, {filterByCategory, getOrder, getProducts, getOrders})(NavBar);
-
