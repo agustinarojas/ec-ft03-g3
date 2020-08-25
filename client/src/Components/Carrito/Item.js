@@ -18,7 +18,7 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 		cantidad = cantidad[0]?.lineorder?.cantidad;
 		if (type === 'menos' && cantidad > 1) {
 			// cantidad = cantidad - 1;
-			setCantidades(cantidades[0] - 1);
+			setCantidades([...cantidades, cantidades[0] - 1]);
 		} else if (type === 'mas' && stock > cantidad) {
 			cantidad = cantidad + 1;
 		}
