@@ -8,8 +8,8 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 	let num;
 	if (productsCar[0]?.precio && productsCar[0]?.lineorder?.cantidad)
 		num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
-	const [total, setTotal] = useState(num);
-	const [can, setCantidad] = useState(1);
+	const [totalI, setTotal] = useState(1);
+	const [can, setCantid] = useState(1);
 	let userId = match?.params?.userId;
 
 	const handleOnCLickCantidad = (prodId, type) => {
