@@ -11,6 +11,8 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 	const [cantidades, setCantidades] = useState(1);
 	const [can, setCantid] = useState(1);
 	let userId = match?.params?.userId;
+
+
 	const handleOnCLickCantidad = (prodId, type) => {
 		let cantidad = productsCar?.filter(prod => prod.id == prodId);
 		let stock = cantidad[0]?.stock;

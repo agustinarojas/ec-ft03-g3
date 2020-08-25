@@ -55,6 +55,7 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 			 path="/order/:id" 
 			 component={ Order }
 			/>  
+
 			<Route path="/cart/:userId" component={Cart} />
 
 			<Route path="/sign_up" component={FormUsuario} />
