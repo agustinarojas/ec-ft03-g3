@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { addToCart } from "../../Actions/index";
 import { connect } from "react-redux";
+
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -56,7 +57,8 @@ function ProductCard({ imagen, titulo, precio, review, id, stock, addToCart }) {
         <div className="bottom-wrap">
         	<div className={classes.root}>
             <Button
-            	variant="contained" color="primary"
+				className="btn btn-sm btn-primary float-right"
+				variant="contained" color="primary"
             	onClick={(e) => {
                 handleClick();
                 addToCart(1, e.target.name);
