@@ -8,20 +8,34 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 	let num;
 	if (productsCar[0]?.precio && productsCar[0]?.lineorder?.cantidad)
 		num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
-	const [cantidades, setCantidades] = useState(1);
+
+	const [cantidades, setCantidades] = useState({});
 	const [can, setCantid] = useState(1);
 	let userId = match?.params?.userId;
-
+	//getCarrito(userId);
+	//setCantidades();
 
 	const handleOnCLickCantidad = (prodId, type) => {
 		let cantidad = productsCar?.filter(prod => prod.id == prodId);
 		let stock = cantidad[0]?.stock;
 		cantidad = cantidad[0]?.lineorder?.cantidad;
-		// if (type === 'menos' && cantidad > 1) {
-		//	setCantidades(cantidades[prodId] = cantidades[prodId] - 1);
-		//} else if (type === 'mas' && stock > cantidad) {
-			//setCantidades(cantidades[prodId] =  1);
-		//} 
+		console.log(prodId)
+		console.log(cantidades)
+
+		if (type === 'menos' && cantidad > 1) {
+			 setCantidades({
+			 	...cantidades?
+			 	cantidades[1]: cantidades[1] - 1,
+			 })
+
+		} else if (type === 'mas' && stock > cantidad) {
+			 setCantidades({
+			 	...cantidades?
+			 	cantidades[prodId]: cantidades[prodId] + 1,
+			 })
+		}
+		console.log(cantidades)
+
 		// setCantidad(prodId, cantidad, type);
 		// axios
 		// 	.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
@@ -30,13 +44,14 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 	};
 	console.log(productsCar);
 	useEffect(() => {
-		getCarrito(userId);
-		//setCantidades();
-		 for (let i = 0; i < productsCar.length; i++) {
-		 	//console.log(productsCar);
-		  //setTotal(totalI + productsCar[i]?.lineorder?.cantidad * productsCar[i]?.lineorder?.precio);
-			setCantidades(cantidades[productsCar[i].id] = 1);
-		 }
+
+		for (let i = 0; i < productsCar.length; i++) {
+	 	//console.log(productsCar);
+
+	 	//setTotal(totalI + productsCar[i]?.lineorder?.cantidad * productsCar[i]?.lineorder?.precio);
+	 	setCantidades(cantidades[productsCar[i].id] = 1);
+
+	  }
    console.log(cantidades);
 	}, [can]);
 	return (
