@@ -15,16 +15,16 @@ import {
 	SET_CANTIDAD,
 	ADD_TO_CART,
 	GET_ORDER,
-  SEARCH_PRODUCT,
+	SEARCH_PRODUCT,
 	EMPTY_CART,
-	GET_ORDERS
+	GET_ORDERS,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
 	catProducts: [],
 	categories: [],
 	productsCar: [],
-	orders: []
+	orders: [],
 	// totalCarrito: 0,
 };
 
@@ -136,21 +136,21 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				orders: action.orders,
 			};
-    case SEARCH_PRODUCT:
-  		return {
-  			...state,
-  			products: action.product,
-  		};
-		 case EMPTY_CART:
-	   	return {
-	   		...state,
-	   		productsCar: action.cart,
-	   	};
+		case SEARCH_PRODUCT:
+			return {
+				...state,
+				products: action.product,
+			};
+		case EMPTY_CART:
+			return {
+				...state,
+				productsCar: action.cart,
+			};
 		case GET_ORDERS:
 			return {
 				...state,
-				orders: action.orders
-			}
+				orders: action.orders,
+			};
 		default:
 			return state;
 	}

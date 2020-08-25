@@ -4,82 +4,79 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {getCarrito, deleteProdCart, setCantidad} from '../../Actions/index';
 
-function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, total}) {
-	let num;
-	if (productsCar[0]?.precio && productsCar[0]?.lineorder?.cantidad)
-		num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
+function Item({titulo, descripcion, imagen, precio, id, deleteProdCart}) {
+	console.log(titulo);
+	// let num;
+	// if (productsCar[0]?.precio && productsCar[0]?.lineorder?.cantidad)
+	// 	num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
 	const [cantidades, setCantidades] = useState({});
 	const [can, setCantid] = useState(1);
-	let userId = match?.params?.userId;
 
-	useEffect(() => {
-		getCarrito(userId);
-		for (let i = 0; i < productsCar.length; i++) {
-			setCantidades((cantidades[productsCar[i].id] = 1));
-			console.log(cantidades);
-		}
-	}, [can]);
-	console.log(cantidades);
+	// useEffect(() => {
+	// 	getCarrito(userId);
+	// 	for (let i = 0; i < productsCar.length; i++) {
+	// 		setCantidades((cantidades[productsCar[i].id] = 1));
+	// 		console.log(cantidades);
+	// 	}
+	// }, [can]);
+	// console.log(cantidades);
 
 	const handleOnCLickCantidad = (prodId, type) => {
-		let cantidad = productsCar?.filter(prod => prod.id == prodId);
-		let stock = cantidad[0]?.stock;
-		cantidad = cantidad[0]?.lineorder?.cantidad;
-		console.log(prodId);
-		console.log(cantidades);
-
-		if (type === 'menos' && cantidad > 1) {
-			setCantidades({
-				...(cantidades ? cantidades[1] : cantidades[1] - 1),
-			});
-		} else if (type === 'mas' && stock > cantidad) {
-			setCantidades({
-				...(cantidades ? cantidades[prodId] : cantidades[prodId] + 1),
-			});
-		}
-		console.log(cantidades);
-
-		// setCantidad(prodId, cantidad, type);
-		// axios
-		// 	.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
-		// 	.then(res => res.data)
-		// 	.catch(err => console.log(err));
+		// 	let cantidad = productsCar?.filter(prod => prod.id == prodId);
+		// 	let stock = cantidad[0]?.stock;
+		// 	cantidad = cantidad[0]?.lineorder?.cantidad;
+		// 	console.log(prodId);
+		// 	console.log(cantidades);
+		// 	if (type === 'menos' && cantidad > 1) {
+		// 		setCantidades({
+		// 			...(cantidades ? cantidades[1] : cantidades[1] - 1),
+		// 		});
+		// 	} else if (type === 'mas' && stock > cantidad) {
+		// 		setCantidades({
+		// 			...(cantidades ? cantidades[prodId] : cantidades[prodId] + 1),
+		// 		});
 	};
-	console.log(productsCar);
+	// 	console.log(cantidades);
+
+	// 	// setCantidad(prodId, cantidad, type);
+	// 	// axios
+	// 	// 	.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
+	// 	// 	.then(res => res.data)
+	// 	// 	.catch(err => console.log(err));
+	// };
+	// console.log(productsCar);
 	return (
 		<div className="carritoItem">
-			{productsCar?.map((p, i) => (
-				<ul className="list-group list-group-flush cartitem" key={i}>
-					<li className="list-group-item disp itemind">
-						<img className="imgCart" src={p.imagen} />
-						<div className="titdes">
-							<p className="tituloo">{p.titulo}</p>
-							<p>{p.descripcion}</p>
-						</div>
-						<div className="botooon">
-							<button
-								className="btn botoncart"
-								onClick={e => handleOnCLickCantidad(e.target.name, 'menos')}
-								name={p.id}>
-								-
-							</button>
-							<p className="acomodo">{cantidades[i]}</p>
-							<button
-								className="btn botoncart"
-								onClick={e => handleOnCLickCantidad(e.target.name, 'mas')}
-								name={p.id}>
-								+
-							</button>
-						</div>
-						<div className="precioboton">
-							<p id="precio">$ {p.precio} </p>
-							<button id="boton1" name={p.id} onClick={e => deleteProdCart(e.target.name)}>
-								X
-							</button>
-						</div>
-					</li>
-				</ul>
-			))}
+			<ul className="list-group list-group-flush cartitem">
+				<li className="list-group-item disp itemind">
+					<img className="imgCart" src={imagen} />
+					<div className="titdes">
+						<p className="tituloo">{titulo}</p>
+						<p>{descripcion}</p>
+					</div>
+					<div className="botooon">
+						<button
+							className="btn botoncart"
+							onClick={e => handleOnCLickCantidad(e.target.name, 'menos')}
+							name={id}>
+							-
+						</button>
+						<p className="acomodo">{cantidades}</p>
+						<button
+							className="btn botoncart"
+							onClick={e => handleOnCLickCantidad(e.target.name, 'mas')}
+							name={id}>
+							+
+						</button>
+					</div>
+					<div className="precioboton">
+						<p id="precio">$ {precio} </p>
+						<button id="boton1" name={id} onClick={e => deleteProdCart(e.target.name)}>
+							X
+						</button>
+					</div>
+				</li>
+			</ul>
 			<p>{/* Total:{total} */}</p>
 		</div>
 	);
@@ -91,4 +88,4 @@ const mapStateToProps = state => {
 		total: state.totalCarrito,
 	};
 };
-export default connect(mapStateToProps, {getCarrito, deleteProdCart, setCantidad})(Item);
+export default connect(null, {getCarrito, deleteProdCart, setCantidad})(Item);

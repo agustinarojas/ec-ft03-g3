@@ -55,9 +55,7 @@ function App({
 			/>
 			<Route path="/orders" render={() => <Orders orders={orders} />} />
 			<Route path="/order/:id" component={Order} />
-
 			<Route path="/cart/:userId" component={Cart} />
-
 			<Route path="/sign_up" component={FormUsuario} />
 		</div>
 	);
