@@ -6,12 +6,22 @@ import Table from './Components/Table/Table';
 import Cart from './Components/Carrito/Cart';
 import NavBar from './Components/NavBar/NavBar';
 import axios from 'axios';
-import Order from './Components/Orders/Order';
+import Orders from './Components/Orders/Order';
+import Order from './Components/Orders/OrderI';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
-import {getProducts, getCategories} from './Actions/index';
+import {getProducts, getCategories, getOrder} from './Actions/index';
 import {connect} from 'react-redux';
 
-function App({productos, catProducts, getProducts, getCategories, categories, carrito}) {
+function App({
+	productos,
+	catProducts,
+	getProducts,
+	getCategories,
+	categories,
+	carrito,
+	orders,
+	getOrder,
+}) {
 	const [buscar, setBuscar] = useState('');
 	const apiRequest = () => {
 		axios
@@ -21,7 +31,6 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 	};
 
 	const filtrar = id => {
-		console.log(productos, id);
 		return productos.filter(product => product.id == id);
 	};
 
@@ -34,6 +43,7 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 	const search = input => {
 		setBuscar(input);
 	};
+
 	return (
 		<div className="product">
 			<NavBar search={search} category={categories} />
@@ -48,7 +58,10 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
-			<Route path="/order/:id" render={() => <Order products={productos} />} />
+
+			<Route path="/orders" render={() => <Orders orders={orders} />} />
+			<Route path="/order/:id" component={Order} />
+
 			<Route path="/cart/:userId" component={Cart} />
 
 			<Route path="/sign_up" component={FormUsuario} />
@@ -61,6 +74,7 @@ const mapStateToProps = state => {
 		productos: state.products,
 		catProducts: state.catProducts,
 		categories: state.categories,
+		orders: state.orders,
 	};
 };
-export default connect(mapStateToProps, {getProducts, getCategories})(App);
+export default connect(mapStateToProps, {getProducts, getCategories, getOrder})(App);

@@ -38,6 +38,8 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 		// 	.then(res => res.data)
 		// 	.catch(err => console.log(err));
 	};
+	console.log(productsCar);
+
 	return (
 		<div className="carritoItem">
 			{productsCar?.map((p, i) => (
@@ -55,7 +57,7 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 								name={p.id}>
 								-
 							</button>
-							<p className="acomodo">{p.lineorder?.cantidad}</p>
+							<p className="acomodo">{cantidades[i]}</p>
 							<button
 								className="btn botoncart"
 								onClick={e => handleOnCLickCantidad(e.target.name, 'mas')}
