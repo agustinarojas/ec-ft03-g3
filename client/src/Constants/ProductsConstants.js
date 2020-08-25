@@ -16,10 +16,7 @@ export const DELETE_PROD_CART = 'DELETE_PROD_CART';
 export const SET_CANTIDAD = 'SET_CANTIDAD';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const GET_ORDER = 'GET_ORDER';
-<<<<<<< HEAD
 export const DELETE_PRODUCT = "DELETE_PRODUCT"
 export const POST_PRODUCTS = "POST_PRODUCTS"
 export const PUT_PRODUCTS = "PUT_PRODUCTS"
-=======
 export const GET_ORDERS = 'GET_ORDERS'
->>>>>>> 0d97fffaf74b0a2c9bbb4214d43f9d0e19b7f117
