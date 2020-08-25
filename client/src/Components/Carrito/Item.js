@@ -10,7 +10,7 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 		num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
 	const [totalI, setTotal] = useState(1);
 	const [can, setCantid] = useState(1);
-	let {userId} = match.params;
+	let userId = match?.params?.userId;
 
 	const handleOnCLickCantidad = (prodId, type) => {
 		let cantidad = productsCar?.filter(prod => prod.id == prodId);

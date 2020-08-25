@@ -149,7 +149,7 @@ server.put('/:ids/cart', (req, res) => {
 	})
 		.then(carrito => {
 			let result = carrito.products.filter(el => el.id === data.id);
-			result[0]?.lineorder.update({
+			result[0].lineorder.update({
 				cantidad: data.cantidad,
 			});
 			result[0].lineorder.save();
