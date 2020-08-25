@@ -9,7 +9,6 @@ app.get('/', (req, res) => {
 			[Op.or]: [{titulo: {[Op.like]: `%${valor}%`}}, {descripcion: {[Op.like]: `%${valor}%`}}],
 		},
 	}).then(products => {
-		if (!products[0]) return res.send(`error ${valor} no encontrado`);
 		res.send(products);
 	});
 });
