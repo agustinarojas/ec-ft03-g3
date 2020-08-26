@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
 
 require('./db.js');
 
@@ -31,6 +33,57 @@ server.use((err, req, res, next) => {
 	const message = err.message || err;
 	console.error(err);
 	res.status(status).send(message);
+});
+
+passport.use(new Strategy(
+    function(email, password, done) {
+     User.findOne({
+			 where:{
+				   email: email
+			 }
+		 })
+		 .then(user => {
+			 if(!user) {
+				 return done(null, false);
+			 }
+			 if(user.password != password) {
+				 return done(null, false);
+			 }
+			 return done(null, user);
+		 })
+		 .catch(err=> {
+			 return done(err)
+		 })
+    }
+))
+
+passport.serializeUser(function(user, done) {
+	done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+	User.findByPk(id)
+	.then(user => {
+		done(null, user);
+	})
+	.catch(err => {
+		return done(err);
+	})
+});
+
+server.use(require('express-session')({
+	secret: 'secret',
+	resave: false,
+	saveUninitialize: false
+}));
+
+server.use(passport.initialize());
+server.use(passport.session());
+
+server.use((req, res, next) => {
+	console.log(req.session);
+	console.log(req.user);
+	next();
 });
 
 module.exports = server;

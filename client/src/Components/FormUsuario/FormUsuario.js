@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import './Form.css';
-
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
@@ -57,9 +55,9 @@ export default function FormUsuario() {
 						No compartiremos tu e-mail con nadie.
 					</small>
 				</div>
-				<Button onClick = {handleClick}variant="contained" color="primary" type="submit"  value="Submit">
+				<button onClick = {handleClick} variant="contained" color="primary" type="submit"  value="Submit">
 					Submit
-				</Button>
+				</button>
 				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             	<Alert onClose={handleClose} severity="success">
                 Usuario creado!

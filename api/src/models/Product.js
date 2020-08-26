@@ -41,15 +41,28 @@ module.exports = sequelize => {
 		},
 	});
 	const User = sequelize.define('user', {
+		nombre: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
+		apellido: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			unique: true,
 			validate: {
 				isEmail: true,
-			},
+		  }
+	  },
+		password: {
+			type: DataTypes.STRING,
+			allowNull: false,
 		},
 	});
+
 	const lineorder = sequelize.define('lineorder', {
 		cantidad: {
 			type: DataTypes.INTEGER,

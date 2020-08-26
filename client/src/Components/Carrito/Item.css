@@ -42,7 +42,31 @@
 	position: relative;
 	top: 1px;
 }
-
+#boton2 {
+	margin-left: 30px;
+	background: linear-gradient(to bottom, #2045aa 5%, #2045aa 100%);
+	background-color: #2045aa;
+	border-radius: 5px;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 4px 20px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #2f6627;
+	outline: none;
+	border: 0px;
+}
+#boton2:hover {
+	background: linear-gradient(to bottom, #1224c2 5%, #1878f5 100%);
+	background-color: #2d6ec2;
+}
+#boton2:active {
+	position: relative;
+	top: 1px;
+}
 .precioboton {
 	display: flex;
 	margin-left: 30px;
