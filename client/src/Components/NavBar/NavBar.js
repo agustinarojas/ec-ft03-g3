@@ -9,7 +9,7 @@ import {filterByCategory, getCarrito, getOrder, getProducts, getOrders} from '..
 function NavBar({search, category, filterByCategory, getOrder, searchProduct, getProducts, getOrders}) {
 	return (
 		<nav className="navigatorbar">
-		 <Link to="/" id="chico">
+		<Link to="/" id="chico" onClick  ={getProducts} >
 							<img
 									className="logopp"
 									src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRur8gLuus9J0WluNX13m0OfezctZm3xcw2zw&usqp=CAU"
