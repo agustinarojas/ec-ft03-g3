@@ -94,10 +94,16 @@ export default function rootReducer(state = inicialState, action) {
 				// totalCarrito: state.totalCarrito + parseInt(action.productsCar.precio),
 			};
 		case ADD_TO_CART:
-			var existe = state?.productsCar?.filter((p, i) => p.id == action.product.id);
-			if (existe.length > 0) {
-				//si existe retorno lo q tenia jaja
-				return {...state};
+			var prods = state?.productsCar?.filter((p, i) => p.id !== action.product.id);
+			if (prods.length !== state.productsCar) {
+				for (let i = 0; i < state.productsCar.length; i++) {
+					if (state.productsCar[i].id === action.product.id) state.productsCar[i] = action.product;
+					return state;
+				}
+				// return {
+				// 	...state,
+				// 	productsCar: [...prods, action.product],
+				// };
 			}
 			return {
 				...state,
@@ -109,7 +115,7 @@ export default function rootReducer(state = inicialState, action) {
 				return {
 					...state,
 					productsCar: [],
-					totalCarrito: 0,
+					//	totalCarrito: 0,
 				};
 			}
 

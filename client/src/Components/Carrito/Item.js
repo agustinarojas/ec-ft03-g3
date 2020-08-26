@@ -12,32 +12,36 @@ import Slide from '@material-ui/core/Slide';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
-});
-function Item({titulo, descripcion, imagen, precio, id, deleteProdCart, stock, cantidad}) {
-	const [cantidades, setCantidades] = useState(cantidad);
-	const [open, setOpen] = React.useState(false);
-	const handleClickOpen = () => {
-	  setOpen(true);
-	};
+  });
   
-	const handleClose = () => {
-	  setOpen(false);
-	};
+function Item({titulo, descripcion, imagen, precio, id, deleteProdCart, stock, cantidad, hand}) {
+	const [cantidades, setCantidades] = useState(cantidad);
 	const handleOnCLickCantidad = (prodId, type) => {
 		if (type === 'menos' && cantidades > 1) {
 			setCantidades(cantidades - 1);
+			hand(cantidades - 1, id, precio);
 			axios
 				.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidades - 1})
 				.then(res => res.data)
 				.catch(err => console.log(err));
 		} else if (type === 'mas' && stock > cantidades) {
 			setCantidades(cantidades + 1);
+			hand(cantidades + 1, id, precio);
 			axios
 				.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidades + 1})
 				.then(res => res.data)
 				.catch(err => console.log(err));
 		}
 	};
+	const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 	return (
 		<div className="carritoItem">
 			<ul className="list-group list-group-flush cartitem">
