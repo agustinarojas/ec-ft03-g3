@@ -3,7 +3,6 @@ import ProductCard from '../ProductCard/ProductCard';
 import './cat.css';
 
 export default function Catalogo({products}) {
-	console.log(products)
 	return (
 		<div className="contcatal">
 			{

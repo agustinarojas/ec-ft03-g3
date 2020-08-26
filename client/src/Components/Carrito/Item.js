@@ -4,18 +4,19 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {deleteProdCart, setCantidad} from '../../Actions/index';
 
-function Item({titulo, descripcion, imagen, precio, id, deleteProdCart, stock, cantidad}) {
+function Item({titulo, descripcion, imagen, precio, id, deleteProdCart, stock, cantidad, hand}) {
 	const [cantidades, setCantidades] = useState(cantidad);
-
 	const handleOnCLickCantidad = (prodId, type) => {
 		if (type === 'menos' && cantidades > 1) {
 			setCantidades(cantidades - 1);
+			hand(cantidades - 1, id, precio);
 			axios
 				.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidades - 1})
 				.then(res => res.data)
 				.catch(err => console.log(err));
 		} else if (type === 'mas' && stock > cantidades) {
 			setCantidades(cantidades + 1);
+			hand(cantidades + 1, id, precio);
 			axios
 				.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidades + 1})
 				.then(res => res.data)
