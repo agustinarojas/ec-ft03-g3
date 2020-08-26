@@ -5,15 +5,24 @@ import Products from './Components/product/producto';
 import Table from './Components/Table/Table';
 import Cart from './Components/Carrito/Cart';
 import NavBar from './Components/NavBar/NavBar';
-import axios from 'axios';
 import Orders from './Components/Orders/Order';
-import Order from './Components/Orders/OrderI'
+import Order from './Components/Orders/OrderI';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
 
 import {getProducts, getCategories, searchProduct, getOrder} from './Actions/index';
 import {connect} from 'react-redux';
 
-function App({productos, catProducts, getProducts, getCategories, categories, carrito, searchProduct, getOrder, orders}) {
+function App({
+	productos,
+	catProducts,
+	getProducts,
+	getCategories,
+	categories,
+	carrito,
+	searchProduct,
+	getOrder,
+	orders,
+}) {
 	const [buscar, setBuscar] = useState('');
 
 	const filtrar = id => {
@@ -46,14 +55,10 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 			/>
 
 			<Route path = "/order/:id" render = {() => <Order products = {productos}/> }/>
-			
-			<Route path="/orders" render={() => <Orders orders={orders} />} />
-			<Route
-			 path="/order/:id"
-			 component={ Order }
-			/>
-			<Route path="/cart/:userId" component={Cart} />
 
+			<Route path="/orders" render={() => <Orders orders={orders} />} />
+			<Route path="/order/:id" component={Order} />
+			<Route path="/cart/:userId" component={Cart} />
 			<Route path="/sign_up" component={FormUsuario} />
 		</div>
 	);
@@ -64,7 +69,7 @@ const mapStateToProps = state => {
 		productos: state.products,
 		catProducts: state.catProducts,
 		categories: state.categories,
-		orders: state.orders
+		orders: state.orders,
 	};
 };
 export default connect(mapStateToProps, {getProducts, getCategories, searchProduct, getOrder})(App);
