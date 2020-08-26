@@ -8,6 +8,7 @@ import NavBar from './Components/NavBar/NavBar';
 import Orders from './Components/Orders/Order';
 import Order from './Components/Orders/OrderI';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
+import LoginUser from './Components/FormUsuario/loginUser';
 
 import {getProducts, getCategories, searchProduct, getOrder} from './Actions/index';
 import {connect} from 'react-redux';
@@ -57,6 +58,7 @@ function App({
 			<Route path="/order/:id" component={Order} />
 			<Route path="/cart/:userId" component={Cart} />
 			<Route path="/sign_up" component={FormUsuario} />
+			<Route path="/login" component={LoginUser} />
 		</div>
 	);
 }
