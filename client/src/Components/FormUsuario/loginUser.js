@@ -7,19 +7,19 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
-export function Alert(props) {
-	return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-const useStyles = makeStyles((theme) => ({
-	root: {
-	width: "100%",
-	"& > * + *": {
-		marginTop: theme.spacing(2),
-	},
-	},
-}));
+ export function Alert(props) {
+ 	return <MuiAlert elevation={6} variant="filled" {...props} />;
+ }
+ const useStyles = makeStyles((theme) => ({
+ 	root: {
+ 	width: "100%",
+ 	"& > * + *": {
+ 		marginTop: theme.spacing(2),
+ 	},
+ 	},
+ }));
 
-export default function FormUsuario() {
+export default function LoginUser() {
 	//const [email, setEmail] = useState({email: ''});
   const [state, setState] = useState({});
 
@@ -33,7 +33,7 @@ export default function FormUsuario() {
 	const handleSubmit = (event, state) => {
 		event.preventDefault();
 		axios
-			.post('http://localhost:3005/users', state)
+			.post('http://localhost:3005/auth/login', state)
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
 	};
@@ -53,22 +53,6 @@ export default function FormUsuario() {
 		<div className="Formm">
 			<form onSubmit={e => handleSubmit(e, state)}>
 				<div className="form-group">
-			  	<label htmlFor="exampleInputNombre">Nombre</label>
-					<input
-					  name='nombre'
-						type="text"
-						className="form-control"
-						id="exampleInputNombre"
-						onChange={e => handleOnChange(e)}
-					/>
-					<label htmlFor="exampleInputApellido">Apellido</label>
-					<input
-					  name='apellido'
-						type="text"
-						className="form-control"
-						id="exampleInputApellido"
-						onChange={e => handleOnChange(e)}
-					/>
 					<label htmlFor="exampleInputEmail1">Email address</label>
 					<input
 					  name='email'
