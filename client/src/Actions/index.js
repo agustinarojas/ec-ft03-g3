@@ -16,7 +16,7 @@ import {
 	GET_ORDER,
 	SEARCH_PRODUCT,
 	EMPTY_CART,
-	GET_ORDERS
+	GET_ORDERS,
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -176,6 +176,7 @@ export function getCarrito(userId) {
 
 export function addToCart(userId, prodId) {
 	return function (dispatch) {
+		console.log(userId, prodId);
 		return axios
 			.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt(prodId)})
 			.then(res => {
@@ -222,10 +223,12 @@ export function getOrder(id) {
 export function getOrders() {
 	return function (dispatch) {
 		return axios
-		 .get('http://localhost:3005/orders')
-		 .then(res => {
-				dispatch ({type: GET_ORDERS, orders: res.data})
-		 })
-		 .catch (err => {console.log(err)})
-	}
+			.get('http://localhost:3005/orders')
+			.then(res => {
+				dispatch({type: GET_ORDERS, orders: res.data});
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	};
 }
