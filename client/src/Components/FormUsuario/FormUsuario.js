@@ -55,7 +55,7 @@ export default function FormUsuario() {
 						No compartiremos tu e-mail con nadie.
 					</small>
 				</div>
-				<button onClick = {handleClick}variant="contained" color="primary" type="submit"  value="Submit">
+				<button onClick = {handleClick} variant="contained" color="primary" type="submit"  value="Submit">
 					Submit
 				</button>
 				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
