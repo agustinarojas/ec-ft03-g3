@@ -176,12 +176,15 @@ export function getCarrito(userId) {
 
 export function addToCart(userId, prodId) {
 	return function (dispatch) {
-		console.log(userId, prodId);
 		return axios
 			.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt(prodId)})
 			.then(res => {
-				res.data.lineorder = {cantidad: 1};
-				console.log(res.data);
+				if (res.data.carritos.length) {
+					console.log(res.data);
+					res.data.lineorder = res.data.carritos[0].lineorder;
+				} else {
+					res.data.lineorder = {cantidad: 1};
+				}
 				dispatch({type: ADD_TO_CART, product: res.data});
 			});
 	};
