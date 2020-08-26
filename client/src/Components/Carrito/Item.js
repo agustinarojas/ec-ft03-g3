@@ -2,20 +2,13 @@ import React, {useState, useEffect} from 'react';
 import './Item.css';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {getCarrito, deleteProdCart, setCantidad} from '../../Actions/index';
+import {deleteProdCart, setCantidad} from '../../Actions/index';
 
-function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, total}) {
-	let num;
-	if (productsCar[0]?.precio && productsCar[0]?.lineorder?.cantidad)
-		num = productsCar[0]?.precio * productsCar[0]?.lineorder?.cantidad;
-
-	const [cantidades, setCantidades] = useState({});
-	const [can, setCantid] = useState(1);
-	let userId = match?.params?.userId;
-	//getCarrito(userId);
-	//setCantidades();
+function Item({titulo, descripcion, imagen, precio, id, deleteProdCart, stock, cantidad}) {
+	const [cantidades, setCantidades] = useState(cantidad);
 
 	const handleOnCLickCantidad = (prodId, type) => {
+<<<<<<< HEAD
 		let cantidad = productsCar?.filter(prod => prod.id === prodId);
 		let stock = cantidad[0]?.stock;
 		cantidad = cantidad[0]?.lineorder?.cantidad;
@@ -33,70 +26,60 @@ function Item({productsCar, getCarrito, match, deleteProdCart, setCantidad, tota
 			 	...cantidades?
 			 	cantidades[prodId]: cantidades[prodId] + 1,
 			 })
+=======
+		if (type === 'menos' && cantidades > 1) {
+			setCantidades(cantidades - 1);
+			axios
+				.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidades - 1})
+				.then(res => res.data)
+				.catch(err => console.log(err));
+		} else if (type === 'mas' && stock > cantidades) {
+			setCantidades(cantidades + 1);
+			axios
+				.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidades + 1})
+				.then(res => res.data)
+				.catch(err => console.log(err));
+>>>>>>> 53ae8bcb1580f6362fe017ca2eab78409a46db39
 		}
-		console.log(cantidades)
-
-		// setCantidad(prodId, cantidad, type);
-		// axios
-		// 	.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
-		// 	.then(res => res.data)
-		// 	.catch(err => console.log(err));
 	};
-	console.log(productsCar);
-	useEffect(() => {
-
-		for (let i = 0; i < productsCar.length; i++) {
-	 	//console.log(productsCar);
-
-	 	//setTotal(totalI + productsCar[i]?.lineorder?.cantidad * productsCar[i]?.lineorder?.precio);
-	 	setCantidades(cantidades[productsCar[i].id] = 1);
-
-	  }
-   console.log(cantidades);
-	}, [can]);
 	return (
 		<div className="carritoItem">
-			{productsCar?.map((p, i) => (
-				<ul className="list-group list-group-flush cartitem" key={i}>
-					<li className="list-group-item disp itemind">
-						<img className="imgCart" src={p.imagen} />
-						<div className="titdes">
-							<p className="tituloo">{p.titulo}</p>
-							<p>{p.descripcion}</p>
-						</div>
-						<div className="botooon">
-							<button
-								className="btn botoncart"
-								onClick={(e) => handleOnCLickCantidad(e.target.name, 'menos')}
-								name={p.id}>
-								-
-							</button>
-							<p className="acomodo">{cantidades[i]}</p>
-							<button
-								className="btn botoncart"
-								onClick={(e) => handleOnCLickCantidad(e.target.name, 'mas')}
-								name={p.id}>
-								+
-							</button>
-						</div>
-						<div className="precioboton">
-							<p id="precio">$ {p.precio} </p>
-							<button id="boton1" name={p.id} onClick={e => deleteProdCart(e.target.name)}>
-								X
-							</button>
-						</div>
-					</li>
-				</ul>
-			))}
-			<p>{/* Total:{total} */}</p>
+			<ul className="list-group list-group-flush cartitem">
+				<li className="list-group-item disp itemind">
+					<img className="imgCart" src={imagen} />
+					<div className="titdes">
+						<p className="tituloo">{titulo}</p>
+						<p>{descripcion}</p>
+					</div>
+					<div className="botooon">
+						<button
+							className="btn botoncart"
+							onClick={e => {
+								handleOnCLickCantidad(e.target.name, 'menos');
+							}}
+							name={id}>
+							-
+						</button>
+						<p className="acomodo">{cantidades}</p>
+						<button
+							className="btn botoncart"
+							onClick={e => {
+								handleOnCLickCantidad(e.target.name, 'mas');
+							}}
+							name={id}>
+							+
+						</button>
+					</div>
+					<div className="precioboton">
+						<p id="precio">$ {precio} </p>
+						<button id="boton1" name={id} onClick={e => deleteProdCart(e.target.name)}>
+							X
+						</button>
+					</div>
+				</li>
+			</ul>
 		</div>
 	);
 }
 
-const mapStateToProps = state => {
-	return {
-		productsCar: state.productsCar,
-		total: state.totalCarrito,
-	};
-};
-export default connect(mapStateToProps, {getCarrito, deleteProdCart, setCantidad})(Item);
+export default connect(null, {deleteProdCart, setCantidad})(Item);

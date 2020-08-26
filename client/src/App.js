@@ -5,15 +5,28 @@ import Products from './Components/product/producto';
 import Table from './Components/Table/Table';
 import Cart from './Components/Carrito/Cart';
 import NavBar from './Components/NavBar/NavBar';
-import axios from 'axios';
 import Orders from './Components/Orders/Order';
-import Order from './Components/Orders/OrderI'
+import Order from './Components/Orders/OrderI';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
 
 import {getProducts, getCategories, searchProduct, getOrder} from './Actions/index';
 import {connect} from 'react-redux';
 
+<<<<<<< HEAD
 function App({productos, catProducts, getProducts, getCategories, categories, carrito, searchProduct, getOrder, orders}) {
+=======
+function App({
+	productos,
+	catProducts,
+	getProducts,
+	getCategories,
+	categories,
+	carrito,
+	searchProduct,
+	getOrder,
+	orders,
+}) {
+>>>>>>> 53ae8bcb1580f6362fe017ca2eab78409a46db39
 	const [buscar, setBuscar] = useState('');
 
 	const filtrar = id => {
@@ -45,10 +58,14 @@ function App({productos, catProducts, getProducts, getCategories, categories, ca
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
 			<Route path="/orders" render={() => <Orders orders={orders} />} />
+<<<<<<< HEAD
 			<Route 
 			path="/order/:id" 
 			component={ Order }
 			/>  
+=======
+			<Route path="/order/:id" component={Order} />
+>>>>>>> 53ae8bcb1580f6362fe017ca2eab78409a46db39
 			<Route path="/cart/:userId" component={Cart} />
 			<Route path="/sign_up" component={FormUsuario} />
 		</div>
@@ -60,8 +77,7 @@ const mapStateToProps = state => {
 		productos: state.products,
 		catProducts: state.catProducts,
 		categories: state.categories,
-		orders: state.orders
+		orders: state.orders,
 	};
 };
 export default connect(mapStateToProps, {getProducts, getCategories, searchProduct, getOrder})(App);
-
