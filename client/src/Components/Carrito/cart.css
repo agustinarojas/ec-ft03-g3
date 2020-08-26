@@ -1,7 +1,7 @@
 #compra {
     width: 15%;
     position: relative;
-    left: 1160px;
+	left: 1200px;
     margin-bottom: 25px;
 	box-shadow: 3px 5px 50px -2px #3dc21b;
 	background-color:#44c767;
@@ -27,6 +27,34 @@
 .flexend {
     display: flex;
     flex-direction: column;
-   
-    
+}
+
+#vaciar {
+	width: 15%;
+    position: relative;
+    left: 950px;
+    top : 65px;
+	box-shadow: 0px 0px 45px -1px #ff0808;
+	background-color:#ff0000;
+	border-radius:42px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:20px 50px;
+	text-decoration:none;
+	outline: none;
+    border: 0;
+}
+#vaciar:hover {
+	background-color:#de2a2a;
+}
+#vaciar:active {
+	position:relative;
+	top:1px;
+}
+#total {
+	position:relative;
+	left: 75px;
 }

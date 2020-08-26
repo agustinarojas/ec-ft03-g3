@@ -7,7 +7,14 @@ import {emptyCart, getCarrito} from '../../Actions/index';
 
 function Cart({match, emptyCart, productsCar, getCarrito}) {
 	const [can, setCantid] = useState(1);
+	const [precio, setPrecio] = useState(0)
 	let userId = match?.params?.userId;
+	let total = 0;
+	for (let i=0; i < productsCar?.length; i++) {
+		total += productsCar[i].precio * productsCar[i].lineorder.cantidad
+		}
+
+
 	function comprar() {
 		return axios
 			.put('http://localhost:3005/orders/1', {estado: 'completa'})
@@ -18,7 +25,6 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 	useEffect(() => {
 		getCarrito(userId);
 	}, [can]);
-	console.log(productsCar);
 	return (
 		<div className="flexend">
 			{productsCar?.map((p, i) => (
@@ -34,7 +40,8 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 					key={i}
 				/>
 			))}
-			<button id="compra" onClick={() => emptyCart(1)}>
+			<h2 id='total'>TOTAL: ${total}</h2>
+			<button id="vaciar" onClick={() => emptyCart(1)}>
 				Vaciar
 			</button>
 			<button id="compra" onClick={() => comprar}>

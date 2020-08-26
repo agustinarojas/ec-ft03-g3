@@ -6,7 +6,6 @@ import {deleteProdCart, setCantidad} from '../../Actions/index';
 
 function Item({titulo, descripcion, imagen, precio, id, deleteProdCart, stock, cantidad}) {
 	const [cantidades, setCantidades] = useState(cantidad);
-
 	const handleOnCLickCantidad = (prodId, type) => {
 		if (type === 'menos' && cantidades > 1) {
 			setCantidades(cantidades - 1);
