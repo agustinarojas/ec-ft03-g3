@@ -19,6 +19,7 @@ import {
 	EMPTY_CART,
 	GET_ORDERS,
 } from '../Constants/ProductsConstants';
+import axios from 'axios';
 const inicialState = {
 	products: [],
 	catProducts: [],
@@ -86,7 +87,6 @@ export default function rootReducer(state = inicialState, action) {
 			};
 		//* CARRITO
 		case GET_CARRITO:
-			console.log(state.totalCarrito);
 			// let precios = action.productsCar.map(prod => prod.precio * prod.cantidad);
 			return {
 				...state,
@@ -95,7 +95,13 @@ export default function rootReducer(state = inicialState, action) {
 			};
 		case ADD_TO_CART:
 			var existe = state?.productsCar?.filter((p, i) => p.id == action.product.id);
-			if (existe.length > 0) {
+			if (existe.length > 0) { 
+				var can = existe[0]?.lineorder?.cantidad
+				console.log(existe[0])
+				axios
+				.put(`http://localhost:3005/users/1/cart`, {id: existe[0].id, cantidad: can + 1})
+				.then(res => res.data)
+				.catch(err => console.log(err));
 				//si existe retorno lo q tenia jaja
 				return {...state};
 			}
@@ -146,6 +152,7 @@ export default function rootReducer(state = inicialState, action) {
 				products: action.product,
 			};
 		case EMPTY_CART:
+			console.log('hola')
 			return {
 				...state,
 				productsCar: action.cart,

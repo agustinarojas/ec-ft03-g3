@@ -78,6 +78,7 @@
 	height: 140px;
 }
 .carritoItem {
+	padding-top:20px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -85,7 +86,7 @@
 .cartitem {
 	height: 200px;
 	margin-left: 20px;
-	margin-bottom: 20px;
+
 	width: 97%;
 }
 

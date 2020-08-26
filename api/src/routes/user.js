@@ -69,12 +69,15 @@ server.post('/:ids/cart', (req, res) => {
 			userId: ids,
 			estado: 'activo',
 		},
+		include: {
+			model: Product
+		}
 	});
 	Promise.all([pCarrito, pProduct])
 		.then(values => {
 			let carrito = values[0][0];
 			let producto = values[1];
-			producto.addCarritos(carrito, {through: {cantidad: 1, precio: producto.precio}});
+			producto.addCarritos(carrito, {through: {cantidad: false || 1, precio: producto.precio}});
 			res.send(producto);
 		})
 		.catch(err => console.log(err));
@@ -149,6 +152,7 @@ server.put('/:ids/cart', (req, res) => {
 	})
 		.then(carrito => {
 			let result = carrito.products.filter(el => el.id === data.id);
+			console.log(data.cantidad)
 			result[0].lineorder.update({
 				cantidad: data.cantidad,
 			});

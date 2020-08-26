@@ -176,7 +176,6 @@ export function getCarrito(userId) {
 
 export function addToCart(userId, prodId) {
 	return function (dispatch) {
-		console.log(userId, prodId);
 		return axios
 			.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt(prodId)})
 			.then(res => {
