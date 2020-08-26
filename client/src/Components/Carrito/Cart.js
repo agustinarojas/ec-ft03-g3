@@ -19,7 +19,7 @@ function Cart({ match, emptyCart, productsCar, getCarrito }) {
 		}
 		var aux = precios
 		console.log(aux)
-		//Abri la consola fijate que funciona, si renderizas el estado de precio, en la linea 52, del 'total', deja de funcionar no se porque, no le puedo hacer el setPrecio que funciona mal, fijate si podes agus :c
+		//Abri la consola fijate que funciona, si renderizas el estado de precio, en la linea 54, del 'total', deja de funcionar no se porque, no le puedo hacer el setPrecio que funciona mal, fijate si podes agus :c
 
 	}	
 
