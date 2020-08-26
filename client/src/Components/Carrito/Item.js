@@ -8,25 +8,6 @@ function Item({titulo, descripcion, imagen, precio, id, deleteProdCart, stock, c
 	const [cantidades, setCantidades] = useState(cantidad);
 
 	const handleOnCLickCantidad = (prodId, type) => {
-<<<<<<< HEAD
-		let cantidad = productsCar?.filter(prod => prod.id === prodId);
-		let stock = cantidad[0]?.stock;
-		cantidad = cantidad[0]?.lineorder?.cantidad;
-		console.log(prodId)
-		console.log(cantidades)
-
-		if (type === 'menos' && cantidad > 1) {
-			 setCantidades({
-			 	...cantidades?
-			 	cantidades[1]: cantidades[1] - 1,
-			 })
-
-		} else if (type === 'mas' && stock > cantidad) {
-			 setCantidades({
-			 	...cantidades?
-			 	cantidades[prodId]: cantidades[prodId] + 1,
-			 })
-=======
 		if (type === 'menos' && cantidades > 1) {
 			setCantidades(cantidades - 1);
 			axios
@@ -39,7 +20,6 @@ function Item({titulo, descripcion, imagen, precio, id, deleteProdCart, stock, c
 				.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidades + 1})
 				.then(res => res.data)
 				.catch(err => console.log(err));
->>>>>>> 53ae8bcb1580f6362fe017ca2eab78409a46db39
 		}
 	};
 	return (
