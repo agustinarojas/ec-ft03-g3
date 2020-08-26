@@ -94,7 +94,11 @@ export default function rootReducer(state = inicialState, action) {
 				// totalCarrito: state.totalCarrito + parseInt(action.productsCar.precio),
 			};
 		case ADD_TO_CART:
-			console.log(action);
+			var existe = state?.productsCar?.filter((p, i) => p.id == action.product.id);
+			if (existe.length > 0) {
+				//si existe retorno lo q tenia jaja
+				return {...state};
+			}
 			return {
 				...state,
 				productsCar: [...state.productsCar, action.product],

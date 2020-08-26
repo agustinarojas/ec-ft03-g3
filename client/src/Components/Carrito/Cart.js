@@ -15,27 +15,29 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 			.catch(err => console.log(err));
 	}
 
-	// useEffect(() => {
-	// 	getCarrito(userId);
-	// }, [can]);
+	useEffect(() => {
+		getCarrito(userId);
+	}, [can]);
 	console.log(productsCar);
 	return (
 		<div className="flexend">
 			{productsCar?.map((p, i) => (
 				<Item
+					match={match}
 					titulo={p.titulo}
 					descripcion={p.descripcion}
 					imagen={p.imagen}
 					precio={p.precio}
 					id={p.id}
+					stock={p.stock}
+					cantidad={p.lineorder.cantidad}
 					key={i}
 				/>
 			))}
-
 			<button id="compra" onClick={() => emptyCart(1)}>
 				Vaciar
 			</button>
-			<button id="compra" onClick={comprar}>
+			<button id="compra" onClick={() => comprar}>
 				Checkout
 			</button>
 		</div>
