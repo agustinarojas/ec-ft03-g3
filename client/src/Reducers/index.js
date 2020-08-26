@@ -15,16 +15,16 @@ import {
 	SET_CANTIDAD,
 	ADD_TO_CART,
 	GET_ORDER,
-  SEARCH_PRODUCT,
+	SEARCH_PRODUCT,
 	EMPTY_CART,
-	GET_ORDERS
+	GET_ORDERS,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
 	catProducts: [],
 	categories: [],
 	productsCar: [],
-	orders: []
+	orders: [],
 	// totalCarrito: 0,
 };
 
@@ -94,7 +94,11 @@ export default function rootReducer(state = inicialState, action) {
 				// totalCarrito: state.totalCarrito + parseInt(action.productsCar.precio),
 			};
 		case ADD_TO_CART:
-			console.log(action);
+			var existe = state?.productsCar?.filter((p, i) => p.id == action.product.id);
+			if (existe.length > 0) {
+				//si existe retorno lo q tenia jaja
+				return {...state};
+			}
 			return {
 				...state,
 				productsCar: [...state.productsCar, action.product],
@@ -136,21 +140,21 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				orders: action.orders,
 			};
-    case SEARCH_PRODUCT:
-  		return {
-  			...state,
-  			products: action.product,
-  		};
-		 case EMPTY_CART:
-	   	return {
-	   		...state,
-	   		productsCar: action.cart,
-	   	};
+		case SEARCH_PRODUCT:
+			return {
+				...state,
+				products: action.product,
+			};
+		case EMPTY_CART:
+			return {
+				...state,
+				productsCar: action.cart,
+			};
 		case GET_ORDERS:
 			return {
 				...state,
-				orders: action.orders
-			}
+				orders: action.orders,
+			};
 		default:
 			return state;
 	}
