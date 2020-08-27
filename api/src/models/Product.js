@@ -1,4 +1,5 @@
 const {DataTypes} = require('sequelize');
+const crypto = require('crypto')
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = sequelize => {
@@ -60,6 +61,15 @@ module.exports = sequelize => {
 		password: {
 			type: DataTypes.STRING,
 			allowNull: false,
+			get() {
+				return () => this.getDataValue('password')
+			}
+		},
+		salt: {
+			type: DataTypes.STRING,
+			get() {
+				return () => this.getDataValue('salt')
+			}
 		},
 		admin: {
 			type: DataTypes.BOOLEAN,
@@ -95,4 +105,27 @@ module.exports = sequelize => {
 	Cat.belongsToMany(Product, {through: 'productcat'});
 	Carrito.belongsToMany(Product, {through: lineorder});
 	Product.belongsToMany(Carrito, {through: lineorder});
+
+	User.generateSalt = function() {
+		return crypto.randomBytes(16).toString('base64')
+	}
+	User.encryptPassword = function(plainText, salt) {
+		return crypto
+			.createHash('RSA-SHA256')
+			.update(plainText)
+			.update(salt)
+			.digest('hex')
+	}
+	const setSaltAndPassword = user => {
+		if (user.changed('password')) {
+			user.salt = User.generateSalt()
+			user.password = User.encryptPassword(user.password(), user.salt())
+		}
+	}
+	User.beforeCreate(setSaltAndPassword)
+	User.beforeUpdate(setSaltAndPassword)
+
+	User.prototype.correctPassword = function(enteredPassword) {
+		return User.encryptPassword(enteredPassword, this.salt()) === this.password()
+	}
 };

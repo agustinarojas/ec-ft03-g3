@@ -15,7 +15,6 @@ function user({user}) {
 				{user.nombre} {user.apellido}
 			</h1>
 			<p> {user.email} </p>
-			<button onClick={handleOnClick}> Cerran Sesión </button>
 		</div>
 	);
 }
