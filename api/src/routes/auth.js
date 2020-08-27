@@ -3,9 +3,13 @@ const server = require('express').Router();
 const {User} = require('../db.js');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
+const {isAuthenticated} = require('./validations');
 
-server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function (req,res) {
-	console.log(req.user + '         chausinio');
+server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function (
+	req,
+	res,
+) {
+	console.log(req.user);
 	res.send('chausinio');
 });
 
@@ -19,20 +23,17 @@ server.get('/logout', (req, res) => {
 	res.send('hi');
 });
 
-function isAuthenticated(req, res, next) {
-	console.log(req.isAuthenticated())
-	if (req.isAuthenticated()) {
-		next();
-	} else {
-		//console.log('hola');
-		res.send('TE HE FALLADO')
-		res.status(404);
-	}
-}
-
 server.get('/me', isAuthenticated, (req, res) => {
 	console.log(req.user);
 	res.send(req.user);
+});
+
+server.post('/promote/:id', (req, res) => {
+	User.findByPk(req.params.id).then(user => {
+		console.log(user);
+		user.update({admin: true}), user.save();
+		res.send(user);
+	});
 });
 
 module.exports = server;

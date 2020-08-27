@@ -1,8 +1,8 @@
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY'; // Habria que sacar el axios delete y en el reducers hacer un filter...
-export const DELETE_PRODUCT = 'DELETE_PRODUCT'
-export const POST_PRODUCTS = 'POST_PRODUCTS'
-export const PUT_PRODUCTS = 'PUT_PRODUCTS'
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const POST_PRODUCTS = 'POST_PRODUCTS';
+export const PUT_PRODUCTS = 'PUT_PRODUCTS';
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const DELETE_PROD_CATEGORY = 'DELETE_PROD_CATEGORY';
 export const PUT_CATEGORY = 'PUT_CATEGORY';
@@ -18,7 +18,5 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const GET_ORDER = 'GET_ORDER';
 export const SEARCH_PRODUCT = 'SEARCH_PRODUCT';
 export const EMPTY_CART = 'EMPTY_CART';
-export const GET_ORDERS = 'GET_ORDERS'
-export const LOGIN = 'LOGIN'
-export const GET_USER = 'GET_USER'
-
+export const GET_ORDERS = 'GET_ORDERS';
+export const GET_USER = 'GET_USER';

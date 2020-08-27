@@ -3,8 +3,9 @@ const {Op} = require('sequelize');
 const {User, Carrito, Product} = require('../db.js');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
+const {isAdmin, isAuthenticated} = require('./validations');
 
-server.get('/', (req, res) => {
+server.get('/', isAdmin, (req, res) => {
 	User.findAll()
 		.then(users => {
 			res.send(users);
@@ -24,7 +25,7 @@ server.post('/', (req, res) => {
 		});
 });
 
-server.put('/:id', (req, res) => {
+server.put('/:id', isAuthenticated, (req, res) => {
 	var newEmail = req.body.email;
 	User.findOne({
 		where: {
@@ -43,7 +44,7 @@ server.put('/:id', (req, res) => {
 		});
 });
 
-server.delete('/:id', (req, res) => {
+server.delete('/:id', isAuthenticated, (req, res) => {
 	User.findOne({
 		where: {
 			id: req.params.id,
@@ -176,7 +177,7 @@ server.put('/:ids/cart', (req, res) => {
 		});
 });
 
-server.get('/:ids/orders', (req, res) => {
+server.get('/:ids/orders', isAuthenticated, (req, res) => {
 	//Ruta trae toda las ordenes de un usuario. Dentro de tabla de orden
 	Carrito.findAll({
 		where: {
