@@ -16,11 +16,14 @@ function NavBar({search, category, filterByCategory, getProducts, getOrders}) {
 			</Link>
 			<Link to="/admin">Admin</Link>
 
-			<Link to="/cart/1">Carrito</Link>
+			<Link to="/cart/1">
+				<span class="material-icons"> shopping_cart </span>
+			</Link>
 			<Link to="/orders" onClick={() => getOrders()}>
 				Ordenes
 			</Link>
-			<Link to="/sign_up"> Sign Up </Link>
+			<Link to="/sign_up"> Registrarse </Link>
+			<Link to="/login"> Iniciar Sesion </Link>
 			<div className="dropd">
 				<button className="dropdbtn">
 					Categorias

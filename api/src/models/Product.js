@@ -41,6 +41,14 @@ module.exports = sequelize => {
 		},
 	});
 	const User = sequelize.define('user', {
+		nombre: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
+		apellido: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -49,7 +57,12 @@ module.exports = sequelize => {
 				isEmail: true,
 			},
 		},
+		password: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 	});
+
 	const lineorder = sequelize.define('lineorder', {
 		cantidad: {
 			type: DataTypes.INTEGER,
@@ -61,6 +74,17 @@ module.exports = sequelize => {
 		},
 	});
 
+	const Review = sequelize.define('review', {
+		descripcion: {
+			type: DataTypes.TEXT,
+		},
+		rating: {
+			type: DataTypes.ENUM('1', '2', '3', '4', '5'),
+		},
+	});
+
+  Product.hasMany(Review);
+	Review.belongsTo(User);
 	User.hasMany(Carrito);
 	Product.belongsToMany(Cat, {through: 'productcat'});
 	Cat.belongsToMany(Product, {through: 'productcat'});
