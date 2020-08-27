@@ -5,6 +5,7 @@ import {getOrder} from '../../Actions/index';
 import './order.css';
 
 function Orders({orders, getOrder}) {
+	console.log(orders);
 	var precios = [];
 	for (let i = 0; i < orders.length; i++) {
 		var total = 0;

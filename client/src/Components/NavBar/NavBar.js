@@ -3,9 +3,9 @@ import SearchBar from '../SearchBar/SearchBar';
 import './NavBar.css';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {filterByCategory, getCarrito, getOrder, getProducts, getOrders, getUser} from '../../Actions/index';
+import {filterByCategory, getOrder, getProducts, getOrders, getUser} from '../../Actions/index';
 
-function NavBar({search, category, filterByCategory, getProducts, getOrders, getUser}) {
+function NavBar({search, category, filterByCategory, getProducts, getOrders, getUser, user}) {
 	return (
 		<nav className="navigatorbar">
 			<Link to="/" id="chico" onClick={() => getProducts()}>
@@ -29,20 +29,32 @@ function NavBar({search, category, filterByCategory, getProducts, getOrders, get
 			</div>
 			<Link to="/sign_up"> Registrarse </Link>
 			<Link to="/login"> Iniciar Sesion </Link>
-			<Link to="/admin">Admin</Link>
+			{user.admin && <Link to="/admin">Admin</Link>}
 
-			<Link to="/orders" onClick={() => getOrders()}>
-				Ordenes
-			</Link>
+			{user.admin && (
+				<Link to="/orders" onClick={() => getOrders()}>
+					Ordenes
+				</Link>
+			)}
 			<Link to="/cart/1">
 				<span class="material-icons"> shopping_cart </span>
 			</Link>
-			<Link to="/me" onClick={() => getUser()} >
+			<Link to="/me" onClick={() => getUser()}>
 				Me
 			</Link>
 			<SearchBar search={search} />
 		</nav>
 	);
 }
-
-export default connect(null, {filterByCategory, getOrder, getProducts, getOrders, getUser})(NavBar);
+function mapStateToProps(state) {
+	return {
+		user: state.user,
+	};
+}
+export default connect(mapStateToProps, {
+	filterByCategory,
+	getOrder,
+	getProducts,
+	getOrders,
+	getUser,
+})(NavBar);
