@@ -82,7 +82,7 @@ export default function LoginUser() {
 				</Button>
 				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 					<Alert onClose={handleClose} severity="success">
-						Usuario creado!
+						Iniciando Sesion
 					</Alert>
 				</Snackbar>
 			</form>
