@@ -204,4 +204,20 @@ server.get('/:ids/orders', isAuthenticated, (req, res) => {
 		});
 });
 
+server.post('/:ids/passReset', isAuthenticated, (req, res) => {
+	var pass = req.body.password
+	User.findOne({
+		where: {
+			id: req.params.ids
+		}
+	}).then(user => {
+		user.update({
+			password: pass
+		})
+		user.save()
+		res.send('Contrasena actualizada.').status(201)
+	})
+	.catch(err => console.log(err))
+})
+
 module.exports = server;
