@@ -18,6 +18,7 @@ import {
 	SEARCH_PRODUCT,
 	EMPTY_CART,
 	GET_ORDERS,
+	GET_USER,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
@@ -25,6 +26,7 @@ const inicialState = {
 	categories: [],
 	productsCar: [],
 	orders: [],
+	user: {},
 	// totalCarrito: 0,
 };
 
@@ -160,6 +162,11 @@ export default function rootReducer(state = inicialState, action) {
 			return {
 				...state,
 				orders: action.orders,
+			};
+		case GET_USER:
+			return {
+				...state,
+				user: action.user,
 			};
 		default:
 			return state;

@@ -61,6 +61,11 @@ module.exports = sequelize => {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		admin: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: false,
+		},
 	});
 
 	const lineorder = sequelize.define('lineorder', {
@@ -83,7 +88,7 @@ module.exports = sequelize => {
 		},
 	});
 
-  Product.hasMany(Review);
+	Product.hasMany(Review);
 	Review.belongsTo(User);
 	User.hasMany(Carrito);
 	Product.belongsToMany(Cat, {through: 'productcat'});
