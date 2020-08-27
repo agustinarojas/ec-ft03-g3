@@ -16,7 +16,9 @@ function NavBar({search, category, filterByCategory, getProducts, getOrders}) {
 			</Link>
 			<Link to="/admin">Admin</Link>
 
-			<Link to="/cart/1"><span class="material-icons"> shopping_cart </span></Link>
+			<Link to="/cart/1">
+				<span class="material-icons"> shopping_cart </span>
+			</Link>
 			<Link to="/orders" onClick={() => getOrders()}>
 				Ordenes
 			</Link>

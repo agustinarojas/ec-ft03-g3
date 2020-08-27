@@ -2,8 +2,7 @@ const server = require('express').Router();
 const {Op} = require('sequelize');
 const {User, Carrito, Product} = require('../db.js');
 const passport = require('passport');
-const Strategy = require('passport-local').Strategy
-
+const Strategy = require('passport-local').Strategy;
 
 server.get('/', (req, res) => {
 	User.findAll()
@@ -16,7 +15,6 @@ server.get('/', (req, res) => {
 });
 
 server.post('/', (req, res) => {
-	console.log(req.body)
 	User.create(req.body)
 		.then(user => {
 			res.status(201).send(user);
