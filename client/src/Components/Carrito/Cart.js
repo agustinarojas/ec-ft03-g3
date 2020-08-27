@@ -12,8 +12,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 
-
-
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -54,11 +52,11 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 
 	const [open, setOpen] = React.useState(false);
 	const handleClickOpen = () => {
-	  setOpen(true);
+		setOpen(true);
 	};
-  
+
 	const handleClose = () => {
-	  setOpen(false);
+		setOpen(false);
 	};
 
 	useEffect(() => {
@@ -94,32 +92,36 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 				<button id="vaciar" onClick={() => handleClickOpen()}>
 					Vaciar
 				</button>
-				
 			) : (
 				''
-			)}  <Dialog
-			open={open}
-			TransitionComponent={Transition}
-			keepMounted
-			onClose={handleClose}
-			aria-labelledby="alert-dialog-slide-title"
-			aria-describedby="alert-dialog-slide-description"
-		  >
-			<DialogTitle id="alert-dialog-slide-title">{"Vaciar carrito"}</DialogTitle>
-			<DialogContent>
-			  <DialogContentText id="alert-dialog-slide-description">
-				¿Estas seguro que quieres vaciar el carrito?
-			  </DialogContentText>
-			</DialogContent>
-			<DialogActions>
-			  <Button onClick={handleClose} color="primary">
-				Cancelar
-			  </Button>
-			  <Button onClick={() => {emptyCart(1); handleClose()}} color="primary">
-				Aceptar
-			  </Button>
-			</DialogActions>
-		  </Dialog>
+			)}
+			<Dialog
+				open={open}
+				TransitionComponent={Transition}
+				keepMounted
+				onClose={handleClose}
+				aria-labelledby="alert-dialog-slide-title"
+				aria-describedby="alert-dialog-slide-description">
+				<DialogTitle id="alert-dialog-slide-title">{'Vaciar carrito'}</DialogTitle>
+				<DialogContent>
+					<DialogContentText id="alert-dialog-slide-description">
+						¿Estas seguro que quieres vaciar el carrito?
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose} color="primary">
+						Cancelar
+					</Button>
+					<Button
+						onClick={() => {
+							emptyCart(1);
+							handleClose();
+						}}
+						color="primary">
+						Aceptar
+					</Button>
+				</DialogActions>
+			</Dialog>
 			{productsCar.length > 0 ? (
 				<button id="compra" onClick={() => comprar()}>
 					Checkout

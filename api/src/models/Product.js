@@ -55,11 +55,16 @@ module.exports = sequelize => {
 			unique: true,
 			validate: {
 				isEmail: true,
-		  }
-	  },
+			},
+		},
 		password: {
 			type: DataTypes.STRING,
 			allowNull: false,
+		},
+		admin: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: false,
 		},
 	});
 
@@ -74,6 +79,17 @@ module.exports = sequelize => {
 		},
 	});
 
+	const Review = sequelize.define('review', {
+		descripcion: {
+			type: DataTypes.TEXT,
+		},
+		rating: {
+			type: DataTypes.ENUM('1', '2', '3', '4', '5'),
+		},
+	});
+
+	Product.hasMany(Review);
+	Review.belongsTo(User);
 	User.hasMany(Carrito);
 	Product.belongsToMany(Cat, {through: 'productcat'});
 	Cat.belongsToMany(Product, {through: 'productcat'});
