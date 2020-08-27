@@ -17,6 +17,7 @@ import {
 	SEARCH_PRODUCT,
 	EMPTY_CART,
 	GET_ORDERS,
+	GET_USER,
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -24,7 +25,7 @@ import {
 export function emptyCart(id) {
 	return function (dispatch) {
 		return axios
-			.delete(`http://localhost:3005/users/${id}/cart`)
+			.delete(`http://localhost:3005/users/${id}/cart`, {withCredentials: true})
 			.then(res => {
 				dispatch({type: EMPTY_CART, cart: []});
 			})
@@ -35,7 +36,7 @@ export function emptyCart(id) {
 export function searchProduct(buscar) {
 	return function (dispatch) {
 		return axios
-			.get(`http://localhost:3005/search?valor=${buscar}`)
+			.get(`http://localhost:3005/search?valor=${buscar}`, {withCredentials: true})
 			.then(res => {
 				dispatch({type: SEARCH_PRODUCT, product: res.data});
 			})
@@ -46,7 +47,7 @@ export function searchProduct(buscar) {
 export function getProducts() {
 	return function (dispatch) {
 		return axios
-			.get('http://localhost:3005/products')
+			.get('http://localhost:3005/products', {withCredentials: true})
 			.then(res => {
 				dispatch({type: GET_PRODUCTS, products: res.data});
 			})
@@ -56,7 +57,7 @@ export function getProducts() {
 export function addProduct(product) {
 	return function (dispatch) {
 		return axios
-			.post('http://localhost:3005/products', product)
+			.post('http://localhost:3005/products', product, {withCredentials: true})
 			.then(res => {
 				dispatch({type: 'ADD_PRODUCT', product: res.data});
 			})
@@ -67,7 +68,7 @@ export function addProduct(product) {
 export function putProduct(product, id) {
 	return function (dispatch) {
 		return axios
-			.put(`http://localhost:3005/products/${id}`, product)
+			.put(`http://localhost:3005/products/${id}`, product, {withCredentials: true})
 			.then(res => {
 				dispatch({type: PUT_PRODUCT, product: res.data});
 			})
@@ -78,7 +79,7 @@ export function putProduct(product, id) {
 export function deleteProduct(id) {
 	return function (dispatch) {
 		return axios
-			.delete(`http://localhost:3005/products/${id}`)
+			.delete(`http://localhost:3005/products/${id}`, {withCredentials: true})
 			.then(res => {
 				dispatch({type: DELETE_PRODUCT, product: res.data});
 			})
@@ -90,7 +91,7 @@ export function deleteProduct(id) {
 export function getCategories() {
 	return function (dispatch) {
 		return axios
-			.get('http://localhost:3005/category')
+			.get('http://localhost:3005/category', {withCredentials: true})
 			.then(res => {
 				dispatch({type: GET_CATEGORIES, categories: res.data});
 			})
@@ -101,7 +102,7 @@ export function getCategories() {
 export function postCategory(category) {
 	return function (dispatch) {
 		return axios
-			.post('http://localhost:3005/category', category)
+			.post('http://localhost:3005/category', category, {withCredentials: true})
 			.then(res => {
 				dispatch({type: POST_CATEGORY, category});
 			})
@@ -112,7 +113,7 @@ export function postCategory(category) {
 export function putCategory(category, id) {
 	return function (dispatch) {
 		return axios
-			.put(`http://localhost:3005/category/${id}`, category)
+			.put(`http://localhost:3005/category/${id}`, category, {withCredentials: true})
 			.then(res => {
 				dispatch({type: PUT_CATEGORY, category: res.data});
 			})
@@ -123,7 +124,7 @@ export function putCategory(category, id) {
 export function deleteCategory(id) {
 	return function (dispatch) {
 		return axios
-			.delete('http://localhost:3005/category/' + id)
+			.delete('http://localhost:3005/category/' + id, {withCredentials: true})
 			.then(res => {
 				dispatch({type: 'DELETE_CATEGORY', category: res.data});
 			})
@@ -135,7 +136,7 @@ export function deleteCategory(id) {
 export function setCategory(prodId, catId) {
 	return function (dispatch) {
 		return axios
-			.post(`http://localhost:3005/products/${prodId}/category/${catId}`)
+			.post(`http://localhost:3005/products/${prodId}/category/${catId}`, {withCredentials: true})
 			.then(res => {
 				dispatch({type: SET_CATEGORY});
 			})
@@ -145,7 +146,7 @@ export function setCategory(prodId, catId) {
 export function deleteProdCategory(prodId, catId) {
 	return function (dispatch) {
 		return axios
-			.delete(`http://localhost:3005/products/${prodId}/category/${catId}`)
+			.delete(`http://localhost:3005/products/${prodId}/category/${catId}`, {withCredentials: true})
 			.then(res => {
 				dispatch({type: DELETE_PROD_CATEGORY});
 			})
@@ -156,7 +157,7 @@ export function deleteProdCategory(prodId, catId) {
 export function filterByCategory(categoria) {
 	return function (dispatch) {
 		return axios
-			.get(`http://localhost:3005/products/category/${categoria}`)
+			.get(`http://localhost:3005/products/category/${categoria}`, {withCredentials: true})
 			.then(res => {
 				dispatch({type: FILTER_BY_CATEGORY, catProducts: res.data});
 			})
@@ -168,7 +169,7 @@ export function filterByCategory(categoria) {
 export function getCarrito(userId) {
 	return function (dispatch) {
 		return axios
-			.get(`http://localhost:3005/users/${userId}/cart`)
+			.get(`http://localhost:3005/users/${userId}/cart`, {withCredentials: true})
 			.then(res => dispatch({type: GET_CARRITO, productsCar: res.data}))
 			.catch(err => console.log(err));
 	};
@@ -177,7 +178,11 @@ export function getCarrito(userId) {
 export function addToCart(userId, prodId) {
 	return function (dispatch) {
 		return axios
-			.post(`http://localhost:3005/users/${userId}/cart`, {id: parseInt(prodId)})
+			.post(
+				`http://localhost:3005/users/${userId}/cart`,
+				{id: parseInt(prodId)},
+				{withCredentials: true},
+			)
 			.then(res => {
 				if (res.data.carritos.length) {
 					console.log(res.data);
@@ -193,7 +198,7 @@ export function addToCart(userId, prodId) {
 export function deleteProdCart(prodId) {
 	return function (dispatch) {
 		return axios
-			.delete(`http://localhost:3005/users/1/cart/${prodId}`)
+			.delete(`http://localhost:3005/users/1/cart/${prodId}`, {withCredentials: true})
 			.then(res => {
 				dispatch({type: DELETE_PROD_CART, productCar: res.data});
 			})
@@ -204,7 +209,11 @@ export function deleteProdCart(prodId) {
 export function setCantidad(prodId, cantidad, accion) {
 	return function (dispatch) {
 		return axios
-			.put(`http://localhost:3005/users/1/cart`, {id: parseInt(prodId), cantidad: cantidad})
+			.put(
+				`http://localhost:3005/users/1/cart`,
+				{id: parseInt(prodId), cantidad: cantidad},
+				{withCredentials: true},
+			)
 			.then(res => {
 				console.log(res.data);
 				dispatch({type: SET_CANTIDAD, lineorder: res.data, accion});
@@ -216,7 +225,7 @@ export function setCantidad(prodId, cantidad, accion) {
 export function getOrder(id) {
 	return function (dispatch) {
 		return axios
-			.get(`http://localhost:3005/orders/${id}`)
+			.get(`http://localhost:3005/orders/${id}`, {withCredentials: true})
 			.then(res => {
 				dispatch({type: GET_ORDER, orders: res.data});
 			})
@@ -227,12 +236,23 @@ export function getOrder(id) {
 export function getOrders() {
 	return function (dispatch) {
 		return axios
-			.get('http://localhost:3005/orders')
+			.get('http://localhost:3005/orders', {withCredentials: true})
 			.then(res => {
 				dispatch({type: GET_ORDERS, orders: res.data});
 			})
 			.catch(err => {
 				console.log(err);
 			});
+	};
+}
+
+export function getUser() {
+	return function (dispatch) {
+		return axios
+			.get('http://localhost:3005/auth/me', {withCredentials: true})
+			.then(res => {
+				dispatch({type: GET_USER, user: res.data});
+			})
+			.catch(err => console.log(err));
 	};
 }

@@ -1,5 +1,6 @@
 const server = require('express').Router();
 const {Cat} = require('../db.js');
+const {isAdmin} = require('./validations');
 
 server.get('/', (req, res) => {
 	//prettier-ignore
@@ -8,13 +9,15 @@ server.get('/', (req, res) => {
 	.catch(err => res.send(err)));
 });
 
-server.post('/', (req, res) => {
-	Cat.create(req.body).then(category => {
-		res.status(201).send(category);
-	});
+server.post('/', isAdmin, (req, res) => {
+	Cat.create(req.body)
+		.then(category => {
+			res.status(201).send(category);
+		})
+		.catch(err => res.send(err));
 });
 
-server.delete('/:id', (req, res) => {
+server.delete('/:id', isAdmin, (req, res) => {
 	var categoriaId = req.params.id;
 	Cat.findOne({
 		where: {
@@ -31,7 +34,7 @@ server.delete('/:id', (req, res) => {
 		});
 });
 
-server.put('/:id', (req, res) => {
+server.put('/:id', isAdmin, (req, res) => {
 	var categoriaId = req.params.id;
 	console.log(categoriaId);
 	var data = req.body;

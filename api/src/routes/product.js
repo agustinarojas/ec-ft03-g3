@@ -1,5 +1,6 @@
 const server = require('express').Router();
 const {Product, Cat, productcat} = require('../db.js');
+const {isAdmin} = require('./validations');
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
@@ -18,14 +19,15 @@ server.get('/:id', (req, res, next) => {
 		res.send(product); // O product.dataValues ?
 	});
 });
-server.post('/', (req, res) => {
+
+server.post('/', isAdmin, (req, res) => {
 	Product.create(req.body).then(product => {
 		res.status(201);
 		res.json(product);
 	});
 });
 
-server.put('/:id', (req, res) => {
+server.put('/:id', isAdmin, (req, res) => {
 	var productId = req.params.id;
 	var data = req.body;
 	Product.findOne({
@@ -49,7 +51,7 @@ server.put('/:id', (req, res) => {
 		});
 });
 
-server.delete('/:id', (req, res) => {
+server.delete('/:id', isAdmin, (req, res) => {
 	var productId = req.params.id;
 	Product.findOne({
 		where: {
@@ -70,7 +72,7 @@ server.delete('/:id', (req, res) => {
 		});
 });
 
-server.post('/:idProducto/category/:idCategoria', (req, res) => {
+server.post('/:idProducto/category/:idCategoria', isAdmin, (req, res) => {
 	const {idProducto, idCategoria} = req.params;
 	let promiseProduct = Product.findByPk(idProducto);
 	let promiseCat = Cat.findByPk(idCategoria);
@@ -84,7 +86,7 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
 		.catch(err => res.sendStatus(400));
 });
 
-server.delete('/:idProducto/category/:idCategoria', (req, res) => {
+server.delete('/:idProducto/category/:idCategoria', isAdmin, (req, res) => {
 	const {idProducto, idCategoria} = req.params;
 	let promiseProduct = Product.findByPk(idProducto);
 	let promiseCat = Cat.findByPk(idCategoria);
