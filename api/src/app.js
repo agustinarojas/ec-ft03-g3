@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const {User} = require('./db.js');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 
@@ -11,10 +12,54 @@ require('./db.js');
 const server = express();
 
 server.name = 'API';
+passport.use(
+	new Strategy({usernameField: 'email'}, function (username, password, done) {
+		console.log('app.user' + username);
+		User.findOne({
+			where: {
+				email: username,
+			},
+		})
+			.then(user => {
+				if (!user) {
+					return done(null, false);
+				}
+				if (user.password != password) {
+					return done(null, false);
+				}
+				return done(null, user);
+			})
+			.catch(err => {
+				return done(err);
+			});
+	}),
+);
+passport.serializeUser(function (user, done) {
+	console.log(user);
+	done(null, user.id);
+});
 
+passport.deserializeUser(function (id, done) {
+	User.findByPk(id)
+		.then(user => {
+			done(null, user.get());
+		})
+		.catch(err => {
+			return done(err);
+		});
+});
+server.use(cookieParser());
+server.use(
+	require('express-session')({
+		secret: 'secret',
+		resave: false,
+		saveUninitialize: false,
+	}),
+);
+server.use(passport.initialize());
+server.use(passport.session());
 server.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
 server.use(bodyParser.json({limit: '50mb'}));
-server.use(cookieParser());
 server.use(morgan('dev'));
 server.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // update to match the domain you will make the request from
@@ -34,53 +79,6 @@ server.use((err, req, res, next) => {
 	console.error(err);
 	res.status(status).send(message);
 });
-
-passport.use(
-	new Strategy(function (email, password, done) {
-		User.findOne({
-			where: {
-				email: email,
-			},
-		})
-			.then(user => {
-				if (!user) {
-					return done(null, false);
-				}
-				if (user.password != password) {
-					return done(null, false);
-				}
-				return done(null, user);
-			})
-			.catch(err => {
-				return done(err);
-			});
-	}),
-);
-
-passport.serializeUser(function (user, done) {
-	done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-	User.findByPk(id)
-		.then(user => {
-			done(null, user);
-		})
-		.catch(err => {
-			return done(err);
-		});
-});
-
-server.use(
-	require('express-session')({
-		secret: 'secret',
-		resave: false,
-		saveUninitialize: false,
-	}),
-);
-
-server.use(passport.initialize());
-server.use(passport.session());
 
 server.use((req, res, next) => {
 	console.log(req.session);
