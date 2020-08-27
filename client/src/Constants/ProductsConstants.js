@@ -19,4 +19,6 @@ export const GET_ORDER = 'GET_ORDER';
 export const SEARCH_PRODUCT = 'SEARCH_PRODUCT';
 export const EMPTY_CART = 'EMPTY_CART';
 export const GET_ORDERS = 'GET_ORDERS'
+export const LOGIN = 'LOGIN'
+export const GET_USER = 'GET_USER'
 

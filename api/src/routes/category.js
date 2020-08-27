@@ -11,7 +11,8 @@ server.get('/', (req, res) => {
 server.post('/', (req, res) => {
 	Cat.create(req.body).then(category => {
 		res.status(201).send(category);
-	});
+	})
+	.catch(err => res.send(err))
 });
 
 server.delete('/:id', (req, res) => {

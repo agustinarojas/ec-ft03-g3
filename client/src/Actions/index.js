@@ -17,6 +17,8 @@ import {
 	SEARCH_PRODUCT,
 	EMPTY_CART,
 	GET_ORDERS,
+	LOGIN,
+	GET_USER
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -235,4 +237,26 @@ export function getOrders() {
 				console.log(err);
 			});
 	};
+}
+
+export function login (usuario) {
+	return function (dispatch) {
+		return axios
+		    .post('http://localhost:3005/auth/login', usuario)
+			.then(res => {
+				dispatch({type: LOGIN, user: res.data})
+			})
+			.catch(error => console.log(error));
+	}
+}
+
+export function getUser () {
+	return function (dispatch) {
+		return axios
+		.get('http://localhost:3005/auth/me')
+		.then(res => {
+			dispatch({type: GET_USER, user: res.data})
+		})
+		.catch(err => console.log(err))
+	}
 }

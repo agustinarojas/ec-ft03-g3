@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import './Form.css';
-
+import {login} from '../../Actions/index'
+import {connect} from 'react-redux'
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -19,7 +20,7 @@ import { makeStyles } from '@material-ui/core/styles';
  	},
  }));
 
-export default function LoginUser() {
+function LoginUser({login}) {
 	//const [email, setEmail] = useState({email: ''});
   const [state, setState] = useState({});
 
@@ -30,13 +31,6 @@ export default function LoginUser() {
 	  })
 	}
 
-	const handleSubmit = (event, state) => {
-		event.preventDefault();
-		axios
-			.post('http://localhost:3005/auth/login', state)
-			.then(res => console.log(res))
-			.catch(error => console.log(error));
-	};
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
 	const handleClick = () => {
@@ -51,7 +45,7 @@ export default function LoginUser() {
 
 	return (
 		<div className="Formm">
-			<form onSubmit={e => handleSubmit(e, state)}>
+			<form onSubmit={() => login(state)}>
 				<div className="form-group">
 					<label htmlFor="exampleInputEmail1">Email address</label>
 					<input
@@ -86,3 +80,5 @@ export default function LoginUser() {
 		</div>
 	);
 }
+
+export default connect(null, {login})(LoginUser)

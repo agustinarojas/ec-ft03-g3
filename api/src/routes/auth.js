@@ -4,12 +4,9 @@ const {User} = require('../db.js');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 
-server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function (
-	req,
-	res,
-) {
-	console.log(req.user);
-	res.send('chau');
+server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function (req,res) {
+	console.log(req.user + '         chausinio');
+	res.send('chausinio');
 });
 
 server.get('/', (req, res) => {
@@ -23,18 +20,18 @@ server.get('/logout', (req, res) => {
 });
 
 function isAuthenticated(req, res, next) {
+	console.log(req.isAuthenticated())
 	if (req.isAuthenticated()) {
 		next();
 	} else {
-		console.log('hola');
+		//console.log('hola');
+		res.send('TE HE FALLADO')
 		res.status(404);
-		res.redirect('/login');
 	}
 }
 
 server.get('/me', isAuthenticated, (req, res) => {
-	// console.log(req.user);
-
+	console.log(req.user);
 	res.send(req.user);
 });
 
