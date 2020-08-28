@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const {Product, Cat, productcat} = require('../db.js');
+const {Product, Cat, Carrito} = require('../db.js');
 const {isAdmin} = require('./validations');
 
 server.get('/', (req, res, next) => {
@@ -15,6 +15,7 @@ server.get('/:id', (req, res, next) => {
 		where: {
 			id: req.params.id,
 		},
+		include: [{model: Carrito}],
 	}).then(product => {
 		res.send(product); // O product.dataValues ?
 	});

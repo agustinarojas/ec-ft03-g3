@@ -19,3 +19,6 @@ export const SEARCH_PRODUCT = 'SEARCH_PRODUCT';
 export const EMPTY_CART = 'EMPTY_CART';
 export const GET_ORDERS = 'GET_ORDERS';
 export const GET_USER = 'GET_USER';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const SETCANTIDAD = 'SETCANTIDAD';

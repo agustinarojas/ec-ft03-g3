@@ -19,6 +19,6 @@ router.use('/category', categoryRouter);
 router.use('/users', userRouter);
 router.use('/orders', orderRouter);
 router.use('/auth', authRouter);
-router.use('/product', reviewRouter);
+router.use('/products', reviewRouter);
 
 module.exports = router;
