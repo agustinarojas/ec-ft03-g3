@@ -23,7 +23,11 @@ function Cart({match, emptyCart, productsCar, getCarrito, user}) {
 	let cart;
 	let data = JSON.parse(localStorage.getItem('productos'));
 	console.log(data);
-	cart = user.id !== null ? productsCar : data;
+
+	if (user.id) cart = productsCar;
+	else {
+		cart = data;
+	}
 	console.log(cart);
 	console.log(user);
 	var total = {};

@@ -30,7 +30,6 @@ server.get('/me', isAuthenticated, (req, res) => {
 server.post('/promote/:id', isAdmin, (req, res) => {
 	User.findByPk(req.params.id)
 		.then(user => {
-			console.log(user);
 			user.update({admin: true}), user.save();
 			res.send(user);
 		})
