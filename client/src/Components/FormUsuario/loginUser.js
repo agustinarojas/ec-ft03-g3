@@ -41,10 +41,14 @@ function LoginUser({addToCart, login}) {
 		}
 		setOpen(false);
 	};
-
+	const handleOnSubmit = event => {
+        event.preventDefault();
+        login(state);
+    };
+   
 	return (
-		<div className="Formm">
-			<form onSubmit={() => login(state)}>
+        <div className="Formm">
+            <form onSubmit={e => handleOnSubmit(e, state)}>
 				<div className="form-group">
 					<label htmlFor="exampleInputEmail1">Email address</label>
 					<input
