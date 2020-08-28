@@ -9,7 +9,8 @@ server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}
 	res,
 ) {
 	console.log(req.user);
-	res.send('chausinio');
+	// res.redirect('/auth/me');
+	res.send(req.user);
 });
 
 server.get('/', (req, res) => {
@@ -17,9 +18,8 @@ server.get('/', (req, res) => {
 });
 
 server.get('/logout', (req, res) => {
-	req.user;
 	req.logout();
-	res.send('hi');
+	res.send('logout');
 });
 
 server.get('/me', isAuthenticated, (req, res) => {
@@ -28,11 +28,15 @@ server.get('/me', isAuthenticated, (req, res) => {
 });
 
 server.post('/promote/:id', isAdmin, (req, res) => {
-	User.findByPk(req.params.id).then(user => {
-		console.log(user);
-		user.update({admin: true}), user.save();
-		res.send(user);
-	});
+	User.findByPk(req.params.id)
+		.then(user => {
+			console.log(user);
+			user.update({admin: true}), user.save();
+			res.send(user);
+		})
+		.catch(err => {
+			res.status(400).send(err);
+		});
 });
 
 module.exports = server;

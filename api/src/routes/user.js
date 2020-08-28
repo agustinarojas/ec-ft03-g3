@@ -24,7 +24,7 @@ server.post('/', (req, res) => {
 			email,
 			password,
 			admin: true,
-		});
+		}).then(user => res.status(201).send(user));
 	} else {
 		User.create(req.body)
 			.then(user => {
@@ -181,7 +181,7 @@ server.put('/:ids/cart', (req, res) => {
 				cantidad: data.cantidad,
 			});
 			result[0].lineorder.save();
-			res.send(result[0].lineorder);
+			res.send(result[0]);
 		})
 		.catch(err => {
 			console.log(err);
@@ -205,19 +205,20 @@ server.get('/:ids/orders', isAuthenticated, (req, res) => {
 });
 
 server.post('/:ids/passReset', isAuthenticated, (req, res) => {
-	var pass = req.body.password
+	var pass = req.body.password;
 	User.findOne({
 		where: {
-			id: req.params.ids
-		}
-	}).then(user => {
-		user.update({
-			password: pass
-		})
-		user.save()
-		res.send('Contrasena actualizada.').status(201)
+			id: req.params.ids,
+		},
 	})
-	.catch(err => console.log(err))
-})
+		.then(user => {
+			user.update({
+				password: pass,
+			});
+			user.save();
+			res.send('Contrasena actualizada.').status(201);
+		})
+		.catch(err => console.log(err));
+});
 
 module.exports = server;
