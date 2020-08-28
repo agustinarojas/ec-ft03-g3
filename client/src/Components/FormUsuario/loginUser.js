@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
+import {addToCart} from '../../Actions/index';
+import {connect} from 'react-redux';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -18,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export default function LoginUser() {
+function LoginUser({addToCart}) {
 	//const [email, setEmail] = useState({email: ''});
 	const [state, setState] = useState({});
 
@@ -32,7 +34,13 @@ export default function LoginUser() {
 		event.preventDefault();
 		axios
 			.post('http://localhost:3005/auth/login', state, {withCredentials: true})
-			.then(res => console.log(res))
+			.then(res => {
+				if (localStorage.getItem('productos') !== null) {
+					let products = JSON.parse(localStorage.getItem('productos'));
+					products.map(prod => addToCart(res.data.id, prod.id));
+					localStorage.clear();
+				}
+			})
 			.catch(error => console.log(error));
 	};
 	const classes = useStyles();
@@ -89,3 +97,5 @@ export default function LoginUser() {
 		</div>
 	);
 }
+
+export default connect(null, {addToCart})(LoginUser);

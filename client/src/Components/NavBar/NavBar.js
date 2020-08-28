@@ -99,43 +99,42 @@ function NavBar({search, category, filterByCategory, getProducts, getOrders, get
 				</Link>
 			)}
 			<Link to="/cart/1">
-				<span class="material-icons"> shopping_cart </span>
+				<span className="material-icons"> shopping_cart </span>
 			</Link>
-			<Link onClick={() => getUser()}>
-				<Button
-					ref={anchorRef}
-					aria-controls={open ? 'menu-list-grow' : undefined}
-					aria-haspopup="true"
-					onClick={handleToggle}>
-					<Avatar src="/broken-image.jpg"></Avatar>
-				</Button>
-				<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-					{({TransitionProps, placement}) => (
-						<Grow
-							{...TransitionProps}
-							style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}>
-							<Paper>
-								<ClickAwayListener onClickAway={handleClose}>
-									<MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-										<MenuItem onClick={handleClose}>
-											<Link to="/me"></Link>Perfil
-										</MenuItem>
+			<Button
+				ref={anchorRef}
+				aria-controls={open ? 'menu-list-grow' : undefined}
+				aria-haspopup="true"
+				onClick={handleToggle}>
+				<Avatar src="/broken-image.jpg"></Avatar>
+			</Button>
+			<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+				{({TransitionProps, placement}) => (
+					<Grow
+						{...TransitionProps}
+						style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}>
+						<Paper>
+							<ClickAwayListener onClickAway={handleClose}>
+								<MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+									<MenuItem onClick={handleClose}>
+										<Link to="/me" onClick={() => getUser()}></Link>
+										Perfil
+									</MenuItem>
 
-										<MenuItem onClick={handleClose}>Ayuda</MenuItem>
-										<MenuItem
-											onClick={() => {
-												handleClose();
-												handleOnClick();
-											}}>
-											Cerrar Sesión
-										</MenuItem>
-									</MenuList>
-								</ClickAwayListener>
-							</Paper>
-						</Grow>
-					)}
-				</Popper>
-			</Link>
+									<MenuItem onClick={handleClose}>Ayuda</MenuItem>
+									<MenuItem
+										onClick={() => {
+											handleClose();
+											handleOnClick();
+										}}>
+										Cerrar Sesión
+									</MenuItem>
+								</MenuList>
+							</ClickAwayListener>
+						</Paper>
+					</Grow>
+				)}
+			</Popper>
 			<SearchBar search={search} />
 		</nav>
 	);

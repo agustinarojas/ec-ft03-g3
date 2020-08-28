@@ -184,7 +184,6 @@ export function addToCart(userId, prodId) {
 			)
 			.then(res => {
 				if (res.data.carritos.length) {
-					console.log(res.data);
 					res.data.lineorder = res.data.carritos[0].lineorder;
 				} else {
 					res.data.lineorder = {cantidad: 1};
