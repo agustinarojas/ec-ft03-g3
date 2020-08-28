@@ -3,7 +3,14 @@ import SearchBar from '../SearchBar/SearchBar';
 import './NavBar.css';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {filterByCategory, getOrder, getProducts, getOrders, getUser} from '../../Actions/index';
+import {
+	filterByCategory,
+	getOrder,
+	getProducts,
+	getOrders,
+	getUser,
+	logout,
+} from '../../Actions/index';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -13,7 +20,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import {makeStyles} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -27,13 +33,22 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function NavBar({search, category, filterByCategory, getProducts, getOrders, getUser, user}) {
-	const handleOnClick = () => {
-		axios
-			.get('http://localhost:3005/auth/logout', {withCredentials: true})
-			.then(res => console.log(res))
-			.catch(error => console.log(error));
-	};
+function NavBar({
+	search,
+	category,
+	filterByCategory,
+	getProducts,
+	getOrders,
+	getUser,
+	user,
+	logout,
+}) {
+	// const handleOnClick = () => {
+	// 	axios
+	// 		.get('http://localhost:3005/auth/logout', {withCredentials: true})
+	// 		.then(res => console.log(res))
+	// 		.catch(error => console.log(error));
+	// };
 
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
@@ -89,8 +104,8 @@ function NavBar({search, category, filterByCategory, getProducts, getOrders, get
 					))}
 				</div>
 			</div>
-			<Link to="/sign_up"> Registrarse </Link>
-			<Link to="/login"> Iniciar Sesion </Link>
+			{!user.id && <Link to="/sign_up"> Registrarse </Link>}
+			{!user.id && <Link to="/login"> Iniciar Sesion </Link>}
 			{user.admin && <Link to="/admin">Admin</Link>}
 
 			{user.admin && (
@@ -101,40 +116,45 @@ function NavBar({search, category, filterByCategory, getProducts, getOrders, get
 			<Link to="/cart/1">
 				<span className="material-icons"> shopping_cart </span>
 			</Link>
-			<Button
-				ref={anchorRef}
-				aria-controls={open ? 'menu-list-grow' : undefined}
-				aria-haspopup="true"
-				onClick={handleToggle}>
-				<Avatar src="/broken-image.jpg"></Avatar>
-			</Button>
-			<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-				{({TransitionProps, placement}) => (
-					<Grow
-						{...TransitionProps}
-						style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}>
-						<Paper>
-							<ClickAwayListener onClickAway={handleClose}>
-								<MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-									<MenuItem onClick={handleClose}>
-										<Link to="/me" onClick={() => getUser()}></Link>
-										Perfil
-									</MenuItem>
+			{user.id && (
+				<Button
+					ref={anchorRef}
+					aria-controls={open ? 'menu-list-grow' : undefined}
+					aria-haspopup="true"
+					onClick={handleToggle}>
+					<Avatar src="/broken-image.jpg"></Avatar>
+				</Button>
+			)}
 
-									<MenuItem onClick={handleClose}>Ayuda</MenuItem>
-									<MenuItem
-										onClick={() => {
-											handleClose();
-											handleOnClick();
-										}}>
-										Cerrar Sesión
-									</MenuItem>
-								</MenuList>
-							</ClickAwayListener>
-						</Paper>
-					</Grow>
-				)}
-			</Popper>
+			{user.id && (
+				<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+					{({TransitionProps, placement}) => (
+						<Grow
+							{...TransitionProps}
+							style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}>
+							<Paper>
+								<ClickAwayListener onClickAway={handleClose}>
+									<MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+										<MenuItem onClick={handleClose}>
+											<Link to="/me" onClick={() => getUser()}></Link>
+											Perfil
+										</MenuItem>
+
+										<MenuItem onClick={handleClose}>Ayuda</MenuItem>
+										<MenuItem
+											onClick={() => {
+												handleClose();
+												logout();
+											}}>
+											Cerrar Sesión
+										</MenuItem>
+									</MenuList>
+								</ClickAwayListener>
+							</Paper>
+						</Grow>
+					)}
+				</Popper>
+			)}
 			<SearchBar search={search} />
 		</nav>
 	);
@@ -150,4 +170,5 @@ export default connect(mapStateToProps, {
 	getProducts,
 	getOrders,
 	getUser,
+	logout,
 })(NavBar);

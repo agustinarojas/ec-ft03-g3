@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
-import {addToCart} from '../../Actions/index';
+import {addToCart, login} from '../../Actions/index';
 import {connect} from 'react-redux';
 
 export function Alert(props) {
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function LoginUser({addToCart}) {
+function LoginUser({addToCart, login}) {
 	//const [email, setEmail] = useState({email: ''});
 	const [state, setState] = useState({});
 
@@ -29,19 +29,6 @@ function LoginUser({addToCart}) {
 			...state,
 			[e.target.name]: e.target.value,
 		});
-	};
-	const handleSubmit = (event, state) => {
-		event.preventDefault();
-		axios
-			.post('http://localhost:3005/auth/login', state, {withCredentials: true})
-			.then(res => {
-				if (localStorage.getItem('productos') !== null) {
-					let products = JSON.parse(localStorage.getItem('productos'));
-					products.map(prod => addToCart(res.data.id, prod.id));
-					localStorage.clear();
-				}
-			})
-			.catch(error => console.log(error));
 	};
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
@@ -57,7 +44,7 @@ function LoginUser({addToCart}) {
 
 	return (
 		<div className="Formm">
-			<form onSubmit={e => handleSubmit(e, state)}>
+			<form onSubmit={() => login(state)}>
 				<div className="form-group">
 					<label htmlFor="exampleInputEmail1">Email address</label>
 					<input
@@ -98,4 +85,4 @@ function LoginUser({addToCart}) {
 	);
 }
 
-export default connect(null, {addToCart})(LoginUser);
+export default connect(null, {addToCart, login})(LoginUser);

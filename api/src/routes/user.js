@@ -181,7 +181,7 @@ server.put('/:ids/cart', (req, res) => {
 				cantidad: data.cantidad,
 			});
 			result[0].lineorder.save();
-			res.send(result[0].lineorder);
+			res.send(result[0]);
 		})
 		.catch(err => {
 			console.log(err);

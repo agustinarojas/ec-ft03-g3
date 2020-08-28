@@ -17,6 +17,9 @@ import {
 	EMPTY_CART,
 	GET_ORDERS,
 	GET_USER,
+	LOGIN,
+	LOGOUT,
+	SETCANTIDAD,
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -193,6 +196,19 @@ export function addToCart(userId, prodId) {
 	};
 }
 
+export function setCantidad(userId, prodId, cantidades) {
+	return function (dispatch) {
+		axios
+			.put(
+				`http://localhost:3005/users/${userId}/cart`,
+				{id: parseInt(prodId), cantidad: cantidades},
+				{withCredentials: true},
+			)
+			.then(res => dispatch({type: SETCANTIDAD, product: res.data}))
+			.catch(err => console.log(err));
+	};
+}
+
 export function deleteProdCart(prodId) {
 	return function (dispatch) {
 		return axios
@@ -215,6 +231,7 @@ export function getOrder(id) {
 	};
 }
 
+//* ORDERS
 export function getOrders() {
 	return function (dispatch) {
 		return axios
@@ -228,6 +245,24 @@ export function getOrders() {
 	};
 }
 
+//* USERS
+
+export function login(user) {
+	return function (dispatch) {
+		return axios
+			.post('http://localhost:3005/auth/login', user, {withCredentials: true})
+			.then(res => {
+				if (localStorage.getItem('productos') !== null) {
+					let products = JSON.parse(localStorage.getItem('productos'));
+					products.map(prod => addToCart(res.data.id, prod.id));
+					localStorage.clear();
+				}
+				dispatch({type: LOGIN, user: res.data});
+			})
+			.catch(error => console.log(error));
+	};
+}
+
 export function getUser() {
 	return function (dispatch) {
 		return axios
@@ -236,5 +271,14 @@ export function getUser() {
 				dispatch({type: GET_USER, user: res.data});
 			})
 			.catch(err => console.log(err));
+	};
+}
+
+export function logout() {
+	return function (dispatch) {
+		return axios
+			.get('http://localhost:3005/auth/logout', {withCredentials: true})
+			.then(res => dispatch({type: LOGOUT}))
+			.catch(error => console.log(error));
 	};
 }

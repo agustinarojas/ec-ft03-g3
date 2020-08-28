@@ -23,19 +23,21 @@ function Cart({match, emptyCart, productsCar, getCarrito, user}) {
 	let cart;
 	let data = JSON.parse(localStorage.getItem('productos'));
 	console.log(data);
-
+	cart = user.id !== null ? productsCar : data;
+	console.log(cart);
+	console.log(user);
 	var total = {};
 	console.log(productsCar);
-	const handlePrice = function (cant, id, precio) {
+	const handlePrice = function () {
 		// setPrecio(cant * precio);
 		// total[id] = cant * precio;
 		var precios = 0;
 		// for (let i = 0; i < Object.values(total).length; i++) {
 		// 	precios += Object.values(total)[i];
 		// }
-		for (let i = 0; i < productsCar.length; i++) {
-			console.log(productsCar);
-			precios = precios + productsCar[i].precio * productsCar[i].lineorder.cantidad;
+		for (let i = 0; i < cart.length; i++) {
+			console.log(cart);
+			precios = precios + cart[i].precio * cart[i].lineorder.cantidad;
 		}
 		var aux = precios;
 		setPrecio(aux);
@@ -66,7 +68,6 @@ function Cart({match, emptyCart, productsCar, getCarrito, user}) {
 	}, [can]);
 	return (
 		<div className="flexend">
-			{((cart = user.id !== null ? productsCar : data), console.log(cart))}
 			{cart?.map((p, i) => (
 				<Item
 					match={match}
@@ -85,6 +86,8 @@ function Cart({match, emptyCart, productsCar, getCarrito, user}) {
 				<h2 id="total">
 					TOTAL: $
 					{cart?.reduce((total, producto) => {
+						console.log(cart);
+						console.log(producto);
 						return total + producto.precio * producto.lineorder.cantidad;
 					}, 0)}
 				</h2>
@@ -117,7 +120,7 @@ function Cart({match, emptyCart, productsCar, getCarrito, user}) {
 					</Button>
 					<Button
 						onClick={() => {
-							emptyCart(1);
+							emptyCart(user.id);
 							handleClose();
 						}}
 						color="primary">

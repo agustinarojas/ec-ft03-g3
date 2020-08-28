@@ -9,8 +9,8 @@ server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}
 	res,
 ) {
 	console.log(req.user);
-	res.redirect('/auth/me');
-	// res.send(req.user);
+	// res.redirect('/auth/me');
+	res.send(req.user);
 });
 
 server.get('/', (req, res) => {
@@ -18,9 +18,8 @@ server.get('/', (req, res) => {
 });
 
 server.get('/logout', (req, res) => {
-	req.user;
 	req.logout();
-	res.send('hi');
+	res.send('logout');
 });
 
 server.get('/me', isAuthenticated, (req, res) => {
