@@ -19,10 +19,8 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function FormUsuario({addToCart}) {
-	//const [email, setEmail] = useState({email: ''});
+function FormUsuario() {
 	const [state, setState] = useState({});
-
 	const handleOnChange = e => {
 		setState({
 			...state,
@@ -55,6 +53,7 @@ function FormUsuario({addToCart}) {
 		setOpen(false);
 	};
 
+	var control;
 	return (
 		<div className="Formm">
 			<form onSubmit={e => handleSubmit(e, state)}>
@@ -62,6 +61,7 @@ function FormUsuario({addToCart}) {
 					<label htmlFor="exampleInputNombre">Nombre</label>
 					<input
 						name="nombre"
+						placeholder="nombre"
 						type="text"
 						className="form-control"
 						id="exampleInputNombre"
@@ -70,38 +70,77 @@ function FormUsuario({addToCart}) {
 					<label htmlFor="exampleInputApellido">Apellido</label>
 					<input
 						name="apellido"
+						placeholder="apellido"
 						type="text"
 						className="form-control"
 						id="exampleInputApellido"
 						onChange={e => handleOnChange(e)}
 					/>
-					<label htmlFor="exampleInputEmail1">Email address</label>
+					<label htmlFor="exampleInputEmail1">Email</label>
 					<input
 						name="email"
+						placeholder="email"
 						type="email"
 						className="form-control"
 						id="exampleInputEmail1"
 						aria-describedby="emailHelp"
 						onChange={e => handleOnChange(e)}
 					/>
+					<small id="emailHelp" className="form-text text-muted">
+						No compartiremos tus datos con nadie.
+					</small>
 					<label htmlFor="exampleInputPassword">Contraseña</label>
 					<input
 						name="password"
+						placeholder="Contraseña"
 						type="password"
 						className="form-control"
 						id="exampleInputPassword"
 						onChange={e => handleOnChange(e)}
 					/>
-					<small id="emailHelp" className="form-text text-muted">
-						No compartiremos tus datos con nadie.
-					</small>
+					{state.password?.length < 6 || !state.password ? (
+						<small id="emailHelp" className="form-text text-muted">
+							La contraseña debe contener almenos 6 caracteres
+						</small>
+					) : (
+						''
+					)}
+					<label htmlFor="exampleInputPassword">Confirme su contraseña</label>
+					<input
+						className={state.password2 != state.password && 'danger'}
+						name="password2"
+						placeholder="Contraseña"
+						type="password"
+						className="form-control"
+						id="exampleInputPassword"
+						onChange={e => handleOnChange(e)}
+					/>
+					{state.password2 != state.password || state.password2 == null ? (
+						<small id="emailHelp" className="form-text text-muted">
+							Las contraseñas deben ser las mismas
+						</small>
+					) : (
+						<small id="emailHelp" className="form-text text-muted">
+							Contraseña confirmada
+						</small>
+					)}
 				</div>
+				{!state.nombre ||
+				!state.apellido ||
+				!state.email ||
+				!state.password ||
+				!state.password2 ||
+				state.password2 != state.password ||
+				state.password.length < 6
+					? (control = true)
+					: false}
 				<button
 					onClick={handleClick}
 					variant="contained"
 					color="primary"
 					type="submit"
-					value="Submit">
+					value="Submit"
+					disabled={control ? true : false}>
 					Submit
 				</button>
 				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>

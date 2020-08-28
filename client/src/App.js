@@ -45,6 +45,9 @@ function App({productos, catProducts, getCategories, categories, searchProduct, 
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
+
+			<Route path = "/order/:id" render = {() => <Order products = {productos}/> }/>
+
 			<Route path="/orders" render={() => <Orders orders={orders} />} />
 			<Route path="/order/:id" component={Order} />
 			<Route path="/cart/:userId" component={Cart} />
