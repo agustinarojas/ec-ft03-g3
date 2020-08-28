@@ -13,7 +13,6 @@ export const GET_CARRITO = 'GET_CARRITO';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const PUT_PRODUCT = 'PUT_PRODUCT';
 export const DELETE_PROD_CART = 'DELETE_PROD_CART';
-export const SET_CANTIDAD = 'SET_CANTIDAD';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const GET_ORDER = 'GET_ORDER';
 export const SEARCH_PRODUCT = 'SEARCH_PRODUCT';

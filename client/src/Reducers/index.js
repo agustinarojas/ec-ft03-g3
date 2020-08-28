@@ -12,7 +12,6 @@ import {
 	ADD_PRODUCT,
 	DELETE_PRODUCT,
 	DELETE_PROD_CART,
-	SET_CANTIDAD,
 	ADD_TO_CART,
 	GET_ORDER,
 	SEARCH_PRODUCT,
@@ -27,7 +26,6 @@ const inicialState = {
 	productsCar: [],
 	orders: [],
 	user: {},
-	// totalCarrito: 0,
 };
 
 export default function rootReducer(state = inicialState, action) {
@@ -89,11 +87,9 @@ export default function rootReducer(state = inicialState, action) {
 		//* CARRITO
 		case GET_CARRITO:
 			console.log(state.totalCarrito);
-			// let precios = action.productsCar.map(prod => prod.precio * prod.cantidad);
 			return {
 				...state,
 				productsCar: action.productsCar,
-				// totalCarrito: state.totalCarrito + parseInt(action.productsCar.precio),
 			};
 		case ADD_TO_CART:
 			var prods = state?.productsCar?.filter((p, i) => p.id !== action.product.id);
@@ -102,22 +98,16 @@ export default function rootReducer(state = inicialState, action) {
 					if (state.productsCar[i].id === action.product.id) state.productsCar[i] = action.product;
 					return state;
 				}
-				// return {
-				// 	...state,
-				// 	productsCar: [...prods, action.product],
-				// };
 			}
 			return {
 				...state,
 				productsCar: [...state.productsCar, action.product],
-				// totalCarrito: state.totalCarrito + parseInt(action.product.precio),
 			};
 		case DELETE_PROD_CART:
 			if (state.productsCar.length === 1) {
 				return {
 					...state,
 					productsCar: [],
-					//	totalCarrito: 0,
 				};
 			}
 
@@ -134,15 +124,6 @@ export default function rootReducer(state = inicialState, action) {
 				productsCar: productos,
 				totalCarrito: precios.reduce((acum, value) => acum + value),
 			};
-		// case SET_CANTIDAD:
-		// 	let operacion =
-		// 		action.accion === 'mas'
-		// 			? parseInt(state.totalCarrito) + parseInt(action.lineorder.precio)
-		// 			: parseInt(state.totalCarrito) - parseInt(action.lineorder.precio);
-		// 	return {
-		// 		...state,
-		// 		totalCarrito: operacion,
-		// 	};
 		case GET_ORDER:
 			return {
 				...state,
