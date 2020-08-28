@@ -11,7 +11,6 @@ import {
 	GET_CATEGORIES,
 	GET_CARRITO,
 	DELETE_PROD_CART,
-	SET_CANTIDAD,
 	ADD_TO_CART,
 	GET_ORDER,
 	SEARCH_PRODUCT,
@@ -201,22 +200,6 @@ export function deleteProdCart(prodId) {
 			.delete(`http://localhost:3005/users/1/cart/${prodId}`, {withCredentials: true})
 			.then(res => {
 				dispatch({type: DELETE_PROD_CART, productCar: res.data});
-			})
-			.catch(err => console.log(err));
-	};
-}
-
-export function setCantidad(prodId, cantidad, accion) {
-	return function (dispatch) {
-		return axios
-			.put(
-				`http://localhost:3005/users/1/cart`,
-				{id: parseInt(prodId), cantidad: cantidad},
-				{withCredentials: true},
-			)
-			.then(res => {
-				console.log(res.data);
-				dispatch({type: SET_CANTIDAD, lineorder: res.data, accion});
 			})
 			.catch(err => console.log(err));
 	};

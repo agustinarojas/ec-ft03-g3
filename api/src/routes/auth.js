@@ -1,9 +1,8 @@
 const server = require('express').Router();
-//const {Op} = require('sequelize');
 const {User} = require('../db.js');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
-const {isAuthenticated} = require('./validations');
+const {isAuthenticated, isAdmin} = require('./validations');
 
 server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function (
 	req,
@@ -28,7 +27,7 @@ server.get('/me', isAuthenticated, (req, res) => {
 	res.send(req.user);
 });
 
-server.post('/promote/:id', (req, res) => {
+server.post('/promote/:id', isAdmin, (req, res) => {
 	User.findByPk(req.params.id).then(user => {
 		console.log(user);
 		user.update({admin: true}), user.save();

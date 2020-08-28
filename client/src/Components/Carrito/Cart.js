@@ -45,7 +45,7 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 	console.log(precio);
 	function comprar() {
 		return axios
-			.put('http://localhost:3005/orders/1', {estado: 'completa'})
+			.put('http://localhost:3005/orders/1', {estado: 'completa'}, {withCredentials: true})
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	}

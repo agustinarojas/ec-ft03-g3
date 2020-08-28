@@ -9,13 +9,13 @@ function user({user}) {
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
 	};
+	console.log(user);
 	return (
 		<div>
 			<h1>
 				{user.nombre} {user.apellido}
 			</h1>
 			<p> {user.email} </p>
-			<button onClick={handleOnClick}> Cerran Sesión </button>
 		</div>
 	);
 }

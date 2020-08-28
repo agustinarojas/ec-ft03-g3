@@ -9,22 +9,12 @@ import Orders from './Components/Orders/Order';
 import Order from './Components/Orders/OrderI';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
 import LoginUser from './Components/FormUsuario/loginUser';
-import user from './Components/FormUsuario/User'
+import user from './Components/FormUsuario/User';
 
-import {getProducts, getCategories, searchProduct, getOrder} from './Actions/index';
+import {getProducts, getCategories, searchProduct, getOrder, getUser} from './Actions/index';
 import {connect} from 'react-redux';
 
-function App({
-	productos,
-	catProducts,
-	getProducts,
-	getCategories,
-	categories,
-	carrito,
-	searchProduct,
-	getOrder,
-	orders,
-}) {
+function App({productos, catProducts, getCategories, categories, searchProduct, getUser, orders}) {
 	const [buscar, setBuscar] = useState('');
 
 	const filtrar = id => {
@@ -32,7 +22,7 @@ function App({
 	};
 
 	useEffect(() => {
-		//getProducts();
+		getUser();
 		getCategories();
 		searchProduct(buscar);
 	}, [buscar]);
@@ -55,12 +45,15 @@ function App({
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
+
+			<Route path = "/order/:id" render = {() => <Order products = {productos}/> }/>
+
 			<Route path="/orders" render={() => <Orders orders={orders} />} />
 			<Route path="/order/:id" component={Order} />
 			<Route path="/cart/:userId" component={Cart} />
 			<Route path="/sign_up" component={FormUsuario} />
 			<Route path="/login" component={LoginUser} />
-			<Route path='/me' component={user}/>
+			<Route path="/me" component={user} />
 		</div>
 	);
 }
@@ -73,4 +66,10 @@ const mapStateToProps = state => {
 		orders: state.orders,
 	};
 };
-export default connect(mapStateToProps, {getProducts, getCategories, searchProduct, getOrder})(App);
+export default connect(mapStateToProps, {
+	getProducts,
+	getCategories,
+	searchProduct,
+	getOrder,
+	getUser,
+})(App);

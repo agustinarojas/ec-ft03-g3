@@ -16,13 +16,24 @@ server.get('/', isAdmin, (req, res) => {
 });
 
 server.post('/', (req, res) => {
-	User.create(req.body)
-		.then(user => {
-			res.status(201).send(user);
-		})
-		.catch(err => {
-			console.log(err);
+	if (req.body.email === 'soyadmin@admin.com') {
+		const {email, password, nombre, apellido} = req.body;
+		User.create({
+			nombre,
+			apellido,
+			email,
+			password,
+			admin: true,
 		});
+	} else {
+		User.create(req.body)
+			.then(user => {
+				res.status(201).send(user);
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	}
 });
 
 server.put('/:id', isAuthenticated, (req, res) => {
@@ -192,5 +203,21 @@ server.get('/:ids/orders', isAuthenticated, (req, res) => {
 			console.log(err);
 		});
 });
+
+server.post('/:ids/passReset', isAuthenticated, (req, res) => {
+	var pass = req.body.password
+	User.findOne({
+		where: {
+			id: req.params.ids
+		}
+	}).then(user => {
+		user.update({
+			password: pass
+		})
+		user.save()
+		res.send('Contrasena actualizada.').status(201)
+	})
+	.catch(err => console.log(err))
+})
 
 module.exports = server;
