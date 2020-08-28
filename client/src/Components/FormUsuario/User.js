@@ -9,6 +9,7 @@ function user({user}) {
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
 	};
+	console.log(user);
 	return (
 		<div>
 			<h1>

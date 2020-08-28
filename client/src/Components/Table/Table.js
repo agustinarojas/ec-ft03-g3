@@ -3,7 +3,6 @@ import MaterialTable from 'material-table';
 import TableCategory from './TableCategory';
 import FormProductCat from './FormProductCat';
 import {addProduct, putProduct, deleteProduct} from '../../Actions/index.js';
-import axios from 'axios';
 import './table.css';
 import {connect} from 'react-redux';
 
