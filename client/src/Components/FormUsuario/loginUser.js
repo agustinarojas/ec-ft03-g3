@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
+import {addToCart, login} from '../../Actions/index';
+import {connect} from 'react-redux';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -18,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export default function LoginUser() {
+function LoginUser({addToCart, login}) {
 	//const [email, setEmail] = useState({email: ''});
 	const [state, setState] = useState({});
 
@@ -27,13 +29,6 @@ export default function LoginUser() {
 			...state,
 			[e.target.name]: e.target.value,
 		});
-	};
-	const handleSubmit = (event, state) => {
-		event.preventDefault();
-		axios
-			.post('http://localhost:3005/auth/login', state, {withCredentials: true})
-			.then(res => console.log(res))
-			.catch(error => console.log(error));
 	};
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
@@ -46,10 +41,14 @@ export default function LoginUser() {
 		}
 		setOpen(false);
 	};
-
+	const handleOnSubmit = event => {
+        event.preventDefault();
+        login(state);
+    };
+   
 	return (
-		<div className="Formm">
-			<form onSubmit={e => handleSubmit(e, state)}>
+        <div className="Formm">
+            <form onSubmit={e => handleOnSubmit(e, state)}>
 				<div className="form-group">
 					<label htmlFor="exampleInputEmail1">Email</label>
 					<input
@@ -91,3 +90,5 @@ export default function LoginUser() {
 		</div>
 	);
 }
+
+export default connect(null, {addToCart, login})(LoginUser);

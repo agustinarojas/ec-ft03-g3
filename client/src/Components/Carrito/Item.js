@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './Item.css';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {deleteProdCart} from '../../Actions/index';
+import {deleteProdCart, setCantidad} from '../../Actions/index';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -14,31 +14,45 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function Item({titulo, descripcion, imagen, precio, id, deleteProdCart, stock, cantidad, hand}) {
+function Item({
+	titulo,
+	descripcion,
+	imagen,
+	precio,
+	id,
+	deleteProdCart,
+	stock,
+	cantidad,
+	hand,
+	setCantidad,
+	user,
+}) {
 	const [cantidades, setCantidades] = useState(cantidad);
 	const handleOnCLickCantidad = (prodId, type) => {
 		if (type === 'menos' && cantidades > 1) {
 			setCantidades(cantidades - 1);
 			hand(cantidades - 1, id, precio);
-			axios
-				.put(
-					`http://localhost:3005/users/1/cart`,
-					{id: parseInt(prodId), cantidad: cantidades - 1},
-					{withCredentials: true},
-				)
-				.then(res => res.data)
-				.catch(err => console.log(err));
+			setCantidad(user.id, prodId, cantidades - 1);
+			// axios
+			// 	.put(
+			// 		`http://localhost:3005/users/1/cart`,
+			// 		{id: parseInt(prodId), cantidad: cantidades - 1},
+			// 		{withCredentials: true},
+			// 	)
+			// 	.then(res => res.data)
+			// 	.catch(err => console.log(err));
 		} else if (type === 'mas' && stock > cantidades) {
 			setCantidades(cantidades + 1);
-			hand(cantidades + 1, id, precio);
-			axios
-				.put(
-					`http://localhost:3005/users/1/cart`,
-					{id: parseInt(prodId), cantidad: cantidades + 1},
-					{withCredentials: true},
-				)
-				.then(res => res.data)
-				.catch(err => console.log(err));
+			hand();
+			setCantidad(user.id, prodId, cantidades + 1);
+			// axios
+			// 	.put(
+			// 		`http://localhost:3005/users/1/cart`,
+			// 		{id: parseInt(prodId), cantidad: cantidades + 1},
+			// 		{withCredentials: true},
+			// 	)
+			// 	.then(res => res.data)
+			// 	.catch(err => console.log(err));
 		}
 	};
 	const [open, setOpen] = React.useState(false);
@@ -123,5 +137,9 @@ function Item({titulo, descripcion, imagen, precio, id, deleteProdCart, stock, c
 		</div>
 	);
 }
-
-export default connect(null, {deleteProdCart})(Item);
+function mapStateToProps(state) {
+	return {
+		user: state.user,
+	};
+}
+export default connect(mapStateToProps, {deleteProdCart, setCantidad})(Item);

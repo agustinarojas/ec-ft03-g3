@@ -16,24 +16,28 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function Cart({match, emptyCart, productsCar, getCarrito}) {
+function Cart({match, emptyCart, productsCar, getCarrito, user}) {
 	const [can, setCantid] = useState(1);
 	const [precio, setPrecio] = useState(0);
 	let userId = match?.params?.userId;
-
-	// res.data.lineorder = res.data.carritos[0].lineorder;
+	let cart;
+	let data = JSON.parse(localStorage.getItem('productos'));
+	console.log(data);
+	cart = user.id !== null ? productsCar : data;
+	console.log(cart);
+	console.log(user);
 	var total = {};
 	console.log(productsCar);
-	const handlePrice = function (cant, id, precio) {
+	const handlePrice = function () {
 		// setPrecio(cant * precio);
 		// total[id] = cant * precio;
 		var precios = 0;
 		// for (let i = 0; i < Object.values(total).length; i++) {
 		// 	precios += Object.values(total)[i];
 		// }
-		for (let i = 0; i < productsCar.length; i++) {
-			console.log(productsCar);
-			precios = precios + productsCar[i].precio * productsCar[i].lineorder.cantidad;
+		for (let i = 0; i < cart.length; i++) {
+			console.log(cart);
+			precios = precios + cart[i].precio * cart[i].lineorder.cantidad;
 		}
 		var aux = precios;
 		setPrecio(aux);
@@ -64,7 +68,7 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 	}, [can]);
 	return (
 		<div className="flexend">
-			{productsCar?.map((p, i) => (
+			{cart?.map((p, i) => (
 				<Item
 					match={match}
 					titulo={p.titulo}
@@ -78,17 +82,19 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 					hand={handlePrice}
 				/>
 			))}
-			{productsCar.length > 0 ? (
+			{cart.length > 0 ? (
 				<h2 id="total">
 					TOTAL: $
-					{productsCar?.reduce((total, producto) => {
+					{cart?.reduce((total, producto) => {
+						console.log(cart);
+						console.log(producto);
 						return total + producto.precio * producto.lineorder.cantidad;
 					}, 0)}
 				</h2>
 			) : (
 				<div className="noProducts">Aún no agregaste productos al carrito.</div>
 			)}
-			{productsCar.length > 0 ? (
+			{cart.length > 0 ? (
 				<button id="vaciar" onClick={() => handleClickOpen()}>
 					Vaciar
 				</button>
@@ -114,7 +120,7 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 					</Button>
 					<Button
 						onClick={() => {
-							emptyCart(1);
+							emptyCart(user.id);
 							handleClose();
 						}}
 						color="primary">
@@ -122,7 +128,7 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 					</Button>
 				</DialogActions>
 			</Dialog>
-			{productsCar.length > 0 ? (
+			{cart.length > 0 ? (
 				<button id="compra" onClick={() => comprar()}>
 					Checkout
 				</button>
@@ -136,6 +142,7 @@ function Cart({match, emptyCart, productsCar, getCarrito}) {
 function mapStateToProps(state) {
 	return {
 		productsCar: state.productsCar,
+		user: state.user,
 	};
 }
 export default connect(mapStateToProps, {emptyCart, getCarrito})(Cart);

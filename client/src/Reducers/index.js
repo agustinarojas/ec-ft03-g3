@@ -18,6 +18,11 @@ import {
 	EMPTY_CART,
 	GET_ORDERS,
 	GET_USER,
+	LOGIN,
+	LOGOUT,
+	SETCANTIDAD,
+	GET_USERS,
+	DELETE_USERS,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
@@ -26,6 +31,7 @@ const inicialState = {
 	productsCar: [],
 	orders: [],
 	user: {},
+	users: [],
 };
 
 export default function rootReducer(state = inicialState, action) {
@@ -92,7 +98,7 @@ export default function rootReducer(state = inicialState, action) {
 				productsCar: action.productsCar,
 			};
 		case ADD_TO_CART:
-			var prods = state?.productsCar?.filter((p, i) => p.id !== action.product.id);
+			let prods = state?.productsCar?.filter((p, i) => p.id !== action.product.id);
 			if (prods.length !== state.productsCar) {
 				for (let i = 0; i < state.productsCar.length; i++) {
 					if (state.productsCar[i].id === action.product.id) state.productsCar[i] = action.product;
@@ -103,6 +109,11 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				productsCar: [...state.productsCar, action.product],
 			};
+		case EMPTY_CART:
+			return {
+				...state,
+				productsCar: action.cart,
+			};
 		case DELETE_PROD_CART:
 			if (state.productsCar.length === 1) {
 				return {
@@ -112,18 +123,23 @@ export default function rootReducer(state = inicialState, action) {
 			}
 
 			let productos = state.productsCar.filter(prod => {
-				console.log(action.productCar.id);
 				return prod.id !== action.productCar.id;
 			});
-			console.log(state.productsCar);
-			let precios = productos.map(
-				prod => parseInt(prod.lineorder.cantidad) * parseInt(prod.precio),
-			);
+			// let precios = productos.map(
+			// 	prod => parseInt(prod.lineorder.cantidad) * parseInt(prod.precio),
+			// );
 			return {
 				...state,
 				productsCar: productos,
-				totalCarrito: precios.reduce((acum, value) => acum + value),
+				// totalCarrito: precios.reduce((acum, value) => acum + value),
 			};
+
+		case SETCANTIDAD:
+			for (let i = 0; i < state.productsCar.length; i++) {
+				if (state.productsCar[i].id === action.product.id) state.productsCar[i] = action.product;
+			}
+			return state;
+		//* ORDERS
 		case GET_ORDER:
 			return {
 				...state,
@@ -134,20 +150,38 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				products: action.product,
 			};
-		case EMPTY_CART:
-			return {
-				...state,
-				productsCar: action.cart,
-			};
 		case GET_ORDERS:
 			return {
 				...state,
 				orders: action.orders,
 			};
+
+		//* USER
+
 		case GET_USER:
 			return {
 				...state,
 				user: action.user,
+			};
+		case LOGIN:
+			return {
+				...state,
+				user: action.user,
+			};
+		case LOGOUT:
+			return {
+				...state,
+				user: {},
+			};
+		case GET_USERS:
+			return {
+				...state,
+				users: action.users,
+			};
+		case DELETE_USERS:
+			return {
+				...state,
+				users: state.users.filter(user => user.id !== action.users.id)
 			};
 		default:
 			return state;
