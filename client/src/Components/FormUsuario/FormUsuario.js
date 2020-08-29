@@ -60,8 +60,8 @@ function FormUsuario() {
 				<div className="form-group">
 					<label htmlFor="exampleInputNombre">Nombre</label>
 					<input
-						name="nombre"
-						placeholder="nombre"
+					  name='nombre'
+						placeholder='...'
 						type="text"
 						className="form-control"
 						id="exampleInputNombre"
@@ -69,8 +69,8 @@ function FormUsuario() {
 					/>
 					<label htmlFor="exampleInputApellido">Apellido</label>
 					<input
-						name="apellido"
-						placeholder="apellido"
+					  name='apellido'
+						placeholder='...'
 						type="text"
 						className="form-control"
 						id="exampleInputApellido"
@@ -78,8 +78,8 @@ function FormUsuario() {
 					/>
 					<label htmlFor="exampleInputEmail1">Email</label>
 					<input
-						name="email"
-						placeholder="email"
+					  name='email'
+						placeholder='...'
 						type="email"
 						className="form-control"
 						id="exampleInputEmail1"
@@ -91,8 +91,8 @@ function FormUsuario() {
 					</small>
 					<label htmlFor="exampleInputPassword">Contraseña</label>
 					<input
-						name="password"
-						placeholder="Contraseña"
+					  name='password'
+						placeholder='...'
 						type="password"
 						className="form-control"
 						id="exampleInputPassword"
@@ -106,10 +106,9 @@ function FormUsuario() {
 						''
 					)}
 					<label htmlFor="exampleInputPassword">Confirme su contraseña</label>
-					<input
-						className={state.password2 != state.password && 'danger'}
-						name="password2"
-						placeholder="Contraseña"
+					<input className={state.password2 != state.password && 'danger'}
+					  name='password2'
+						placeholder='...'
 						type="password"
 						className="form-control"
 						id="exampleInputPassword"
@@ -125,7 +124,9 @@ function FormUsuario() {
 						</small>
 					)}
 				</div>
-				{!state.nombre ||
+
+				{
+        !state.nombre ||
 				!state.apellido ||
 				!state.email ||
 				!state.password ||
@@ -133,7 +134,8 @@ function FormUsuario() {
 				state.password2 != state.password ||
 				state.password.length < 6
 					? (control = true)
-					: false}
+					: false
+        }
 				<button
 					onClick={handleClick}
 					variant="contained"
