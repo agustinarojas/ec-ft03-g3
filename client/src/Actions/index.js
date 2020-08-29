@@ -20,6 +20,8 @@ import {
 	LOGIN,
 	LOGOUT,
 	SETCANTIDAD,
+	GET_USERS,
+	DELETE_USERS,
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -281,4 +283,20 @@ export function logout() {
 			.then(res => dispatch({type: LOGOUT}))
 			.catch(error => console.log(error));
 	};
+}
+export function getUsers () {
+	return function (dispatch) {
+		return axios
+		.get("http://localhost:3005/users", {withCredentials:true})
+		.then (res => dispatch({type:GET_USERS, users: res.data}))
+		.catch (err => console.log(err));
+	}
+}
+export function deleteUsers (id) {
+	return function (dispatch) {
+		return axios
+		.get (`http://localhost:3005/users/${id}`, {withCredentials: true})
+		.then (res => dispatch({type: DELETE_USERS, deleteUser: res.data}))
+		.catch (err => console.log(err))
+	}
 }
