@@ -1,5 +1,6 @@
 import React from 'react';
 import './ProductCard.css';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {addToCart} from '../../Actions/index';
 import {connect} from 'react-redux';
@@ -18,13 +19,44 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 }));
-function ProductCard({imagen, titulo, precio, review, id, stock, addToCart}) {
+function ProductCard({imagen, titulo, precio, review, id, stock, addToCart, user}) {
 	// const handleOnCLick = (id, userId) => {
 	//     axios.post(´http://localhost:3005/users/${userId}/cart´, {id: parseInt(id)});
 	// };
+	const obtenerProductos = () => {
+		let products;
+		if (localStorage.getItem('productos') === null) {
+			products = [];
+		} else {
+			products = JSON.parse(localStorage.getItem('productos'));
+		}
+		return products;
+	};
+	const getProducto = prodId => {
+		return axios
+			.get(`http://localhost:3005/products/${prodId}`, {withCredentials: true})
+			.then(res => {
+				console.log(res.data);
+				if (res.data.carritos.length) {
+					res.data.lineorder = res.data.carritos[0].lineorder;
+				} else {
+					res.data.lineorder = {cantidad: 1};
+				}
+				let productos = obtenerProductos();
+				productos.push(res.data);
+				localStorage.setItem('productos', JSON.stringify(productos));
+			})
+			.catch(err => console.log(err));
+	};
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
-	const handleClick = () => {
+	console.log(user);
+	const handleClick = e => {
+		if (user.id) {
+			addToCart(user.id, e.target.name);
+		} else {
+			getProducto(e.target.name);
+		}
 		setOpen(true);
 	};
 	const handleClose = (event, reason) => {
@@ -51,10 +83,7 @@ function ProductCard({imagen, titulo, precio, review, id, stock, addToCart}) {
 				<div className="bottom-wrap">
 					<button
 						className="btn btn-sm btn-primary float-right"
-						onClick={e => {
-							handleClick();
-							addToCart(1, e.target.name);
-						}}
+						onClick={e => handleClick(e)}
 						name={id}
 						disabled={stock === 0 ? true : false}>
 						{stock === 0 ? 'Sin Stock' : 'Comprar'}
@@ -73,4 +102,9 @@ function ProductCard({imagen, titulo, precio, review, id, stock, addToCart}) {
 	);
 }
 
-export default connect(null, {addToCart})(ProductCard);
+function mapStateToProps(state) {
+	return {
+		user: state.user,
+	};
+}
+export default connect(mapStateToProps, {addToCart})(ProductCard);

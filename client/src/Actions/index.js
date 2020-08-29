@@ -17,6 +17,11 @@ import {
 	EMPTY_CART,
 	GET_ORDERS,
 	GET_USER,
+	LOGIN,
+	LOGOUT,
+	SETCANTIDAD,
+	GET_USERS,
+	DELETE_USERS,
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -184,13 +189,25 @@ export function addToCart(userId, prodId) {
 			)
 			.then(res => {
 				if (res.data.carritos.length) {
-					console.log(res.data);
 					res.data.lineorder = res.data.carritos[0].lineorder;
 				} else {
 					res.data.lineorder = {cantidad: 1};
 				}
 				dispatch({type: ADD_TO_CART, product: res.data});
 			});
+	};
+}
+
+export function setCantidad(userId, prodId, cantidades) {
+	return function (dispatch) {
+		axios
+			.put(
+				`http://localhost:3005/users/${userId}/cart`,
+				{id: parseInt(prodId), cantidad: cantidades},
+				{withCredentials: true},
+			)
+			.then(res => dispatch({type: SETCANTIDAD, product: res.data}))
+			.catch(err => console.log(err));
 	};
 }
 
@@ -216,6 +233,7 @@ export function getOrder(id) {
 	};
 }
 
+//* ORDERS
 export function getOrders() {
 	return function (dispatch) {
 		return axios
@@ -229,6 +247,24 @@ export function getOrders() {
 	};
 }
 
+//* USERS
+
+export function login(user) {
+	return function (dispatch) {
+		return axios
+			.post('http://localhost:3005/auth/login', user, {withCredentials: true})
+			.then(res => {
+				if (localStorage.getItem('productos') !== null) {
+					let products = JSON.parse(localStorage.getItem('productos'));
+					products.map(prod => addToCart(res.data.id, prod.id));
+					localStorage.clear();
+				}
+				dispatch({type: LOGIN, user: res.data});
+			})
+			.catch(error => console.log(error));
+	};
+}
+
 export function getUser() {
 	return function (dispatch) {
 		return axios
@@ -238,4 +274,29 @@ export function getUser() {
 			})
 			.catch(err => console.log(err));
 	};
+}
+
+export function logout() {
+	return function (dispatch) {
+		return axios
+			.get('http://localhost:3005/auth/logout', {withCredentials: true})
+			.then(res => dispatch({type: LOGOUT}))
+			.catch(error => console.log(error));
+	};
+}
+export function getUsers () {
+	return function (dispatch) {
+		return axios
+		.get("http://localhost:3005/users", {withCredentials:true})
+		.then (res => dispatch({type:GET_USERS, users: res.data}))
+		.catch (err => console.log(err));
+	}
+}
+export function deleteUsers (id) {
+	return function (dispatch) {
+		return axios
+		.get (`http://localhost:3005/users/${id}`, {withCredentials: true})
+		.then (res => dispatch({type: DELETE_USERS, deleteUser: res.data}))
+		.catch (err => console.log(err))
+	}
 }
