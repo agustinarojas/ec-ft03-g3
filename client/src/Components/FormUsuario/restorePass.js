@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
- function RestorePass() {
+ function RestorePass({user}) {
    //var usuario = getUser();
   //console.log(usuario)
   const [state, setState] = useState({});
@@ -29,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
      [e.target.name]: e.target.value
     })
   }
-  const handleSubmit = (event, state) => {
+  const handleSubmit = (event, state, ) => {
     event.preventDefault();
 		axios
-			.post('http://localhost:3005/:ids/passReset', {withCredentials: true}, state)
+			.post(`http://localhost:3005/users/${user.id}/passReset`, {password: state.password}, {withCredentials: true})
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
   }
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
         <label htmlFor="exampleInputPassword">Ingrese su contraseña actual</label>
         <input
           name='actualPassword'
-          placeholder='Contraseña actual'
+          placeholder='...'
           type="password"
           className="form-control"
           id="exampleInputPassword"
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
         <label htmlFor="exampleInputPassword">Ingrese su nueva contraseña</label>
         <input
           name='password'
-          placeholder='Contraseña nueva'
+          placeholder='...'
           type="password"
           className="form-control"
           id="exampleInputPassword"
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
         <label htmlFor="exampleInputPassword">Confirme su nueva contraseña</label>
         <input className={state.password2 != state.password && 'danger'}
           name='password2'
-          placeholder='Contraseña nueva'
+          placeholder='...'
           type="password"
           className="form-control"
           id="exampleInputPassword"

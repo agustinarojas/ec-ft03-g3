@@ -53,7 +53,7 @@ export default function FormUsuario() {
 			  	<label htmlFor="exampleInputNombre">Nombre</label>
 					<input
 					  name='nombre'
-						placeholder='nombre'
+						placeholder='...'
 						type="text"
 						className="form-control"
 						id="exampleInputNombre"
@@ -62,7 +62,7 @@ export default function FormUsuario() {
 					<label htmlFor="exampleInputApellido">Apellido</label>
 					<input
 					  name='apellido'
-						placeholder='apellido'
+						placeholder='...'
 						type="text"
 						className="form-control"
 						id="exampleInputApellido"
@@ -71,7 +71,7 @@ export default function FormUsuario() {
 					<label htmlFor="exampleInputEmail1">Email</label>
 					<input
 					  name='email'
-						placeholder='email'
+						placeholder='...'
 						type="email"
 						className="form-control"
 						id="exampleInputEmail1"
@@ -84,7 +84,7 @@ export default function FormUsuario() {
 					<label htmlFor="exampleInputPassword">Contraseña</label>
 					<input
 					  name='password'
-						placeholder='Contraseña'
+						placeholder='...'
 						type="password"
 						className="form-control"
 						id="exampleInputPassword"
@@ -98,7 +98,7 @@ export default function FormUsuario() {
 					<label htmlFor="exampleInputPassword">Confirme su contraseña</label>
 					<input className={state.password2 != state.password && 'danger'}
 					  name='password2'
-						placeholder='Contraseña'
+						placeholder='...'
 						type="password"
 						className="form-control"
 						id="exampleInputPassword"

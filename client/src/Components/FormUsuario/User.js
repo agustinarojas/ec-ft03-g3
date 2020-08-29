@@ -18,7 +18,6 @@ var click = false;
 			<h1>
 				{user.nombre} {user.apellido}
 			</h1>
-			{console.log(user)}
 			<p> {user.email} </p>
 			<Link to='/RestablecerContraseña'>
 			  <span>Cambiar contraseña</span>

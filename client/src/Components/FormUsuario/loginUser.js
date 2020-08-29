@@ -51,9 +51,10 @@ export default function LoginUser() {
 		<div className="Formm">
 			<form onSubmit={e => handleSubmit(e, state)}>
 				<div className="form-group">
-					<label htmlFor="exampleInputEmail1">Email address</label>
+					<label htmlFor="exampleInputEmail1">Email</label>
 					<input
 						name="email"
+						placeholder='...'
 						type="email"
 						className="form-control"
 						id="exampleInputEmail1"
@@ -63,6 +64,7 @@ export default function LoginUser() {
 					<label htmlFor="exampleInputPassword">Contraseña</label>
 					<input
 						name="password"
+						placeholder='...'
 						type="password"
 						className="form-control"
 						id="exampleInputPassword"
