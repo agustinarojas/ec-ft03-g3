@@ -110,7 +110,16 @@ export default function FormUsuario() {
 					 <small id="emailHelp" className="form-text text-muted">Contraseña confirmada</small>
 				 }
 				</div>
-				{ !state.nombre || !state.apellido || !state.email || !state.password || !state.password2 || state.password2 != state.password || state.password.length < 6 ? control = true : false}
+				{
+					!state.nombre ||
+					!state.apellido ||
+					!state.email ||
+					!state.password ||
+					!state.password2 ||
+					state.password2 != state.password ||
+					state.password.length < 6
+					? control = true : false
+				}
 				<button onClick = {handleClick} variant="contained" color="primary" type="submit"  value="Submit" disabled={control ? true : false}>
 					Submit
 				</button>
