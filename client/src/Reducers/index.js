@@ -23,6 +23,7 @@ import {
 	SETCANTIDAD,
 	GET_USERS,
 	DELETE_USERS,
+	GET_REVIEWS
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
@@ -32,6 +33,7 @@ const inicialState = {
 	orders: [],
 	user: {},
 	users: [],
+	reviews:[],
 };
 
 export default function rootReducer(state = inicialState, action) {
@@ -182,6 +184,11 @@ export default function rootReducer(state = inicialState, action) {
 			return {
 				...state,
 				users: state.users.filter(user => user.id !== action.users.id)
+			};
+		case GET_REVIEWS:
+			return {
+				...state,
+				reviews: action.reviews,
 			};
 		default:
 			return state;

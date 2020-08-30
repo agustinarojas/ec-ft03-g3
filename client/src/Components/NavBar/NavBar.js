@@ -143,7 +143,10 @@ function NavBar({
 											Perfil
 										</MenuItem>
 
-										<MenuItem onClick={handleClose}>Ayuda</MenuItem>
+										<MenuItem onClick={handleClose}>
+                    	<Link to={`/order/${user.id}`}></Link>
+									    	Mis compras
+											</MenuItem>
 										<MenuItem
 											onClick={() => {
 												handleClose();

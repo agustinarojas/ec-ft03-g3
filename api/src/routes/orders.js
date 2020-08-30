@@ -39,7 +39,7 @@ server.get('/:id', isAuthenticated, (req, res) => {
 		});
 });
 
-server.put('/:id', isAdmin, (req, res) => {
+server.put('/:id', isAuthenticated, (req, res) => {
 	//ruta actualiza orden
 	var data = req.body;
 	Carrito.findOne({

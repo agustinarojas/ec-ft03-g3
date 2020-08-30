@@ -18,12 +18,13 @@ passport.use(
 			},
 		})
 		.then(user => {
+			console.log(user.correctPassword(password))
 			if (!user) {
 					return done(null, false);
 				}
-				if (user.correctPassword(password) == password) {
-					return done(null, false);
-				}
+				if (!user.correctPassword(password)) {
+                    return done(null, false);
+        }
 				return done(null, user);
 			})
 			.catch(err => {
@@ -35,7 +36,7 @@ passport.use(
 			console.log(user);
 			done(null, user.id);
 		});
-		
+
 		passport.deserializeUser(function (id, done) {
 			User.findByPk(id)
 			.then(user => {
@@ -68,9 +69,9 @@ server.use(
 		res.header('Access-Control-Allow-Methods', 'POST, GET, DELETE, PUT, OPTIONS');
 		next();
 	});
-	
+
 	server.use('/', routes);
-	
+
 	// Error catching endware.
 	server.use((err, req, res, next) => {
 		// eslint-disable-line no-unused-vars
