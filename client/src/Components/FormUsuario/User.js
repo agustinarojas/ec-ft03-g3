@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 function user({user}) {
 	const handleOnClick = () => {
@@ -9,13 +10,18 @@ function user({user}) {
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
 	};
-	console.log(user);
+var click = false;
+//console.log(click)
+	//console.log(user);
 	return (
 		<div>
 			<h1>
 				{user.nombre} {user.apellido}
 			</h1>
 			<p> {user.email} </p>
+			<Link to='/RestablecerContraseña'>
+			  <span>Cambiar contraseña</span>
+			</Link>
 		</div>
 	);
 }

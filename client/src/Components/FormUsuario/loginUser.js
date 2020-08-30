@@ -41,14 +41,19 @@ function LoginUser({addToCart, login}) {
 		}
 		setOpen(false);
 	};
-
+	const handleOnSubmit = event => {
+        event.preventDefault();
+        login(state);
+    };
+   
 	return (
-		<div className="Formm">
-			<form onSubmit={() => login(state)}>
+        <div className="Formm">
+            <form onSubmit={e => handleOnSubmit(e, state)}>
 				<div className="form-group">
-					<label htmlFor="exampleInputEmail1">Email address</label>
+					<label htmlFor="exampleInputEmail1">Email</label>
 					<input
 						name="email"
+						placeholder='...'
 						type="email"
 						className="form-control"
 						id="exampleInputEmail1"
@@ -58,6 +63,7 @@ function LoginUser({addToCart, login}) {
 					<label htmlFor="exampleInputPassword">Contraseña</label>
 					<input
 						name="password"
+						placeholder='...'
 						type="password"
 						className="form-control"
 						id="exampleInputPassword"

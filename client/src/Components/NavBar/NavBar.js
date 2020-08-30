@@ -10,6 +10,7 @@ import {
 	getOrders,
 	getUser,
 	logout,
+	getUsers,
 } from '../../Actions/index';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -42,6 +43,7 @@ function NavBar({
 	getUser,
 	user,
 	logout,
+	getUsers,
 }) {
 	// const handleOnClick = () => {
 	// 	axios
@@ -107,6 +109,7 @@ function NavBar({
 			{!user.id && <Link to="/sign_up"> Registrarse </Link>}
 			{!user.id && <Link to="/login"> Iniciar Sesion </Link>}
 			{user.admin && <Link to="/admin">Admin</Link>}
+			{user.admin && <Link to= "/users_table" onClick ={getUsers} >Users</Link>}
 
 			{user.admin && (
 				<Link to="/orders" onClick={() => getOrders()}>
@@ -171,4 +174,5 @@ export default connect(mapStateToProps, {
 	getOrders,
 	getUser,
 	logout,
+	getUsers,
 })(NavBar);
