@@ -5,8 +5,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
 import {login} from '../../Actions/index';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
+
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -42,6 +43,7 @@ function LoginUser({login}) {
 		}
 		setOpen(false);
 	};
+
 	const handleOnSubmit = event => {
 		event.preventDefault();
 		login(state);
@@ -49,6 +51,7 @@ function LoginUser({login}) {
 	if (redirect) {
 		return <Redirect to="/" />;
 	}
+
 
 	return (
 		<div className="Formm">

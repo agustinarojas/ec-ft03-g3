@@ -3,7 +3,7 @@ function isAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
 		next();
 	} else {
-		res.send('TE HE FALLADO');
+		res.send('Deberias loguearte');
 		res.status(404);
 	}
 }
