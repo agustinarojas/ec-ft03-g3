@@ -12,10 +12,25 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import MuiAlert from '@material-ui/lab/Alert';
+import {makeStyles} from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  
+  const useStyles = makeStyles((theme) => ({
+	root: {
+	  width: '100%',
+	  '& > * + *': {
+		marginTop: theme.spacing(2),
+	  },
+	},
+  }));
 
 function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) {
 	const [can, setCantid] = useState(1);
@@ -80,14 +95,27 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
+	const classes = useStyles();
+	const [abrir, setAbrir] = React.useState(false);
 
 	const handleClose = () => {
-		setOpen(false);
+		setAbrir(false);
 	};
 	if (redirect) {
 		return <Redirect to="/" />;
 	}
-
+  
+	const handleClick = () => {
+	  setAbrir(true);
+	};
+  
+	const handleClosed = (event, reason) => {
+	  if (reason === 'clickaway') {
+		return;
+	  }
+  
+	  setAbrir(false);
+	};
 	return (
 		<div className="flexend">
 			{cart?.map((p, i) => (
@@ -146,16 +174,25 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 				<button
 					id="compra"
 					onClick={() => {
+						handleClick();
 						comprar();
 						setTimeout(function () {
 							setRedirect(true);
 						}, 1000);
 					}}>
 					Checkout
+					
 				</button>
+				
 			) : (
 				''
-			)}
+			)
+			}
+			<Snackbar open={abrir} autoHideDuration={6000} onClose={handleClosed}>
+						<Alert onClose={handleClosed} severity="success">
+							Tu compra fue exitosa!
+						</Alert>
+					</Snackbar>
 		</div>
 	);
 }
