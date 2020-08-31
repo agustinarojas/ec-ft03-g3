@@ -148,15 +148,20 @@ function NavBar({
 										
 
 										<Link onClick={handleClose}>Ayuda</Link>
-										<Link
+										
+										<MenuItem onClick={handleClose}>
+                    	<Link to={`/order/${user.id}`}></Link>
+									    	Mis compras
+											</MenuItem>
+										<MenuItem
 											onClick={() => {
 												handleClose();
 												logout();
 											}}>
 											Cerrar Sesión
-										</Link>
+									</MenuItem>
 										</div>
-									</MenuList>
+										</MenuList>
 								</ClickAwayListener>
 							</Paper>
 						</Grow>

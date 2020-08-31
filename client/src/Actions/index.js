@@ -22,9 +22,35 @@ import {
 	SETCANTIDAD,
 	GET_USERS,
 	DELETE_USERS,
+	GET_REVIEWS
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
+
+
+export function getReviews(prodId) {
+	console.log(prodId)
+	return function (dispatch) {
+		return axios
+			.get(`http://localhost:3005/products/${prodId}/reviews`)
+			.then(res => {
+				console.log(res.data)
+				dispatch({type: GET_REVIEWS, reviews: res.data});
+			})
+			.catch(err => console.log(err));
+	};
+}
+
+export function emptyCart(id) {
+	return function (dispatch) {
+		return axios
+			.delete(`http://localhost:3005/users/${id}/cart`, {withCredentials: true})
+			.then(res => {
+				dispatch({type: EMPTY_CART, cart: []});
+			})
+			.catch(err => console.log(err));
+	};
+}
 
 export function searchProduct(buscar) {
 	return function (dispatch) {
