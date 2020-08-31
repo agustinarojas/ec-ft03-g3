@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {Link} from "react-router-dom";
 
 function Order({ orders, match }) {
     var ord = orders?.filter(o => o?.id == match?.params?.id)
@@ -15,9 +16,11 @@ function Order({ orders, match }) {
             <h3>Fecha: {ord[0]?.createdAt.slice(0, 19)}</h3>
             <div>
                 Productos: {prods?.map(p => 
-                <div key = {p.id}>
-                    <p>{p.titulo} {p.precio} {p.id} {p.lineorder.cantidad} </p>
-                </div>
+               <Link to={`/product/${p.id}`} key={p.id}>
+               <p>
+                   {p.titulo} {p.precio} {p.id} {p.lineorder.cantidad}{' '}
+               </p>
+           </Link>
                 )}
          </div>
             <h2>TOTAL : {total}</h2>
