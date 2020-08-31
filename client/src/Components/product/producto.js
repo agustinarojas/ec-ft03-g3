@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 }));
+
 function Products(producto) {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
