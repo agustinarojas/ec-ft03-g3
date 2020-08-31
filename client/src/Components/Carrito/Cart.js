@@ -92,11 +92,11 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	}
 
 	const [open, setOpen] = React.useState(false);
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
-	const classes = useStyles();
 	const [abrir, setAbrir] = React.useState(false);
+
+	const handleClickOpen = () => {
+		setAbrir(true);
+	};
 
 	const handleClose = () => {
 		setAbrir(false);
@@ -106,7 +106,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	}
   
 	const handleClick = () => {
-	  setAbrir(true);
+	  setOpen(true);
 	};
   
 	const handleClosed = (event, reason) => {
@@ -114,7 +114,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 		return;
 	  }
   
-	  setAbrir(false);
+	  setOpen(false);
 	};
 	return (
 		<div className="flexend">
@@ -144,7 +144,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 				''
 			)}
 			<Dialog
-				open={open}
+				open={abrir}
 				TransitionComponent={Transition}
 				keepMounted
 				onClose={handleClose}
@@ -157,13 +157,13 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClosed} color="primary">
+					<Button onClick={handleClose} color="primary">
 						Cancelar
 					</Button>
 					<Button
 						onClick={() => {
 							emptyCart(user.id);
-							handleClosed();
+							handleClose();
 						}}
 						color="primary">
 						Aceptar
@@ -188,7 +188,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 				''
 			)
 			}
-			<Snackbar open={abrir} autoHideDuration={6000} onClose={handleClosed}>
+			<Snackbar open={open} autoHideDuration={6000} onClose={handleClosed}>
 						<Alert onClose={handleClosed} severity="success">
 							Tu compra fue exitosa!
 						</Alert>
