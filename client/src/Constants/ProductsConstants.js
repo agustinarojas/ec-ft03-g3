@@ -22,3 +22,6 @@ export const GET_USER = 'GET_USER';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SETCANTIDAD = 'SETCANTIDAD';
+export const GET_USERS = "GET_USERS";
+export const DELETE_USERS = "DELETE_USERS";
+
