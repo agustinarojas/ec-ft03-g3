@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './producto.css';
-import { addToCart } from '../../Actions/index';
-import { connect } from 'react-redux';
+import {addToCart} from '../../Actions/index';
+import {connect} from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import BeautyStars from 'beauty-stars';
 import Axios from 'axios';
 
@@ -26,12 +26,17 @@ function Products(producto) {
 	const handleClick = () => {
 		setOpen(true);
 	};
-	const submitRate = (rate, idUser, idProd) => { // CAMBIAR DONDE HACE SUBMIT Y SACARLE EL HARDCODEO JAJA! AGREGAR COMENTARIOS. RENDERIZAR VALOR DE ESTRELLITA PROEDIO
-		return Axios
-		.post(`http://localhost:3005/products/${idUser}/review`, {rating: rate, descripcion: 'hola como estas xd', productId: idProd, userId: idUser})
-		.then(success => console.log(success))
-		.catch( err => console.log(err))
-	}
+	const submitRate = (rate, idUser, idProd) => {
+		// CAMBIAR DONDE HACE SUBMIT Y SACARLE EL HARDCODEO JAJA! AGREGAR COMENTARIOS. RENDERIZAR VALOR DE ESTRELLITA PROEDIO
+		return Axios.post(`http://localhost:3005/products/${idUser}/review`, {
+			rating: rate,
+			descripcion: 'hola como estas xd',
+			productId: idProd,
+			userId: idUser,
+		})
+			.then(success => console.log(success))
+			.catch(err => console.log(err));
+	};
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return;
@@ -54,11 +59,13 @@ function Products(producto) {
 				</div>
 				<BeautyStars
 					value={value}
-					size = {'24px'}
-					gap = {'6px'}
-					activeColor = {'66C3FF'}
-					onChange={(value) => {setValue( value )
-						submitRate(value, 3, 2)}}
+					size={'24px'}
+					gap={'6px'}
+					activeColor={'66C3FF'}
+					onChange={value => {
+						setValue(value);
+						submitRate(value, producto.user.id, 2);
+					}}
 				/>
 				<div className="Precio">
 					<h3>$ {producto?.producto[0]?.precio}</h3>
@@ -86,4 +93,9 @@ function Products(producto) {
 	);
 }
 
-export default connect(null, { addToCart })(Products);
+function mapStateToProps(state) {
+	return {
+		user: state.user,
+	};
+}
+export default connect(mapStateToProps, {addToCart})(Products);

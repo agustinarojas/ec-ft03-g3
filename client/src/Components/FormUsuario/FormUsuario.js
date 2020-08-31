@@ -5,6 +5,7 @@ import {addToCart} from '../../Actions/index';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
+import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 export function Alert(props) {
@@ -21,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 function FormUsuario() {
 	const [state, setState] = useState({});
+	const [redirect, setRedirect] = useState(false);
 	const handleOnChange = e => {
 		setState({
 			...state,
@@ -30,14 +32,11 @@ function FormUsuario() {
 
 	const handleSubmit = (event, state) => {
 		event.preventDefault();
+
 		axios
 			.post('http://localhost:3005/users', state)
 			.then(res => {
-				if (localStorage.getItem('productos') !== null) {
-					let products = JSON.parse(localStorage.getItem('productos'));
-					products.map(prod => addToCart(res.data.id, prod.id));
-					localStorage.clear();
-				}
+				console.log(res);
 			})
 			.catch(error => console.log(error));
 	};
@@ -52,16 +51,24 @@ function FormUsuario() {
 		}
 		setOpen(false);
 	};
-
+	if (redirect) {
+		return <Redirect to="/login" />;
+	}
 	var control;
 	return (
 		<div className="Formm">
-			<form onSubmit={e => handleSubmit(e, state)}>
+			<form
+				onSubmit={e => {
+					handleSubmit(e, state);
+					setTimeout(function () {
+						setRedirect(true);
+					}, 1000);
+				}}>
 				<div className="form-group">
 					<label htmlFor="exampleInputNombre">Nombre</label>
 					<input
-					  name='nombre'
-						placeholder='...'
+						name="nombre"
+						placeholder="..."
 						type="text"
 						className="form-control"
 						id="exampleInputNombre"
@@ -69,8 +76,8 @@ function FormUsuario() {
 					/>
 					<label htmlFor="exampleInputApellido">Apellido</label>
 					<input
-					  name='apellido'
-						placeholder='...'
+						name="apellido"
+						placeholder="..."
 						type="text"
 						className="form-control"
 						id="exampleInputApellido"
@@ -78,8 +85,8 @@ function FormUsuario() {
 					/>
 					<label htmlFor="exampleInputEmail1">Email</label>
 					<input
-					  name='email'
-						placeholder='...'
+						name="email"
+						placeholder="..."
 						type="email"
 						className="form-control"
 						id="exampleInputEmail1"
@@ -91,8 +98,8 @@ function FormUsuario() {
 					</small>
 					<label htmlFor="exampleInputPassword">Contraseña</label>
 					<input
-					  name='password'
-						placeholder='...'
+						name="password"
+						placeholder="..."
 						type="password"
 						className="form-control"
 						id="exampleInputPassword"
@@ -105,13 +112,14 @@ function FormUsuario() {
 					) : (
 						''
 					)}
-					<label htmlFor="exampleInputPassword">Confirme su contraseña</label>
-					<input className={state.password2 != state.password && 'danger'}
-					  name='password2'
-						placeholder='...'
+					<label htmlFor="exampleInputPassword2">Confirme su contraseña</label>
+					<input
+						className={state.password2 != state.password && 'danger'}
+						name="password2"
+						placeholder="Contraseña"
 						type="password"
 						className="form-control"
-						id="exampleInputPassword"
+						id="exampleInputPassword2"
 						onChange={e => handleOnChange(e)}
 					/>
 					{state.password2 != state.password || state.password2 == null ? (
@@ -125,8 +133,7 @@ function FormUsuario() {
 					)}
 				</div>
 
-				{
-        !state.nombre ||
+				{!state.nombre ||
 				!state.apellido ||
 				!state.email ||
 				!state.password ||
@@ -134,8 +141,7 @@ function FormUsuario() {
 				state.password2 != state.password ||
 				state.password.length < 6
 					? (control = true)
-					: false
-        }
+					: false}
 				<button
 					onClick={handleClick}
 					variant="contained"
