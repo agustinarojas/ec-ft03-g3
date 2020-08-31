@@ -5,8 +5,9 @@ import FormProductCat from './FormProductCat';
 import {addProduct, putProduct, deleteProduct} from '../../Actions/index.js';
 import './table.css';
 import {connect} from 'react-redux';
+import { Redirect } from 'react-router';
 
-function Table({products, addProduct, putProduct, deleteProduct}) {
+function Table({products, addProduct, putProduct, deleteProduct,user}) {
 	const columns = [
 		{title: 'Titulo', field: 'titulo'},
 		{title: 'Descripción', field: 'descripcion'},
@@ -16,6 +17,9 @@ function Table({products, addProduct, putProduct, deleteProduct}) {
 	];
 	return (
 		<div>
+
+			{user.admin ? (
+				<div>
 			<MaterialTable
 				title="Productos"
 				columns={columns}
@@ -25,17 +29,22 @@ function Table({products, addProduct, putProduct, deleteProduct}) {
 					onRowUpdate: (newData, oldData) => putProduct(newData, oldData.id),
 					onRowDelete: oldData => deleteProduct(oldData.id),
 				}}
-			/>
+				/>
 			<br />
 			<TableCategory />
 			<br />
 			<FormProductCat />
 		</div>
+			):(
+				<Redirect to= "/"/>
+				)}
+				</div>
 	);
 }
 const mapStateToProps = state => {
 	return {
 		products: state.products,
+		user: state.user
 	};
 };
 export default connect(mapStateToProps, {addProduct, putProduct, deleteProduct})(Table);
