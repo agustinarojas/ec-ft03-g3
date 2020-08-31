@@ -61,9 +61,8 @@ function App({productos, catProducts, getCategories, categories, searchProduct, 
 			<Route path="/login" component={LoginUser} />
 			<Route path="/me" component={user} />
 			<Route path="/RestablecerContraseña" render={() => <RestorePass users={getUser} />} />
-			<Route path = "/users_table" component = {tableUser}/>
+			<Route path="/users_table" component={tableUser} />
 			<Route path="/producto/:prodId/Calificaciones" component={Reviews} />
-
 		</div>
 	);
 }

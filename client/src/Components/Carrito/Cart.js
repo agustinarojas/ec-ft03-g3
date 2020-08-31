@@ -21,16 +21,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
-  
-  const useStyles = makeStyles((theme) => ({
+}
+
+const useStyles = makeStyles(theme => ({
 	root: {
-	  width: '100%',
-	  '& > * + *': {
-		marginTop: theme.spacing(2),
-	  },
+		width: '100%',
+		'& > * + *': {
+			marginTop: theme.spacing(2),
+		},
 	},
-  }));
+}));
 
 function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) {
 	const [can, setCantid] = useState(1);
@@ -104,17 +104,17 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	if (redirect) {
 		return <Redirect to="/" />;
 	}
-  
+
 	const handleClick = () => {
-	  setAbrir(true);
+		setAbrir(true);
 	};
-  
+
 	const handleClosed = (event, reason) => {
-	  if (reason === 'clickaway') {
-		return;
-	  }
-  
-	  setAbrir(false);
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		setAbrir(false);
 	};
 	return (
 		<div className="flexend">
@@ -162,8 +162,8 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					</Button>
 					<Button
 						onClick={() => {
-							emptyCart(user.id);
 							handleClose();
+							emptyCart(user.id);
 						}}
 						color="primary">
 						Aceptar
@@ -181,18 +181,15 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 						}, 1000);
 					}}>
 					Checkout
-					
 				</button>
-				
 			) : (
 				''
-			)
-			}
+			)}
 			<Snackbar open={abrir} autoHideDuration={6000} onClose={handleClosed}>
-						<Alert onClose={handleClosed} severity="success">
-							Tu compra fue exitosa!
-						</Alert>
-					</Snackbar>
+				<Alert onClose={handleClosed} severity="success">
+					Tu compra fue exitosa!
+				</Alert>
+			</Snackbar>
 		</div>
 	);
 }
