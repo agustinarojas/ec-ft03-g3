@@ -4,52 +4,89 @@ import axios from 'axios';
 import './cart.css';
 import {connect} from 'react-redux';
 import Button from '@material-ui/core/Button';
-import {emptyCart, getCarrito} from '../../Actions/index';
+import {emptyCart, getCarrito, addToCart} from '../../Actions/index';
+import {Redirect} from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import MuiAlert from '@material-ui/lab/Alert';
+import {makeStyles} from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  
+  const useStyles = makeStyles((theme) => ({
+	root: {
+	  width: '100%',
+	  '& > * + *': {
+		marginTop: theme.spacing(2),
+	  },
+	},
+  }));
 
-function Cart({match, emptyCart, productsCar, getCarrito, user}) {
+function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) {
 	const [can, setCantid] = useState(1);
 	const [precio, setPrecio] = useState(0);
-	let userId = match?.params?.userId;
+	const [redirect, setRedirect] = useState(false);
 	let cart;
 	let data = JSON.parse(localStorage.getItem('productos'));
-	console.log(data);
-	cart = user.id !== null ? productsCar : data;
+
+	useEffect(() => {
+		user.id && getCarrito(user.id);
+		if (localStor) {
+			console.log(localStor);
+			localStor.map(prod => addToCart(user.id, prod.id, prod.lineorder.cantidad));
+		}
+	}, [user]);
+
+	console.log('data: ' + data);
+	console.log(localStor);
+	if (user.id) cart = productsCar;
+	else {
+		cart = data;
+	}
+	useEffect(() => {
+		console.log(cart);
+		let total = cart?.reduce((total, producto) => {
+			return total + producto.precio * producto.lineorder.cantidad;
+		}, 0);
+		setPrecio(total);
+	}, [productsCar]);
+
 	console.log(cart);
 	console.log(user);
-	var total = {};
 	console.log(productsCar);
-	const handlePrice = function () {
-		// setPrecio(cant * precio);
-		// total[id] = cant * precio;
-		var precios = 0;
-		// for (let i = 0; i < Object.values(total).length; i++) {
-		// 	precios += Object.values(total)[i];
-		// }
-		for (let i = 0; i < cart.length; i++) {
-			console.log(cart);
-			precios = precios + cart[i].precio * cart[i].lineorder.cantidad;
-		}
-		var aux = precios;
-		setPrecio(aux);
-		// console.log(total);
-		console.log(aux);
-		//Abri la consola fijate que funciona, si renderizas el estado de precio, en la linea 54, del 'total', deja de funcionar no se porque, no le puedo hacer el setPrecio que funciona mal, fijate si podes agus :c
-	};
+	var total = {};
+	// const handlePrice = function () {
+	// 	// setPrecio(cant * precio);
+	// 	// total[id] = cant * precio;
+	// 	var precios = 0;
+	// 	// for (let i = 0; i < Object.values(total).length; i++) {
+	// 	// 	precios += Object.values(total)[i];
+	// 	// }
+	// 	for (let i = 0; i < cart.length; i++) {
+	// 		console.log(cart);
+	// 		precios = precios + cart[i].precio * cart[i].lineorder.cantidad;
+	// 	}
+	// 	var aux = precios;
+	// 	setPrecio(aux);
+	// 	// console.log(total);
+	// 	console.log(aux);
+	// 	//Abri la consola fijate que funciona, si renderizas el estado de precio, en la linea 54, del 'total', deja de funcionar no se porque, no le puedo hacer el setPrecio que funciona mal, fijate si podes agus :c
+	// };
+	// console.log(precio);
 
-	console.log(precio);
 	function comprar() {
 		return axios
-			.put('http://localhost:3005/orders/1', {estado: 'completa'}, {withCredentials: true})
+			.put(`http://localhost:3005/orders/${user.id}`, {estado: 'completa'}, {withCredentials: true})
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	}
@@ -58,19 +95,31 @@ function Cart({match, emptyCart, productsCar, getCarrito, user}) {
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
+	const classes = useStyles();
+	const [abrir, setAbrir] = React.useState(false);
 
 	const handleClose = () => {
-		setOpen(false);
+		setAbrir(false);
 	};
-
-	useEffect(() => {
-		getCarrito(userId);
-	}, [can]);
+	if (redirect) {
+		return <Redirect to="/" />;
+	}
+  
+	const handleClick = () => {
+	  setAbrir(true);
+	};
+  
+	const handleClosed = (event, reason) => {
+	  if (reason === 'clickaway') {
+		return;
+	  }
+  
+	  setAbrir(false);
+	};
 	return (
 		<div className="flexend">
 			{cart?.map((p, i) => (
 				<Item
-					match={match}
 					titulo={p.titulo}
 					descripcion={p.descripcion}
 					imagen={p.imagen}
@@ -79,22 +128,15 @@ function Cart({match, emptyCart, productsCar, getCarrito, user}) {
 					stock={p.stock}
 					cantidad={p.lineorder.cantidad}
 					key={i}
-					hand={handlePrice}
+					// hand={handlePrice}
 				/>
 			))}
-			{cart.length > 0 ? (
-				<h2 id="total">
-					TOTAL: $
-					{cart?.reduce((total, producto) => {
-						console.log(cart);
-						console.log(producto);
-						return total + producto.precio * producto.lineorder.cantidad;
-					}, 0)}
-				</h2>
+			{cart?.length > 0 ? (
+				<h2 id="total">TOTAL: $ {precio}</h2>
 			) : (
 				<div className="noProducts">Aún no agregaste productos al carrito.</div>
 			)}
-			{cart.length > 0 ? (
+			{cart?.length > 0 ? (
 				<button id="vaciar" onClick={() => handleClickOpen()}>
 					Vaciar
 				</button>
@@ -128,13 +170,29 @@ function Cart({match, emptyCart, productsCar, getCarrito, user}) {
 					</Button>
 				</DialogActions>
 			</Dialog>
-			{cart.length > 0 ? (
-				<button id="compra" onClick={() => comprar()}>
+			{cart?.length > 0 ? (
+				<button
+					id="compra"
+					onClick={() => {
+						handleClick();
+						comprar();
+						setTimeout(function () {
+							setRedirect(true);
+						}, 1000);
+					}}>
 					Checkout
+					
 				</button>
+				
 			) : (
 				''
-			)}
+			)
+			}
+			<Snackbar open={abrir} autoHideDuration={6000} onClose={handleClosed}>
+						<Alert onClose={handleClosed} severity="success">
+							Tu compra fue exitosa!
+						</Alert>
+					</Snackbar>
 		</div>
 	);
 }
@@ -143,6 +201,7 @@ function mapStateToProps(state) {
 	return {
 		productsCar: state.productsCar,
 		user: state.user,
+		localStor: state.localStorage,
 	};
 }
-export default connect(mapStateToProps, {emptyCart, getCarrito})(Cart);
+export default connect(mapStateToProps, {emptyCart, getCarrito, addToCart})(Cart);

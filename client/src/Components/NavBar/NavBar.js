@@ -108,8 +108,12 @@ function NavBar({
 			</div>
 			{!user.id && <Link to="/sign_up"> Registrarse </Link>}
 			{!user.id && <Link to="/login"> Iniciar Sesion </Link>}
-			{user.admin && <Link to="/admin">Admin</Link>}
-			{user.admin && <Link to= "/users_table" onClick ={getUsers} >Users</Link>}
+			{user.admin && <Link to="/admin">Producto</Link>}
+			{user.admin && (
+				<Link to="/users_table" onClick={getUsers}>
+					Users
+				</Link>
+			)}
 
 			{user.admin && (
 				<Link to="/orders" onClick={() => getOrders()}>
@@ -143,7 +147,10 @@ function NavBar({
 											Perfil
 										</MenuItem>
 
-										<MenuItem onClick={handleClose}>Ayuda</MenuItem>
+										<MenuItem onClick={handleClose}>
+                    	<Link to={`/order/${user.id}`}></Link>
+									    	Mis compras
+											</MenuItem>
 										<MenuItem
 											onClick={() => {
 												handleClose();

@@ -9,13 +9,21 @@ import Orders from './Components/Orders/Order';
 import Order from './Components/Orders/OrderI';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
 import LoginUser from './Components/FormUsuario/loginUser';
-import tableUser from "./Components/Table/tableuser";
+import tableUser from './Components/Table/tableuser';
 import user from './Components/FormUsuario/User';
 import RestorePass from './Components/FormUsuario/restorePass.js';
-import {getProducts, getCategories, searchProduct, getOrder, getUser, getUsers} from './Actions/index';
+import {
+	getProducts,
+	getCategories,
+	searchProduct,
+	getOrder,
+	getUser,
+	getUsers,
+} from './Actions/index';
 import {connect} from 'react-redux';
+import Reviews from './Components/Reviews/Reviews';
 
-function App({productos, catProducts, getCategories, categories, searchProduct, orders,getUser}) {
+function App({productos, catProducts, getCategories, categories, searchProduct, orders, getUser}) {
 	const [buscar, setBuscar] = useState('');
 
 	const filtrar = id => {
@@ -54,6 +62,8 @@ function App({productos, catProducts, getCategories, categories, searchProduct, 
 			<Route path="/me" component={user} />
 			<Route path="/RestablecerContraseña" render={() => <RestorePass users={getUser} />} />
 			<Route path = "/users_table" component = {tableUser}/>
+			<Route path="/producto/:prodId/Calificaciones" component={Reviews} />
+
 		</div>
 	);
 }

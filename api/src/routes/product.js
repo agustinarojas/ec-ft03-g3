@@ -15,7 +15,6 @@ server.get('/:id', (req, res, next) => {
 		where: {
 			id: req.params.id,
 		},
-		include: [{model: Carrito}],
 	}).then(product => {
 		res.send(product); // O product.dataValues ?
 	});

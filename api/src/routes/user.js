@@ -66,7 +66,7 @@ server.delete('/:id', isAuthenticated, (req, res) => {
 				res.send('Usuario inexistente');
 			} else {
 				user.destroy();
-				res.status(200).send('Usuario eliminado');
+				res.status(200).send(user);
 			}
 		})
 		.catch(err => {
@@ -94,7 +94,9 @@ server.post('/:ids/cart', (req, res) => {
 			let carrito = values[0][0];
 			let producto = values[1];
 			if (!producto.carritos.length) {
-				producto.addCarritos(carrito, {through: {cantidad: 1, precio: producto.precio}});
+				producto.addCarritos(carrito, {
+					through: {cantidad: req.body.cantidad, precio: producto.precio},
+				});
 				return res.send(producto);
 			} else {
 				let cantidad = producto.carritos[0].lineorder.cantidad;
@@ -113,7 +115,8 @@ server.get('/:ids/cart', (req, res) => {
 	Carrito.findOne({
 		where: {
 			userId: ids,
-			[Op.or]: [{estado: 'activo'}, {estado: 'completa'}],
+			// [Op.or]: [{estado: 'activo'}, {estado: 'completa'}],
+			estado: 'activo',
 		},
 		include: {
 			model: Product,
@@ -129,6 +132,9 @@ server.get('/:ids/cart', (req, res) => {
 
 server.delete('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
+	if (!ids) {
+		return 'done';
+	}
 	Carrito.findOne({
 		where: {
 			userId: ids,
@@ -146,6 +152,7 @@ server.delete('/:ids/cart', (req, res) => {
 
 server.delete('/:ids/cart/:prodId', (req, res) => {
 	var ids = req.params.ids;
+	console.log(req.params);
 	Carrito.findOne({
 		where: {
 			userId: ids,
@@ -154,6 +161,7 @@ server.delete('/:ids/cart/:prodId', (req, res) => {
 		include: {model: Product},
 	})
 		.then(carrito => {
+			console.log(carrito);
 			let result = carrito.products.filter(el => el.id == req.params.prodId);
 			carrito.removeProducts(result[0]);
 			res.status(201).send(result[0]);
@@ -216,7 +224,10 @@ server.post('/:ids/passReset', isAuthenticated, (req, res) => {
 				password: pass,
 			});
 			user.save();
-			res.send('Contrasena actualizada.').status(201);
+			console.log(pass)
+			console.log(user.password())
+			console.log(user.correctPassword(pass))
+			res.send(user.correctPassword(pass)).status(201);
 		})
 		.catch(err => console.log(err));
 });

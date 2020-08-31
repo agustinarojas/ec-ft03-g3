@@ -31,7 +31,7 @@ function Item({
 	const handleOnCLickCantidad = (prodId, type) => {
 		if (type === 'menos' && cantidades > 1) {
 			setCantidades(cantidades - 1);
-			hand(cantidades - 1, id, precio);
+			// hand(cantidades - 1, id, precio);
 			setCantidad(user.id, prodId, cantidades - 1);
 			// axios
 			// 	.put(
@@ -43,7 +43,7 @@ function Item({
 			// 	.catch(err => console.log(err));
 		} else if (type === 'mas' && stock > cantidades) {
 			setCantidades(cantidades + 1);
-			hand();
+			// hand();
 			setCantidad(user.id, prodId, cantidades + 1);
 			// axios
 			// 	.put(
@@ -124,7 +124,7 @@ function Item({
 									color="primary"
 									name={id}
 									onClick={e => {
-										deleteProdCart(e.target.name);
+										deleteProdCart(user.id, e.target.name);
 										handleClose();
 									}}>
 									Aceptar
