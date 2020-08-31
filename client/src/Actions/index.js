@@ -41,16 +41,6 @@ export function getReviews(prodId) {
 	};
 }
 
-export function emptyCart(id) {
-	return function (dispatch) {
-		return axios
-			.delete(`http://localhost:3005/users/${id}/cart`, {withCredentials: true})
-			.then(res => {
-				dispatch({type: EMPTY_CART, cart: []});
-			})
-			.catch(err => console.log(err));
-	};
-}
 
 export function searchProduct(buscar) {
 	return function (dispatch) {

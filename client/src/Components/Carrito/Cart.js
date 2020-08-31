@@ -157,13 +157,13 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} color="primary">
+					<Button onClick={handleClosed} color="primary">
 						Cancelar
 					</Button>
 					<Button
 						onClick={() => {
 							emptyCart(user.id);
-							handleClose();
+							handleClosed();
 						}}
 						color="primary">
 						Aceptar
