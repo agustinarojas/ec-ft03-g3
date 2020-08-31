@@ -224,7 +224,10 @@ server.post('/:ids/passReset', isAuthenticated, (req, res) => {
 				password: pass,
 			});
 			user.save();
-			res.send('Contrasena actualizada.').status(201);
+			console.log(pass)
+			console.log(user.password())
+			console.log(user.correctPassword(pass))
+			res.send(user.correctPassword(pass)).status(201);
 		})
 		.catch(err => console.log(err));
 });

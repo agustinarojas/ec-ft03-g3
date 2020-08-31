@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import './producto.css';
-import {addToCart} from '../../Actions/index';
-import {connect} from 'react-redux';
+import { addToCart, getReviews } from '../../Actions/index';
+import { connect } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
 import BeautyStars from 'beauty-stars';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -24,20 +25,20 @@ function Products(producto) {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
 	const [open, setOpen] = React.useState(false);
+	const [state, setState] = useState(false);
+	const [tarea, setTarea] = useState('');
+	const [count, setCount] = useState(0);
 	const handleClick = () => {
 		setOpen(true);
 	};
-	const submitRate = (rate, idUser, idProd) => {
-		// CAMBIAR DONDE HACE SUBMIT Y SACARLE EL HARDCODEO JAJA! AGREGAR COMENTARIOS. RENDERIZAR VALOR DE ESTRELLITA PROEDIO
-		return Axios.post(`http://localhost:3005/products/${idUser}/review`, {
-			rating: rate,
-			descripcion: 'hola como estas xd',
-			productId: idProd,
-			userId: idUser,
-		})
-			.then(success => console.log(success))
-			.catch(err => console.log(err));
-	};
+
+	const submitRate = (idUser, idProd) => { // CAMBIAR DONDE HACE SUBMIT Y SACARLE EL HARDCODEO JAJA! AGREGAR COMENTARIOS. RENDERIZAR VALOR DE ESTRELLITA PROEDIO
+		return Axios
+		.post(`http://localhost:3005/products/${idUser}/review`, {rating: value, descripcion: tarea, productId: idProd, userId: idUser})
+		.then(success => console.log(success))
+		.catch( err => console.log(err))
+	}
+
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return;
@@ -45,6 +46,17 @@ function Products(producto) {
 		setOpen(false);
 	};
 
+ const handleOnClick = () => {
+	 setCount(count + 1)
+	 console.log(count)
+	 if (count < 1) {
+		 setState(true);
+	 }else {
+		 setState(false);
+	 }
+ }
+ console.log(state)
+ var control;
 	return (
 		<div className="wrapper">
 			<div>
@@ -57,17 +69,34 @@ function Products(producto) {
 					<div>
 						<p>Stock: {producto?.producto[0]?.stock}</p>
 					</div>
+				<Link to={`/producto/${producto?.producto[0]?.id}/Calificaciones`} onClick={() => producto?.getReviews(producto?.producto[0]?.id)}>
+			    {/*{count < 2 ? <span>Calificar Producto</span> : <span>Ya realizaste una calificacion sobre este producto</span>}*/}
+			    <h6>Ver calificaciones</h6>
+				</Link>
+				<Link onClick={() => handleOnClick()}>
+			    {count < 2 ? <h6>Calificar Producto</h6> : <h6>Ya realizaste una calificacion sobre este producto</h6>}
+				</Link>
+				{
+					state ?
+						<div>
+							<textarea id="body-field" name="body" onChange={(e) => setTarea(e.target.value)}></textarea>
+							<BeautyStars
+								value={value}
+								size = {'24px'}
+								gap = {'6px'}
+								activeColor = {'66C3FF'}
+								onChange={(value) => setValue( value )}
+							/>
+							{
+								!value || !tarea ? (control = true) : false
+							}
+							<button disabled={control ? true : false} onClick={() => {submitRate(producto.user.id, producto?.producto[0]?.id); setState(false)}}>Calificar</button>
+						</div>
+					:
+					null
+				}
+
 				</div>
-				<BeautyStars
-					value={value}
-					size={'24px'}
-					gap={'6px'}
-					activeColor={'66C3FF'}
-					onChange={value => {
-						setValue(value);
-						submitRate(value, producto.user.id, 2);
-					}}
-				/>
 				<div className="Precio">
 					<h3>$ {producto?.producto[0]?.precio}</h3>
 					<button
@@ -99,4 +128,5 @@ function mapStateToProps(state) {
 		user: state.user,
 	};
 }
-export default connect(mapStateToProps, {addToCart})(Products);
+export default connect(mapStateToProps, { addToCart, getReviews })(Products);
+
