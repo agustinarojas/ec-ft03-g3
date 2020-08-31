@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { getReviews } from '../../Actions/index';
+import BeautyStars from 'beauty-stars';
 
 function Reviews({reviews, getReviews}) {
   console.log(reviews)
@@ -17,7 +18,13 @@ function Reviews({reviews, getReviews}) {
 				: reviews?.map(r => (
 				<div>
           <h4>Descripcion: {r.descripcion}</h4>
-          <h4>Rating: {r.rating}</h4>
+          <BeautyStars
+            value={r.rating}
+            size = {'24px'}
+            gap = {'6px'}
+            activeColor = {'66C3FF'}
+            //onChange={(r.rating) => setValue( value )}
+          />
           <br/>
         </div>
 			 ))
