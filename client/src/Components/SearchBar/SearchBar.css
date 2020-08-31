@@ -4,8 +4,9 @@
 }
 
 .form {
-	display: flex;
+	display: inline-flex;
 	justify-content: flex-end;
+	margin-left: 300px;
 }
 
 .input3 {
