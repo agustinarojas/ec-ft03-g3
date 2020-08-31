@@ -2,6 +2,7 @@ const server = require('express').Router();
 const {Product, Review} = require('../db.js');
 
 
+
 // server.post('/:id/review', (req, res) => {
 //   var userId = req.params.id;
 //   Review.findOrCreate({
@@ -24,16 +25,17 @@ const {Product, Review} = require('../db.js');
 //   })
 // })
 
+
 server.post('/:id/review', (req, res) => {
-  var userId = req.params.id;
-  Review.create(req.body)  //req.body recibe producto, rating y descripcion
-  .then(rev => {
-    res.status(201).send(rev)
-  })
-  .catch(err => {
-    res.sendStatus(400)
-  })
-})
+	var userId = req.params.id;
+	Review.create(req.body) //req.body recibe producto, rating y descripcion
+		.then(rev => {
+			res.status(201).send(rev);
+		})
+		.catch(err => {
+			res.sendStatus(400);
+		});
+});
 
 server.get('/:prodId/reviews', (req, res) => {
   var prodId = req.params.prodId;

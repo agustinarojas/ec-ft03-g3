@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './producto.css';
 import { addToCart, getReviews } from '../../Actions/index';
 import { connect } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import BeautyStars from 'beauty-stars';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 }));
+
 function Products(producto) {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
@@ -30,12 +31,14 @@ function Products(producto) {
 	const handleClick = () => {
 		setOpen(true);
 	};
+
 	const submitRate = (idUser, idProd) => { // CAMBIAR DONDE HACE SUBMIT Y SACARLE EL HARDCODEO JAJA! AGREGAR COMENTARIOS. RENDERIZAR VALOR DE ESTRELLITA PROEDIO
 		return Axios
 		.post(`http://localhost:3005/products/${idUser}/review`, {rating: value, descripcion: tarea, productId: idProd, userId: idUser})
 		.then(success => console.log(success))
 		.catch( err => console.log(err))
 	}
+
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return;
@@ -94,7 +97,6 @@ function Products(producto) {
 				}
 
 				</div>
-
 				<div className="Precio">
 					<h3>$ {producto?.producto[0]?.precio}</h3>
 					<button
@@ -126,5 +128,5 @@ function mapStateToProps(state) {
 		user: state.user,
 	};
 }
-
 export default connect(mapStateToProps, { addToCart, getReviews })(Products);
+

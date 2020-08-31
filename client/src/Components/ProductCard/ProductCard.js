@@ -36,14 +36,19 @@ function ProductCard({imagen, titulo, precio, review, id, stock, addToCart, user
 		return axios
 			.get(`http://localhost:3005/products/${prodId}`, {withCredentials: true})
 			.then(res => {
-				console.log(res.data);
-				if (res.data.carritos.length) {
-					res.data.lineorder = res.data.carritos[0].lineorder;
-				} else {
-					res.data.lineorder = {cantidad: 1};
-				}
+				res.data.lineorder = {cantidad: 1};
 				let productos = obtenerProductos();
-				productos.push(res.data);
+				let cambio = productos.filter(prod => prod.id === res.data.id)[0];
+				console.log(cambio);
+				console.log(res.data);
+				if (cambio) {
+					cambio.lineorder.cantidad = cambio.lineorder.cantidad + 1;
+					for (let i = 0; i < productos.length; i++) {
+						if (productos[i].id === cambio.id) productos[i] = cambio;
+					}
+				} else {
+					productos.push(res.data);
+				}
 				localStorage.setItem('productos', JSON.stringify(productos));
 			})
 			.catch(err => console.log(err));

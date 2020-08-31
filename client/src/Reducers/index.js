@@ -34,6 +34,7 @@ const inicialState = {
 	user: {},
 	users: [],
 	reviews:[],
+	localStorage: false,
 };
 
 export default function rootReducer(state = inicialState, action) {
@@ -94,7 +95,7 @@ export default function rootReducer(state = inicialState, action) {
 			};
 		//* CARRITO
 		case GET_CARRITO:
-			console.log(state.totalCarrito);
+			console.log(action.productCar);
 			return {
 				...state,
 				productsCar: action.productsCar,
@@ -166,9 +167,11 @@ export default function rootReducer(state = inicialState, action) {
 				user: action.user,
 			};
 		case LOGIN:
+			console.log(action.prods);
 			return {
 				...state,
 				user: action.user,
+				localStorage: action.prods,
 			};
 		case LOGOUT:
 			return {
@@ -183,7 +186,7 @@ export default function rootReducer(state = inicialState, action) {
 		case DELETE_USERS:
 			return {
 				...state,
-				users: state.users.filter(user => user.id !== action.users.id)
+				users: state.users.filter(user => user.id !== action.deleteUser.id),
 			};
 		case GET_REVIEWS:
 			return {

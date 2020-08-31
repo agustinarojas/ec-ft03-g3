@@ -27,6 +27,7 @@ import {
 
 //* PRODUCTS
 
+
 export function getReviews(prodId) {
 	console.log(prodId)
 	return function (dispatch) {
@@ -188,17 +189,25 @@ export function getCarrito(userId) {
 	return function (dispatch) {
 		return axios
 			.get(`http://localhost:3005/users/${userId}/cart`, {withCredentials: true})
-			.then(res => dispatch({type: GET_CARRITO, productsCar: res.data}))
+			.then(res => {
+				dispatch({type: GET_CARRITO, productsCar: res.data});
+			})
 			.catch(err => console.log(err));
 	};
 }
 
-export function addToCart(userId, prodId) {
+export function addToCart(userId, prodId, cant) {
+	let cantidad;
+	if (cant) {
+		cantidad = cant;
+	} else {
+		cantidad = 1;
+	}
 	return function (dispatch) {
 		return axios
 			.post(
 				`http://localhost:3005/users/${userId}/cart`,
-				{id: parseInt(prodId)},
+				{id: parseInt(prodId), cantidad},
 				{withCredentials: true},
 			)
 			.then(res => {
@@ -207,12 +216,22 @@ export function addToCart(userId, prodId) {
 				} else {
 					res.data.lineorder = {cantidad: 1};
 				}
+				console.log(res.data);
 				dispatch({type: ADD_TO_CART, product: res.data});
 			});
 	};
 }
 
 export function setCantidad(userId, prodId, cantidades) {
+	if (localStorage.getItem('productos') !== null) {
+		let prods = JSON.parse(localStorage.getItem('productos'));
+		let cambio = prods.filter(prod => prod.id === parseInt(prodId))[0];
+		cambio.lineorder.cantidad = cantidades;
+		for (let i = 0; i < prods.length; i++) {
+			if (prods[i].id === cambio.id) prods[i] = cambio;
+		}
+		localStorage.setItem('productos', JSON.stringify(prods));
+	}
 	return function (dispatch) {
 		axios
 			.put(
@@ -225,10 +244,15 @@ export function setCantidad(userId, prodId, cantidades) {
 	};
 }
 
-export function deleteProdCart(prodId) {
+export function deleteProdCart(userId, prodId) {
+	if (localStorage.getItem('productos') !== null) {
+		let prods = JSON.parse(localStorage.getItem('productos'));
+		let newProds = prods.filter(prod => prod.id !== parseInt(prodId));
+		localStorage.setItem('productos', JSON.stringify(newProds));
+	}
 	return function (dispatch) {
 		return axios
-			.delete(`http://localhost:3005/users/1/cart/${prodId}`, {withCredentials: true})
+			.delete(`http://localhost:3005/users/${userId}/cart/${prodId}`, {withCredentials: true})
 			.then(res => {
 				dispatch({type: DELETE_PROD_CART, productCar: res.data});
 			})
@@ -236,6 +260,21 @@ export function deleteProdCart(prodId) {
 	};
 }
 
+export function emptyCart(id) {
+	console.log(id);
+	if (localStorage.getItem('productos') !== null) {
+		localStorage.clear();
+	}
+	return function (dispatch) {
+		return axios
+			.delete(`http://localhost:3005/users/${id}/cart`, {withCredentials: true})
+			.then(res => {
+				dispatch({type: EMPTY_CART, cart: []});
+			})
+			.catch(err => console.log(err));
+	};
+}
+//* ORDERS
 export function getOrder(id) {
 	return function (dispatch) {
 		return axios
@@ -247,7 +286,6 @@ export function getOrder(id) {
 	};
 }
 
-//* ORDERS
 export function getOrders() {
 	return function (dispatch) {
 		return axios
@@ -263,17 +301,39 @@ export function getOrders() {
 
 //* USERS
 
+// export function login(user) {
+// 	return function (dispatch) {
+// 		return axios
+// 			.post('http://localhost:3005/auth/login', user, {withCredentials: true})
+// 			.then(res => {
+// 				if (localStorage.getItem('productos') !== null) {
+// 					let prods = JSON.parse(localStorage.getItem('productos'));
+// 					console.log(prods);
+// 					prods.map(prod => {
+// 						addToCart(res.data.id, prod.id);
+// 					});
+// 					localStorage.clear();
+// 				}
+// 				dispatch({type: LOGIN, user: res.data});
+// 			})
+// 			.catch(error => console.log(error));
+// 	};
+// }
 export function login(user) {
+	let prods;
+	if (localStorage.getItem('productos') !== null) {
+		prods = JSON.parse(localStorage.getItem('productos'));
+		localStorage.clear();
+	}
 	return function (dispatch) {
 		return axios
 			.post('http://localhost:3005/auth/login', user, {withCredentials: true})
 			.then(res => {
-				if (localStorage.getItem('productos') !== null) {
-					let products = JSON.parse(localStorage.getItem('productos'));
-					products.map(prod => addToCart(res.data.id, prod.id));
-					localStorage.clear();
+				if (prods) {
+					dispatch({type: LOGIN, user: res.data, prods});
+				} else {
+					dispatch({type: LOGIN, user: res.data, prods: false});
 				}
-				dispatch({type: LOGIN, user: res.data});
 			})
 			.catch(error => console.log(error));
 	};
@@ -298,19 +358,19 @@ export function logout() {
 			.catch(error => console.log(error));
 	};
 }
-export function getUsers () {
+export function getUsers() {
 	return function (dispatch) {
 		return axios
-		.get("http://localhost:3005/users", {withCredentials:true})
-		.then (res => dispatch({type:GET_USERS, users: res.data}))
-		.catch (err => console.log(err));
-	}
+			.get('http://localhost:3005/users', {withCredentials: true})
+			.then(res => dispatch({type: GET_USERS, users: res.data}))
+			.catch(err => console.log(err));
+	};
 }
-export function deleteUsers (id) {
+export function deleteUsers(id) {
 	return function (dispatch) {
 		return axios
-		.get (`http://localhost:3005/users/${id}`, {withCredentials: true})
-		.then (res => dispatch({type: DELETE_USERS, deleteUser: res.data}))
-		.catch (err => console.log(err))
-	}
+			.delete(`http://localhost:3005/users/${id}`, {withCredentials: true})
+			.then(res => dispatch({type: DELETE_USERS, deleteUser: res.data}))
+			.catch(err => console.log(err));
+	};
 }
