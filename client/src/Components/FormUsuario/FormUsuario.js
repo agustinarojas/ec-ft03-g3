@@ -5,6 +5,7 @@ import {addToCart} from '../../Actions/index';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
+import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 export function Alert(props) {
@@ -21,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 function FormUsuario() {
 	const [state, setState] = useState({});
+	const [redirect, setRedirect] = useState(false);
 	const handleOnChange = e => {
 		setState({
 			...state,
@@ -30,14 +32,11 @@ function FormUsuario() {
 
 	const handleSubmit = (event, state) => {
 		event.preventDefault();
+
 		axios
 			.post('http://localhost:3005/users', state)
 			.then(res => {
-				if (localStorage.getItem('productos') !== null) {
-					let products = JSON.parse(localStorage.getItem('productos'));
-					products.map(prod => addToCart(res.data.id, prod.id));
-					localStorage.clear();
-				}
+				console.log(res);
 			})
 			.catch(error => console.log(error));
 	};
@@ -52,11 +51,19 @@ function FormUsuario() {
 		}
 		setOpen(false);
 	};
-
+	if (redirect) {
+		return <Redirect to="/login" />;
+	}
 	var control;
 	return (
 		<div className="Formm">
-			<form onSubmit={e => handleSubmit(e, state)}>
+			<form
+				onSubmit={e => {
+					handleSubmit(e, state);
+					setTimeout(function () {
+						setRedirect(true);
+					}, 1000);
+				}}>
 				<div className="form-group">
 					<label htmlFor="exampleInputNombre">Nombre</label>
 					<input
@@ -105,14 +112,14 @@ function FormUsuario() {
 					) : (
 						''
 					)}
-					<label htmlFor="exampleInputPassword">Confirme su contraseña</label>
+					<label htmlFor="exampleInputPassword2">Confirme su contraseña</label>
 					<input
 						className={state.password2 != state.password && 'danger'}
 						name="password2"
 						placeholder="Contraseña"
 						type="password"
 						className="form-control"
-						id="exampleInputPassword"
+						id="exampleInputPassword2"
 						onChange={e => handleOnChange(e)}
 					/>
 					{state.password2 != state.password || state.password2 == null ? (

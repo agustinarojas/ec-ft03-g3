@@ -9,12 +9,19 @@ import Orders from './Components/Orders/Order';
 import Order from './Components/Orders/OrderI';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
 import LoginUser from './Components/FormUsuario/loginUser';
-import tableUser from "./Components/Table/tableuser";
+import tableUser from './Components/Table/tableuser';
 import user from './Components/FormUsuario/User';
-import {getProducts, getCategories, searchProduct, getOrder, getUser, getUsers} from './Actions/index';
+import {
+	getProducts,
+	getCategories,
+	searchProduct,
+	getOrder,
+	getUser,
+	getUsers,
+} from './Actions/index';
 import {connect} from 'react-redux';
 
-function App({productos, catProducts, getCategories, categories, searchProduct, orders,getUser}) {
+function App({productos, catProducts, getCategories, categories, searchProduct, orders, getUser}) {
 	const [buscar, setBuscar] = useState('');
 
 	const filtrar = id => {
@@ -51,7 +58,7 @@ function App({productos, catProducts, getCategories, categories, searchProduct, 
 			<Route path="/sign_up" component={FormUsuario} />
 			<Route path="/login" component={LoginUser} />
 			<Route path="/me" component={user} />
-			<Route path = "/users_table" component = {tableUser}/>
+			<Route path="/users_table" component={tableUser} />
 		</div>
 	);
 }

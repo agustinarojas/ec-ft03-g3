@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import axios from 'axios';
 import './Form.css';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
-import {addToCart, login} from '../../Actions/index';
+import {login} from '../../Actions/index';
+import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 export function Alert(props) {
@@ -20,9 +20,10 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function LoginUser({addToCart, login}) {
+function LoginUser({login}) {
 	//const [email, setEmail] = useState({email: ''});
 	const [state, setState] = useState({});
+	const [redirect, setRedirect] = useState(false);
 
 	const handleOnChange = e => {
 		setState({
@@ -42,13 +43,16 @@ function LoginUser({addToCart, login}) {
 		setOpen(false);
 	};
 	const handleOnSubmit = event => {
-        event.preventDefault();
-        login(state);
-    };
-   
+		event.preventDefault();
+		login(state);
+	};
+	if (redirect) {
+		return <Redirect to="/" />;
+	}
+
 	return (
-        <div className="Formm">
-            <form onSubmit={e => handleOnSubmit(e, state)}>
+		<div className="Formm">
+			<form onSubmit={e => handleOnSubmit(e)}>
 				<div className="form-group">
 					<label htmlFor="exampleInputEmail1">Email address</label>
 					<input
@@ -72,7 +76,12 @@ function LoginUser({addToCart, login}) {
 					</small>
 				</div>
 				<Button
-					onClick={handleClick}
+					onClick={() => {
+						handleClick();
+						setTimeout(function () {
+							setRedirect(true);
+						}, 1000);
+					}}
 					variant="contained"
 					color="primary"
 					type="submit"
@@ -89,4 +98,4 @@ function LoginUser({addToCart, login}) {
 	);
 }
 
-export default connect(null, {addToCart, login})(LoginUser);
+export default connect(null, {login})(LoginUser);
