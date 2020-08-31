@@ -41,8 +41,6 @@ export function getReviews(prodId) {
 	};
 }
 
-
-
 export function searchProduct(buscar) {
 	return function (dispatch) {
 		return axios

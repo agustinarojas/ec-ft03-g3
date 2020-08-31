@@ -86,6 +86,7 @@ function NavBar({
 	}, [open]);
 
 	return (
+		<div className='contenedor'>
 		<nav className="navigatorbar">
 			<Link to="/" id="chico" onClick={() => getProducts()}>
 				<img
@@ -120,7 +121,7 @@ function NavBar({
 					Ordenes
 				</Link>
 			)}
-			<Link to="/cart/1">
+			<Link to="/cart/1" style= {{height: '65px'}}>
 				<span className="material-icons"> shopping_cart </span>
 			</Link>
 			{user.id && (
@@ -134,30 +135,34 @@ function NavBar({
 			)}
 
 			{user.id && (
-				<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+				<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal style={{zIndex: 9999}}>
 					{({TransitionProps, placement}) => (
 						<Grow
 							{...TransitionProps}
 							style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}>
 							<Paper>
 								<ClickAwayListener onClickAway={handleClose}>
-									<MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+									<MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} style= {{display: 'flex', flexDirection: 'column', padding: '0px', color: 'black'}}>
+											<Link to="/me" style = {{padding: '0px'}}onClick={() => getUser()}>
 										<MenuItem onClick={handleClose}>
-											<Link to="/me" onClick={() => getUser()}></Link>
-											Perfil
+											<span style= {{color: 'black'}}>Perfil</span>
 										</MenuItem>
+										</Link>
 
+                    	<Link to={`/order/${user.id}` } style = {{padding: '0px'}}>
 										<MenuItem onClick={handleClose}>
-                    	<Link to={`/order/${user.id}`}></Link>
-									    	Mis compras
+									    	<span style = {{color: 'black'}}>Mis compras</span>
 											</MenuItem>
+											</Link>
+											<Link style = {{padding: '0px'}}>
 										<MenuItem
 											onClick={() => {
 												handleClose();
 												logout();
 											}}>
-											Cerrar Sesión
+											<span style= {{color: 'black'}}>Cerrar sesion</span>
 										</MenuItem>
+										</Link>
 									</MenuList>
 								</ClickAwayListener>
 							</Paper>
@@ -167,6 +172,7 @@ function NavBar({
 			)}
 			<SearchBar search={search} />
 		</nav>
+		</div>
 	);
 }
 function mapStateToProps(state) {
