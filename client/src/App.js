@@ -11,6 +11,7 @@ import FormUsuario from './Components/FormUsuario/FormUsuario';
 import LoginUser from './Components/FormUsuario/loginUser';
 import tableUser from './Components/Table/tableuser';
 import user from './Components/FormUsuario/User';
+import RestorePass from './Components/FormUsuario/restorePass.js';
 import {
 	getProducts,
 	getCategories,
@@ -58,6 +59,7 @@ function App({productos, catProducts, getCategories, categories, searchProduct, 
 			<Route path="/sign_up" component={FormUsuario} />
 			<Route path="/login" component={LoginUser} />
 			<Route path="/me" component={user} />
+			<Route path="/RestablecerContraseña" render={() => <RestorePass users={getUser} />} />
 			<Route path="/users_table" component={tableUser} />
 		</div>
 	);

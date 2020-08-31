@@ -54,9 +54,10 @@ function LoginUser({login}) {
 		<div className="Formm">
 			<form onSubmit={e => handleOnSubmit(e)}>
 				<div className="form-group">
-					<label htmlFor="exampleInputEmail1">Email address</label>
+					<label htmlFor="exampleInputEmail1">Email</label>
 					<input
 						name="email"
+						placeholder="..."
 						type="email"
 						className="form-control"
 						id="exampleInputEmail1"
@@ -66,6 +67,7 @@ function LoginUser({login}) {
 					<label htmlFor="exampleInputPassword">Contraseña</label>
 					<input
 						name="password"
+						placeholder="..."
 						type="password"
 						className="form-control"
 						id="exampleInputPassword"

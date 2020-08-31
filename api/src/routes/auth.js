@@ -31,7 +31,6 @@ server.post('/promote/:id', isAdmin, (req, res) => {
 	console.log(req.params.id);
 	User.findByPk(req.params.id)
 		.then(user => {
-			console.log('CHAAAAAU' + user);
 			user.update({admin: true}), user.save();
 			res.send(user);
 		})

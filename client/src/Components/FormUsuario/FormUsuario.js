@@ -68,7 +68,7 @@ function FormUsuario() {
 					<label htmlFor="exampleInputNombre">Nombre</label>
 					<input
 						name="nombre"
-						placeholder="nombre"
+						placeholder="..."
 						type="text"
 						className="form-control"
 						id="exampleInputNombre"
@@ -77,7 +77,7 @@ function FormUsuario() {
 					<label htmlFor="exampleInputApellido">Apellido</label>
 					<input
 						name="apellido"
-						placeholder="apellido"
+						placeholder="..."
 						type="text"
 						className="form-control"
 						id="exampleInputApellido"
@@ -86,7 +86,7 @@ function FormUsuario() {
 					<label htmlFor="exampleInputEmail1">Email</label>
 					<input
 						name="email"
-						placeholder="email"
+						placeholder="..."
 						type="email"
 						className="form-control"
 						id="exampleInputEmail1"
@@ -99,7 +99,7 @@ function FormUsuario() {
 					<label htmlFor="exampleInputPassword">Contraseña</label>
 					<input
 						name="password"
-						placeholder="Contraseña"
+						placeholder="..."
 						type="password"
 						className="form-control"
 						id="exampleInputPassword"
@@ -132,6 +132,7 @@ function FormUsuario() {
 						</small>
 					)}
 				</div>
+
 				{!state.nombre ||
 				!state.apellido ||
 				!state.email ||
