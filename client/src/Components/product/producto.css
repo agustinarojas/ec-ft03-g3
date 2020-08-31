@@ -21,6 +21,10 @@ box-shadow: 9px 9px 44px 0px rgba(0,0,0,0.75);
 -moz-box-shadow: 9px 9px 44px 0px rgba(0,0,0,0.75);
 box-shadow: 9px 9px 44px 0px rgba(0,0,0,0.75);
 }
+.califcs {
+	display: inline-flex;
+	justify-content: space-between;
+}
 .Description {
 	display: inline-block;
 	padding-left: 40px;
