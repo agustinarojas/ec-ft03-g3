@@ -138,19 +138,20 @@ function NavBar({
 							<Paper>
 								<ClickAwayListener onClickAway={handleClose}>
 									<MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-										<MenuItem onClick={handleClose}>
-											<Link to="/me" onClick={() => getUser()}></Link>
-											Perfil
-										</MenuItem>
+										<div className = "drop">
+											<Link to="/me" onClick={() =>{handleClose(); getUser()}}>Perfil</Link>
+											
+										
 
-										<MenuItem onClick={handleClose}>Ayuda</MenuItem>
-										<MenuItem
+										<Link onClick={handleClose}>Ayuda</Link>
+										<Link
 											onClick={() => {
 												handleClose();
 												logout();
 											}}>
 											Cerrar Sesión
-										</MenuItem>
+										</Link>
+										</div>
 									</MenuList>
 								</ClickAwayListener>
 							</Paper>
