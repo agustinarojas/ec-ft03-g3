@@ -68,9 +68,30 @@ function Products(producto) {
 					</div>
 				<Link to={`/producto/${producto?.producto[0]?.id}/Calificaciones`} onClick={() => producto?.getReviews(producto?.producto[0]?.id)}>
 			    {/*{count < 2 ? <span>Calificar Producto</span> : <span>Ya realizaste una calificacion sobre este producto</span>}*/}
-			    <span>Ver calificaciones</span>
+			    <h6>Ver calificaciones</h6>
 				</Link>
-
+				<Link onClick={() => handleOnClick()}>
+			    {count < 2 ? <h6>Calificar Producto</h6> : <h6>Ya realizaste una calificacion sobre este producto</h6>}
+				</Link>
+				{
+					state ?
+						<div>
+							<textarea id="body-field" name="body" onChange={(e) => setTarea(e.target.value)}></textarea>
+							<BeautyStars
+								value={value}
+								size = {'24px'}
+								gap = {'6px'}
+								activeColor = {'66C3FF'}
+								onChange={(value) => setValue( value )}
+							/>
+							{
+								!value || !tarea ? (control = true) : false
+							}
+							<button disabled={control ? true : false} onClick={() => {submitRate(producto.user.id, producto?.producto[0]?.id); setState(false)}}>Calificar</button>
+						</div>
+					:
+					null
+				}
 
 				</div>
 
@@ -107,23 +128,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { addToCart, getReviews })(Products);
-
-{/*{
-	state ?
-		<div>
-			<textarea id="body-field" name="body" onChange={(e) => setTarea(e.target.value)}></textarea>
-			<BeautyStars
-				value={value}
-				size = {'24px'}
-				gap = {'6px'}
-				activeColor = {'66C3FF'}
-				onChange={(value) => setValue( value )}
-			/>
-			{
-				!value || !tarea ? (control = true) : false
-			}
-			<button disabled={control ? true : false} onClick={() => {submitRate(producto.user.id, producto?.producto[0]?.id); setState(false)}}>Calificar</button>
-		</div>
-	:
-	null
-}*/}

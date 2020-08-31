@@ -6,18 +6,19 @@ import { getReviews } from '../../Actions/index';
 function Reviews({reviews, getReviews}) {
   console.log(reviews)
 
-  useEffect(() => {
-		getReviews(1);
-	}, [reviews]);
+  // useEffect(() => {
+	// 	getReviews(1);
+	// }, [reviews]);
 
 	return (
 		<div className="reviews">
 			{
-        reviews.length === 0 ? <p>Este producto aun no tiene calificaciones</p>
+        reviews.length === 0 ? <h3>Este producto aun no tiene calificaciones</h3>
 				: reviews?.map(r => (
 				<div>
-          <h3>descripcion= {r.descripcion}</h3>
-          <h3>rating= {r.rating}</h3>
+          <h4>Descripcion: {r.descripcion}</h4>
+          <h4>Rating: {r.rating}</h4>
+          <br/>
         </div>
 			 ))
 		 }
