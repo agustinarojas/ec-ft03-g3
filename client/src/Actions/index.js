@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
 	GET_PRODUCTS,
 	PUT_PRODUCT,
@@ -24,10 +25,12 @@ import {
 	DELETE_USERS,
 	GET_REVIEWS,
 	GET_ORDERS_USER,
-	GET_TOTALREVIEWS
+	GET_TOTALREVIEWS,
+	ERROR_LOGIN,
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
+
 
 export function getTotalReviews() {
 	return function (dispatch) {
@@ -54,12 +57,12 @@ export function getOrdersUser(userId) {
 }
 
 export function getReviews(prodId) {
-	console.log(prodId)
+	console.log(prodId);
 	return function (dispatch) {
 		return axios
 			.get(`http://localhost:3005/products/${prodId}/reviews`)
 			.then(res => {
-				console.log(res.data)
+				console.log(res.data);
 				dispatch({type: GET_REVIEWS, reviews: res.data});
 			})
 			.catch(err => console.log(err));
@@ -349,7 +352,9 @@ export function login(user) {
 					dispatch({type: LOGIN, user: res.data, prods: false});
 				}
 			})
-			.catch(error => console.log(error));
+			.catch(error => {
+				dispatch({type: ERROR_LOGIN, user: false});
+			});
 	};
 }
 

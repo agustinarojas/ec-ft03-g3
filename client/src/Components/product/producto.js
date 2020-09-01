@@ -69,6 +69,7 @@ function Products(producto) {
 					<div>
 						<p>Stock: {producto?.producto[0]?.stock}</p>
 					</div>
+					<div className = 'califcs'>
 				<Link to={`/producto/${producto?.producto[0]?.id}/Calificaciones`} onClick={() => producto?.getReviews(producto?.producto[0]?.id)}>
 			    {/*{count < 2 ? <span>Calificar Producto</span> : <span>Ya realizaste una calificacion sobre este producto</span>}*/}
 			    <h6>Ver calificaciones</h6>

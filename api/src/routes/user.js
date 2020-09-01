@@ -32,7 +32,7 @@ server.post('/', (req, res) => {
 				res.status(201).send(user);
 			})
 			.catch(err => {
-				console.log(err);
+				res.send({error: true});
 			});
 	}
 });

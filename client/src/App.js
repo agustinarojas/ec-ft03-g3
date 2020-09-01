@@ -14,7 +14,6 @@ import user from './Components/FormUsuario/User';
 import RestorePass from './Components/FormUsuario/restorePass.js';
 import OrdersUser from './Components/Orders/ordersUser';
 import OrderProducts from './Components/Orders/orderProducts';
-
 import {
 	getProducts,
 	getCategories,
@@ -24,6 +23,8 @@ import {
 	getUsers,
 	getTotalReviews,
 } from './Actions/index';
+import Footer from './Components/Footer/Footer';
+import {getProducts, getCategories, searchProduct, getOrder, getUser} from './Actions/index';
 import {connect} from 'react-redux';
 import Reviews from './Components/Reviews/Reviews';
 
@@ -65,10 +66,11 @@ function App({productos, catProducts, getCategories, categories, searchProduct, 
 			<Route path="/login" component={LoginUser} />
 			<Route path="/me" component={user} />
 			<Route path="/RestablecerContraseña" render={() => <RestorePass users={getUser} />} />
-			<Route path = "/users_table" component = {tableUser}/>
+			<Route path="/users_table" component={tableUser} />
 			<Route path="/producto/:prodId/Calificaciones" component={Reviews} />
 			<Route path="/users/:userId/orders" component={OrdersUser} />
 			<Route path="/user/order/:id" component={OrderProducts} />
+			<Route path="/" component={Footer} />
 
 		</div>
 	);
