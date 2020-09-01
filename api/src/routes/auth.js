@@ -4,14 +4,10 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const {isAuthenticated, isAdmin} = require('./validations');
 
-server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function (
-	req,
-	res,
-) {
-	console.log(req.user);
-	// res.redirect('/auth/me');
-	res.send(req.user);
+server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function (req,res,) {
+	res.send(req.user)
 });
+
 
 server.get('/', (req, res) => {
 	console.log('chau');
@@ -27,6 +23,7 @@ server.get('/me', isAuthenticated, (req, res) => {
 	res.send(req.user);
 });
 
+
 server.post('/promote/:id', isAdmin, (req, res) => {
 	console.log(req.params.id);
 	User.findByPk(req.params.id)
@@ -38,5 +35,7 @@ server.post('/promote/:id', isAdmin, (req, res) => {
 			res.status(400).send(err);
 		});
 });
+
+
 
 module.exports = server;

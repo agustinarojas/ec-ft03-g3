@@ -25,3 +25,7 @@ export const SETCANTIDAD = 'SETCANTIDAD';
 export const GET_USERS = "GET_USERS";
 export const DELETE_USERS = "DELETE_USERS";
 export const GET_REVIEWS = 'GET_REVIEWS';
+export const GET_ORDERS_USER = 'GET_ORDERS_USER';
+export const GET_TOTALREVIEWS = 'GET_TOTALREVIEWS';
+export const ERROR_LOGIN = 'ERROR_LOGIN';
+
