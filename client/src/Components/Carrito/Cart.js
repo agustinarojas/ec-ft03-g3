@@ -21,35 +21,39 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
-  
-  const useStyles = makeStyles((theme) => ({
+}
+
+const useStyles = makeStyles(theme => ({
 	root: {
-	  width: '100%',
-	  '& > * + *': {
-		marginTop: theme.spacing(2),
-	  },
+		width: '100%',
+		'& > * + *': {
+			marginTop: theme.spacing(2),
+		},
 	},
-  }));
-  
-  function Cart({emptyCart, productsCar, getCarrito,user, localStor, addToCart}) {
+}));
 
+function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) {
+	const [can, setCantid] = useState(1);
+	const [precio, setPrecio] = useState(0);
+	const [redirect, setRedirect] = useState(false);
 
-	  const [can, setCantid] = useState(1);
-	  const [precio, setPrecio] = useState(0);
-	  const [redirect, setRedirect] = useState(false);
-	  
-	  /* const [usuario, setValidate] = useState (false); */
-	  let cart;
-	  let data = JSON.parse(localStorage.getItem('productos'));
-	  
-	  function cancelCheck (redirect) {
-			if (user.id) {
-				return handleClick(), comprar(), setTimeout(function () {setRedirect(true); }, 1000);
-			} else {
-				console.log ("LOGUEATE")
-			}
+	/* const [usuario, setValidate] = useState (false); */
+	let cart;
+	let data = JSON.parse(localStorage.getItem('productos'));
+
+	function cancelCheck(redirect) {
+		if (user.id) {
+			return (
+				handleClick(),
+				comprar(),
+				setTimeout(function () {
+					setRedirect(true);
+				}, 1000)
+			);
+		} else {
+			console.log('LOGUEATE');
 		}
+	}
 	useEffect(() => {
 		user.id && getCarrito(user.id);
 		if (localStor) {
@@ -115,17 +119,17 @@ function Alert(props) {
 	if (redirect) {
 		return <Redirect to="/" />;
 	}
-  
+
 	const handleClick = () => {
-	  setAbrir(true);
+		setAbrir(true);
 	};
-  
+
 	const handleClosed = (event, reason) => {
-	  if (reason === 'clickaway') {
-		return;
-	  }
-  
-	  setAbrir(false);
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		setAbrir(false);
 	};
 	return (
 		<div className="flexend">
@@ -173,42 +177,30 @@ function Alert(props) {
 					</Button>
 					<Button
 						onClick={() => {
-							emptyCart(user.id);
 							handleClose();
+							emptyCart(user.id);
 						}}
 						color="primary">
 						Aceptar
 					</Button>
 				</DialogActions>
 			</Dialog>
-		
-						
 
-							<div>
+			<div>
 				{cart?.length > 0 ? (
-					
-					<button
-					id="compra"
-					onClick={() => cancelCheck(user)}
-					>
-					Checkout
-					
+					<button id="compra" onClick={() => cancelCheck(user)}>
+						Checkout
 					</button>
-					
-					) : (
-						''
-						)
-					}
-					
-					</div>				
-					
-					
-			
+				) : (
+					''
+				)}
+			</div>
+
 			<Snackbar open={abrir} autoHideDuration={6000} onClose={handleClosed}>
-						<Alert onClose={handleClosed} severity="success">
-							Tu compra fue exitosa!
-						</Alert>
-					</Snackbar>
+				<Alert onClose={handleClosed} severity="success">
+					Tu compra fue exitosa!
+				</Alert>
+			</Snackbar>
 		</div>
 	);
 }

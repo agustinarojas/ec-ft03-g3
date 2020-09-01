@@ -8,12 +8,15 @@ function TableCategory({categories, postCategory, putCategory, deleteCategory}) 
 		{title: 'Titulo', field: 'titulo'},
 		{title: 'Descripción', field: 'descripcion'},
 	];
-
+	let cats = [];
+	categories.map(category => {
+		if (category.titulo) cats.push(category);
+	});
 	return (
 		<MaterialTable
 			title="Categorías"
 			columns={columns}
-			data={categories}
+			data={cats}
 			editable={{
 				onRowAdd: newData => postCategory(newData),
 				onRowUpdate: (newData, oldData) => putCategory(newData, oldData.id),
