@@ -44,6 +44,7 @@ function NavBar({
 	user,
 	logout,
 	getUsers,
+	productsCar
 }) {
 	// const handleOnClick = () => {
 	// 	axios
@@ -125,7 +126,8 @@ function NavBar({
 					</Link>
 				)}
 				<Link to="/cart/1" style={{height: '65px'}}>
-					<span className="material-icons"> shopping_cart </span>
+					{productsCar?.length >= 1 ? <span className="material-icons"> shopping_cart </span> :
+					<span className="material-icons"> remove_shopping_cart </span> }
 				</Link>
 				{user.id && (
 					<Button
@@ -196,6 +198,7 @@ function NavBar({
 function mapStateToProps(state) {
 	return {
 		user: state.user,
+		productsCar: state.productsCar
 	};
 }
 export default connect(mapStateToProps, {
