@@ -24,10 +24,7 @@ import {
 	GET_USERS,
 	DELETE_USERS,
 	GET_REVIEWS,
-<<<<<<< HEAD
-=======
-	ERROR_LOGIN
->>>>>>> master
+	ERROR_LOGIN,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
@@ -185,8 +182,8 @@ export default function rootReducer(state = inicialState, action) {
 		case ERROR_LOGIN:
 			return {
 				...state,
-				user: action.user
-			}
+				user: action.user,
+			};
 		case LOGOUT:
 			return {
 				...state,
