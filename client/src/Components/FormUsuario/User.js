@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 function user({user}) {
 	const handleOnClick = () => {
@@ -15,7 +15,11 @@ var click = false;
 	//console.log(user);
 	return (
 		<div>
-			<h1>
+
+			{user.id ? (
+				<div>
+
+				<h1>
 				{user.nombre} {user.apellido}
 			</h1>
 			<p> {user.email} </p>
@@ -23,8 +27,12 @@ var click = false;
 			  <span>Cambiar contraseña</span>
 			</Link>
 		</div>
-	);
-}
+		): (
+			<Redirect to = "/sign_up" />
+		)}
+		</div>
+		);
+	}
 function mapStateToProps(state) {
 	return {
 		user: state.user,

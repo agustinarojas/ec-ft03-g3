@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {getOrder} from '../../Actions/index';
 import './order.css';
 
-function Orders({orders, getOrder}) {
+function Orders({orders, getOrder, user}) {
 	console.log(orders);
 	var precios = [];
 	for (let i = 0; i < orders.length; i++) {
@@ -17,7 +17,11 @@ function Orders({orders, getOrder}) {
 	}
 
 	return (
-		<table className="table">
+		<div>
+
+		{user.admin ? (
+			<div>
+			<table className="table">
 			<thead>
 				<tr>
 					<th scope="col">ID Orden</th>
@@ -42,12 +46,18 @@ function Orders({orders, getOrder}) {
 				</tbody>
 			))}
 		</table>
+	</div>
+	) : (
+		<Redirect to = "/admin" />
+	)	}
+</div>
 	);
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return {
 		orders: state.orders,
+		user: state.user
 	};
 };
 

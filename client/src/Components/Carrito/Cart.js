@@ -36,9 +36,24 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	const [can, setCantid] = useState(1);
 	const [precio, setPrecio] = useState(0);
 	const [redirect, setRedirect] = useState(false);
+
+	/* const [usuario, setValidate] = useState (false); */
 	let cart;
 	let data = JSON.parse(localStorage.getItem('productos'));
 
+	function cancelCheck(redirect) {
+		if (user.id) {
+			return (
+				handleClick(),
+				comprar(),
+				setTimeout(function () {
+					setRedirect(true);
+				}, 1000)
+			);
+		} else {
+			console.log('LOGUEATE');
+		}
+	}
 	useEffect(() => {
 		user.id && getCarrito(user.id);
 		if (localStor) {
@@ -170,21 +185,17 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					</Button>
 				</DialogActions>
 			</Dialog>
-			{cart?.length > 0 ? (
-				<button
-					id="compra"
-					onClick={() => {
-						handleClick();
-						comprar();
-						setTimeout(function () {
-							setRedirect(true);
-						}, 1000);
-					}}>
-					Checkout
-				</button>
-			) : (
-				''
-			)}
+
+			<div>
+				{cart?.length > 0 ? (
+					<button id="compra" onClick={() => cancelCheck(user)}>
+						Checkout
+					</button>
+				) : (
+					''
+				)}
+			</div>
+
 			<Snackbar open={abrir} autoHideDuration={6000} onClose={handleClosed}>
 				<Alert onClose={handleClosed} severity="success">
 					Tu compra fue exitosa!
