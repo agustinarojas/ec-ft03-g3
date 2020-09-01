@@ -55,7 +55,10 @@ function NavBar({
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
 	const anchorRef = React.useRef(null);
-
+	let cats = [];
+	category.map(category => {
+		if (category.titulo) cats.push(category);
+	});
 	const handleToggle = () => {
 		setOpen(prevOpen => !prevOpen);
 	};
@@ -100,7 +103,7 @@ function NavBar({
 						<i className="fa fa-caret-down"></i>
 					</button>
 					<div className="dropd-cont">
-						{category?.map((c, i) => (
+						{cats?.map((c, i) => (
 							<Link to={`/category/${c.titulo}`} onClick={e => filterByCategory(c.titulo)} key={i}>
 								{c.titulo}
 							</Link>

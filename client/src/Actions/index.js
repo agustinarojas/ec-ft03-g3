@@ -56,6 +56,7 @@ export function getProducts() {
 		return axios
 			.get('http://localhost:3005/products', {withCredentials: true})
 			.then(res => {
+				console.log(res.data);
 				dispatch({type: GET_PRODUCTS, products: res.data});
 			})
 			.catch(err => console.log(err));
@@ -143,7 +144,9 @@ export function deleteCategory(id) {
 export function setCategory(prodId, catId) {
 	return function (dispatch) {
 		return axios
-			.post(`http://localhost:3005/products/${prodId}/category/${catId}`, {withCredentials: true})
+			.post(`http://localhost:3005/products/${prodId}/category/${catId}`, null, {
+				withCredentials: true,
+			})
 			.then(res => {
 				dispatch({type: SET_CATEGORY});
 			})
