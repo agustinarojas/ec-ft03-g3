@@ -1,6 +1,7 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import TableCategory from './TableCategory';
+import TableProductCat from './TableProductCat';
 import {addProduct, putProduct, deleteProduct} from '../../Actions/index.js';
 import './table.css';
 import {connect} from 'react-redux';
