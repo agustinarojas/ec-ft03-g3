@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
 	GET_PRODUCTS,
 	PUT_PRODUCT,
@@ -23,6 +24,10 @@ import {
 	GET_USERS,
 	DELETE_USERS,
 	GET_REVIEWS,
+<<<<<<< HEAD
+=======
+	ERROR_LOGIN
+>>>>>>> 275c2967c917016df714645b72274d7299131b2d
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -323,7 +328,7 @@ export function login(user) {
 					dispatch({type: LOGIN, user: res.data, prods: false});
 				}
 			})
-			.catch(error => console.log(error));
+			.catch(error => {dispatch({type: ERROR_LOGIN, user: false})});
 	};
 }
 
