@@ -69,13 +69,14 @@ function Products(producto) {
 					<div>
 						<p>Stock: {producto?.producto[0]?.stock}</p>
 					</div>
+					<div className = 'califcs'>
 				<Link to={`/producto/${producto?.producto[0]?.id}/Calificaciones`} onClick={() => producto?.getReviews(producto?.producto[0]?.id)}>
 			    {/*{count < 2 ? <span>Calificar Producto</span> : <span>Ya realizaste una calificacion sobre este producto</span>}*/}
 			    <h6>Ver calificaciones</h6>
 				</Link>
-				<Link onClick={() => handleOnClick()}>
+				<Link onClick={() => handleOnClick()} style= {{paddingLeft: '60px'}}>
 			    {count < 2 ? <h6>Calificar Producto</h6> : <h6>Ya realizaste una calificacion sobre este producto</h6>}
-				</Link>
+				</Link>		
 				{
 					state ?
 						<div>
@@ -95,7 +96,7 @@ function Products(producto) {
 					:
 					null
 				}
-
+				</div>
 				</div>
 				<div className="Precio">
 					<h3>$ {producto?.producto[0]?.precio}</h3>

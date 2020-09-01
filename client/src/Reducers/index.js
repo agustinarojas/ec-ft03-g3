@@ -24,6 +24,10 @@ import {
 	GET_USERS,
 	DELETE_USERS,
 	GET_REVIEWS,
+<<<<<<< HEAD
+=======
+	ERROR_LOGIN
+>>>>>>> master
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
@@ -173,12 +177,16 @@ export default function rootReducer(state = inicialState, action) {
 				user: action.user,
 			};
 		case LOGIN:
-			console.log(action.prods);
 			return {
 				...state,
 				user: action.user,
 				localStorage: action.prods,
 			};
+		case ERROR_LOGIN:
+			return {
+				...state,
+				user: action.user
+			}
 		case LOGOUT:
 			return {
 				...state,
