@@ -3,11 +3,10 @@ const {User} = require('../db.js');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const {isAuthenticated, isAdmin} = require('./validations');
-
+//prettier-ignore
 server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function (req,res,) {
 	res.send(req.user)
 });
-
 
 server.get('/', (req, res) => {
 	console.log('chau');
