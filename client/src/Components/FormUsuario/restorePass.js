@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   const handleSubmit = (event, state, ) => {
     event.preventDefault();
 		axios
-			.post(`http://localhost:3005/users/${user.id}/passReset`, {password: state.password}, {withCredentials: true})
+			.post(`http://localhost:3005/users/${user.id}/passReset`, {password: state.nuevaPassword}, {withCredentials: true})
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
   }
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
         />
         <label htmlFor="exampleInputPassword">Ingrese su nueva contraseña</label>
         <input
-          name='password'
+          name='nuevaPassword'
           placeholder='...'
           type="password"
           className="form-control"

@@ -6,12 +6,14 @@ import {deleteUsers} from '../../Actions/index';
 import axios from 'axios';
 
 function tableUser({users, deleteUsers}) {
+
+
 	function makeAdmin(id) {
-		console.log('IDDDDD' + id);
-		return axios
-			.post(`http://localhost:3005/auth/promote/${id}`, {withCredentials: true})
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
+		 return axios
+		 	.post(`http://localhost:3005/auth/promote/${id}`, null, {withCredentials: true})
+		 	.then(res => console.log(res))
+		 	.catch(err => console.log(err));
+
 	}
 	const columns = [
 		{title: 'Nombre', field: 'nombre'},

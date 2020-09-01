@@ -5,6 +5,7 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const {isAdmin, isAuthenticated} = require('./validations');
 
+
 server.get('/', isAdmin, (req, res) => {
 	User.findAll()
 		.then(users => {
@@ -130,6 +131,26 @@ server.get('/:ids/cart', (req, res) => {
 		});
 });
 
+//ruta para traer las ordenes de un usuario
+// server.get('/:userId/orders', (req, res) => {
+// 	var id = req.params.userId;
+// 	Carrito.findAll({
+// 		where: {
+// 			userId: id,
+// 			estado: 'completa',
+// 		},
+// 		include: {
+// 			model: Product,
+// 		},
+// 	})
+// 		.then(orders => {
+// 			res.send(carrito.products);
+// 		})
+// 		.catch(err => {
+// 			console.log(err);
+// 		});
+// });
+
 server.delete('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
 	if (!ids) {
@@ -203,6 +224,7 @@ server.get('/:ids/orders', isAuthenticated, (req, res) => {
 			userId: req.params.ids,
 			estado: 'completa',
 		},
+		include: [{model: Product}]
 	})
 		.then(completados => {
 			res.send(completados);

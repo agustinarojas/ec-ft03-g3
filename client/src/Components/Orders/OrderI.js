@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 function Order({ orders, match }) {
+  console.log(orders)
     var ord = orders?.filter(o => o?.id == match?.params?.id)
     var prods = ord[0]?.products
     var total = 0
@@ -14,7 +15,7 @@ function Order({ orders, match }) {
             <h1>ID USUARIO: {ord[0]?.userId}</h1>
             <h3>Fecha: {ord[0]?.createdAt.slice(0, 19)}</h3>
             <div>
-                Productos: {prods?.map(p => 
+                Productos: {prods?.map(p =>
                 <div key = {p.id}>
                     <p>{p.titulo} {p.precio} {p.id} {p.lineorder.cantidad} </p>
                 </div>
@@ -31,5 +32,3 @@ const mapStateToProps = state => {
     };
 };
 export default connect(mapStateToProps)(Order);
-
-
