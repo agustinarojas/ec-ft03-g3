@@ -3,8 +3,11 @@ const {Product, Cat, Carrito} = require('../db.js');
 const {isAdmin} = require('./validations');
 
 server.get('/', (req, res, next) => {
-	Product.findAll()
+	Product.findAll({
+		include: [{model: Cat}],
+	})
 		.then(products => {
+			console.log(products);
 			res.send(products);
 		})
 		.catch(next);

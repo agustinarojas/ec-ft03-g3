@@ -21,24 +21,39 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
-  
-  const useStyles = makeStyles((theme) => ({
+}
+
+const useStyles = makeStyles(theme => ({
 	root: {
-	  width: '100%',
-	  '& > * + *': {
-		marginTop: theme.spacing(2),
-	  },
+		width: '100%',
+		'& > * + *': {
+			marginTop: theme.spacing(2),
+		},
 	},
-  }));
+}));
 
 function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) {
 	const [can, setCantid] = useState(1);
 	const [precio, setPrecio] = useState(0);
 	const [redirect, setRedirect] = useState(false);
+
+	/* const [usuario, setValidate] = useState (false); */
 	let cart;
 	let data = JSON.parse(localStorage.getItem('productos'));
 
+	function cancelCheck(redirect) {
+		if (user.id) {
+			return (
+				handleClick(),
+				comprar(),
+				setTimeout(function () {
+					setRedirect(true);
+				}, 1000)
+			);
+		} else {
+			console.log('LOGUEATE');
+		}
+	}
 	useEffect(() => {
 		user.id && getCarrito(user.id);
 		if (localStor) {
@@ -104,17 +119,29 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	if (redirect) {
 		return <Redirect to="/" />;
 	}
-  
+
 	const handleClick = () => {
+<<<<<<< HEAD
 	  setOpen(true);
+=======
+		setAbrir(true);
+>>>>>>> 340a14103830ba1f5a4a9e528614c775a9d8bf51
 	};
-  
+
 	const handleClosed = (event, reason) => {
+<<<<<<< HEAD
 	  if (reason === 'clickaway') {
 		return;
 	  }
   
 	  setOpen(false);
+=======
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		setAbrir(false);
+>>>>>>> 340a14103830ba1f5a4a9e528614c775a9d8bf51
 	};
 	return (
 		<div className="flexend">
@@ -162,14 +189,15 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					</Button>
 					<Button
 						onClick={() => {
-							emptyCart(user.id);
 							handleClose();
+							emptyCart(user.id);
 						}}
 						color="primary">
 						Aceptar
 					</Button>
 				</DialogActions>
 			</Dialog>
+<<<<<<< HEAD
 			{cart?.length > 0 ? (
 				<button
 					id="compra"
@@ -193,6 +221,24 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 							Tu compra fue exitosa!
 						</Alert>
 					</Snackbar>
+=======
+
+			<div>
+				{cart?.length > 0 ? (
+					<button id="compra" onClick={() => cancelCheck(user)}>
+						Checkout
+					</button>
+				) : (
+					''
+				)}
+			</div>
+
+			<Snackbar open={abrir} autoHideDuration={6000} onClose={handleClosed}>
+				<Alert onClose={handleClosed} severity="success">
+					Tu compra fue exitosa!
+				</Alert>
+			</Snackbar>
+>>>>>>> 340a14103830ba1f5a4a9e528614c775a9d8bf51
 		</div>
 	);
 }

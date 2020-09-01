@@ -23,7 +23,8 @@ import {
 	SETCANTIDAD,
 	GET_USERS,
 	DELETE_USERS,
-	GET_REVIEWS
+	GET_REVIEWS,
+	ERROR_LOGIN,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
@@ -33,7 +34,7 @@ const inicialState = {
 	orders: [],
 	user: {},
 	users: [],
-	reviews:[],
+	reviews: [],
 	localStorage: false,
 };
 
@@ -85,9 +86,15 @@ export default function rootReducer(state = inicialState, action) {
 			};
 		//* PRODUCT-CATEGORY
 		case SET_CATEGORY:
-			return state;
+			return {
+				...state,
+				categories: [...state.categories, {}],
+			};
 		case DELETE_PROD_CATEGORY:
-			return state;
+			return {
+				...state,
+				categories: [...state.categories, {}],
+			};
 		case FILTER_BY_CATEGORY:
 			return {
 				...state,
@@ -167,11 +174,15 @@ export default function rootReducer(state = inicialState, action) {
 				user: action.user,
 			};
 		case LOGIN:
-			console.log(action.prods);
 			return {
 				...state,
 				user: action.user,
 				localStorage: action.prods,
+			};
+		case ERROR_LOGIN:
+			return {
+				...state,
+				user: action.user,
 			};
 		case LOGOUT:
 			return {
