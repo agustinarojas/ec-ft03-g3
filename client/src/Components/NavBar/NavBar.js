@@ -167,10 +167,11 @@ function NavBar({
 												</MenuItem>
 											</Link>
 
-											<Link to={`/order/${user.id}`} style={{padding: '0px'}}>
-												<MenuItem onClick={handleClose}>
-													<span style={{color: 'black'}}>Mis compras</span>
-												</MenuItem>
+
+                    	<Link to={`/users/${user.id}/orders`} style = {{padding: '0px'}}>
+										   <MenuItem onClick={handleClose}>
+									    	 <span style = {{color: 'black'}}>Mis compras</span>
+										  </MenuItem>
 											</Link>
 											<Link style={{padding: '0px'}}>
 												<MenuItem
