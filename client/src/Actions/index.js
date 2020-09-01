@@ -24,10 +24,7 @@ import {
 	GET_USERS,
 	DELETE_USERS,
 	GET_REVIEWS,
-<<<<<<< HEAD
-=======
-	ERROR_LOGIN
->>>>>>> 275c2967c917016df714645b72274d7299131b2d
+	ERROR_LOGIN,
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -328,7 +325,9 @@ export function login(user) {
 					dispatch({type: LOGIN, user: res.data, prods: false});
 				}
 			})
-			.catch(error => {dispatch({type: ERROR_LOGIN, user: false})});
+			.catch(error => {
+				dispatch({type: ERROR_LOGIN, user: false});
+			});
 	};
 }
 

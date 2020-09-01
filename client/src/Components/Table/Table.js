@@ -1,7 +1,7 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import TableCategory from './TableCategory';
-import FormProductCat from './FormProductCat';
+import TableProductCat from './TableProductCat';
 import {
 	addProduct,
 	putProduct,
@@ -19,7 +19,7 @@ function Table({products, addProduct, putProduct, deleteProduct, user}) {
 		{title: 'Descripción', field: 'descripcion'},
 		{title: 'Precio', field: 'precio', type: 'numeric'},
 		{title: 'Stock', field: 'stock', type: 'numeric'},
-		{title: 'Categoría', field: 'category', lookup: catOptions},
+		// {title: 'Categoría', field: 'category', lookup: catOptions},
 		{title: 'Imagen', field: 'imagen'},
 	];
 	return (
@@ -39,7 +39,7 @@ function Table({products, addProduct, putProduct, deleteProduct, user}) {
 					<br />
 					<TableCategory />
 					<br />
-					<FormProductCat />
+					<TableProductCat />
 				</div>
 			) : (
 				<Redirect to="/" />
