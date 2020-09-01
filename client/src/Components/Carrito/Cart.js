@@ -121,27 +121,15 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	}
 
 	const handleClick = () => {
-<<<<<<< HEAD
-	  setOpen(true);
-=======
 		setAbrir(true);
->>>>>>> 340a14103830ba1f5a4a9e528614c775a9d8bf51
 	};
 
 	const handleClosed = (event, reason) => {
-<<<<<<< HEAD
-	  if (reason === 'clickaway') {
-		return;
-	  }
-  
-	  setOpen(false);
-=======
 		if (reason === 'clickaway') {
 			return;
 		}
 
 		setAbrir(false);
->>>>>>> 340a14103830ba1f5a4a9e528614c775a9d8bf51
 	};
 	return (
 		<div className="flexend">
@@ -197,31 +185,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					</Button>
 				</DialogActions>
 			</Dialog>
-<<<<<<< HEAD
-			{cart?.length > 0 ? (
-				<button
-					id="compra"
-					onClick={() => {
-						handleClick();
-						comprar();
-						setTimeout(function () {
-							setRedirect(true);
-						}, 1000);
-					}}>
-					Checkout
-					
-				</button>
-				
-			) : (
-				''
-			)
-			}
-			<Snackbar open={open} autoHideDuration={6000} onClose={handleClosed}>
-						<Alert onClose={handleClosed} severity="success">
-							Tu compra fue exitosa!
-						</Alert>
-					</Snackbar>
-=======
 
 			<div>
 				{cart?.length > 0 ? (
@@ -238,7 +201,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					Tu compra fue exitosa!
 				</Alert>
 			</Snackbar>
->>>>>>> 340a14103830ba1f5a4a9e528614c775a9d8bf51
 		</div>
 	);
 }

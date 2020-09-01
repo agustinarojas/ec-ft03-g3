@@ -9,7 +9,7 @@ function tableUser({users, deleteUsers}) {
 	function makeAdmin(id) {
 		console.log('IDDDDD' + id);
 		return axios
-			.post(`http://localhost:3005/auth/promote/${id}`, {withCredentials: true})
+			.post(`http://localhost:3005/auth/promote/${id}`, null,  {withCredentials: true})
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	}
