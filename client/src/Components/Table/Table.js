@@ -11,21 +11,9 @@ import {
 } from '../../Actions/index.js';
 import './table.css';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router';
 
-function Table({
-	products,
-	addProduct,
-	putProduct,
-	deleteProduct,
-	categories,
-	setCategory,
-	deleteProdCategory,
-}) {
-	const catOptions = {};
-	categories.map(category => {
-		const {id, titulo} = category;
-		catOptions[id] = titulo;
-	});
+function Table({products, addProduct, putProduct, deleteProduct, user}) {
 	const columns = [
 		{title: 'Titulo', field: 'titulo'},
 		{title: 'Descripción', field: 'descripcion'},
@@ -36,28 +24,33 @@ function Table({
 	];
 	return (
 		<div>
-			<MaterialTable
-				title="Productos"
-				columns={columns}
-				data={products}
-				editable={{
-					onRowAdd: newData => addProduct(newData),
-					onRowUpdate: (newData, oldData) =>
-						setCategory(newData) || putProduct(newData, oldData.id),
-					onRowDelete: oldData => deleteProduct(oldData.id),
-				}}
-			/>
-			<br />
-			<TableCategory />
-			<br />
-			<FormProductCat />
+			{user.admin ? (
+				<div>
+					<MaterialTable
+						title="Productos"
+						columns={columns}
+						data={products}
+						editable={{
+							onRowAdd: newData => addProduct(newData),
+							onRowUpdate: (newData, oldData) => putProduct(newData, oldData.id),
+							onRowDelete: oldData => deleteProduct(oldData.id),
+						}}
+					/>
+					<br />
+					<TableCategory />
+					<br />
+					<FormProductCat />
+				</div>
+			) : (
+				<Redirect to="/" />
+			)}
 		</div>
 	);
 }
 const mapStateToProps = state => {
 	return {
 		products: state.products,
-		categories: state.categories,
+		user: state.user,
 	};
 };
 export default connect(mapStateToProps, {
