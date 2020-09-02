@@ -50,6 +50,7 @@ function LoginUser({login, user}) {
 	};
 	
 	function validator (user) {
+		console.log(user)
 		if (!user) {
 			setError(true);
 			setTimeout(function () {

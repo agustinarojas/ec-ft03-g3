@@ -90,7 +90,8 @@ export function getProducts() {
 			.catch(err => console.log(err));
 	};
 }
-export function addProduct(product) {
+export function addProduct(product, img) {
+	product.imagen = img;
 	return function (dispatch) {
 		return axios
 			.post('http://localhost:3005/products', product, {withCredentials: true})
