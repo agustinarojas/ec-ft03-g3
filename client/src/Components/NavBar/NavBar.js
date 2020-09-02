@@ -44,6 +44,7 @@ function NavBar({
 	user,
 	logout,
 	getUsers,
+	productsCar
 }) {
 	// const handleOnClick = () => {
 	// 	axios
@@ -55,7 +56,10 @@ function NavBar({
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
 	const anchorRef = React.useRef(null);
-
+	let cats = [];
+	category.map(category => {
+		if (category.titulo) cats.push(category);
+	});
 	const handleToggle = () => {
 		setOpen(prevOpen => !prevOpen);
 	};
@@ -100,7 +104,7 @@ function NavBar({
 						<i className="fa fa-caret-down"></i>
 					</button>
 					<div className="dropd-cont">
-						{category?.map((c, i) => (
+						{cats?.map((c, i) => (
 							<Link to={`/category/${c.titulo}`} onClick={e => filterByCategory(c.titulo)} key={i}>
 								{c.titulo}
 							</Link>
@@ -122,7 +126,8 @@ function NavBar({
 					</Link>
 				)}
 				<Link to="/cart/1" style={{height: '65px'}}>
-					<span className="material-icons"> shopping_cart </span>
+					{productsCar?.length >= 1 ? <span className="material-icons"> shopping_cart </span> :
+					<span className="material-icons"> remove_shopping_cart </span> }
 				</Link>
 				{user.id && (
 					<Button
@@ -164,10 +169,11 @@ function NavBar({
 												</MenuItem>
 											</Link>
 
-											<Link to={`/order/${user.id}`} style={{padding: '0px'}}>
-												<MenuItem onClick={handleClose}>
-													<span style={{color: 'black'}}>Mis compras</span>
-												</MenuItem>
+
+                    	<Link to={`/users/${user.id}/orders`} style = {{padding: '0px'}}>
+										   <MenuItem onClick={handleClose}>
+									    	 <span style = {{color: 'black'}}>Mis compras</span>
+										  </MenuItem>
 											</Link>
 											<Link style={{padding: '0px'}}>
 												<MenuItem
@@ -193,6 +199,7 @@ function NavBar({
 function mapStateToProps(state) {
 	return {
 		user: state.user,
+		productsCar: state.productsCar
 	};
 }
 export default connect(mapStateToProps, {

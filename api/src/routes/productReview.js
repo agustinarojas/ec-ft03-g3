@@ -49,6 +49,17 @@ server.get('/:prodId/reviews', (req, res) => {
 			res.sendstatus(400);
 		});
 });
+//ruta que trae todos los reviews de todos los productos de todos los usuarios (el 1 no sabemos porque tiene q ir pero funciona "no sacar")
+server.get('/totalreviews/1', (req, res) => {
+	Review.findAll()
+		.then(reviews => {
+			console.log(reviews);
+			res.status(200).send(reviews);
+		})
+		.catch(err => {
+			res.sendstatus(400);
+		});
+});
 
 module.exports = server;
 /* server.post('/:idProducto/category/:idCategoria', isAdmin, (req, res) => {

@@ -48,15 +48,20 @@ function LoginUser({login, user}) {
 		event.preventDefault();
 		login(state);
 	};
-	
+
+
+
 	function validator (user) {
+		console.log(user +'  USERrrrrrrrrrrrrrrrrrrr')
 		if (!user) {
+			alert('Estas logeado.')
 			setError(true);
 			setTimeout(function () {
-				setRedirect(true);
+			//	setRedirect(true);
 			}, 1000);
 		}
 		else {
+			alert('No estas logeado')
 			setError(false);
 		}
  }
@@ -93,17 +98,17 @@ function LoginUser({login, user}) {
 					</small>
 				</div>
 				<Button
-					onClick={() => {
+					 onClick={() => {
 						handleClick();
 						validator(user);
-					}}
+					}} 
 					variant="contained"
 					color="primary"
 					type="submit"
 					value="Submit">
 					Ingresar
 				</Button>
-				{error ? <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+				{/* {error ? <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 					<Alert onClose={handleClose} severity="success">
 						Sesion iniciada con exito!
 					</Alert>
@@ -113,7 +118,7 @@ function LoginUser({login, user}) {
 					<Alert onClose={handleClose} severity="error">
 						Usuario o Contraseña incorrecta
 					</Alert>
-				</Snackbar>}
+				</Snackbar>} */}
 			</form>
 		</div>
 	);

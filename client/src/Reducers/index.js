@@ -24,7 +24,9 @@ import {
 	GET_USERS,
 	DELETE_USERS,
 	GET_REVIEWS,
-	ERROR_LOGIN
+	GET_ORDERS_USER,
+	GET_TOTALREVIEWS,
+	ERROR_LOGIN,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
@@ -34,8 +36,10 @@ const inicialState = {
 	orders: [],
 	user: {},
 	users: [],
-	reviews:[],
+	reviews: [],
 	localStorage: false,
+	ordersUser:[],
+	totalreviews:[],
 };
 
 export default function rootReducer(state = inicialState, action) {
@@ -86,9 +90,15 @@ export default function rootReducer(state = inicialState, action) {
 			};
 		//* PRODUCT-CATEGORY
 		case SET_CATEGORY:
-			return state;
+			return {
+				...state,
+				categories: [...state.categories, {}],
+			};
 		case DELETE_PROD_CATEGORY:
-			return state;
+			return {
+				...state,
+				categories: [...state.categories, {}],
+			};
 		case FILTER_BY_CATEGORY:
 			return {
 				...state,
@@ -176,8 +186,8 @@ export default function rootReducer(state = inicialState, action) {
 		case ERROR_LOGIN:
 			return {
 				...state,
-				user: action.user
-			}
+				user: action.user,
+			};
 		case LOGOUT:
 			return {
 				...state,
@@ -197,6 +207,16 @@ export default function rootReducer(state = inicialState, action) {
 			return {
 				...state,
 				reviews: action.reviews,
+			};
+		case GET_ORDERS_USER:
+			return {
+				...state,
+				ordersUser: action.ordersUser,
+			};
+		case GET_TOTALREVIEWS:
+			return {
+				...state,
+				totalreviews: action.totalreviews,
 			};
 		default:
 			return state;

@@ -24,10 +24,36 @@ import {
 	GET_USERS,
 	DELETE_USERS,
 	GET_REVIEWS,
+	GET_ORDERS_USER,
+	GET_TOTALREVIEWS,
 	ERROR_LOGIN,
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
+
+export function getTotalReviews() {
+	return function (dispatch) {
+		return axios
+			.get(`http://localhost:3005/products/totalreviews/1`)
+			.then(res => {
+				console.log(res.data);
+				dispatch({type: GET_TOTALREVIEWS, totalreviews: res.data});
+			})
+			.catch(err => console.log(err));
+	};
+}
+
+export function getOrdersUser(userId) {
+	return function (dispatch) {
+		return axios
+			.get(`http://localhost:3005/users/${userId}/orders`, {withCredentials: true})
+			.then(res => {
+				console.log(res.data);
+				dispatch({type: GET_ORDERS_USER, ordersUser: res.data});
+			})
+			.catch(err => console.log(err));
+	};
+}
 
 export function getReviews(prodId) {
 	console.log(prodId);
@@ -63,7 +89,8 @@ export function getProducts() {
 			.catch(err => console.log(err));
 	};
 }
-export function addProduct(product) {
+export function addProduct(product, img) {
+	product.imagen = img;
 	return function (dispatch) {
 		return axios
 			.post('http://localhost:3005/products', product, {withCredentials: true})
@@ -145,7 +172,9 @@ export function deleteCategory(id) {
 export function setCategory(prodId, catId) {
 	return function (dispatch) {
 		return axios
-			.post(`http://localhost:3005/products/${prodId}/category/${catId}`, {withCredentials: true})
+			.post(`http://localhost:3005/products/${prodId}/category/${catId}`, null, {
+				withCredentials: true,
+			})
 			.then(res => {
 				dispatch({type: SET_CATEGORY});
 			})
