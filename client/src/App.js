@@ -24,7 +24,6 @@ import {
 	getTotalReviews,
 } from './Actions/index';
 import Footer from './Components/Footer/Footer';
-import {getProducts, getCategories, searchProduct, getOrder, getUser} from './Actions/index';
 import {connect} from 'react-redux';
 import Reviews from './Components/Reviews/Reviews';
 

@@ -98,6 +98,7 @@ function Products(producto) {
 				</div>
 			</div>
 		</div>
+	</div>
 	);
 }
 

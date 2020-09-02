@@ -355,6 +355,7 @@ export function login(user) {
 			})
 			.catch(error => {
 				dispatch({type: ERROR_LOGIN, user: false});
+				
 			});
 	};
 }
