@@ -21,11 +21,10 @@ export const GET_ORDERS = 'GET_ORDERS';
 export const GET_USER = 'GET_USER';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
-export const SETCANTIDAD = 'SETCANTIDAD';
-export const GET_USERS = "GET_USERS";
-export const DELETE_USERS = "DELETE_USERS";
+export const SET_CANTIDAD = 'SETCANTIDAD';
+export const GET_USERS = 'GET_USERS';
+export const DELETE_USERS = 'DELETE_USERS';
 export const GET_REVIEWS = 'GET_REVIEWS';
+export const ERROR_LOGIN = 'ERROR_LOGIN';
 export const GET_ORDERS_USER = 'GET_ORDERS_USER';
 export const GET_TOTALREVIEWS = 'GET_TOTALREVIEWS';
-export const ERROR_LOGIN = 'ERROR_LOGIN';
-

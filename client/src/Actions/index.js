@@ -20,7 +20,7 @@ import {
 	GET_USER,
 	LOGIN,
 	LOGOUT,
-	SETCANTIDAD,
+	SET_CANTIDAD,
 	GET_USERS,
 	DELETE_USERS,
 	GET_REVIEWS,
@@ -31,13 +31,12 @@ import {
 
 //* PRODUCTS
 
-
 export function getTotalReviews() {
 	return function (dispatch) {
 		return axios
 			.get(`http://localhost:3005/products/totalreviews/1`)
 			.then(res => {
-				console.log(res.data)
+				console.log(res.data);
 				dispatch({type: GET_TOTALREVIEWS, totalreviews: res.data});
 			})
 			.catch(err => console.log(err));
@@ -49,7 +48,7 @@ export function getOrdersUser(userId) {
 		return axios
 			.get(`http://localhost:3005/users/${userId}/orders`, {withCredentials: true})
 			.then(res => {
-				console.log(res.data)
+				console.log(res.data);
 				dispatch({type: GET_ORDERS_USER, ordersUser: res.data});
 			})
 			.catch(err => console.log(err));
@@ -173,7 +172,9 @@ export function deleteCategory(id) {
 export function setCategory(prodId, catId) {
 	return function (dispatch) {
 		return axios
-			.post(`http://localhost:3005/products/${prodId}/category/${catId}`, null, {withCredentials: true})
+			.post(`http://localhost:3005/products/${prodId}/category/${catId}`, null, {
+				withCredentials: true,
+			})
 			.then(res => {
 				dispatch({type: SET_CATEGORY});
 			})
@@ -214,7 +215,7 @@ export function getCarrito(userId) {
 	};
 }
 
-export function addToCart(userId, prodId, cant) {
+export function addToCart(userId, prodId, cant, carritoId) {
 	let cantidad;
 	if (cant) {
 		cantidad = cant;
@@ -225,16 +226,19 @@ export function addToCart(userId, prodId, cant) {
 		return axios
 			.post(
 				`http://localhost:3005/users/${userId}/cart`,
-				{id: parseInt(prodId), cantidad},
+				{id: parseInt(prodId), cantidad: cantidad, carritoId},
 				{withCredentials: true},
 			)
 			.then(res => {
-				if (res.data.carritos.length) {
-					res.data.lineorder = res.data.carritos[0].lineorder;
+				console.log(carritoId);
+				console.log(res.data);
+				let carr = res.data.carritos.filter(cart => cart.id === carritoId);
+				if (carr.length) {
+					console.log(carr);
+					res.data.lineorder = carr[0].lineorder;
 				} else {
 					res.data.lineorder = {cantidad: 1};
 				}
-				console.log(res.data);
 				dispatch({type: ADD_TO_CART, product: res.data});
 			});
 	};
@@ -257,7 +261,9 @@ export function setCantidad(userId, prodId, cantidades) {
 				{id: parseInt(prodId), cantidad: cantidades},
 				{withCredentials: true},
 			)
-			.then(res => dispatch({type: SETCANTIDAD, product: res.data}))
+			.then(res => {
+				dispatch({type: SET_CANTIDAD, product: res.data});
+			})
 			.catch(err => console.log(err));
 	};
 }
@@ -355,7 +361,6 @@ export function login(user) {
 			})
 			.catch(error => {
 				dispatch({type: ERROR_LOGIN, user: false});
-				
 			});
 	};
 }

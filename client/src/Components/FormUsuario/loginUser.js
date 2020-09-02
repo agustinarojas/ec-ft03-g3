@@ -5,9 +5,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
 import {login} from '../../Actions/index';
-import {Redirect, Route} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -24,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 function LoginUser({login, user}) {
 	const [state, setState] = useState({});
 	const [redirect, setRedirect] = useState(false);
-	const [error, setError] = useState(false)
+	const [error, setError] = useState(false);
 
 	const handleOnChange = e => {
 		setState({
@@ -49,26 +48,22 @@ function LoginUser({login, user}) {
 		login(state);
 	};
 
-
-
-	function validator (user) {
-		console.log(user +'  USERrrrrrrrrrrrrrrrrrrr')
+	function validator(user) {
+		console.log(user + '  USERrrrrrrrrrrrrrrrrrrr');
 		if (!user) {
-			alert('Estas logeado.')
+			alert('Estas logeado.');
 			setError(true);
 			setTimeout(function () {
-			//	setRedirect(true);
+				//	setRedirect(true);
 			}, 1000);
-		}
-		else {
-			alert('No estas logeado')
+		} else {
+			alert('No estas logeado');
 			setError(false);
 		}
- }
-    if (redirect){
-		return <Redirect to = '/'/>
 	}
-
+	if (redirect) {
+		return <Redirect to="/" />;
+	}
 
 	return (
 		<div className="Formm">
@@ -97,11 +92,14 @@ function LoginUser({login, user}) {
 						No compartiremos tus datos con nadie.
 					</small>
 				</div>
+				<Link style={{display: 'block', marginBottom: '20px'}} to="/RestablecerContraseña">
+					<span>¿Olvidaste tu contraseña?</span>
+				</Link>
 				<Button
-					 onClick={() => {
+					onClick={() => {
 						handleClick();
 						validator(user);
-					}} 
+					}}
 					variant="contained"
 					color="primary"
 					type="submit"
@@ -126,7 +124,7 @@ function LoginUser({login, user}) {
 
 function mapStateToProps(state) {
 	return {
-		user: state.user
+		user: state.user,
 	};
 }
 

@@ -77,7 +77,7 @@ server.delete('/:id', isAuthenticated, (req, res) => {
 
 server.post('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
-	const {id} = req.body;
+	const {id, cantidad, carritoId} = req.body;
 	let pProduct = Product.findOne({
 		where: {
 			id: id,
@@ -94,17 +94,18 @@ server.post('/:ids/cart', (req, res) => {
 		.then(values => {
 			let carrito = values[0][0];
 			let producto = values[1];
-			if (!producto.carritos.length) {
+			let first = producto.carritos.filter(cart => cart.id === carritoId);
+			if (!first.length) {
 				producto.addCarritos(carrito, {
-					through: {cantidad: req.body.cantidad, precio: producto.precio},
+					through: {cantidad: cantidad, precio: producto.precio},
 				});
 				return res.send(producto);
 			} else {
-				let cantidad = producto.carritos[0].lineorder.cantidad;
-				producto.carritos[0].lineorder.update({
+				let cantidad = first[0].lineorder.cantidad;
+				first[0].lineorder.update({
 					cantidad: cantidad + 1,
 				});
-				producto.carritos[0].lineorder.save();
+				first[0].lineorder.save();
 				return res.send(producto);
 			}
 		})
@@ -246,9 +247,9 @@ server.post('/:ids/passReset', isAuthenticated, (req, res) => {
 				password: pass,
 			});
 			user.save();
-			console.log(pass)
-			console.log(user.password())
-			console.log(user.correctPassword(pass))
+			console.log(pass);
+			console.log(user.password());
+			console.log(user.correctPassword(pass));
 			res.send(user.correctPassword(pass)).status(201);
 		})
 		.catch(err => console.log(err));

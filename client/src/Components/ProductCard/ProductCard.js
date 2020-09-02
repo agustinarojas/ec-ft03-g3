@@ -20,10 +20,22 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 }));
-function ProductCard({imagen, titulo, precio, id, stock, addToCart, user, reviews, getReviews}) {
+function ProductCard({
+	imagen,
+	titulo,
+	precio,
+	id,
+	stock,
+	addToCart,
+	user,
+	prodsCar,
+	reviews,
+	getReviews,
+}) {
 	// const handleOnCLick = (id, userId) => {
 	//     axios.post(´http://localhost:3005/users/${userId}/cart´, {id: parseInt(id)});
 	// };
+	const carritoId = prodsCar[0]?.lineorder?.carritoId;
 	const [suma, setSuma] = useState(0);
 	const obtenerProductos = () => {
 		let products;
@@ -60,7 +72,7 @@ function ProductCard({imagen, titulo, precio, id, stock, addToCart, user, review
 	console.log(user);
 	const handleClick = e => {
 		if (user.id) {
-			addToCart(user.id, e.target.name);
+			addToCart(user.id, e.target.name, null, carritoId);
 		} else {
 			getProducto(e.target.name);
 		}
@@ -73,23 +85,21 @@ function ProductCard({imagen, titulo, precio, id, stock, addToCart, user, review
 		setOpen(false);
 	};
 
-
 	useEffect(() => {
 		let sumar = 0;
-	 	 for (var i = 0; i < reviews.length; i++) {
-	 	 	sumar = sumar + parseInt(reviews[i].rating);
-	 	 }
-		 setSuma(sumar);
-	//  suma = reviews?.reduce((suma, producto) => {
-	// 	return suma + parseInt(producto.rating);
-	// })
-	 }, []);
+		for (var i = 0; i < reviews.length; i++) {
+			sumar = sumar + parseInt(reviews[i].rating);
+		}
+		setSuma(sumar);
+		//  suma = reviews?.reduce((suma, producto) => {
+		// 	return suma + parseInt(producto.rating);
+		// })
+	}, []);
 
+	var promedio = suma / reviews.length;
+	console.log(suma);
 
-  var promedio = suma/reviews.length;
-	console.log(suma)
-
-	console.log(reviews)
+	console.log(reviews);
 
 	return (
 		<div>
@@ -103,12 +113,7 @@ function ProductCard({imagen, titulo, precio, id, stock, addToCart, user, review
 					<h4 className="title">{titulo}</h4>
 					<div className="rating-wrap">
 						<div className="label-rating">
-							<BeautyStars
-				        value={promedio}
-				        size = {'24px'}
-				        gap = {'6px'}
-				        activeColor = {'66C3FF'}
-				      />
+							<BeautyStars value={promedio} size={'24px'} gap={'6px'} activeColor={'66C3FF'} />
 						</div>
 					</div>
 				</figcaption>
@@ -137,7 +142,7 @@ function ProductCard({imagen, titulo, precio, id, stock, addToCart, user, review
 function mapStateToProps(state) {
 	return {
 		user: state.user,
-
+		prodsCar: state.productsCar,
 	};
 }
 export default connect(mapStateToProps, {addToCart, getReviews})(ProductCard);
