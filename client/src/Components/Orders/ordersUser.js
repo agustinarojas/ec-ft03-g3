@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getOrdersUser, getUser } from '../../Actions/index';
 import BeautyStars from 'beauty-stars';
 import { Link } from 'react-router-dom';
-
+import './order.css';
 
 function OrdersUser({user, ordersUser, getOrdersUser, getUser}) {
 
@@ -28,8 +28,7 @@ getOrdersUser(user.id);
 			<table className="table">
 				<thead>
 					<tr>
-						<th scope="col">ID Orden</th>
-						<th scope="col">User</th>
+						<th scope="col">Orden N°</th>
 						<th scope="col">Total ($)</th>
 						<th scope="col">Fecha</th>
 					</tr>
@@ -38,9 +37,8 @@ getOrdersUser(user.id);
 					<tbody key={o.id}>
 						<tr>
 							<th scope="row">{o.id}</th>
-							<td>User</td>
-							<td> {precios[i]} </td>
-							<td>{o?.createdAt?.slice(0, 19)}</td>
+							<td> ${precios[i]} </td>
+							<td>{o?.createdAt?.slice(8, 10) + '/' + o?.createdAt?.slice(5, 7) + '/' + o?.createdAt?.slice(0, 4)}</td>
 							<Link to={`/user/order/${o.id}`}>
 								<td>
 									<button className="orderID">DETALLE</button>

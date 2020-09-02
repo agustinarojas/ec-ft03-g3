@@ -115,7 +115,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 		setAbrir(false);
 	};
 	if (redirect) {
-		return <Redirect to="/" />;
+		return <Redirect to="/sendform" />;
 	}
 
 	const handleClick = () => {
@@ -128,6 +128,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 		}
 
 		setOpen(false);
+
 	};
 	return (
 		<div className="flexend">
