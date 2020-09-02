@@ -74,29 +74,6 @@ function Products(producto) {
 			    {/*{count < 2 ? <span>Calificar Producto</span> : <span>Ya realizaste una calificacion sobre este producto</span>}*/}
 			    <h6>Ver calificaciones</h6>
 				</Link>
-				<Link onClick={() => handleOnClick()} style= {{paddingLeft: '60px'}}>
-			    {count < 2 ? <h6>Calificar Producto</h6> : <h6>Ya realizaste una calificacion sobre este producto</h6>}
-				</Link>		
-				{
-					state ?
-						<div>
-							<textarea id="body-field" name="body" onChange={(e) => setTarea(e.target.value)}></textarea>
-							<BeautyStars
-								value={value}
-								size = {'24px'}
-								gap = {'6px'}
-								activeColor = {'66C3FF'}
-								onChange={(value) => setValue( value )}
-							/>
-							{
-								!value || !tarea ? (control = true) : false
-							}
-							<button disabled={control ? true : false} onClick={() => {submitRate(producto.user.id, producto?.producto[0]?.id); setState(false)}}>Calificar</button>
-						</div>
-					:
-					null
-				}
-				</div>
 				</div>
 				<div className="Precio">
 					<h3>$ {producto?.producto[0]?.precio}</h3>
@@ -121,6 +98,7 @@ function Products(producto) {
 				</div>
 			</div>
 		</div>
+	</div>
 	);
 }
 
@@ -130,4 +108,3 @@ function mapStateToProps(state) {
 	};
 }
 export default connect(mapStateToProps, { addToCart, getReviews })(Products);
-

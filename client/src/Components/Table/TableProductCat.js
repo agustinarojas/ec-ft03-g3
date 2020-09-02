@@ -3,6 +3,7 @@ import MaterialTable from 'material-table';
 import {setCategory, deleteProdCategory, getProducts} from '../../Actions/index.js';
 import {connect} from 'react-redux';
 
+
 function TableProductCat({setCategory, deleteProdCategory, products, categories, getProducts}) {
 	useEffect(() => {
 		getProducts();

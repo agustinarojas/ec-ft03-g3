@@ -24,6 +24,8 @@ import {
 	GET_USERS,
 	DELETE_USERS,
 	GET_REVIEWS,
+	GET_ORDERS_USER,
+	GET_TOTALREVIEWS,
 	ERROR_LOGIN,
 } from '../Constants/ProductsConstants';
 const inicialState = {
@@ -36,6 +38,8 @@ const inicialState = {
 	users: [],
 	reviews: [],
 	localStorage: false,
+	ordersUser:[],
+	totalreviews:[],
 };
 
 export default function rootReducer(state = inicialState, action) {
@@ -203,6 +207,16 @@ export default function rootReducer(state = inicialState, action) {
 			return {
 				...state,
 				reviews: action.reviews,
+			};
+		case GET_ORDERS_USER:
+			return {
+				...state,
+				ordersUser: action.ordersUser,
+			};
+		case GET_TOTALREVIEWS:
+			return {
+				...state,
+				totalreviews: action.totalreviews,
 			};
 		default:
 			return state;

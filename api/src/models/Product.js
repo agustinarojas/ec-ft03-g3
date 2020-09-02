@@ -120,8 +120,9 @@ module.exports = sequelize => {
 	};
 	User.beforeCreate(setSaltAndPassword);
 	User.beforeUpdate(setSaltAndPassword);
-
+    
 	User.prototype.correctPassword = function (enteredPassword) {
 		return User.encryptPassword(enteredPassword, this.salt()) === this.password();
 	};
+
 };

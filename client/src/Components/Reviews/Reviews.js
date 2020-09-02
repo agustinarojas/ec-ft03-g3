@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { getReviews } from '../../Actions/index';
@@ -10,6 +10,10 @@ function Reviews({reviews, getReviews}) {
   // useEffect(() => {
 	// 	getReviews(1);
 	// }, [reviews]);
+  let suma = 0;
+  for (var i = 0; i < reviews.length; i++) {
+  suma = suma + parseInt(reviews[i].rating);
+  }
 
 	return (
 		<div className="reviews">
@@ -23,12 +27,17 @@ function Reviews({reviews, getReviews}) {
             size = {'24px'}
             gap = {'6px'}
             activeColor = {'66C3FF'}
-            //onChange={(r.rating) => setValue( value )}
           />
           <br/>
         </div>
 			 ))
 		 }
+     <BeautyStars
+       value={suma/reviews.length}
+       size = {'24px'}
+       gap = {'6px'}
+       activeColor = {'66C3FF'}
+     />
 		</div>
 	);
 }
