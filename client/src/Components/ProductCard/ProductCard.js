@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './ProductCard.css';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-import {addToCart} from '../../Actions/index';
+import {addToCart, getReviews} from '../../Actions/index';
 import {connect} from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
+import BeautyStars from 'beauty-stars';
 
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -19,11 +20,23 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 }));
-function ProductCard({imagen, titulo, precio, review, id, stock, addToCart, user, prodsCar}) {
+function ProductCard({
+	imagen,
+	titulo,
+	precio,
+	id,
+	stock,
+	addToCart,
+	user,
+	prodsCar,
+	reviews,
+	getReviews,
+}) {
 	// const handleOnCLick = (id, userId) => {
 	//     axios.post(´http://localhost:3005/users/${userId}/cart´, {id: parseInt(id)});
 	// };
 	const carritoId = prodsCar[0]?.lineorder?.carritoId;
+	const [suma, setSuma] = useState(0);
 	const obtenerProductos = () => {
 		let products;
 		if (localStorage.getItem('productos') === null) {
@@ -72,6 +85,22 @@ function ProductCard({imagen, titulo, precio, review, id, stock, addToCart, user
 		setOpen(false);
 	};
 
+	useEffect(() => {
+		let sumar = 0;
+		for (var i = 0; i < reviews.length; i++) {
+			sumar = sumar + parseInt(reviews[i].rating);
+		}
+		setSuma(sumar);
+		//  suma = reviews?.reduce((suma, producto) => {
+		// 	return suma + parseInt(producto.rating);
+		// })
+	}, []);
+
+	var promedio = suma / reviews.length;
+	console.log(suma);
+
+	console.log(reviews);
+
 	return (
 		<div>
 			<figure className="card card-product contein">
@@ -83,7 +112,9 @@ function ProductCard({imagen, titulo, precio, review, id, stock, addToCart, user
 				<figcaption className="info-wrap">
 					<h4 className="title">{titulo}</h4>
 					<div className="rating-wrap">
-						<div className="label-rating"> (Review) </div>
+						<div className="label-rating">
+							<BeautyStars value={promedio} size={'24px'} gap={'6px'} activeColor={'66C3FF'} />
+						</div>
 					</div>
 				</figcaption>
 				<div className="bottom-wrap">
@@ -114,4 +145,4 @@ function mapStateToProps(state) {
 		prodsCar: state.productsCar,
 	};
 }
-export default connect(mapStateToProps, {addToCart})(ProductCard);
+export default connect(mapStateToProps, {addToCart, getReviews})(ProductCard);

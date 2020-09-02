@@ -104,11 +104,11 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	}
 
 	const [open, setOpen] = React.useState(false);
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
-	const classes = useStyles();
 	const [abrir, setAbrir] = React.useState(false);
+
+	const handleClickOpen = () => {
+		setAbrir(true);
+	};
 
 	const handleClose = () => {
 		setAbrir(false);
@@ -118,14 +118,15 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	}
 
 	const handleClick = () => {
-		setAbrir(true);
+		setOpen(true);
 	};
 
 	const handleClosed = (event, reason) => {
 		if (reason === 'clickaway') {
 			return;
 		}
-		setAbrir(false);
+
+		setOpen(false);
 	};
 	return (
 		<div className="flexend">
@@ -162,7 +163,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 				''
 			)}
 			<Dialog
-				open={open}
+				open={abrir}
 				TransitionComponent={Transition}
 				keepMounted
 				onClose={handleClose}
@@ -188,18 +189,22 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					</Button>
 				</DialogActions>
 			</Dialog>
-
-			<div>
-				{cart?.length > 0 ? (
-					<button id="compra" onClick={() => cancelCheck()}>
-						Checkout
-					</button>
-				) : (
-					''
-				)}
-			</div>
-
-			<Snackbar open={abrir} autoHideDuration={6000} onClose={handleClosed}>
+			{cart?.length > 0 ? (
+				<button
+					id="compra"
+					onClick={() => {
+						handleClick();
+						comprar();
+						setTimeout(function () {
+							setRedirect(true);
+						}, 1000);
+					}}>
+					Checkout
+				</button>
+			) : (
+				''
+			)}
+			<Snackbar open={open} autoHideDuration={6000} onClose={handleClosed}>
 				<Alert onClose={handleClosed} severity="success">
 					Tu compra fue exitosa!
 				</Alert>

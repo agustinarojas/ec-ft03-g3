@@ -49,12 +49,15 @@ function LoginUser({login, user}) {
 	};
 
 	function validator(user) {
+		console.log(user + '  USERrrrrrrrrrrrrrrrrrrr');
 		if (!user) {
+			alert('Estas logeado.');
 			setError(true);
 			setTimeout(function () {
-				setRedirect(true);
+				//	setRedirect(true);
 			}, 1000);
 		} else {
+			alert('No estas logeado');
 			setError(false);
 		}
 	}
@@ -103,19 +106,17 @@ function LoginUser({login, user}) {
 					value="Submit">
 					Ingresar
 				</Button>
-				{error ? (
-					<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-						<Alert onClose={handleClose} severity="success">
-							Sesion iniciada con exito!
-						</Alert>
-					</Snackbar>
-				) : (
-					<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-						<Alert onClose={handleClose} severity="error">
-							Usuario o Contraseña incorrecta
-						</Alert>
-					</Snackbar>
-				)}
+				{/* {error ? <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+					<Alert onClose={handleClose} severity="success">
+						Sesion iniciada con exito!
+					</Alert>
+				</Snackbar> 
+				: 
+				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+					<Alert onClose={handleClose} severity="error">
+						Usuario o Contraseña incorrecta
+					</Alert>
+				</Snackbar>} */}
 			</form>
 		</div>
 	);
