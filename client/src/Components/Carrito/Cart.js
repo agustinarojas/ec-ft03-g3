@@ -33,7 +33,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) {
-	const [can, setCantid] = useState(1);
 	const [precio, setPrecio] = useState(0);
 	const [redirect, setRedirect] = useState(false);
 
@@ -41,19 +40,20 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	let cart;
 	let data = JSON.parse(localStorage.getItem('productos'));
 
-	function cancelCheck(redirect) {
-		if (user.id) {
-			return (
-				handleClick(),
-				comprar(),
-				setTimeout(function () {
-					setRedirect(true);
-				}, 1000)
-			);
-		} else {
-			console.log('LOGUEATE');
-		}
-	}
+	// function cancelCheck() {
+	// 	if (user.id) {
+	// 		console.log(productsCar);
+	// 		return (
+	// 			handleClick(),
+	// 			comprar(),
+	// 			setTimeout(function () {
+	// 				setRedirect(true);
+	// 			}, 1000)
+	// 		);
+	// 	} else {
+	// 		console.log('LOGUEATE');
+	// 	}
+	// }
 	useEffect(() => {
 		user.id && getCarrito(user.id);
 		if (localStor) {
@@ -62,23 +62,15 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 		}
 	}, [user]);
 
-	console.log('data: ' + data);
-	console.log(localStor);
+	console.log(productsCar);
 	if (user.id) cart = productsCar;
 	else {
 		cart = data;
 	}
 	useEffect(() => {
-		console.log(cart);
-		let total = cart?.reduce((total, producto) => {
-			return total + producto.precio * producto.lineorder.cantidad;
-		}, 0);
-		setPrecio(total);
+		// setPrecio(total);
 	}, [productsCar]);
 
-	console.log(cart);
-	console.log(user);
-	console.log(productsCar);
 	var total = {};
 	// const handlePrice = function () {
 	// 	// setPrecio(cant * precio);
@@ -100,8 +92,14 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	// console.log(precio);
 
 	function comprar() {
+		const {carritoId} = productsCar[0].lineorder;
+		console.log(carritoId);
 		return axios
-			.put(`http://localhost:3005/orders/${user.id}`, {estado: 'completa'}, {withCredentials: true})
+			.put(
+				`http://localhost:3005/orders/${user.id}`,
+				{estado: 'completa', carritoId},
+				{withCredentials: true},
+			)
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	}
@@ -121,15 +119,16 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	}
 
 	const handleClick = () => {
-	  setOpen(true);
+		setOpen(true);
 	};
 
 	const handleClosed = (event, reason) => {
-	  if (reason === 'clickaway') {
-		return;
-	  }
+		if (reason === 'clickaway') {
+			return;
+		}
 
-	  setOpen(false);
+		setOpen(false);
+
 	};
 	return (
 		<div className="flexend">
@@ -147,7 +146,14 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 				/>
 			))}
 			{cart?.length > 0 ? (
-				<h2 id="total">TOTAL: $ {precio}</h2>
+				<h2 id="total">
+					TOTAL: $
+					{cart?.reduce(
+						(total, producto) => total + producto.precio * producto.lineorder.cantidad,
+						0,
+					)}
+					{/* $ {cartItems.reduce((a, c) => a + c.price * c.qty, 0)} */}
+				</h2>
 			) : (
 				<div className="noProducts">Aún no agregaste productos al carrito.</div>
 			)}
@@ -196,18 +202,15 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 						}, 1000);
 					}}>
 					Checkout
-
 				</button>
-
 			) : (
 				''
-			)
-			}
+			)}
 			<Snackbar open={open} autoHideDuration={6000} onClose={handleClosed}>
-						<Alert onClose={handleClosed} severity="success">
-							Tu compra fue exitosa!
-						</Alert>
-					</Snackbar>
+				<Alert onClose={handleClosed} severity="success">
+					Tu compra fue exitosa!
+				</Alert>
+			</Snackbar>
 		</div>
 	);
 }

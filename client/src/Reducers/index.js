@@ -20,7 +20,7 @@ import {
 	GET_USER,
 	LOGIN,
 	LOGOUT,
-	SETCANTIDAD,
+	SET_CANTIDAD,
 	GET_USERS,
 	DELETE_USERS,
 	GET_REVIEWS,
@@ -38,8 +38,8 @@ const inicialState = {
 	users: [],
 	reviews: [],
 	localStorage: false,
-	ordersUser:[],
-	totalreviews:[],
+	ordersUser: [],
+	totalreviews: [],
 };
 
 export default function rootReducer(state = inicialState, action) {
@@ -148,10 +148,11 @@ export default function rootReducer(state = inicialState, action) {
 				// totalCarrito: precios.reduce((acum, value) => acum + value),
 			};
 
-		case SETCANTIDAD:
+		case SET_CANTIDAD:
 			for (let i = 0; i < state.productsCar.length; i++) {
 				if (state.productsCar[i].id === action.product.id) state.productsCar[i] = action.product;
 			}
+			console.log(state);
 			return state;
 		//* ORDERS
 		case GET_ORDER:

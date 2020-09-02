@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import './producto.css';
-import { addToCart, getReviews } from '../../Actions/index';
-import { connect } from 'react-redux';
+import {addToCart, getReviews} from '../../Actions/index';
+import {connect} from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
 import BeautyStars from 'beauty-stars';
 import Axios from 'axios';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -32,12 +32,17 @@ function Products(producto) {
 		setOpen(true);
 	};
 
-	const submitRate = (idUser, idProd) => { // CAMBIAR DONDE HACE SUBMIT Y SACARLE EL HARDCODEO JAJA! AGREGAR COMENTARIOS. RENDERIZAR VALOR DE ESTRELLITA PROEDIO
-		return Axios
-		.post(`http://localhost:3005/products/${idUser}/review`, {rating: value, descripcion: tarea, productId: idProd, userId: idUser})
-		.then(success => console.log(success))
-		.catch( err => console.log(err))
-	}
+	const submitRate = (idUser, idProd) => {
+		// CAMBIAR DONDE HACE SUBMIT Y SACARLE EL HARDCODEO JAJA! AGREGAR COMENTARIOS. RENDERIZAR VALOR DE ESTRELLITA PROEDIO
+		return Axios.post(`http://localhost:3005/products/${idUser}/review`, {
+			rating: value,
+			descripcion: tarea,
+			productId: idProd,
+			userId: idUser,
+		})
+			.then(success => console.log(success))
+			.catch(err => console.log(err));
+	};
 
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
@@ -46,17 +51,17 @@ function Products(producto) {
 		setOpen(false);
 	};
 
- const handleOnClick = () => {
-	 setCount(count + 1)
-	 console.log(count)
-	 if (count < 1) {
-		 setState(true);
-	 }else {
-		 setState(false);
-	 }
- }
- console.log(state)
- var control;
+	const handleOnClick = () => {
+		setCount(count + 1);
+		console.log(count);
+		if (count < 1) {
+			setState(true);
+		} else {
+			setState(false);
+		}
+	};
+	console.log(state);
+	var control;
 	return (
 		<div className="wrapper">
 			<div>
@@ -107,4 +112,4 @@ function mapStateToProps(state) {
 		user: state.user,
 	};
 }
-export default connect(mapStateToProps, { addToCart, getReviews })(Products);
+export default connect(mapStateToProps, {addToCart, getReviews})(Products);

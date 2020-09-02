@@ -27,7 +27,7 @@ function tableUser({users, deleteUsers}) {
 				columns={columns}
 				data={users}
 				editable={{
-					onRowUpdate: (oldData,newData) => makeAdmin(oldData, newData),
+					onRowUpdate: (oldData,newData) => makeAdmin(oldData.id, newData),
 					onRowDelete: oldData => deleteUsers(oldData.id),
 				}}
 			/>
