@@ -45,6 +45,7 @@ server.put('/:id', isAuthenticated, (req, res) => {
 	Carrito.findOne({
 		where: {
 			userId: req.params.id,
+			id: data.carritoId,
 		},
 	})
 		.then(completados => {

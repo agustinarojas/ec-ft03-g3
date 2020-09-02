@@ -19,10 +19,11 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 }));
-function ProductCard({imagen, titulo, precio, review, id, stock, addToCart, user}) {
+function ProductCard({imagen, titulo, precio, review, id, stock, addToCart, user, prodsCar}) {
 	// const handleOnCLick = (id, userId) => {
 	//     axios.post(´http://localhost:3005/users/${userId}/cart´, {id: parseInt(id)});
 	// };
+	const carritoId = prodsCar[0]?.lineorder?.carritoId;
 	const obtenerProductos = () => {
 		let products;
 		if (localStorage.getItem('productos') === null) {
@@ -58,7 +59,7 @@ function ProductCard({imagen, titulo, precio, review, id, stock, addToCart, user
 	console.log(user);
 	const handleClick = e => {
 		if (user.id) {
-			addToCart(user.id, e.target.name);
+			addToCart(user.id, e.target.name, null, carritoId);
 		} else {
 			getProducto(e.target.name);
 		}
@@ -110,6 +111,7 @@ function ProductCard({imagen, titulo, precio, review, id, stock, addToCart, user
 function mapStateToProps(state) {
 	return {
 		user: state.user,
+		prodsCar: state.productsCar,
 	};
 }
 export default connect(mapStateToProps, {addToCart})(ProductCard);

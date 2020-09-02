@@ -89,8 +89,8 @@ function LoginUser({login, user}) {
 						No compartiremos tus datos con nadie.
 					</small>
 				</div>
-				<Link style={{display: 'block'}} to="/RestablecerContraseña">
-					<span>Cambiar contraseña</span>
+				<Link style={{display: 'block', marginBottom: '20px'}} to="/RestablecerContraseña">
+					<span>¿Olvidaste tu contraseña?</span>
 				</Link>
 				<Button
 					onClick={() => {
