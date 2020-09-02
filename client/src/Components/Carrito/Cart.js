@@ -40,21 +40,20 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	let cart;
 	let data = JSON.parse(localStorage.getItem('productos'));
 
-	function cancelCheck() {
-		if (user.id) {
-			console.log(productsCar);
-			const {carritoId} = productsCar[0].lineorder;
-			return (
-				handleClick(),
-				comprar(carritoId),
-				setTimeout(function () {
-					setRedirect(true);
-				}, 1000)
-			);
-		} else {
-			console.log('LOGUEATE');
-		}
-	}
+	// function cancelCheck() {
+	// 	if (user.id) {
+	// 		console.log(productsCar);
+	// 		return (
+	// 			handleClick(),
+	// 			comprar(),
+	// 			setTimeout(function () {
+	// 				setRedirect(true);
+	// 			}, 1000)
+	// 		);
+	// 	} else {
+	// 		console.log('LOGUEATE');
+	// 	}
+	// }
 	useEffect(() => {
 		user.id && getCarrito(user.id);
 		if (localStor) {
@@ -92,7 +91,9 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	// };
 	// console.log(precio);
 
-	function comprar(carritoId) {
+	function comprar() {
+		const {carritoId} = productsCar[0].lineorder;
+		console.log(carritoId);
 		return axios
 			.put(
 				`http://localhost:3005/orders/${user.id}`,
