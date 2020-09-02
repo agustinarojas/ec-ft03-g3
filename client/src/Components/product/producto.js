@@ -75,6 +75,7 @@ function Products(producto) {
 			    <h6>Ver calificaciones</h6>
 				</Link>
 				</div>
+				</div>
 				<div className="Precio">
 					<h3>$ {producto?.producto[0]?.precio}</h3>
 					<button

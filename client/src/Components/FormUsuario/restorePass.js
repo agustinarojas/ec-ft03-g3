@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
           onChange={e => handleOnChange(e)}
           //disabled={true}
         />
-        { state.password?.length < 6 || !state.password ?
+        { state.nuevaPassword?.length < 6 || !state.nuevaPassword ?
         <small id="emailHelp" className="form-text text-muted">
           La contraseña debe contener almenos 6 caracteres
         </small> : ''
@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
           //disabled={true}
         />
         {
-          state.password2 != state.password || state.password2 == null ?
+          state.password2 != state.nuevaPassword || state.password2 == null ?
          <small id="emailHelp" className="form-text text-muted">Las contraseñas deben ser las mismas</small> :
          <small id="emailHelp" className="form-text text-muted">Contraseña confirmada</small>
        }
@@ -96,8 +96,8 @@ const useStyles = makeStyles((theme) => ({
       {
       //  state.actualPassword != state.password ||
         !state.password2 ||
-        state.password2 != state.password ||
-        state.password.length < 6
+        state.password2 != state.nuevaPassword ||
+        state.nuevaPassword.length < 6
         ? control = true : false
       }
       <button onClick = {handleClick} variant="contained" color="primary" type="submit"  value="Submit" disabled={control ? true : false}>

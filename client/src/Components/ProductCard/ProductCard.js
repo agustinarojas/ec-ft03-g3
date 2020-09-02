@@ -109,6 +109,7 @@ function ProductCard({imagen, titulo, precio, id, stock, addToCart, user, review
 				        gap = {'6px'}
 				        activeColor = {'66C3FF'}
 				      />
+							<span>({reviews.length})</span>
 						</div>
 					</div>
 				</figcaption>
