@@ -117,7 +117,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 		setAbrir(false);
 	};
 	if (redirect) {
-		return <Redirect to="/" />;
+		return <Redirect to="/sendform" />;
 	}
 
 	const handleClick = () => {
@@ -128,7 +128,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	  if (reason === 'clickaway') {
 		return;
 	  }
-  
+
 	  setOpen(false);
 	};
 	return (
@@ -196,9 +196,9 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 						}, 1000);
 					}}>
 					Checkout
-					
+
 				</button>
-				
+
 			) : (
 				''
 			)

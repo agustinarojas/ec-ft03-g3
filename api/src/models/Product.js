@@ -42,41 +42,53 @@ module.exports = sequelize => {
 		},
 	});
 	const User = sequelize.define('user', {
-		nombre: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		apellido: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		email: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			unique: true,
-			validate: {
-				isEmail: true,
-			},
-		},
-		password: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			get() {
-				return () => this.getDataValue('password');
-			},
-		},
-		salt: {
-			type: DataTypes.STRING,
-			get() {
-				return () => this.getDataValue('salt');
-			},
-		},
-		admin: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false,
-			defaultValue: false,
-		},
-	});
+        nombre: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        apellido: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true,
+            },
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            get() {
+                return () => this.getDataValue('password');
+            },
+        },
+        salt: {
+            type: DataTypes.STRING,
+            get() {
+                return () => this.getDataValue('salt');
+            },
+        },
+        admin: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
+        direccion: {
+            type: DataTypes.STRING,
+        },
+        cp: {
+            type: DataTypes.INTEGER,
+        },
+        ciudad : {
+            type: DataTypes.STRING,
+        },
+        provincia: {
+            type: DataTypes.STRING,
+        },
+    });
 
 	const lineorder = sequelize.define('lineorder', {
 		cantidad: {
