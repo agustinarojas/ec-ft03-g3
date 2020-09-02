@@ -5,7 +5,6 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const {isAdmin, isAuthenticated} = require('./validations');
 
-
 server.get('/', isAdmin, (req, res) => {
 	User.findAll()
 		.then(users => {
@@ -225,7 +224,7 @@ server.get('/:ids/orders', isAuthenticated, (req, res) => {
 			userId: req.params.ids,
 			estado: 'completa',
 		},
-		include: [{model: Product}]
+		include: [{model: Product}],
 	})
 		.then(completados => {
 			res.send(completados);
