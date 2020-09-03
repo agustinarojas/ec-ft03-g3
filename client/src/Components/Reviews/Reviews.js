@@ -32,6 +32,7 @@ function Reviews({reviews, getReviews}) {
         </div>
 			 ))
 		 }
+     <h4>Calificacion promedio</h4>
      <BeautyStars
        value={suma/reviews.length}
        size = {'24px'}

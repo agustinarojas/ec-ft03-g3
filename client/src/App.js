@@ -14,20 +14,30 @@ import user from './Components/FormUsuario/User';
 import RestorePass from './Components/FormUsuario/restorePass.js';
 import OrdersUser from './Components/Orders/ordersUser';
 import OrderProducts from './Components/Orders/orderProducts';
+import SendForm from './Components/PayForm/sendForm';
+import PayForm from './Components/PayForm/payForm';
 import {
 	getProducts,
 	getCategories,
 	searchProduct,
 	getOrder,
 	getUser,
-	getUsers,
 	getTotalReviews,
 } from './Actions/index';
 import Footer from './Components/Footer/Footer';
 import {connect} from 'react-redux';
 import Reviews from './Components/Reviews/Reviews';
 
-function App({productos, catProducts, getCategories, categories, searchProduct, orders, getUser, getTotalReviews}) {
+function App({
+	productos,
+	catProducts,
+	getCategories,
+	categories,
+	searchProduct,
+	orders,
+	getUser,
+	getTotalReviews,
+}) {
 	const [buscar, setBuscar] = useState('');
 
 	const filtrar = id => {
@@ -38,6 +48,7 @@ function App({productos, catProducts, getCategories, categories, searchProduct, 
 		getCategories();
 		searchProduct(buscar);
 		getUser();
+		getTotalReviews();
 	}, [buscar]);
 
 	const search = input => {
@@ -70,7 +81,8 @@ function App({productos, catProducts, getCategories, categories, searchProduct, 
 			<Route path="/users/:userId/orders" component={OrdersUser} />
 			<Route path="/user/order/:id" component={OrderProducts} />
 			<Route path="/" component={Footer} />
-
+      <Route path="/sendform" component={SendForm} />
+			<Route path="/paymentmethods" component={PayForm} />
 		</div>
 	);
 }

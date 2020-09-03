@@ -42,6 +42,7 @@ server.get('/:id', isAuthenticated, (req, res) => {
 server.put('/:id', isAuthenticated, (req, res) => {
 	//ruta actualiza orden
 	var data = req.body;
+	console.log(data);
 	Carrito.findOne({
 		where: {
 			userId: req.params.id,

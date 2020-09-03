@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import Axios from 'axios';
 import BeautyStars from 'beauty-stars';
 import TextField from '@material-ui/core/TextField';
@@ -23,10 +23,6 @@ function OrderProducts({ ordersUser, match, user }) {
             .post(`http://localhost:3005/products/${idUser}/review`, { rating: value, descripcion: tarea, productId: idProd, userId: idUser })
             .then(success => console.log(success))
             .catch(err => console.log(err))
-    }
-
-    const handleOnClick = () => {
-        setState(true);
     }
     var control;
     return (
@@ -61,7 +57,6 @@ function OrderProducts({ ordersUser, match, user }) {
                                 onChange={(value) => setValue(value)}
                             />
                             <TextField style={{ marginTop: '8px', size: '6px' }} id="outlined-basic" label="Opinion" variant="outlined" name="body" onChange={(e) => setTarea(e.target.value)}></TextField>
-
                             {
                                 !value || !tarea ? (control = true) : false
                             }
@@ -79,10 +74,10 @@ function OrderProducts({ ordersUser, match, user }) {
 }
 
 const mapStateToProps = state => {
-    return {
-        orders: state.orders,
-        ordersUser: state.ordersUser,
-        user: state.user,
-    };
+	return {
+		orders: state.orders,
+		ordersUser: state.ordersUser,
+		user: state.user,
+	};
 };
 export default connect(mapStateToProps)(OrderProducts);
