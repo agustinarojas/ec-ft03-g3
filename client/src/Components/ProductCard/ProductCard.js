@@ -113,7 +113,13 @@ function ProductCard({
 					<h4 className="title">{titulo}</h4>
 					<div className="rating-wrap">
 						<div className="label-rating">
-							<BeautyStars value={promedio} size={'24px'} gap={'6px'} activeColor={'66C3FF'} />
+							<BeautyStars
+				        value={promedio}
+				        size = {'24px'}
+				        gap = {'6px'}
+				        activeColor = {'66C3FF'}
+				      />
+							<span>({reviews.length})</span>
 						</div>
 					</div>
 				</figcaption>

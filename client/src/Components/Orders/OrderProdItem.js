@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
 import Axios from 'axios';
 import BeautyStars from 'beauty-stars';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 export default function OrderProdItem({titulo, precio, cantidad, imagen, id, user}) {
-	const [state, setState] = useState(false);
 	const [tarea, setTarea] = useState('');
 	const [value, setValue] = useState(0);
 
@@ -25,40 +25,44 @@ export default function OrderProdItem({titulo, precio, cantidad, imagen, id, use
 			.catch(err => console.log(err));
 	};
 
-	const handleOnClick = () => {
-		setState(true);
-	};
 	var control;
 	return (
-		<div>
-			<p>Titulo: {titulo}</p>
-			<p>Precio: ${precio}</p>
-			<p>Cantidad:{cantidad} </p>
-			<img src={imagen} />
-			<Link onClick={() => handleOnClick()}>
-				<span>Calificar Producto</span>
-			</Link>
-			{state ? (
-				<div>
-					<textarea id="body-field" name="body" onChange={e => setTarea(e.target.value)}></textarea>
-					<BeautyStars
-						value={value}
-						size={'24px'}
-						gap={'6px'}
-						activeColor={'66C3FF'}
-						onChange={value => setValue(value)}
-					/>
-					{!value || !tarea ? (control = true) : false}
-					<button
-						disabled={control ? true : false}
-						onClick={() => {
-							submitRate(user.id, id);
-							setState(false);
-						}}>
-						Calificar
-					</button>
-				</div>
-			) : null}
-		</div>
+		<tr>
+			<th style={{width: '15%'}} scope="row">
+				{titulo}
+			</th>
+			<td style={{width: '15%'}}>${precio}</td>
+			<td style={{width: '15%'}}>{cantidad} </td>
+			<td style={{width: '25%'}}>
+				<img style={{width: '45%'}} src={imagen} />
+			</td>
+			<td style={{width: '30%'}}>
+				<BeautyStars
+					value={value}
+					size={'24px'}
+					gap={'6px'}
+					activeColor={'66C3FF'}
+					onChange={value => setValue(value)}
+				/>
+				<TextField
+					style={{marginTop: '8px', size: '6px'}}
+					id="outlined-basic"
+					label="Opinion"
+					variant="outlined"
+					name="body"
+					onChange={e => setTarea(e.target.value)}></TextField>
+				{!value || !tarea ? (control = true) : false}
+				<Button
+					variant="outlined"
+					color="primary"
+					style={{marginLeft: '4px', marginTop: '8px'}}
+					disabled={control ? true : false}
+					onClick={() => {
+						submitRate(user.id, id);
+					}}>
+					Calificar
+				</Button>
+			</td>
+		</tr>
 	);
 }

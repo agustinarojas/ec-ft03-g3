@@ -12,24 +12,53 @@ function OrderProducts({ordersUser, match, user}) {
 
 	return (
 		<div>
-			<h1>NRO ORDEN: {ord[0]?.id}</h1>
-			<h3>Fecha: {ord[0]?.createdAt.slice(0, 10)}</h3>
-			<h3>Hora: {ord[0]?.createdAt.slice(11, 19)}</h3>
-			<div>
-				<h3>Productos:</h3>{' '}
-				{prods?.map(p => (
-					<OrderProdItem
-						titulo={p.titulo}
-						precio={p.precio}
-						cantidad={p.lineorder.cantidad}
-						imagen={p.imagen}
-						key={p.id}
-						id={p.id}
-						user={user}
-					/>
-				))}
+			<div
+				style={{
+					width: '100%',
+					backgroundImage: 'linear-gradient(90deg,whitesmoke, rgb(30, 147, 243))',
+					borderBottomRightRadius: '30px',
+				}}>
+				<h1>NRO ORDEN: {ord[0]?.id}</h1>
+				<h3>Fecha: {ord[0]?.createdAt.slice(0, 10)}</h3>
+				<h3>Hora: {ord[0]?.createdAt.slice(11, 19)}</h3>
 			</div>
-			<h2>TOTAL : {total}</h2>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Nombre producto</th>
+						<th scope="col">Precio</th>
+						<th scope="col">Cantidad</th>
+						<th scope="col">Imagen</th>
+						<th scope="col">Calificacion</th>
+					</tr>
+				</thead>
+				<tbody>
+					{prods?.map(p => (
+						<OrderProdItem
+							titulo={p.titulo}
+							precio={p.precio}
+							cantidad={p.lineorder.cantidad}
+							imagen={p.imagen}
+							key={p.id}
+							id={p.id}
+							user={user}
+						/>
+					))}
+				</tbody>
+			</table>
+			<div
+				style={{
+					display: 'flex',
+					marginLeft: '70%',
+					marginRight: '12%',
+					marginTop: '10px',
+					backgroundColor: 'rgb(30, 147, 243)',
+					borderRadius: '7px',
+					padding: '0.5%',
+					color: 'whitesmoke',
+				}}>
+				<h2>TOTAL: ${total}</h2>
+			</div>
 		</div>
 	);
 }

@@ -7,6 +7,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {login} from '../../Actions/index';
 import {Redirect, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+import TextField from '@material-ui/core/TextField';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -66,26 +67,26 @@ function LoginUser({login, user}) {
 	}
 
 	return (
-		<div className="Formm">
+		<div style ={{marginTop: '2%'}} className="Formm">
 			<form onSubmit={e => handleOnSubmit(e)}>
 				<div className="form-group">
 					<label htmlFor="exampleInputEmail1"></label>
-					<input
+					<TextField
+					style={{width:'60%', marginTop: '1%'}}
 						name="email"
-						placeholder="E-mail"
+						label="E-mail"
 						type="email"
-						className="form-control"
-						id="exampleInputEmail1"
+						id="standard-basic"
 						aria-describedby="emailHelp"
 						onChange={e => handleOnChange(e)}
 					/>
 					<label htmlFor="exampleInputPassword"></label>
-					<input
+					<TextField
+					style={{width:'60%', marginTop: '1%'}}
 						name="password"
-						placeholder="Contraseña"
+						label="Contraseña"
 						type="password"
-						className="form-control"
-						id="exampleInputPassword"
+						id="standard-basic"
 						onChange={e => handleOnChange(e)}
 					/>
 					<small id="emailHelp" className="form-text text-muted">
