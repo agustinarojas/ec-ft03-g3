@@ -1,8 +1,9 @@
 .Formm {
     display: flex;
     justify-content: center;
+    align-content: center;
+    margin-left: 17%;
 }
-
 .danger{
   border: red 1px solid;
 }
