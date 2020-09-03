@@ -1,46 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import axios from 'axios';
-import '../FormUsuario/Form.css';
-import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import MuiAccordion from '@material-ui/core/Accordion';
-import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
-import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
+import {FormControl, Container, InputLabel, Input, FormHelperText, FormControlLabel} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 
 
- function PayForm({user}) {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
+
+
+ function PayForm({user,productsCar}) {
 	const [state, setState] = useState({});
 	const [redirect, setRedirect] = useState(false);
   const [redir, setRedir] = useState(false);
-	const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
+  
   const [expanded, setExpanded] = useState('panel1');
+  const classes = useStyles();
 	const handleOnChange = e => {
 		setState({
 			...state,
 			[e.target.name]: e.target.value,
 		});
 	};
-
-  function comprar() {
+ 
+	function comprar() {
+		const {carritoId} = productsCar[0]?.lineorder;
+		console.log(carritoId);
 		return axios
-			.put(`http://localhost:3005/orders/${user.id}`, {estado: 'completa'}, {withCredentials: true})
+			.put(
+				`http://localhost:3005/orders/${user.id}`,
+				{estado: 'completa', carritoId},
+				{withCredentials: true},
+			)
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
-	}
+      }
 
-  const handleCancel = () => {
+
+
+  /* const handleCancel = () => {
 		console.log('holaaa')
 		return axios
 			.put(`http://localhost:3005/orders/${user.id}`, {estado: 'activo'}, {withCredentials: true})
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
-	}
+	} */
 
-	const handleSubmit = (event, state) => {
+/* 	const handleSubmit = (event, state) => {
 		console.log(state)
 		event.preventDefault();
 		axios
@@ -51,180 +71,182 @@ import Typography from '@material-ui/core/Typography';
 				} else { setError(false) }
 			})
 			.catch(error => console.log(error))
-	};
+	}; */
 
 
 	if (redirect && !error) {
-		return <Redirect to="/paymentmethods" />;
+		return <Redirect to="/sendform" />;
 	}
 
   if (redir && !error) {
 		return <Redirect to="/users/:userId/orders"/>;
 	}
-
-  const Accordion = withStyles({
-  root: {
-    border: '1px solid rgba(0, 0, 0, .125)',
-    boxShadow: 'none',
-    '&:not(:last-child)': {
-      borderBottom: 0,
-    },
-    '&:before': {
-      display: 'none',
-    },
-    '&$expanded': {
-      margin: 'auto',
-    },
-  },
-  expanded: {},
-})(MuiAccordion);
-
-const AccordionSummary = withStyles({
-  root: {
-    backgroundColor: 'rgba(0, 0, 0, .03)',
-    borderBottom: '1px solid rgba(0, 0, 0, .125)',
-    marginBottom: -1,
-    minHeight: 56,
-    '&$expanded': {
-      minHeight: 56,
-    },
-  },
-  content: {
-    '&$expanded': {
-      margin: '12px 0',
-    },
-  },
-  expanded: {},
-})(MuiAccordionSummary);
-
-const AccordionDetails = withStyles((theme) => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))(MuiAccordionDetails);
-
-
-    const handleChange = (panel) => (event, newExpanded) => {
-      setExpanded(newExpanded ? panel : false);
-    };
-
     return (
       <div>
+        {user.id  ? (
+        
+        <div>
       <h3>Cómo querés pagar?</h3>
       <div>
-        <Accordion square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-          <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography>Tarjeta de credito</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-            <form
-              onSubmit={e => {
-                e.preventDefault()
-                handleSubmit(e, state);
-                setTimeout(function () {
-                setRedirect(true);
-                }, 1500);
-              }}>
-              <div className="form-group">
-                <label htmlFor="exampleInputNombre"></label>
-                <input
-                  name="nombre"
-                  placeholder="Nombre"
-                  type="text"
-                  className="form-control"
-                  id="exampleInputNombre"
+            <Container className = {classes.root}>
+            <Accordion>
+        <AccordionSummary
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+           <Typography className={classes.heading}>Tarjeta de credito</Typography>
+           </AccordionSummary>
+           <AccordionDetails>
+           <Typography>
+
+           
+            <FormControl
+              >
+              <Container className="form-group">
+                <FormControl>
+                <InputLabel htmlFor="Nombre">Nombre</InputLabel>
+                <Input
+                  type = "Nombre"
+                  id="Nombre"
+                  onChange={e => handleOnChange(e)}
+                  />
+                  </FormControl>
+                  <FormControl>
+                <InputLabel htmlFor="Apellido">Apellido</InputLabel>
+                <Input
+                  type= "Apellido"
+                  id="Apellido"
                   onChange={e => handleOnChange(e)}
                 />
-                <label htmlFor="exampleInputApellido"></label>
-                <input
-                  name="apellido"
-                  placeholder="Apellido"
-                  type="text"
-                  className="form-control"
-                  id="exampleInputApellido"
+                </FormControl>
+                <FormControl>
+
+                <InputLabel htmlFor="DNI">DNI</InputLabel>
+                <Input
+                  type = "number"
+                  id="DNI"
                   onChange={e => handleOnChange(e)}
-                />
-                <label htmlFor="exampleInputDNI"></label>
-                <input
-                  name="dni"
-                  placeholder="DNI"
-                  type="number"
-                  className="form-control"
-                  id="exampleInputDNI"
+                  />
+                  </FormControl>
+                <FormControl>
+                <InputLabel htmlFor="Email">Email</InputLabel>
+                <Input
+                  type = "email"
+                  aria-describedby="my-helper-text"
+                  id="Email"
                   onChange={e => handleOnChange(e)}
-                />
-                <label htmlFor="exampleInputEmail"></label>
-                <input
-                  name="email"
-                  placeholder="E-mail"
-                  type="email"
-                  className="form-control"
-                  id="exampleInputEmail"
+                  />
+                  <FormHelperText>
+                    No compartiremos tu email con nadie.
+                  </FormHelperText>
+                  </FormControl>
+                <FormControl>
+
+                <InputLabel htmlFor="Tarjeta">Numero de Tarjeta</InputLabel>
+                <Input
+                  tpye = "numero"
+                  id="NumTarjeta"
+                  aria-describedby="my-helper-text"
                   onChange={e => handleOnChange(e)}
-                />
-                <label htmlFor="exampleInputNumTarjeta"></label>
-                <input
-                  name="numTarjeta"
-                  placeholder="Numero de tarjeta"
-                  type="number"
-                  className="form-control"
-                  id="exampleInputNumTarjeta"
+                  />
+                  </FormControl>
+                  <FormHelperText>
+                    No compartiremos tu tarjeta con nadie.
+                  </FormHelperText>
+                  <FormControl>
+
+                <InputLabel htmlFor="CodSeguridad">Codigo de Seguridad</InputLabel>
+                <Input
+                  tpye = "numero"
+                  id="CodSeguridad"
                   onChange={e => handleOnChange(e)}
-                />
-                <label htmlFor="exampleInputCodSeguridad"></label>
-                <input
-                  name="codSeguridad"
-                  placeholder="Codigo de seguridad"
-                  type="number"
-                  className="form-control"
-                  id="exampleInputCodSeguridad"
+                  />
+                  </FormControl>
+                  <FormControl>
+                <InputLabel htmlFor="FechaExp"></InputLabel>
+                <Input
+                  type = "date"
+                  id="FechaExp"
                   onChange={e => handleOnChange(e)}
-                />
-                <label htmlFor="exampleInputFechaExp"></label>
-                <input
-                  name="fechaExp"
-                  placeholder="Fecha de expiracion"
-                  type="date"
-                  className="form-control"
-                  id="exampleInputFechaExp"
-                  onChange={e => handleOnChange(e)}
-                />
+                  />
+                  </FormControl>
                 <Button
-            		 variant="contained"
-            		 className='skere'
-            		 type='button'
-            		 value="button"
-            		 onClick={() => {comprar(); setRedir(true)}}
+                variant="contained"
+                color = "primary"
+            		onClick = {() => {comprar (); setRedir(true); }}
             		>
             			Comprar
             		</Button>
-              </div>
-            </form>
+              </Container>
+            </FormControl>
             </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-          <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography>Efectivo</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-
-
-
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+            </AccordionDetails>
+            </Accordion>
+            </Container>
+            <Container className = {classes.root}>
+            <Accordion>
+            <AccordionSummary
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+           <Typography className={classes.heading}>Efectivo</Typography>
+           </AccordionSummary>
+           <AccordionDetails>
+           <AccordionSummary
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+           <Typography className={classes.heading}></Typography>
+           </AccordionSummary>
+           <AccordionDetails>
+             <Typography>
+              <Button color= "primary" variant = "outlined">Comprar con Pago Facil</Button>
+             </Typography>
+           </AccordionDetails>
+           <AccordionSummary
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+           <Typography className={classes.heading}></Typography>
+           </AccordionSummary>
+           <AccordionDetails>
+             <Typography>
+              <Button color= "primary" variant = "outlined">Comprar con Rapipago</Button>
+             </Typography>
+             </AccordionDetails>
+             <AccordionSummary
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+           <Typography className={classes.heading}></Typography>
+           </AccordionSummary>
+           <AccordionDetails>
+             <Typography>
+              <Button color= "primary" variant = "outlined">Comprar con Mercado Pago</Button>
+             </Typography>
+             </AccordionDetails>
+           </AccordionDetails>
+            </Accordion>
+            </Container>
       </div>
+      <footer>
+        <Button color = "primary" variant = "outlined" onClick = {() => setRedirect(true)}>
+          Regresar
+        </Button>
+      </footer>
+      </div>
+        ) : (
+          <Redirect to = "/"/>
+        ) }
       </div>
     );
   }
 
-function mapStateToProps(state) {
-	return {
-		user: state.user,
-	};
-}
-
-export default connect(mapStateToProps)(PayForm);
+  function mapStateToProps(state) {
+    return {
+      productsCar: state.productsCar,
+      user: state.user,
+      
+    };
+  }
+  export default connect(mapStateToProps)(PayForm);

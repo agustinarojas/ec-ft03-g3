@@ -49,7 +49,17 @@ import Button from '@material-ui/core/Button';
 
 	var control;
 	return (
+
 		<div>
+
+			{user.id ? (
+
+			
+			
+		<div>
+
+			
+		
 		<h3>¿Donde querés recibir tu compra?</h3>
 		<div className="Formm">
 			<form
@@ -115,14 +125,18 @@ import Button from '@material-ui/core/Button';
 			</form>
 		</div>
 		<Button
-		 variant="contained"
-		 className='skere'
-		 type='button'
-		 value="button"
-		 onClick={() => { handleCancel(); setRedir(true);} }
+		variant="contained"
+		className='skere'
+		type='button'
+		value="button"
+		onClick={() => { handleCancel(); setRedir(true);} }
 		>
 			Cancelar
 		</Button>
+		</div>	
+			):(
+				<Redirect to = "/login"/>
+			)}				
 		</div>
 	);
 }
