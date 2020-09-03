@@ -203,6 +203,7 @@ export default function rootReducer(state = inicialState, action) {
 			return {
 				...state,
 				users: state.users.filter(user => user.id !== action.deleteUser.id),
+				user: {},
 			};
 		case GET_REVIEWS:
 			return {
