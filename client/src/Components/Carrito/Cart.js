@@ -91,19 +91,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	// };
 	// console.log(precio);
 
-	function comprar() {
-		const {carritoId} = productsCar[0].lineorder;
-		console.log(carritoId);
-		return axios
-			.put(
-				`http://localhost:3005/orders/${user.id}`,
-				{estado: 'completa', carritoId},
-				{withCredentials: true},
-			)
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
-	}
-
 	const [open, setOpen] = React.useState(false);
 	const [abrir, setAbrir] = React.useState(false);
 
@@ -196,7 +183,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					id="compra"
 					onClick={() => {
 						handleClick();
-						comprar();
+						
 						setTimeout(function () {
 							setRedirect(true);
 						}, 1000);
@@ -206,11 +193,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 			) : (
 				''
 			)}
-			<Snackbar open={open} autoHideDuration={6000} onClose={handleClosed}>
-				<Alert onClose={handleClosed} severity="success">
-					Tu compra fue exitosa!
-				</Alert>
-			</Snackbar>
+			
 		</div>
 	);
 }

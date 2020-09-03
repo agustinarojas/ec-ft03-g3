@@ -107,6 +107,8 @@ function LoginUser({login, user}) {
 					value="Submit">
 					Ingresar
 				</Button>
+				<Link to = "/sign_up">¿No tenes una cuenta? Registrate </Link>
+
 				{/* {error ? <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 					<Alert onClose={handleClose} severity="success">
 						Sesion iniciada con exito!
