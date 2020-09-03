@@ -5,7 +5,6 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const {isAdmin, isAuthenticated} = require('./validations');
 
-
 server.get('/', isAdmin, (req, res) => {
 	User.findAll()
 		.then(users => {
@@ -39,6 +38,8 @@ server.post('/', (req, res) => {
 
 server.put('/:id', isAuthenticated, (req, res) => {
 	var newEmail = req.body.email;
+	var {direccion, cp, ciudad, provincia} = req.body;
+	console.log(req.body)
 	User.findOne({
 		where: {
 			id: req.params.id,
@@ -47,9 +48,13 @@ server.put('/:id', isAuthenticated, (req, res) => {
 		.then(user => {
 			user.update({
 				email: newEmail,
+				direccion: direccion,
+				cp: cp,
+				ciudad: ciudad,
+				provincia: provincia
 			});
 			user.save();
-			res.status(200).send('Usuario actualizado');
+			res.status(200).send(user);
 		})
 		.catch(err => {
 			res.send('Usuario inexistente');
@@ -225,7 +230,7 @@ server.get('/:ids/orders', isAuthenticated, (req, res) => {
 			userId: req.params.ids,
 			estado: 'completa',
 		},
-		include: [{model: Product}]
+		include: [{model: Product}],
 	})
 		.then(completados => {
 			res.send(completados);

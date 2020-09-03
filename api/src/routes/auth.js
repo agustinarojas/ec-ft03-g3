@@ -1,12 +1,14 @@
 const server = require('express').Router();
-const {User} = require('../db.js');
+const { User } = require('../db.js');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
-const {isAuthenticated, isAdmin} = require('./validations');
+const { isAuthenticated, isAdmin } = require('./validations');
 //prettier-ignore
-server.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), function (req,res,) {
+server.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), function (req, res,) {
 	res.send(req.user)
 });
+
+
 
 server.get('/', (req, res) => {
 	console.log('chau');
@@ -27,7 +29,7 @@ server.post('/promote/:id', isAdmin, (req, res) => {
 	console.log(req.params.id);
 	User.findByPk(req.params.id)
 		.then(user => {
-			user.update({admin: true}), user.save();
+			user.update({ admin: true }), user.save();
 			res.send(user);
 		})
 		.catch(err => {
