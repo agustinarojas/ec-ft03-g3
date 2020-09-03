@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -70,30 +71,30 @@ function FormUsuario() {
 				}}>
 				<div className="form-group">
 					<label htmlFor="exampleInputNombre"></label>
-					<input
+					<TextField
+					style={{width:'60%', marginTop: '1%'}}
 						name="nombre"
-						placeholder="Nombre"
+						label="Nombre"
 						type="text"
-						className="form-control"
-						id="exampleInputNombre"
+						id="standard-basic"
 						onChange={e => handleOnChange(e)}
 					/>
 					<label htmlFor="exampleInputApellido"></label>
-					<input
+					<TextField
+					style={{width:'60%', marginTop: '1%'}}
 						name="apellido"
-						placeholder="Apellido"
+						label="Apellido"
 						type="text"
-						className="form-control"
-						id="exampleInputApellido"
+						id="standard-basic"
 						onChange={e => handleOnChange(e)}
 					/>
 					<label htmlFor="exampleInputEmail1"></label>
-					<input
+					<TextField
+					style={{width:'60%', marginTop: '1%'}}
 						name="email"
-						placeholder="E-mail"
+						label="E-mail"
 						type="email"
-						className="form-control"
-						id="exampleInputEmail1"
+						id="standard-basic"
 						aria-describedby="emailHelp"
 						onChange={e => handleOnChange(e)}
 					/>
@@ -101,12 +102,12 @@ function FormUsuario() {
 						No compartiremos tus datos con nadie.
 					</small>
 					<label htmlFor="exampleInputPassword"></label>
-					<input
+					<TextField
+					   style={{width:'60%', marginTop: '1%'}}
 						name="password"
-						placeholder="Contraseña"
+						label="Contraseña"
 						type="password"
-						className="form-control"
-						id="exampleInputPassword"
+						id="standard-basic"
 						onChange={e => handleOnChange(e)}
 					/>
 					{state.password?.length < 6 || !state.password ? (
@@ -117,13 +118,13 @@ function FormUsuario() {
 							''
 						)}
 					<label htmlFor="exampleInputPassword2"></label>
-					<input
+					<TextField
+					style={{width:'60%', marginTop: '1%'}}
 						className={state.password2 != state.password && 'danger'}
 						name="password2"
-						placeholder="Confirme la contraseña"
+						label="Confirme la contraseña"
 						type="password"
-						className="form-control"
-						id="exampleInputPassword2"
+						id="standard-basic"
 						onChange={e => handleOnChange(e)}
 					/>
 					{state.password2 != state.password || state.password2 == null ? (

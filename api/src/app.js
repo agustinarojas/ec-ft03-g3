@@ -3,14 +3,16 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
-const {User} = require('./db.js');
+const { User } = require('./db.js');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 
+
 require('./db.js');
 
+
 passport.use(
-	new Strategy({usernameField: 'email'}, function (username, password, done) {
+	new Strategy({ usernameField: 'email' }, function (username, password, done) {
 		console.log('app.user' + username);
 		User.findOne({
 			where: {
@@ -28,7 +30,7 @@ passport.use(
 				return done(null, user);
 			})
 			.catch(err => {
-				return done({error: true});
+				return done({ error: true });
 			});
 	}),
 );
@@ -49,8 +51,8 @@ passport.deserializeUser(function (id, done) {
 const server = express();
 
 server.name = 'API';
-server.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
-server.use(bodyParser.json({limit: '50mb'}));
+server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
+server.use(bodyParser.json({ limit: '50mb' }));
 server.use(morgan('dev'));
 server.use(cookieParser());
 server.use(
