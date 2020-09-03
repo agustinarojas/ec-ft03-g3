@@ -93,9 +93,10 @@ function LoginUser({login, user}) {
 						No compartiremos tus datos con nadie.
 					</small>
 				</div>
-				<Link style={{display: 'block', marginBottom: '20px'}} to="/RestablecerContraseña">
+				<Link style={{display: 'block', marginBottom: '5px'}} to="/RestablecerContraseña">
 					<span>¿Olvidaste tu contraseña?</span>
 				</Link>
+				<Link style={{display: 'block', marginBottom: '20px'}} to = "/sign_up">¿No tenes una cuenta? Registrate </Link>
 				<Button
 					onClick={() => {
 						handleClick();
@@ -107,7 +108,6 @@ function LoginUser({login, user}) {
 					value="Submit">
 					Ingresar
 				</Button>
-				<Link to = "/sign_up">¿No tenes una cuenta? Registrate </Link>
 
 				{/* {error ? <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 					<Alert onClose={handleClose} severity="success">

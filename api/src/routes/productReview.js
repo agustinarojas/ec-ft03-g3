@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const {Product, Review} = require('../db.js');
+const { Review, User } = require('../db.js');
 const {isAuthenticated} = require('./validations.js');
 
 server.post('/:id/review', isAuthenticated, (req, res) => {
@@ -42,6 +42,9 @@ server.get('/:prodId/reviews', (req, res) => {
 		where: {
 			productId: prodId,
 		},
+		include: {
+			model: User
+		}
 	})
 		.then(reviews => {
 			res.status(200).send(reviews);

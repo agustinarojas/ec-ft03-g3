@@ -34,25 +34,25 @@ function TableProductCat({setCategory, deleteProdCategory, products, categories,
 			}}
 			detailPanel={[
 				{
-					icon: 'delete',
-					tooltip: 'Eliminar categoría',
+					icon: 'visibility',
+					tooltip: 'Mostrar categorias',
 					render: rowData => {
 						{
 							console.log(rowData);
 							console.log(products);
 						}
 						return (
-							<ul
+							<ul className="list-group"
 								style={{
-									fontSize: 40,
-									// textAlign: 'center',
+									fontSize: 18,
 									color: 'white',
 									backgroundColor: 'rgb(199 199 199)',
+									marginRight: '15%'
 								}}>
 								{products
 									.filter(prod => prod.id === rowData.id)[0]
 									.cats.map(cat => (
-										<li>
+										<li className="list-group-item active">
 											{cat.titulo}{' '}
 											<button
 												name={cat.id}
