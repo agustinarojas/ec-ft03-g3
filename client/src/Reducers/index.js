@@ -135,25 +135,27 @@ export default function rootReducer(state = inicialState, action) {
 					productsCar: [],
 				};
 			}
-
 			let productos = state.productsCar.filter(prod => {
 				return prod.id !== action.productCar.id;
 			});
-			// let precios = productos.map(
-			// 	prod => parseInt(prod.lineorder.cantidad) * parseInt(prod.precio),
-			// );
 			return {
 				...state,
 				productsCar: productos,
-				// totalCarrito: precios.reduce((acum, value) => acum + value),
 			};
 
 		case SET_CANTIDAD:
-			for (let i = 0; i < state.productsCar.length; i++) {
-				if (state.productsCar[i].id === action.product.id) state.productsCar[i] = action.product;
-			}
-			console.log(state);
-			return state;
+		case SET_CANTIDAD:
+			var newProdCart = state.productsCar.map(prod => {
+				if (prod.id === action.product.id) {
+					return action.product;
+				} else {
+					return prod;
+				}
+			});
+			return {
+				...state,
+				productsCar: newProdCart,
+			};
 		//* ORDERS
 		case GET_ORDER:
 			return {
@@ -200,10 +202,14 @@ export default function rootReducer(state = inicialState, action) {
 				users: action.users,
 			};
 		case DELETE_USERS:
+			var user = state.user;
+			if (user.id == action.deleteUser.id) {
+				user = {};
+			}
 			return {
 				...state,
 				users: state.users.filter(user => user.id !== action.deleteUser.id),
-				user: {},
+				user: user,
 			};
 		case GET_REVIEWS:
 			return {

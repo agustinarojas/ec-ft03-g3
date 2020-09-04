@@ -1,7 +1,7 @@
 .nav {
 	background-color: indianred;
 }
-#chico{
+#chico {
 	padding-top: 13px;
 	padding-bottom: 12px;
 }
@@ -75,4 +75,11 @@ body {
 
 .dropd:hover .dropd-cont {
 	display: block;
+}
+
+.num {
+	color: white;
+	background-color: red;
+	font-size: 15px;
+	border-radius: 40%;
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import OrderProdItem from './OrderProdItem';
 
@@ -22,7 +22,7 @@ function OrderProducts({ordersUser, match, user}) {
 				<h3>Fecha: {ord[0]?.createdAt.slice(0, 10)}</h3>
 				<h3>Hora: {ord[0]?.createdAt.slice(11, 19)}</h3>
 			</div>
-			<table class="table table-striped">
+			<table className="table table-striped">
 				<thead>
 					<tr>
 						<th scope="col">Nombre producto</th>

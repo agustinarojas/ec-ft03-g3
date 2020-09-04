@@ -39,7 +39,7 @@ server.post('/', (req, res) => {
 server.put('/:id', isAuthenticated, (req, res) => {
 	var newEmail = req.body.email;
 	var {direccion, cp, ciudad, provincia} = req.body;
-	console.log(req.body)
+	console.log(req.body);
 	User.findOne({
 		where: {
 			id: req.params.id,
@@ -51,7 +51,7 @@ server.put('/:id', isAuthenticated, (req, res) => {
 				direccion: direccion,
 				cp: cp,
 				ciudad: ciudad,
-				provincia: provincia
+				provincia: provincia,
 			});
 			user.save();
 			res.status(200).send(user);
@@ -61,6 +61,24 @@ server.put('/:id', isAuthenticated, (req, res) => {
 		});
 });
 
+// server.delete('/:id', isAuthenticated, (req, res) => {
+// 	User.findOne({
+// 		where: {
+// 			id: req.params.id,
+// 		},
+// 	})
+// 		.then(user => {
+// 			if (!user) {
+// 				res.send('Usuario inexistente');
+// 			} else {
+// 				user.destroy();
+// 				res.status(200).send(user);
+// 			}
+// 		})
+// 		.catch(err => {
+// 			console.log(err);
+// 		});
+// });
 server.delete('/:id', isAuthenticated, (req, res) => {
 	User.findOne({
 		where: {
@@ -71,6 +89,9 @@ server.delete('/:id', isAuthenticated, (req, res) => {
 			if (!user) {
 				res.send('Usuario inexistente');
 			} else {
+				if (req.params.id == req.user.id) {
+					req.logout();
+				}
 				user.destroy();
 				res.status(200).send(user);
 			}
@@ -79,7 +100,6 @@ server.delete('/:id', isAuthenticated, (req, res) => {
 			console.log(err);
 		});
 });
-
 server.post('/:ids/cart', (req, res) => {
 	var ids = req.params.ids;
 	const {id, cantidad, carritoId} = req.body;
@@ -251,10 +271,6 @@ server.post('/:ids/passReset', isAuthenticated, (req, res) => {
 			user.update({
 				password: pass,
 			});
-			user.save();
-			console.log(pass);
-			console.log(user.password());
-			console.log(user.correctPassword(pass));
 			res.send(user.correctPassword(pass)).status(201);
 		})
 		.catch(err => console.log(err));
