@@ -3,15 +3,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import './NavBar.css';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {
-	filterByCategory,
-	getOrder,
-	getProducts,
-	getOrders,
-	getUser,
-	logout,
-	getUsers,
-} from '../../Actions/index';
+import {filterByCategory, getProducts, getUser, logout, getUsers} from '../../Actions/index';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -207,9 +199,7 @@ function mapStateToProps(state) {
 }
 export default connect(mapStateToProps, {
 	filterByCategory,
-	getOrder,
 	getProducts,
-	getOrders,
 	getUser,
 	logout,
 	getUsers,
