@@ -54,7 +54,7 @@ function User({user, deleteUsers}) {
 								{user.nombre} {user.apellido}
 							</h1>
 							<p> E-mail: {user.email} </p>
-							<Link to="/">
+							<Link to={`/users/${user.id}/orders`}>
 								<button className="compra">Mis Compras</button>
 							</Link>
 							<Link to="/RestablecerContraseña">
