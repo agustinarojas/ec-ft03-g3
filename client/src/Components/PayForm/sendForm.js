@@ -128,7 +128,7 @@ function SendForm({ user }) {
 					</div>
 				</div>
 			) : (
-					<Redirect to="/" />
+					<Redirect to="/login" />
 				)}
 		</div>
 	);
