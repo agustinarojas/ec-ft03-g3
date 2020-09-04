@@ -90,9 +90,6 @@ function ProductCard({
 			sumar = sumar + parseInt(reviews[i].rating);
 		}
 		setSuma(sumar);
-		//  suma = reviews?.reduce((suma, producto) => {
-		// 	return suma + parseInt(producto.rating);
-		// })
 	}, []);
 
 	var promedio = suma / reviews.length;
@@ -110,7 +107,7 @@ function ProductCard({
 					<div className="rating-wrap">
 						<div className="label-rating">
 							<BeautyStars value={promedio} size={'24px'} gap={'6px'} activeColor={'66C3FF'} />
-							<span>({reviews.length})</span>
+							<small style={{opacity: '0.6'}}>Opiniones ({reviews.length})</small>
 						</div>
 					</div>
 				</figcaption>

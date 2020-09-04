@@ -50,36 +50,12 @@ const useStyles = makeStyles((theme) => ({
 			.catch(err => console.log(err));
       }
 
-
-
-  /* const handleCancel = () => {
-		console.log('holaaa')
-		return axios
-			.put(`http://localhost:3005/orders/${user.id}`, {estado: 'activo'}, {withCredentials: true})
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
-	} */
-
-/* 	const handleSubmit = (event, state) => {
-		console.log(state)
-		event.preventDefault();
-		axios
-			.put(`http://localhost:3005/users/${user.id}`, state, {withCredentials: true})
-			.then(res => {
-				if (res.data.error) {
-					setError(true)
-				} else { setError(false) }
-			})
-			.catch(error => console.log(error))
-	}; */
-
-
 	if (redirect && !error) {
 		return <Redirect to="/sendform" />;
 	}
 
   if (redir && !error) {
-		return <Redirect to="/users/:userId/orders"/>;
+		return <Redirect to={`/users/${user.id}/orders`}/>;
 	}
     return (
       <div>
@@ -246,7 +222,6 @@ const useStyles = makeStyles((theme) => ({
     return {
       productsCar: state.productsCar,
       user: state.user,
-      
     };
   }
   export default connect(mapStateToProps)(PayForm);

@@ -1,11 +1,30 @@
 import React from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 import './User.css';
 import {deleteUsers} from '../../Actions';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+import Button from '@material-ui/core/Button';
 
-function user({user, deleteUsers}) {
+const Transition = React.forwardRef(function Transition(props, ref) {
+	return <Slide direction="up" ref={ref} {...props} />;
+});
+
+function User({user, deleteUsers}) {
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
 	return (
 		<div>
 			{user.id ? (
@@ -35,15 +54,42 @@ function user({user, deleteUsers}) {
 								{user.nombre} {user.apellido}
 							</h1>
 							<p> E-mail: {user.email} </p>
-							<Link to={`/users/${user.id}/orders`}>
+							<Link to="/">
 								<button className="compra">Mis Compras</button>
 							</Link>
 							<Link to="/RestablecerContraseña">
 								<button className="changePass">Cambiar contraseña</button>
 							</Link>
-							<button className="deleteAcc" onClick={() => deleteUsers(user.id)}>
+							<button className="deleteAcc" onClick={handleClickOpen}>
 								Eliminar Cuenta
 							</button>
+							<Dialog
+								open={open}
+								TransitionComponent={Transition}
+								keepMounted
+								onClose={handleClose}
+								aria-labelledby="alert-dialog-slide-title"
+								aria-describedby="alert-dialog-slide-description">
+								<DialogTitle id="alert-dialog-slide-title">{'Eliminar cuenta'}</DialogTitle>
+								<DialogContent>
+									<DialogContentText id="alert-dialog-slide-description">
+										¿Estas seguro que quieres eliminar tu cuenta?
+									</DialogContentText>
+								</DialogContent>
+								<DialogActions>
+									<Button onClick={handleClose} color="primary">
+										Cancelar
+									</Button>
+									<Button
+										onClick={() => {
+											deleteUsers(user.id);
+											handleClose();
+										}}
+										color="primary">
+										Aceptar
+									</Button>
+								</DialogActions>
+							</Dialog>
 						</div>
 					</div>
 				</div>
@@ -59,4 +105,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {deleteUsers})(user);
+export default connect(mapStateToProps, {deleteUsers})(User);

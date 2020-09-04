@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './producto.css';
-import {addToCart, getReviews} from '../../Actions/index';
-import {connect} from 'react-redux';
+import { addToCart, getReviews } from '../../Actions/index';
+import { connect } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import {makeStyles} from '@material-ui/core/styles';
-import BeautyStars from 'beauty-stars';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Axios from 'axios';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -72,14 +72,18 @@ function Products(producto) {
 				<div>
 					<p>{producto?.producto[0]?.descripcion}</p>
 					<div>
-						<p>Stock: {producto?.producto[0]?.stock}</p>
+						<p style={{ opacity: '0.6' }}>En stock: {producto?.producto[0]?.stock}</p>
 					</div>
-					<div className = 'califcs'>
-				<Link to={`/producto/${producto?.producto[0]?.id}/Calificaciones`} onClick={() => producto?.getReviews(producto?.producto[0]?.id)}>
-			    {/*{count < 2 ? <span>Calificar Producto</span> : <span>Ya realizaste una calificacion sobre este producto</span>}*/}
-			    <h6>Ver calificaciones</h6>
-				</Link>
-				</div>
+					<div className='califcs'>
+						<Link to={`/producto/${producto?.producto[0]?.id}/Calificaciones`} onClick={() => producto?.getReviews(producto?.producto[0]?.id)}>
+							<Button
+								variant="contained"
+								color="secondary"
+							>
+								Calificaciones
+    					    </Button>
+						</Link>
+					</div>
 				</div>
 				<div className="Precio">
 					<h3>$ {producto?.producto[0]?.precio}</h3>
@@ -92,6 +96,7 @@ function Products(producto) {
 							handleClick();
 							producto.addToCart(1, e.target.name);
 						}}
+						style={{marginRight: '3%'}}
 						name={producto?.producto[0]?.id}
 						disabled={producto?.producto[0]?.stock === 0 ? true : false}>
 						{producto?.producto[0]?.stock === 0 ? 'Sin Stock' : 'Comprar'}
@@ -112,4 +117,4 @@ function mapStateToProps(state) {
 		user: state.user,
 	};
 }
-export default connect(mapStateToProps, {addToCart, getReviews})(Products);
+export default connect(mapStateToProps, { addToCart, getReviews })(Products);
