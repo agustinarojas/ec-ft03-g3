@@ -90,7 +90,8 @@ const useStyles = makeStyles((theme) => ({
                   onChange={e => handleOnChange(e)}
                   />
                   </FormControl>
-                  <FormControl>
+
+                <FormControl style= {{marginRight: '4%', marginLeft: '4%'}}>
                 <InputLabel htmlFor="Apellido">Apellido</InputLabel>
                 <Input
                 style={{marginRight: '5%', width: '100%'}}
@@ -99,8 +100,8 @@ const useStyles = makeStyles((theme) => ({
                   onChange={e => handleOnChange(e)}
                 />
                 </FormControl>
-                <FormControl>
 
+                <FormControl style= {{marginRight: '4%'}}>
                 <InputLabel htmlFor="DNI">DNI</InputLabel>
                 <Input
                 style={{marginRight: '5%', width: '100%'}}
@@ -109,7 +110,8 @@ const useStyles = makeStyles((theme) => ({
                   onChange={e => handleOnChange(e)}
                   />
                   </FormControl>
-                <FormControl>
+
+                <FormControl style= {{marginRight: '4%'}}>
                 <InputLabel htmlFor="Email">Email</InputLabel>
                 <Input
                 style={{marginRight: '5%', width: '100%'}}
@@ -122,8 +124,8 @@ const useStyles = makeStyles((theme) => ({
                     No compartiremos tu email con nadie.
                   </FormHelperText>
                   </FormControl>
-                <FormControl>
 
+                <FormControl style= {{marginRight: '4%'}}>
                 <InputLabel htmlFor="Tarjeta">Numero de Tarjeta</InputLabel>
                 <Input
                 style={{marginRight: '5%', width: '100%'}}
@@ -133,8 +135,8 @@ const useStyles = makeStyles((theme) => ({
                   onChange={e => handleOnChange(e)}
                   />
                   </FormControl>
-                  <FormControl>
 
+                <FormControl style= {{marginRight: '4%'}}>
                 <InputLabel htmlFor="CodSeguridad">Codigo de Seguridad</InputLabel>
                 <Input
                 style={{marginRight: '5%', width: '100%'}}
@@ -143,22 +145,22 @@ const useStyles = makeStyles((theme) => ({
                   onChange={e => handleOnChange(e)}
                   />
                   </FormControl>
-                  <FormControl>
+
+                <FormControl style= {{marginRight: '4%'}}>
                 <InputLabel htmlFor="FechaExp"></InputLabel>
-                <Input
-                style={{marginRight: '5%', width: '100%', position: 'relative', top: '17px'}}
+                <Input          
                   type = "date"
                   id="FechaExp"
                   onChange={e => handleOnChange(e)}
                   />
-                  <FormHelperText style={{position: 'relative', top: '11px'}}>
+                  <FormHelperText>
                     Fecha de expiracion.
                   </FormHelperText>
                   </FormControl>
                 <Button
                 variant="contained"
                 color = "primary"
-                style={{position: 'relative', top: '5.5em', left: '3em'}}
+                style={{position: 'relative', top: '1em', left: '12em'}}
             		onClick = {() => {comprar (); setRedir(true); }}
             		>
             			Comprar
