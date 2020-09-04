@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 import {getOrder} from '../../Actions/index';
 import './order.css';
-
+import Button from '@material-ui/core/Button';
 function Orders({orders, getOrder, user}) {
+	const [redir, setRedir] = useState(false);
+	const [error, setError] = useState(false)
 	console.log(orders);
 	var precios = [];
 	for (let i = 0; i < orders.length; i++) {
@@ -14,6 +16,9 @@ function Orders({orders, getOrder, user}) {
 			total += ord.products[j].precio;
 		}
 		precios.push(total);
+	}
+	if (redir && !error) {
+		return <Redirect to="/settings" />;
 	}
 
 	return (
@@ -48,8 +53,12 @@ function Orders({orders, getOrder, user}) {
 		</table>
 	</div>
 	) : (
-		<Redirect to = "/admin" />
+		<Redirect to = "/" />
 	)	}
+	<Button color = "secondary" variant= "contained" onClick= {setRedir}>
+			Regresar
+			</Button>
+		
 </div>
 	);
 }

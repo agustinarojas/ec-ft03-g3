@@ -9,6 +9,14 @@ import {Redirect, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 
+
+
+export function LoginAlert () {
+	return (
+		<p>Logueo exitoso</p>
+	)
+}
+
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -49,19 +57,6 @@ function LoginUser({login, user}) {
 		login(state);
 	};
 
-	function validator(user) {
-		console.log(user + '  USERrrrrrrrrrrrrrrrrrrr');
-		if (!user) {
-			alert('Estas logeado.');
-			setError(true);
-			setTimeout(function () {
-				//	setRedirect(true);
-			}, 1000);
-		} else {
-			alert('No estas logeado');
-			setError(false);
-		}
-	}
 	if (redirect) {
 		return <Redirect to="/" />;
 	}
@@ -100,7 +95,7 @@ function LoginUser({login, user}) {
 				<Button
 					onClick={() => {
 						handleClick();
-						validator(user);
+						
 					}}
 					variant="contained"
 					color="primary"

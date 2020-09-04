@@ -145,7 +145,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					id="compra"
 					onClick={() => {
 						handleClick();
-						
 						setTimeout(function () {
 							setRedirect(true);
 						}, 1000);
