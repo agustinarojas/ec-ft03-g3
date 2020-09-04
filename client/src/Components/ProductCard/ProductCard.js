@@ -69,7 +69,6 @@ function ProductCard({
 	};
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
-	console.log(user);
 	const handleClick = e => {
 		if (user.id) {
 			addToCart(user.id, e.target.name, null, carritoId);
@@ -107,12 +106,7 @@ function ProductCard({
 					<h4 className="title">{titulo}</h4>
 					<div className="rating-wrap">
 						<div className="label-rating">
-							<BeautyStars
-				        value={promedio}
-				        size = {'24px'}
-				        gap = {'6px'}
-				        activeColor = {'66C3FF'}
-				      />
+							<BeautyStars value={promedio} size={'24px'} gap={'6px'} activeColor={'66C3FF'} />
 							<small style={{opacity: '0.6'}}>Opiniones ({reviews.length})</small>
 						</div>
 					</div>

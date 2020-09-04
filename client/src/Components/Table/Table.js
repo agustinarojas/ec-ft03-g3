@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import MaterialTable from 'material-table';
-import TableCategory from './TableCategory';
-import TableProductCat from './TableProductCat';
 import {addProduct, putProduct, deleteProduct} from '../../Actions/index.js';
 import './table.css';
 import {connect} from 'react-redux';
@@ -60,22 +58,16 @@ function Table({products, addProduct, putProduct, deleteProduct, user}) {
 	return (
 		<div>
 			{user.admin ? (
-				<div>
-					<MaterialTable
-						title="Productos"
-						columns={columns}
-						data={products}
-						editable={{
-							onRowAdd: newData => addProduct(newData, save),
-							onRowUpdate: (newData, oldData) => putProduct(newData, oldData.id),
-							onRowDelete: oldData => deleteProduct(oldData.id),
-						}}
-					/>
-					<br />
-					<TableCategory />
-					<br />
-					<TableProductCat />
-				</div>
+				<MaterialTable
+					title="Productos"
+					columns={columns}
+					data={products}
+					editable={{
+						onRowAdd: newData => addProduct(newData, save),
+						onRowUpdate: (newData, oldData) => putProduct(newData, oldData.id),
+						onRowDelete: oldData => deleteProduct(oldData.id),
+					}}
+				/>
 			) : (
 				<Redirect to="/" />
 			)}

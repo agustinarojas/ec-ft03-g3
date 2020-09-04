@@ -19,7 +19,6 @@ function Catalogo({products, totalreviews, getTotalReviews}) {
 				<p>Producto no encontrado</p>
 			) : (
 				products?.map(p => {
-					console.log(filtrar(p.id));
 					return (
 						<ProductCard
 							imagen={p.imagen}
