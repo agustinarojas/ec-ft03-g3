@@ -10,6 +10,7 @@
 	position: relative;
 	width: 50%;
 	right: 40px;
+	margin-left: 2%;
 }
 #precio {
 	font-weight: 700;
@@ -26,9 +27,9 @@
 	cursor: pointer;
 	color: #ffffff;
 	font-family: Arial;
-	font-size: 16px;
+	font-size: 12px;
 	font-weight: bold;
-	padding: 4px 20px;
+	padding: 10px 20px;
 	text-decoration: none;
 	text-shadow: 0px 1px 0px #2f6627;
 	outline: none;
@@ -80,6 +81,8 @@
 }
 .acomodo {
 	margin-top: 8px;
+	margin-left: 10%;
+	margin-right: 10%;
 }
 .botooon {
 	display: flex;
@@ -100,11 +103,28 @@
 .imgCart {
 	width: 200px;
 	height: 140px;
+	border-radius: 10px;
+	-webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
 }
+.imgCart:hover  {
+	-webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
 .carritoItem {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	-webkit-box-shadow: 0px 0px 87px 19px rgba(0,0,0,0.17);
+-moz-box-shadow: 0px 0px 87px 19px rgba(0,0,0,0.17);
+box-shadow: 0px 0px 87px 19px rgba(0,0,0,0.17);
 }
 .cartitem {
 	height: 200px;

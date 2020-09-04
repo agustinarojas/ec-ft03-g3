@@ -14,9 +14,10 @@ function tableUser({users, deleteUsers}) {
 
 
 	}
+	users.forEach(client => client.cliente = (client.nombre + ' ' + client.apellido))
+
 	const columns = [
-		{title: 'Nombre', field: 'nombre'},
-		{title: 'Apellido', field: 'apellido'},
+		{title: 'Cliente', field: 'cliente'},
 		{title: 'Email', field: 'email', type: 'string'},
 		{title: 'rol', field: 'admin', lookup: {false: 'cliente', true: 'administrador'}},
 	];
