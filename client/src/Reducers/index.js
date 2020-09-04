@@ -142,8 +142,6 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				productsCar: productos,
 			};
-
-		case SET_CANTIDAD:
 		case SET_CANTIDAD:
 			var newProdCart = state.productsCar.map(prod => {
 				if (prod.id === action.product.id) {

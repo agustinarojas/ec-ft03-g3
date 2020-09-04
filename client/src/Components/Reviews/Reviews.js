@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './Review.css';
 import {connect} from 'react-redux';
 

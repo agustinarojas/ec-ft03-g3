@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import Item from './Item';
-import axios from 'axios';
 import './cart.css';
 import {connect} from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -12,25 +11,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-import MuiAlert from '@material-ui/lab/Alert';
-import {makeStyles} from '@material-ui/core/styles';
-import Snackbar from '@material-ui/core/Snackbar';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
-function Alert(props) {
-	return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
-const useStyles = makeStyles(theme => ({
-	root: {
-		width: '100%',
-		'& > * + *': {
-			marginTop: theme.spacing(2),
-		},
-	},
-}));
 
 function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) {
 	const [redirect, setRedirect] = useState(false);
@@ -45,11 +29,11 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 		}
 	}, [user]);
 
-	console.log(productsCar);
 	if (user.id) cart = productsCar;
 	else {
 		cart = data;
 	}
+	console.log(cart);
 	useEffect(() => {
 		// setPrecio(total);
 	}, [productsCar]);
@@ -72,14 +56,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 		setOpen(true);
 	};
 
-	const handleClosed = (event, reason) => {
-		if (reason === 'clickaway') {
-			return;
-		}
-
-		setOpen(false);
-
-	};
 	return (
 		<div className="flexend">
 			{cart?.map((p, i) => (
@@ -101,7 +77,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 						(total, producto) => total + producto.precio * producto.lineorder.cantidad,
 						0,
 					)}
-					{/* $ {cartItems.reduce((a, c) => a + c.price * c.qty, 0)} */}
 				</h2>
 			) : (
 				<div className="noProducts">Aún no agregaste productos al carrito.</div>
@@ -145,7 +120,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					id="compra"
 					onClick={() => {
 						handleClick();
-						
 						setTimeout(function () {
 							setRedirect(true);
 						}, 1000);
@@ -155,7 +129,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 			) : (
 				''
 			)}
-			
 		</div>
 	);
 }
