@@ -103,7 +103,7 @@ function NavBar({
 						Categorias
 						<i className="fa fa-caret-down"></i>
 					</button>
-					<div className="dropd-cont">
+					<div className="dropd-cont" style={{zIndex: '9999'}}>
 						{cats?.map((c, i) => (
 							<Link to={`/category/${c.titulo}`} onClick={e => filterByCategory(c.titulo)} key={i}>
 								{c.titulo}
@@ -168,8 +168,6 @@ function NavBar({
 													<span style={{color: 'black'}}>Perfil</span>
 												</MenuItem>
 											</Link>
-
-
                     	<Link to={`/users/${user.id}/orders`} style = {{padding: '0px'}}>
 										   <MenuItem onClick={handleClose}>
 									    	 <span style = {{color: 'black'}}>Mis compras</span>

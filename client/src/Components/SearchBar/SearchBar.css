@@ -6,7 +6,8 @@
 .form {
 	display: inline-flex;
 	justify-content: flex-end;
-	margin-left: 300px;
+	position: relative;
+	left: 30%;
 }
 
 .input3 {
