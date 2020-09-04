@@ -3,6 +3,7 @@ import {Route} from 'react-router-dom';
 import Catalogo from './Components/Catalogue/Catalogo';
 import Products from './Components/product/producto';
 import Table from './Components/Table/Table';
+import TableCategory from './Components/Table/TableCategory';
 import Cart from './Components/Carrito/Cart';
 import NavBar from './Components/NavBar/NavBar';
 import Orders from './Components/Orders/Order';
@@ -16,6 +17,7 @@ import OrdersUser from './Components/Orders/ordersUser';
 import OrderProducts from './Components/Orders/orderProducts';
 import SendForm from './Components/PayForm/sendForm';
 import PayForm from './Components/PayForm/payForm';
+import Settings from './Components/Settings/Settings';
 import {
 	getProducts,
 	getCategories,
@@ -60,7 +62,7 @@ function App({
 			<NavBar search={search} category={categories} />
 			<Route
 				exact
-				path="/admin"
+				path="/settings/products"
 				render={() => <Table products={productos} categories={categories} />}
 			/>
 			<Route exact path="/" render={() => <Catalogo products={productos} />} />
@@ -69,19 +71,21 @@ function App({
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
-			<Route path="/orders" render={() => <Orders orders={orders} />} />
+			<Route path="/settings/categories" component={TableCategory} />
+			<Route exact path="/settings" component={Settings} />
+			<Route path="/settings/orders" render={() => <Orders orders={orders} />} />
 			<Route path="/order/:id" component={Order} />
 			<Route path="/cart/:userId" component={Cart} />
 			<Route path="/sign_up" component={FormUsuario} />
 			<Route path="/login" component={LoginUser} />
 			<Route path="/me" component={user} />
 			<Route path="/RestablecerContraseña" render={() => <RestorePass users={getUser} />} />
-			<Route path="/users_table" component={tableUser} />
+			<Route path="/settings/users_table" component={tableUser} />
 			<Route path="/producto/:prodId/Calificaciones" component={Reviews} />
 			<Route path="/users/:userId/orders" component={OrdersUser} />
 			<Route path="/user/order/:id" component={OrderProducts} />
 			<Route path="/" component={Footer} />
-      <Route path="/sendform" component={SendForm} />
+			<Route path="/sendform" component={SendForm} />
 			<Route path="/paymentmethods" component={PayForm} />
 		</div>
 	);

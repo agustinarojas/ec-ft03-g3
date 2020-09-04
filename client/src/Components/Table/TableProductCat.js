@@ -3,7 +3,6 @@ import MaterialTable from 'material-table';
 import {setCategory, deleteProdCategory, getProducts} from '../../Actions/index.js';
 import {connect} from 'react-redux';
 
-
 function TableProductCat({setCategory, deleteProdCategory, products, categories, getProducts}) {
 	useEffect(() => {
 		getProducts();
@@ -17,7 +16,6 @@ function TableProductCat({setCategory, deleteProdCategory, products, categories,
 	products.map(prod => {
 		prod.category = catOptions;
 	});
-	console.log(products);
 	const columns = [
 		{title: 'Id Producto', field: 'id'},
 		{title: 'Titulo Producto', field: 'titulo'},
@@ -26,7 +24,7 @@ function TableProductCat({setCategory, deleteProdCategory, products, categories,
 
 	return (
 		<MaterialTable
-			title="Product/Category"
+			title="Producto-Categoría"
 			columns={columns}
 			data={products}
 			editable={{

@@ -39,12 +39,10 @@ function NavBar({
 	category,
 	filterByCategory,
 	getProducts,
-	getOrders,
 	getUser,
 	user,
 	logout,
-	getUsers,
-	productsCar
+	productsCar,
 }) {
 	// const handleOnClick = () => {
 	// 	axios
@@ -56,7 +54,13 @@ function NavBar({
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
 	const anchorRef = React.useRef(null);
+	// const [count, setCount] = useState(0);
 	let cats = [];
+	console.log(productsCar);
+	// useEffect(() => {
+	// 	if (productsCar.length) setCount(productsCar.length);
+	// }, [productsCar]);
+
 	category.map(category => {
 		if (category.titulo) cats.push(category);
 	});
@@ -113,21 +117,21 @@ function NavBar({
 				</div>
 				{!user.id && <Link to="/sign_up"> Registrarse </Link>}
 				{!user.id && <Link to="/login"> Iniciar Sesion </Link>}
-				{user.admin && <Link to="/admin">Producto</Link>}
 				{user.admin && (
-					<Link to="/users_table" onClick={getUsers}>
-						Users
+					<Link to="/settings" style={{display: 'flex'}}>
+						<span className="material-icons" style={{width: '25px'}}>
+							settings_icon
+						</span>
+						<span style={{paddingBottom: '25px'}}> Administrar </span>
 					</Link>
 				)}
-
-				{user.admin && (
-					<Link to="/orders" onClick={() => getOrders()}>
-						Ordenes
-					</Link>
-				)}
+				{/* {count ? <span className="num"> {count} </span> : null} */}
 				<Link to="/cart/1" style={{height: '65px'}}>
-					{productsCar?.length >= 1 ? <span className="material-icons"> shopping_cart </span> :
-					<span className="material-icons"> remove_shopping_cart </span> }
+					{productsCar?.length >= 1 ? (
+						<span className="material-icons">shopping_cart</span>
+					) : (
+						<span className="material-icons"> remove_shopping_cart </span>
+					)}
 				</Link>
 				{user.id && (
 					<Button
@@ -169,13 +173,12 @@ function NavBar({
 												</MenuItem>
 											</Link>
 
-
-                    	<Link to={`/users/${user.id}/orders`} style = {{padding: '0px'}}>
-										   <MenuItem onClick={handleClose}>
-									    	 <span style = {{color: 'black'}}>Mis compras</span>
-										  </MenuItem>
+											<Link to={`/users/${user.id}/orders`} style={{padding: '0px'}}>
+												<MenuItem onClick={handleClose}>
+													<span style={{color: 'black'}}>Mis compras</span>
+												</MenuItem>
 											</Link>
-											<Link style={{padding: '0px'}}>
+											<Link to="#" style={{padding: '0px'}}>
 												<MenuItem
 													onClick={() => {
 														handleClose();
@@ -199,7 +202,7 @@ function NavBar({
 function mapStateToProps(state) {
 	return {
 		user: state.user,
-		productsCar: state.productsCar
+		productsCar: state.productsCar,
 	};
 }
 export default connect(mapStateToProps, {
