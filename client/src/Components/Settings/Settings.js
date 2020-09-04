@@ -7,20 +7,13 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import {getOrders, getUsers} from '../../Actions/index';
 import {connect} from 'react-redux';
-
-const useStyles = makeStyles(theme => ({
-	root: {
-		width: '100%',
-		maxWidth: 360,
-		backgroundColor: theme.palette.background.paper,
-	},
-}));
+import './setting.css'
 
 function SimpleList({getOrders, getUsers}) {
-	const classes = useStyles();
 
 	return (
-		<div className={classes.root}>
+		<div className='fondo' style={{display: 'flex', justifyContent: 'center'}}>
+		<div className='panelad'  >
 			<List component="nav" aria-label="main mailbox folders">
 				<Link to="/settings/products" style={{textDecoration: 'none', color: 'black'}}>
 					<ListItem button>
@@ -33,7 +26,7 @@ function SimpleList({getOrders, getUsers}) {
 				<Link to="/settings/categories" style={{textDecoration: 'none', color: 'black'}}>
 					<ListItem button>
 						<ListItemIcon>
-							<span className="material-icons">sports_football_icon</span>
+							<span className="material-icons">category_icon</span>
 						</ListItemIcon>
 						<ListItemText primary="Categorías" />
 					</ListItem>
@@ -61,6 +54,7 @@ function SimpleList({getOrders, getUsers}) {
 					</ListItem>
 				</Link>
 			</List>
+		</div>
 		</div>
 	);
 }

@@ -9,6 +9,7 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
+import './payForm.css'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,9 +61,10 @@ const useStyles = makeStyles((theme) => ({
     return (
       <div>
         {user.id  ? (
-        
         <div>
+        <div className ='alls'>
       <h3>Cómo querés pagar?</h3>
+      </div>
       <div>
             <Container className = {classes.root}>
             <Accordion>
@@ -82,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
                 <FormControl>
                 <InputLabel htmlFor="Nombre">Nombre</InputLabel>
                 <Input
+                  style={{marginRight: '5%', width: '100%'}}
                   type = "Nombre"
                   id="Nombre"
                   onChange={e => handleOnChange(e)}
@@ -90,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
                   <FormControl>
                 <InputLabel htmlFor="Apellido">Apellido</InputLabel>
                 <Input
+                style={{marginRight: '5%', width: '100%'}}
                   type= "Apellido"
                   id="Apellido"
                   onChange={e => handleOnChange(e)}
@@ -99,6 +103,7 @@ const useStyles = makeStyles((theme) => ({
 
                 <InputLabel htmlFor="DNI">DNI</InputLabel>
                 <Input
+                style={{marginRight: '5%', width: '100%'}}
                   type = "number"
                   id="DNI"
                   onChange={e => handleOnChange(e)}
@@ -107,6 +112,7 @@ const useStyles = makeStyles((theme) => ({
                 <FormControl>
                 <InputLabel htmlFor="Email">Email</InputLabel>
                 <Input
+                style={{marginRight: '5%', width: '100%'}}
                   type = "email"
                   aria-describedby="my-helper-text"
                   id="Email"
@@ -120,20 +126,19 @@ const useStyles = makeStyles((theme) => ({
 
                 <InputLabel htmlFor="Tarjeta">Numero de Tarjeta</InputLabel>
                 <Input
-                  tpye = "numero"
+                style={{marginRight: '5%', width: '100%'}}
+                  type = "string"
                   id="NumTarjeta"
                   aria-describedby="my-helper-text"
                   onChange={e => handleOnChange(e)}
                   />
                   </FormControl>
-                  <FormHelperText>
-                    No compartiremos tu tarjeta con nadie.
-                  </FormHelperText>
                   <FormControl>
 
                 <InputLabel htmlFor="CodSeguridad">Codigo de Seguridad</InputLabel>
                 <Input
-                  tpye = "numero"
+                style={{marginRight: '5%', width: '100%'}}
+                  type = "string"
                   id="CodSeguridad"
                   onChange={e => handleOnChange(e)}
                   />
@@ -141,14 +146,19 @@ const useStyles = makeStyles((theme) => ({
                   <FormControl>
                 <InputLabel htmlFor="FechaExp"></InputLabel>
                 <Input
+                style={{marginRight: '5%', width: '100%', position: 'relative', top: '17px'}}
                   type = "date"
                   id="FechaExp"
                   onChange={e => handleOnChange(e)}
                   />
+                  <FormHelperText style={{position: 'relative', top: '11px'}}>
+                    Fecha de expiracion.
+                  </FormHelperText>
                   </FormControl>
                 <Button
                 variant="contained"
                 color = "primary"
+                style={{position: 'relative', top: '5.5em', left: '3em'}}
             		onClick = {() => {comprar (); setRedir(true); }}
             		>
             			Comprar
@@ -206,7 +216,7 @@ const useStyles = makeStyles((theme) => ({
             </Container>
       </div>
       <footer>
-        <Button color = "primary" variant = "outlined" onClick = {() => setRedirect(true)}>
+        <Button color = "primary" variant = "outlined" style={{left: '8%', position: 'relative', top: '25px'}} onClick = {() => setRedirect(true)}>
           Regresar
         </Button>
       </footer>
