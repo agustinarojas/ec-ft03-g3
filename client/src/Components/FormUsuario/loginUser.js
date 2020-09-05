@@ -8,6 +8,12 @@ import {login} from '../../Actions/index';
 import {Redirect, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import axios from 'axios';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -25,6 +31,9 @@ function LoginUser({login, user}) {
 	const [state, setState] = useState({});
 	const [redirect, setRedirect] = useState(false);
 	const [error, setError] = useState(false);
+	const [inputEmail, setInputEmail] = useState({});
+	const [abrir, setAbrir] = useState(false);
+
 
 	const handleOnChange = e => {
 		setState({
@@ -48,6 +57,25 @@ function LoginUser({login, user}) {
 		event.preventDefault();
 		login(state);
 	};
+
+	const handleClickAbrir = () => {
+	setAbrir(true);
+};
+
+const handleCerrar = () => {
+	setAbrir(false);
+};
+
+const handleSendEmail = () => {
+	axios
+	.post('http://localhost:3005/sendemail/forgottenPassword', {email: inputEmail})
+	.then(res => {
+		 console.log(res)
+		 localStorage.setItem('email', JSON.stringyfy(inputEmail))
+	})
+
+	.catch(err => console.log(err));
+};
 
 	function validator(user) {
 		console.log(user + '  USERrrrrrrrrrrrrrrrrrrr');
@@ -93,9 +121,36 @@ function LoginUser({login, user}) {
 						No compartiremos tus datos con nadie.
 					</small>
 				</div>
-				<Link style={{display: 'block', marginBottom: '20px'}} to="/RestablecerContraseña">
+				<Link style={{display: 'block', marginBottom: '20px'}} onClick={handleClickAbrir}>
 					<span>¿Olvidaste tu contraseña?</span>
 				</Link>
+				<div>
+      <Dialog open={abrir} onClose={handleCerrar} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">¿Olvidaste tu contraseña?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Por favor ingresa el email con el que te registraste y te enviaremos un email con los pasos a seguir.
+          </DialogContentText>
+          <TextField onChange={e => setInputEmail(e.target.value)}
+            autoFocus
+            margin="dense"
+            id="name"
+            label="E-mail"
+            type="email"
+						name="userEmail"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCerrar} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={() => {handleCerrar(); handleSendEmail()}} color="primary">
+            Recibir e-mail
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
 				<Button
 					onClick={() => {
 						handleClick();
@@ -113,8 +168,8 @@ function LoginUser({login, user}) {
 					<Alert onClose={handleClose} severity="success">
 						Sesion iniciada con exito!
 					</Alert>
-				</Snackbar> 
-				: 
+				</Snackbar>
+				:
 				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 					<Alert onClose={handleClose} severity="error">
 						Usuario o Contraseña incorrecta
