@@ -3,15 +3,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import './NavBar.css';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {
-	filterByCategory,
-	getOrder,
-	getProducts,
-	getOrders,
-	getUser,
-	logout,
-	getUsers,
-} from '../../Actions/index';
+import {filterByCategory, getProducts, getUser, logout, getUsers} from '../../Actions/index';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -39,12 +31,11 @@ function NavBar({
 	category,
 	filterByCategory,
 	getProducts,
-	getOrders,
 	getUser,
 	user,
 	logout,
-	getUsers,
-	productsCar
+	productsCar,
+	localStorage
 }) {
 	// const handleOnClick = () => {
 	// 	axios
@@ -52,11 +43,16 @@ function NavBar({
 	// 		.then(res => console.log(res))
 	// 		.catch(error => console.log(error));
 	// };
-
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
 	const anchorRef = React.useRef(null);
+	// const [count, setCount] = useState(0);
 	let cats = [];
+	console.log(productsCar);
+	// useEffect(() => {
+	// 	if (productsCar.length) setCount(productsCar.length);
+	// }, [productsCar]);
+
 	category.map(category => {
 		if (category.titulo) cats.push(category);
 	});
@@ -68,7 +64,6 @@ function NavBar({
 		if (reason === 'clickaway') {
 			return;
 		}
-
 		setOpen(false);
 	};
 
@@ -103,7 +98,7 @@ function NavBar({
 						Categorias
 						<i className="fa fa-caret-down"></i>
 					</button>
-					<div className="dropd-cont">
+					<div className="dropd-cont" style={{zIndex: '9999'}}>
 						{cats?.map((c, i) => (
 							<Link to={`/category/${c.titulo}`} onClick={e => filterByCategory(c.titulo)} key={i}>
 								{c.titulo}
@@ -113,21 +108,21 @@ function NavBar({
 				</div>
 				{!user.id && <Link to="/sign_up"> Registrarse </Link>}
 				{!user.id && <Link to="/login"> Iniciar Sesion </Link>}
-				{user.admin && <Link to="/admin">Producto</Link>}
 				{user.admin && (
-					<Link to="/users_table" onClick={getUsers}>
-						Users
+					<Link to="/settings" style={{display: 'flex'}}>
+						<span className="material-icons" style={{width: '25px'}}>
+							settings_icon
+						</span>
+						<span> Administrar </span>
 					</Link>
 				)}
-
-				{user.admin && (
-					<Link to="/orders" onClick={() => getOrders()}>
-						Ordenes
-					</Link>
-				)}
+				{/* {count ? <span className="num"> {count} </span> : null} */}
 				<Link to="/cart/1" style={{height: '65px'}}>
-					{productsCar?.length >= 1 ? <span className="material-icons"> shopping_cart </span> :
-					<span className="material-icons"> remove_shopping_cart </span> }
+					{productsCar?.length >= 1 || localStorage.length >= 1 ? (
+						<span className="material-icons">shopping_cart</span>
+					) : (
+						<span className="material-icons"> remove_shopping_cart </span>
+					)}
 				</Link>
 				{user.id && (
 					<Button
@@ -168,14 +163,12 @@ function NavBar({
 													<span style={{color: 'black'}}>Perfil</span>
 												</MenuItem>
 											</Link>
-
-
-                    	<Link to={`/users/${user.id}/orders`} style = {{padding: '0px'}}>
-										   <MenuItem onClick={handleClose}>
-									    	 <span style = {{color: 'black'}}>Mis compras</span>
-										  </MenuItem>
+											<Link to={`/users/${user.id}/orders`} style={{padding: '0px'}}>
+												<MenuItem onClick={handleClose}>
+													<span style={{color: 'black'}}>Mis compras</span>
+												</MenuItem>
 											</Link>
-											<Link style={{padding: '0px'}}>
+											<Link to="#" style={{padding: '0px'}}>
 												<MenuItem
 													onClick={() => {
 														handleClose();
@@ -199,14 +192,13 @@ function NavBar({
 function mapStateToProps(state) {
 	return {
 		user: state.user,
-		productsCar: state.productsCar
+		productsCar: state.productsCar,
+		localStorage: state.localStorage
 	};
 }
 export default connect(mapStateToProps, {
 	filterByCategory,
-	getOrder,
 	getProducts,
-	getOrders,
 	getUser,
 	logout,
 	getUsers,

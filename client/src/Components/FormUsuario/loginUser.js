@@ -15,6 +15,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 
+
+
+export function LoginAlert () {
+	return (
+		<p>Logueo exitoso</p>
+	)
+}
+
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -90,6 +98,7 @@ const handleSendEmail = () => {
 			setError(false);
 		}
 	}
+
 	if (redirect) {
 		return <Redirect to="/" />;
 	}
@@ -151,10 +160,12 @@ const handleSendEmail = () => {
         </DialogActions>
       </Dialog>
     </div>
+
+				<Link style={{display: 'block', marginBottom: '20px'}} to = "/sign_up">¿No tenes una cuenta? Registrate </Link>
 				<Button
 					onClick={() => {
 						handleClick();
-						validator(user);
+						
 					}}
 					variant="contained"
 					color="primary"
@@ -162,7 +173,6 @@ const handleSendEmail = () => {
 					value="Submit">
 					Ingresar
 				</Button>
-				<Link to = "/sign_up">¿No tenes una cuenta? Registrate </Link>
 
 				{/* {error ? <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 					<Alert onClose={handleClose} severity="success">

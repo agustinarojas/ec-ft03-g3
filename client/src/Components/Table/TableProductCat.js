@@ -1,10 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import MaterialTable from 'material-table';
 import {setCategory, deleteProdCategory, getProducts} from '../../Actions/index.js';
 import {connect} from 'react-redux';
-
-
-function TableProductCat({setCategory, deleteProdCategory, products, categories, getProducts}) {
+import Button from '@material-ui/core/Button';
+import {Redirect} from 'react-router';
+function TableProductCat({setCategory, deleteProdCategory, products, categories, getProducts, user}) {
+	
+	const [redir, setRedir] = useState(false);
+	const [error, setError] = useState(false)
 	useEffect(() => {
 		getProducts();
 	}, [categories]);
@@ -17,16 +20,22 @@ function TableProductCat({setCategory, deleteProdCategory, products, categories,
 	products.map(prod => {
 		prod.category = catOptions;
 	});
-	console.log(products);
 	const columns = [
 		{title: 'Id Producto', field: 'id'},
 		{title: 'Titulo Producto', field: 'titulo'},
 		{title: 'Categoría', field: 'category', lookup: catOptions},
 	];
+	if (redir && !error) {
+		return <Redirect to="/settings" />;
+	}
+
 
 	return (
+		<div>
+			{user.admin ? (			
+		
 		<MaterialTable
-			title="Product/Category"
+			title="Producto-Categoría"
 			columns={columns}
 			data={products}
 			editable={{
@@ -34,25 +43,26 @@ function TableProductCat({setCategory, deleteProdCategory, products, categories,
 			}}
 			detailPanel={[
 				{
-					icon: 'delete',
-					tooltip: 'Eliminar categoría',
+					icon: 'visibility',
+					tooltip: 'Mostrar categorias',
 					render: rowData => {
 						{
 							console.log(rowData);
 							console.log(products);
 						}
 						return (
-							<ul
+							<div>
+							<ul className="list-group"
 								style={{
-									fontSize: 40,
-									// textAlign: 'center',
+									fontSize: 18,
 									color: 'white',
 									backgroundColor: 'rgb(199 199 199)',
+									marginRight: '15%'
 								}}>
 								{products
 									.filter(prod => prod.id === rowData.id)[0]
 									.cats.map(cat => (
-										<li>
+										<li className="list-group-item active">
 											{cat.titulo}{' '}
 											<button
 												name={cat.id}
@@ -64,17 +74,27 @@ function TableProductCat({setCategory, deleteProdCategory, products, categories,
 										</li>
 									))}
 							</ul>
+							<Button color = "secondary" variant= "contained" onClick= {setRedir}>
+			Regresar
+			</Button>
+							</div>
 						);
 					},
 				},
 			]}
-		/>
+			
+			/>
+			):(
+				<Redirect to = "/"/>
+			)}
+			</div>
 	);
 }
 const mapStateToProps = state => {
 	return {
 		categories: state.categories,
 		products: state.products,
+		user: state.user,
 	};
 };
 export default connect(mapStateToProps, {

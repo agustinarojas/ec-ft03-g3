@@ -1,10 +1,17 @@
-import React from 'react';
+import React,{useState}from 'react';
 import MaterialTable from 'material-table';
 import './table.css';
 import {connect} from 'react-redux';
 import {deleteUsers} from '../../Actions/index';
 import axios from 'axios';
-function tableUser({users, deleteUsers}) {
+import Button from '@material-ui/core/Button';
+import {Redirect} from 'react-router';
+
+
+
+function TableUser({user, deleteUsers,users}) {
+	const [redir, setRedir] = useState(false);
+	const [error, setError] = useState(false)
 
 	function makeAdmin(id) {
 		 return axios
@@ -14,13 +21,20 @@ function tableUser({users, deleteUsers}) {
 
 
 	}
+	users.forEach(client => client.cliente = (client.nombre + ' ' + client.apellido))
+
 	const columns = [
-		{title: 'Nombre', field: 'nombre'},
-		{title: 'Apellido', field: 'apellido'},
+		{title: 'Cliente', field: 'cliente'},
 		{title: 'Email', field: 'email', type: 'string'},
 		{title: 'rol', field: 'admin', lookup: {false: 'cliente', true: 'administrador'}},
 	];
+	if (redir && !error) {
+		return <Redirect to="/settings" />;
+	}
+
 	return (
+		<div>
+			{user.admin ? (
 		<div>
 			<MaterialTable
 				title="Usuarios"
@@ -31,6 +45,13 @@ function tableUser({users, deleteUsers}) {
 					onRowDelete: oldData => deleteUsers(oldData.id),
 				}}
 			/>
+			<Button color = "secondary" variant= "contained" onClick= {setRedir}>
+			Regresar
+			</Button>
+		</div>
+			):(
+				<Redirect to= "/"/>
+			)}
 		</div>
 	);
 }
@@ -38,7 +59,8 @@ function tableUser({users, deleteUsers}) {
 
 const mapStateToProps = state => {
 	return {
+		user: state.user,
 		users: state.users,
 	};
 };
-export default connect(mapStateToProps, {deleteUsers})(tableUser);
+export default connect(mapStateToProps, {deleteUsers})(TableUser);

@@ -1,44 +1,54 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { getReviews } from '../../Actions/index';
+import './Review.css';
+import {connect} from 'react-redux';
+
 import BeautyStars from 'beauty-stars';
 
-function Reviews({reviews, getReviews}) {
-  console.log(reviews)
+function Reviews({reviews}) {
+	console.log(reviews);
 
-  // useEffect(() => {
+	// useEffect(() => {
 	// 	getReviews(1);
 	// }, [reviews]);
-  let suma = 0;
-  for (var i = 0; i < reviews.length; i++) {
-  suma = suma + parseInt(reviews[i].rating);
-  }
+	let suma = 0;
+	for (var i = 0; i < reviews.length; i++) {
+		suma = suma + parseInt(reviews[i].rating);
+	}
 
 	return (
 		<div className="reviews">
-			{
-        reviews.length === 0 ? <h3>Este producto aun no tiene calificaciones</h3>
-				: reviews?.map(r => (
-				<div>
-          <h4>Descripcion: {r.descripcion}</h4>
-          <BeautyStars
-            value={r.rating}
-            size = {'24px'}
-            gap = {'6px'}
-            activeColor = {'66C3FF'}
-          />
-          <br/>
-        </div>
-			 ))
-		 }
-     <h4>Calificacion promedio</h4>
-     <BeautyStars
-       value={suma/reviews.length}
-       size = {'24px'}
-       gap = {'6px'}
-       activeColor = {'66C3FF'}
-     />
+			{reviews.length === 0 ? null : (
+				<div className="totalStars">
+					<h4>Calificacion promedio {suma / reviews.length} / 5</h4>
+					<BeautyStars
+						value={suma / reviews.length}
+						size={'24px'}
+						gap={'6px'}
+						activeColor={'66C3FF'}
+					/>
+					<span>Calificaciones ({reviews.length})</span>
+				</div>
+			)}
+			{reviews.length === 0 ? (
+				<h3>Este producto aun no tiene calificaciones</h3>
+			) : (
+				reviews?.map(r => (
+					<div key={r.user.id} className="describe">
+						<div className="name1">
+							<h3>
+								{r.user.nombre} {r.user.apellido}
+							</h3>
+						</div>
+						<div className="descrip">
+							<h4>{r.descripcion}</h4>
+						</div>
+						<div className="stars">
+							<BeautyStars value={r.rating} size={'24px'} gap={'6px'} activeColor={'66C3FF'} />
+							<br />
+						</div>
+					</div>
+				))
+			)}
 		</div>
 	);
 }
@@ -49,4 +59,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {getReviews})(Reviews);
+export default connect(mapStateToProps)(Reviews);

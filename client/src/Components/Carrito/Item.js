@@ -23,7 +23,6 @@ function Item({
 	deleteProdCart,
 	stock,
 	cantidad,
-	hand,
 	setCantidad,
 	user,
 }) {
@@ -31,28 +30,10 @@ function Item({
 	const handleOnCLickCantidad = (prodId, type) => {
 		if (type === 'menos' && cantidades > 1) {
 			setCantidades(cantidades - 1);
-			// hand(cantidades - 1, id, precio);
 			setCantidad(user.id, prodId, cantidades - 1);
-			// axios
-			// 	.put(
-			// 		`http://localhost:3005/users/1/cart`,
-			// 		{id: parseInt(prodId), cantidad: cantidades - 1},
-			// 		{withCredentials: true},
-			// 	)
-			// 	.then(res => res.data)
-			// 	.catch(err => console.log(err));
 		} else if (type === 'mas' && stock > cantidades) {
 			setCantidades(cantidades + 1);
-			// hand();
 			setCantidad(user.id, prodId, cantidades + 1);
-			// axios
-			// 	.put(
-			// 		`http://localhost:3005/users/1/cart`,
-			// 		{id: parseInt(prodId), cantidad: cantidades + 1},
-			// 		{withCredentials: true},
-			// 	)
-			// 	.then(res => res.data)
-			// 	.catch(err => console.log(err));
 		}
 	};
 	const [open, setOpen] = React.useState(false);
@@ -92,6 +73,7 @@ function Item({
 							+
 						</button>
 					</div>
+					<small style={{position: 'relative', top: '13%', right: '8.15%', opacity: '0.6'}}>stock ({stock})</small>
 					<div className="precioboton">
 						<p id="precio">$ {precio} </p>
 						<button

@@ -33,27 +33,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) {
-	const [precio, setPrecio] = useState(0);
 	const [redirect, setRedirect] = useState(false);
-
-	/* const [usuario, setValidate] = useState (false); */
 	let cart;
 	let data = JSON.parse(localStorage.getItem('productos'));
 
-	// function cancelCheck() {
-	// 	if (user.id) {
-	// 		console.log(productsCar);
-	// 		return (
-	// 			handleClick(),
-	// 			comprar(),
-	// 			setTimeout(function () {
-	// 				setRedirect(true);
-	// 			}, 1000)
-	// 		);
-	// 	} else {
-	// 		console.log('LOGUEATE');
-	// 	}
-	// }
 	useEffect(() => {
 		user.id && getCarrito(user.id);
 		if (localStor) {
@@ -70,26 +53,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	useEffect(() => {
 		// setPrecio(total);
 	}, [productsCar]);
-
-	var total = {};
-	// const handlePrice = function () {
-	// 	// setPrecio(cant * precio);
-	// 	// total[id] = cant * precio;
-	// 	var precios = 0;
-	// 	// for (let i = 0; i < Object.values(total).length; i++) {
-	// 	// 	precios += Object.values(total)[i];
-	// 	// }
-	// 	for (let i = 0; i < cart.length; i++) {
-	// 		console.log(cart);
-	// 		precios = precios + cart[i].precio * cart[i].lineorder.cantidad;
-	// 	}
-	// 	var aux = precios;
-	// 	setPrecio(aux);
-	// 	// console.log(total);
-	// 	console.log(aux);
-	// 	//Abri la consola fijate que funciona, si renderizas el estado de precio, en la linea 54, del 'total', deja de funcionar no se porque, no le puedo hacer el setPrecio que funciona mal, fijate si podes agus :c
-	// };
-	// console.log(precio);
 
 	const [open, setOpen] = React.useState(false);
 	const [abrir, setAbrir] = React.useState(false);
@@ -129,7 +92,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					stock={p.stock}
 					cantidad={p.lineorder.cantidad}
 					key={i}
-					// hand={handlePrice}
 				/>
 			))}
 			{cart?.length > 0 ? (
@@ -183,7 +145,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					id="compra"
 					onClick={() => {
 						handleClick();
-						
 						setTimeout(function () {
 							setRedirect(true);
 						}, 1000);

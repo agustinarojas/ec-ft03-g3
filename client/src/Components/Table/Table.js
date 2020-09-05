@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
 import MaterialTable from 'material-table';
-import TableCategory from './TableCategory';
-import TableProductCat from './TableProductCat';
 import {addProduct, putProduct, deleteProduct} from '../../Actions/index.js';
 import './table.css';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
 import {storage} from '../../firebase';
+import Button from '@material-ui/core/Button';
 
 function Table({products, addProduct, putProduct, deleteProduct, user}) {
 	const [image, setImage] = useState(null);
 	const [save, setSave] = useState(null);
+	const [redir, setRedir] = useState(false)
+	const [error, setError] = useState(false)
 	const handleChange = e => {
 		if (e.target.files[0]) {
 			setImage(e.target.files[0]);
@@ -56,29 +57,29 @@ function Table({products, addProduct, putProduct, deleteProduct, user}) {
 			render: rowData => <img src={rowData.imagen} style={{width: 100}} />,
 		},
 	];
+	if (redir && !error) {
+		return <Redirect to="/settings" />;
+	}
 
 	return (
 		<div>
 			{user.admin ? (
-				<div>
-					<MaterialTable
-						title="Productos"
-						columns={columns}
-						data={products}
-						editable={{
-							onRowAdd: newData => addProduct(newData, save),
-							onRowUpdate: (newData, oldData) => putProduct(newData, oldData.id),
-							onRowDelete: oldData => deleteProduct(oldData.id),
-						}}
-					/>
-					<br />
-					<TableCategory />
-					<br />
-					<TableProductCat />
-				</div>
+				<MaterialTable
+					title="Productos"
+					columns={columns}
+					data={products}
+					editable={{
+						onRowAdd: newData => addProduct(newData, save),
+						onRowUpdate: (newData, oldData) => putProduct(newData, oldData.id),
+						onRowDelete: oldData => deleteProduct(oldData.id),
+					}}
+				/>
 			) : (
 				<Redirect to="/" />
 			)}
+			<Button color = "secondary" variant= "contained" onClick= {setRedir}>
+			Regresar
+			</Button>
 		</div>
 	);
 }
