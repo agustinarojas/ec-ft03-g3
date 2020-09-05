@@ -28,3 +28,4 @@ export const GET_REVIEWS = 'GET_REVIEWS';
 export const ERROR_LOGIN = 'ERROR_LOGIN';
 export const GET_ORDERS_USER = 'GET_ORDERS_USER';
 export const GET_TOTALREVIEWS = 'GET_TOTALREVIEWS';
+export const MAKE_ADMIN = 'MAKE_ADMIN';

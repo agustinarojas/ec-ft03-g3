@@ -18,25 +18,27 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) {
 	const [redirect, setRedirect] = useState(false);
+	const [data, setData] = useState();
 	let cart;
-	let data = JSON.parse(localStorage.getItem('productos'));
 
 	useEffect(() => {
+		setData(JSON.parse(localStorage.getItem('productos')));
 		user.id && getCarrito(user.id);
 		if (localStor) {
 			console.log(localStor);
 			localStor.map(prod => addToCart(user.id, prod.id, prod.lineorder.cantidad));
+			getCarrito(user.id);
 		}
 	}, [user]);
-
+	console.log(productsCar);
 	if (user.id) cart = productsCar;
 	else {
 		cart = data;
 	}
 	console.log(cart);
-	useEffect(() => {
-		// setPrecio(total);
-	}, [productsCar]);
+	// useEffect(() => {
+	// 	// setPrecio(total);
+	// }, [productsCar]);
 
 	const [open, setOpen] = React.useState(false);
 	const [abrir, setAbrir] = React.useState(false);
@@ -47,6 +49,8 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 
 	const handleClose = () => {
 		setAbrir(false);
+		setData([]);
+		cart = data;
 	};
 	if (redirect) {
 		return <Redirect to="/sendform" />;
@@ -55,7 +59,15 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	const handleClick = () => {
 		setOpen(true);
 	};
-
+	const cantidadLocalStorage = () => {
+		setData(JSON.parse(localStorage.getItem('productos')));
+		if (user.id) cart = productsCar;
+		else {
+			cart = data;
+			console.log(cart);
+		}
+	};
+	console.log(data);
 	return (
 		<div className="flexend">
 			{cart?.map((p, i) => (
@@ -67,7 +79,8 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 					id={p.id}
 					stock={p.stock}
 					cantidad={p.lineorder.cantidad}
-					key={i}
+					key={p.id}
+					cantidadLocalStorage={cantidadLocalStorage}
 				/>
 			))}
 			{cart?.length > 0 ? (
