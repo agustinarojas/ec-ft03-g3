@@ -74,7 +74,7 @@ function TableProductCat({setCategory, deleteProdCategory, products, categories,
 										</li>
 									))}
 							</ul>
-							<Button color = "secondary" variant= "contained" onClick= {setRedir}>
+							<Button style={{marginTop: '2%', marginLeft: '2%'}} color = "secondary" variant= "contained" onClick= {setRedir}>
 			Regresar
 			</Button>
 							</div>

@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import './Order1.css';
+import Button from '@material-ui/core/Button';
+import {Redirect} from 'react-router';
 
 function Order({orders, match}) {
+	const [redir, setRedir] = useState(false);
 	var ord = orders?.filter(o => o?.id == match?.params?.id);
 	var prods = ord[0]?.products;
 	var total = 0;
 	for (let i = 0; i < prods?.length; i++) {
 		total += prods[i]?.precio * prods[i]?.lineorder?.cantidad;
+	}
+	if (redir) {
+		return <Redirect to="/settings" />;
 	}
 	return (
 		<div className="orderUser">
@@ -49,6 +55,9 @@ function Order({orders, match}) {
 			<div id="totalprecio">
 				<h2>TOTAL : ${total}</h2>
 			</div>
+			<Button style={{marginTop: '2%', marginRight: '85%'}} color = "secondary" variant= "contained" onClick= {setRedir}>
+			Regresar
+			</Button>
 		</div>
 	);
 }

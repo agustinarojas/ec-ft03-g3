@@ -215,6 +215,7 @@ export function getCarrito(userId) {
 	};
 }
 
+
 export function addToCart(userId, prodId, cant, carritoId) {
 	let cantidad;
 	if (cant) {
@@ -222,6 +223,7 @@ export function addToCart(userId, prodId, cant, carritoId) {
 	} else {
 		cantidad = 1;
 	}
+
 	return function (dispatch) {
 		return axios
 			.post(
@@ -353,7 +355,7 @@ export function login(user) {
 		return axios
 			.post('http://localhost:3005/auth/login', user, {withCredentials: true})
 			.then(res => {
-				alert("Logueo exitoso")
+				alert("Sesion iniciada con exito")
 				if (prods) {
 					dispatch({type: LOGIN, user: res.data, prods});
 				} else {
@@ -361,7 +363,7 @@ export function login(user) {
 				}
 			})
 			.catch(error => {
-				alert ("Logueo erroneo")
+				alert ("Usuario o contraseña incorrecta")
 				dispatch({type: ERROR_LOGIN, user: false});
 			});
 	};

@@ -17,7 +17,7 @@ function TableUser({user, users, deleteUsers, makeAdmin, getUsers}) {
 	];
 	useEffect(() => {
 		getUsers();
-	}, [users]);
+	}, []);
 	if (redir && !error) {
 		return <Redirect to="/settings" />;
 	}
@@ -35,7 +35,7 @@ function TableUser({user, users, deleteUsers, makeAdmin, getUsers}) {
 							onRowDelete: oldData => deleteUsers(oldData.id),
 						}}
 					/>
-					<Button color="secondary" variant="contained" onClick={setRedir}>
+					<Button style={{marginTop: '2%', marginLeft: '2%'}} color="secondary" variant="contained" onClick={setRedir}>
 						Regresar
 					</Button>
 				</div>
