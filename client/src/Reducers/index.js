@@ -27,6 +27,7 @@ import {
 	GET_ORDERS_USER,
 	GET_TOTALREVIEWS,
 	ERROR_LOGIN,
+	MAKE_ADMIN,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
@@ -142,8 +143,6 @@ export default function rootReducer(state = inicialState, action) {
 				...state,
 				productsCar: productos,
 			};
-
-		case SET_CANTIDAD:
 		case SET_CANTIDAD:
 			var newProdCart = state.productsCar.map(prod => {
 				if (prod.id === action.product.id) {
@@ -211,6 +210,20 @@ export default function rootReducer(state = inicialState, action) {
 				users: state.users.filter(user => user.id !== action.deleteUser.id),
 				user: user,
 			};
+		case MAKE_ADMIN:
+			var newUser = state.users.map(user => {
+				if (user.id === action.user.id) {
+					return action.user;
+				} else {
+					return user;
+				}
+			});
+			return {
+				...state,
+				users: newUser,
+			};
+
+		//* REVIEWS
 		case GET_REVIEWS:
 			return {
 				...state,

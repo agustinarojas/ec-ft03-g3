@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import './cat.css';
-import {getReviews, getTotalReviews} from '../../Actions/index';
+import {getTotalReviews} from '../../Actions/index';
 import {connect} from 'react-redux';
 
 function Catalogo({products, totalreviews, getTotalReviews}) {

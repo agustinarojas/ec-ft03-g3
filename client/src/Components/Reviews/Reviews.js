@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './Review.css';
 import {connect} from 'react-redux';
 
@@ -19,7 +19,7 @@ function Reviews({reviews}) {
 		<div className="reviews">
 			{reviews.length === 0 ? null : (
 				<div className="totalStars">
-					<h4>Calificacion promedio {suma / reviews.length} / 5</h4>
+					<h4>Calificacion promedio {(suma / reviews.length).toFixed(2)} / 5</h4>
 					<BeautyStars
 						value={suma / reviews.length}
 						size={'24px'}
@@ -33,10 +33,10 @@ function Reviews({reviews}) {
 				<h3>Este producto aun no tiene calificaciones</h3>
 			) : (
 				reviews?.map(r => (
-					<div key={r.user.id} className="describe">
+					<div key={r.user?.id} className="describe">
 						<div className="name1">
 							<h3>
-								{r.user.nombre} {r.user.apellido}
+								{r.user?.nombre} {r.user?.apellido}
 							</h3>
 						</div>
 						<div className="descrip">

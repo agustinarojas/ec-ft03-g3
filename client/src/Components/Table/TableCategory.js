@@ -17,6 +17,7 @@ function TableCategory({categories, postCategory, putCategory, deleteCategory, u
 	let cats = [];
 	categories.map(category => {
 		if (category.titulo) cats.push(category);
+		return cats;
 	});
 	if (redir && !error) {
 		return <Redirect to="/settings" />;
