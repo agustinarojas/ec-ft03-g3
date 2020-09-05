@@ -10,7 +10,7 @@ import Orders from './Components/Orders/Order';
 import Order from './Components/Orders/OrderI';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
 import LoginUser from './Components/FormUsuario/loginUser';
-import tableUser from './Components/Table/tableuser';
+import TableUser from './Components/Table/tableuser';
 import user from './Components/FormUsuario/User';
 import RestorePass from './Components/FormUsuario/restorePass.js';
 import OrdersUser from './Components/Orders/ordersUser';
@@ -80,7 +80,7 @@ function App({
 			<Route path="/login" component={LoginUser} />
 			<Route path="/me" component={user} />
 			<Route path="/RestablecerContraseña" render={() => <RestorePass users={getUser} />} />
-			<Route path="/settings/users_table" component={tableUser} />
+			<Route path="/settings/users_table" component={TableUser} />
 			<Route path="/producto/:prodId/Calificaciones" component={Reviews} />
 			<Route path="/users/:userId/orders" component={OrdersUser} />
 			<Route path="/user/order/:id" component={OrderProducts} />

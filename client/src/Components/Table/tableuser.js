@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import './table.css';
 import {connect} from 'react-redux';
-import {deleteUsers, makeAdmin} from '../../Actions/index';
-import axios from 'axios';
-function tableUser({users, deleteUsers, makeAdmin}) {
-	users.forEach(client => (client.cliente = client.nombre + ' ' + client.apellido));
+import {deleteUsers, makeAdmin, getUsers} from '../../Actions/index';
 
+function TableUser({users, deleteUsers, makeAdmin, getUsers}) {
+	users.forEach(client => (client.cliente = client.nombre + ' ' + client.apellido));
 	const columns = [
 		{title: 'Cliente', field: 'cliente'},
 		{title: 'Email', field: 'email', type: 'string'},
 		{title: 'rol', field: 'admin', lookup: {false: 'cliente', true: 'administrador'}},
 	];
+	useEffect(() => {
+		getUsers();
+	}, [users]);
 	return (
 		<div>
 			<MaterialTable
@@ -32,4 +34,4 @@ const mapStateToProps = state => {
 		users: state.users,
 	};
 };
-export default connect(mapStateToProps, {deleteUsers, makeAdmin})(tableUser);
+export default connect(mapStateToProps, {deleteUsers, makeAdmin, getUsers})(TableUser);
