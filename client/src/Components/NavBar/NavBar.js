@@ -35,6 +35,7 @@ function NavBar({
 	user,
 	logout,
 	productsCar,
+	localStorage
 }) {
 	// const handleOnClick = () => {
 	// 	axios
@@ -42,7 +43,6 @@ function NavBar({
 	// 		.then(res => console.log(res))
 	// 		.catch(error => console.log(error));
 	// };
-
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
 	const anchorRef = React.useRef(null);
@@ -64,7 +64,6 @@ function NavBar({
 		if (reason === 'clickaway') {
 			return;
 		}
-
 		setOpen(false);
 	};
 
@@ -114,12 +113,12 @@ function NavBar({
 						<span className="material-icons" style={{width: '25px'}}>
 							settings_icon
 						</span>
-						<span style={{paddingBottom: '25px'}}> Administrar </span>
+						<span> Administrar </span>
 					</Link>
 				)}
 				{/* {count ? <span className="num"> {count} </span> : null} */}
 				<Link to="/cart/1" style={{height: '65px'}}>
-					{productsCar?.length >= 1 ? (
+					{productsCar?.length >= 1 || localStorage.length >= 1 ? (
 						<span className="material-icons">shopping_cart</span>
 					) : (
 						<span className="material-icons"> remove_shopping_cart </span>
@@ -194,6 +193,7 @@ function mapStateToProps(state) {
 	return {
 		user: state.user,
 		productsCar: state.productsCar,
+		localStorage: state.localStorage
 	};
 }
 export default connect(mapStateToProps, {

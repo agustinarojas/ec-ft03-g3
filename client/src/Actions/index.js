@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import {
 	GET_PRODUCTS,
 	PUT_PRODUCT,
@@ -354,6 +353,7 @@ export function login(user) {
 		return axios
 			.post('http://localhost:3005/auth/login', user, {withCredentials: true})
 			.then(res => {
+				alert("Logueo exitoso")
 				if (prods) {
 					dispatch({type: LOGIN, user: res.data, prods});
 				} else {
@@ -361,6 +361,7 @@ export function login(user) {
 				}
 			})
 			.catch(error => {
+				alert ("Logueo erroneo")
 				dispatch({type: ERROR_LOGIN, user: false});
 			});
 	};

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -7,20 +7,16 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import {getOrders, getUsers} from '../../Actions/index';
 import {connect} from 'react-redux';
+import './setting.css'
 
-const useStyles = makeStyles(theme => ({
-	root: {
-		width: '100%',
-		maxWidth: 360,
-		backgroundColor: theme.palette.background.paper,
-	},
-}));
-
-function SimpleList({getOrders, getUsers}) {
-	const classes = useStyles();
+function SimpleList({getOrders, getUsers, user}) {
 
 	return (
-		<div className={classes.root}>
+		<div>
+			{user.admin? (
+		
+		<div className='fondo' style={{display: 'flex', justifyContent: 'center'}}>
+		<div className='panelad'  >
 			<List component="nav" aria-label="main mailbox folders">
 				<Link to="/settings/products" style={{textDecoration: 'none', color: 'black'}}>
 					<ListItem button>
@@ -33,7 +29,7 @@ function SimpleList({getOrders, getUsers}) {
 				<Link to="/settings/categories" style={{textDecoration: 'none', color: 'black'}}>
 					<ListItem button>
 						<ListItemIcon>
-							<span className="material-icons">sports_football_icon</span>
+							<span className="material-icons">category_icon</span>
 						</ListItemIcon>
 						<ListItemText primary="Categorías" />
 					</ListItem>
@@ -62,6 +58,16 @@ function SimpleList({getOrders, getUsers}) {
 				</Link>
 			</List>
 		</div>
+		</div>
+			):(
+				<Redirect to= "/"/>
+			)}
+		</div>
 	);
 }
-export default connect(null, {getUsers, getOrders})(SimpleList);
+const mapStateToProps = state => {
+	return {
+		user: state.user,
+	};
+};
+export default connect(mapStateToProps ,{getUsers,getOrders})(SimpleList);
