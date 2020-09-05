@@ -13,6 +13,7 @@ import LoginUser from './Components/FormUsuario/loginUser';
 import tableUser from './Components/Table/tableuser';
 import user from './Components/FormUsuario/User';
 import RestorePass from './Components/FormUsuario/restorePass.js';
+import ForgotPassword from './Components/FormUsuario/forgotPassword.js';
 import OrdersUser from './Components/Orders/ordersUser';
 import OrderProducts from './Components/Orders/orderProducts';
 import SendForm from './Components/PayForm/sendForm';
@@ -87,6 +88,7 @@ function App({
 			<Route path="/" component={Footer} />
 			<Route path="/sendform" component={SendForm} />
 			<Route path="/paymentmethods" component={PayForm} />
+			<Route path="/recuperarContraseña" component={ForgotPassword} />
 		</div>
 	);
 }

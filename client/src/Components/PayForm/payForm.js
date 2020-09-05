@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 	const [redirect, setRedirect] = useState(false);
   const [redir, setRedir] = useState(false);
   const [error, setError] = useState(false);
-  
+
   const [expanded, setExpanded] = useState('panel1');
   const classes = useStyles();
 	const handleOnChange = e => {
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 			[e.target.name]: e.target.value,
 		});
 	};
- 
+
 	function comprar() {
 		const {carritoId} = productsCar[0]?.lineorder;
 		console.log(carritoId);
@@ -58,6 +58,14 @@ const useStyles = makeStyles((theme) => ({
   if (redir && !error) {
 		return <Redirect to={`/users/${user.id}/orders`}/>;
 	}
+
+   const handleSendEmail = () => {
+     axios
+     .post('http://localhost:3005/sendemail/purchaseMade', {email: user.email})
+     .then(res => console.log(res))
+     .catch(err => console.log(err));
+   };
+
     return (
       <div>
         {user.id  ? (
@@ -77,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
            <AccordionDetails>
            <Typography>
 
-           
+
             <FormControl
               >
               <Container className="form-group">
@@ -160,8 +168,8 @@ const useStyles = makeStyles((theme) => ({
                 <Button
                 variant="contained"
                 color = "primary"
+            		onClick = {() => {comprar (); handleSendEmail(); setRedir(true); }}
                 style={{position: 'relative', top: '1em', left: '12em'}}
-            		onClick = {() => {comprar (); setRedir(true); }}
             		>
             			Comprar
             		</Button>

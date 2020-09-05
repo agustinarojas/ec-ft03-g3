@@ -276,4 +276,21 @@ server.post('/:ids/passReset', isAuthenticated, (req, res) => {
 		.catch(err => console.log(err));
 });
 
+server.post('/forgotPassReset', (req, res) => {
+	console.log(req.body)
+	var pass = req.body.password;
+	User.findOne({
+		where: {
+			email: req.body.email,
+		},
+	})
+		.then(user => {
+			user.update({
+				password: pass,
+			});
+			res.send(user.correctPassword(pass)).status(201);
+		})
+		.catch(err => console.log(err));
+});
+
 module.exports = server;

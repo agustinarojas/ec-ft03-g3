@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import './Form.css';
 import axios from 'axios';
-//import {getUser} from '../../Actions/index';
+import {getUsers} from '../../Actions/index';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -19,7 +19,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
- function RestorePass({user}) {
+ function ForgotPassword({users, getUsers}) {
+
+	 var email = JSON.parse(localStorage.getItem('email'))
+   console.log(email)
    //var usuario = getUser();
   //console.log(usuario)
   const [state, setState] = useState({});
@@ -32,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   const handleSubmit = (event, state, ) => {
     event.preventDefault();
 		axios
-			.post(`http://localhost:3005/users/${user.id}/passReset`, {password: state.password}, {withCredentials: true})
+			.post(`http://localhost:3005/users/forgotPassReset`, {email: email.email, password: state.password})
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
   }
@@ -48,20 +51,15 @@ const useStyles = makeStyles((theme) => ({
 		setOpen(false);
 		};
 
+    useEffect(() => {
+      getUsers();
+    },[])
+
   var control;
   return (
     <div className="Formm">
       <form onSubmit={e => handleSubmit(e, state)}>
         <div className="form-group">
-        <label htmlFor="exampleInputPassword">Ingrese su contraseña actual</label>
-        <input
-          name='actualPassword'
-          placeholder='...'
-          type="password"
-          className="form-control"
-          id="exampleInputPassword"
-          onChange={e => handleOnChange(e)}
-        />
         <label htmlFor="exampleInputPassword">Ingrese su nueva contraseña</label>
         <input
           name='password'
@@ -115,8 +113,8 @@ const useStyles = makeStyles((theme) => ({
 
 function mapStateToProps(state) {
 	return {
-		user: state.user,
+		users: state.users,
 	};
 }
 
-export default connect(mapStateToProps)(RestorePass);
+export default connect(mapStateToProps, {getUsers})(ForgotPassword);
