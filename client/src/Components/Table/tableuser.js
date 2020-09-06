@@ -8,7 +8,6 @@ import {Redirect} from 'react-router';
 
 function TableUser({user, users, deleteUsers, makeAdmin, getUsers}) {
 	const [redir, setRedir] = useState(false);
-	const [error, setError] = useState(false);
 	users.forEach(client => (client.cliente = client.nombre + ' ' + client.apellido));
 	const columns = [
 		{title: 'Cliente', field: 'cliente'},
@@ -18,7 +17,7 @@ function TableUser({user, users, deleteUsers, makeAdmin, getUsers}) {
 	useEffect(() => {
 		getUsers();
 	}, []);
-	if (redir && !error) {
+	if (redir) {
 		return <Redirect to="/settings" />;
 	}
 

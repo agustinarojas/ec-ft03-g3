@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {handleLogIn} from '../Components/FormUsuario/loginUser';
 import {
 	GET_PRODUCTS,
 	PUT_PRODUCT,
@@ -343,6 +344,7 @@ export function getOrders() {
 // 			.catch(error => console.log(error));
 // 	};
 // }
+
 export function login(user) {
 	let prods;
 	if (localStorage.getItem('productos') !== null) {
@@ -353,15 +355,15 @@ export function login(user) {
 		return axios
 			.post('http://localhost:3005/auth/login', user, {withCredentials: true})
 			.then(res => {
-				alert("Logueo exitoso")
 				if (prods) {
 					dispatch({type: LOGIN, user: res.data, prods});
 				} else {
 					dispatch({type: LOGIN, user: res.data, prods: false});
 				}
+				handleLogIn('success');
 			})
 			.catch(error => {
-				alert ("Logueo erroneo")
+				handleLogIn('error');
 				dispatch({type: ERROR_LOGIN, user: false});
 			});
 	};

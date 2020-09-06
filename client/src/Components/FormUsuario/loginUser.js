@@ -13,10 +13,20 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
+import swal from 'sweetalert';
 
-export function LoginAlert() {
-	return <p>Logueo exitoso</p>;
-}
+export const handleLogIn = type => {
+	if (type === 'success') {
+		return swal({
+			title: 'Correcto',
+			text: 'Usuario logueado exitosamente',
+			icon: 'success',
+			button: 'Continuar',
+		});
+	} else {
+		return swal('Error', 'Usuario o contraseña incorrecta', 'error');
+	}
+};
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
