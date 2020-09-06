@@ -28,6 +28,7 @@ import {
 	GET_TOTALREVIEWS,
 	ERROR_LOGIN,
 	MAKE_ADMIN,
+	HAVE_CART
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],

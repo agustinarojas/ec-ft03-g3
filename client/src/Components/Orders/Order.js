@@ -55,7 +55,7 @@ function Orders({orders, getOrder, user}) {
 	) : (
 		<Redirect to = "/" />
 	)	}
-	<Button color = "secondary" variant= "contained" onClick= {setRedir}>
+	<Button style={{marginTop: '2%', marginLeft: '2%'}}color = "secondary" variant= "contained" onClick= {setRedir}>
 			Regresar
 			</Button>
 		
