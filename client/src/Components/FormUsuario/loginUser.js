@@ -79,7 +79,8 @@ const handleSendEmail = () => {
 	.post('http://localhost:3005/sendemail/forgottenPassword', {email: inputEmail})
 	.then(res => {
 		 console.log(res)
-		 localStorage.setItem('email', JSON.stringyfy(inputEmail))
+		 console.log(inputEmail)
+		 localStorage.setItem('email', inputEmail)
 	})
 
 	.catch(err => console.log(err));
@@ -146,7 +147,7 @@ const handleSendEmail = () => {
             id="name"
             label="E-mail"
             type="email"
-						name="userEmail"
+			name="userEmail"
             fullWidth
           />
         </DialogContent>

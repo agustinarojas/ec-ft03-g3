@@ -26,6 +26,7 @@ import {
 	GET_ORDERS_USER,
 	GET_TOTALREVIEWS,
 	ERROR_LOGIN,
+	PUT_ORDER,
 	MAKE_ADMIN,
 } from '../Constants/ProductsConstants';
 
@@ -102,6 +103,7 @@ export function addProduct(product, img) {
 }
 
 export function putProduct(product, id) {
+	console.log(product, id)
 	return function (dispatch) {
 		return axios
 			.put(`http://localhost:3005/products/${id}`, product, {withCredentials: true})
@@ -324,6 +326,18 @@ export function getOrders() {
 			});
 	};
 }
+
+export function putOrder(userId, estado, carritoId) {
+	return function (dispatch) {
+		return axios
+			.put(`http://localhost:3005/orders/${userId}`, {estado: estado, carritoId}, {withCredentials: true})
+			.then(res => {
+				dispatch({type: PUT_ORDER, order: res.data});
+			})
+			.catch(err => console.log(err));
+	};
+}
+
 
 //* USERS
 
