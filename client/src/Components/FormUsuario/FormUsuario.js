@@ -60,6 +60,7 @@ function FormUsuario() {
 		return <Redirect to="/login" />;
 	}
 	var control;
+	var regEmail = new RegExp(/^\S+@\S+\.\S+$/)
 	return (
 		<div className="Formm">
 			<form
@@ -144,7 +145,8 @@ function FormUsuario() {
 					!state.password ||
 					!state.password2 ||
 					state.password2 != state.password ||
-					state.password.length < 6
+					state.password.length < 6 ||
+					!regEmail.test(state.email)
 					? (control = true)
 					: false}
 					<Button  disabled={control ? true : false}

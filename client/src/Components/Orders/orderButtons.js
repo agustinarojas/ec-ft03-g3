@@ -53,10 +53,6 @@ function OrderButtons({id, userId, createdAt, precios, orders, putOrder, users, 
         if(estado === "despachada" || estado === "cancelada")  {
              control = false;
         }
-        
-		
-		
-      
       
     return (
                 <tbody key={id}>
@@ -74,10 +70,10 @@ function OrderButtons({id, userId, createdAt, precios, orders, putOrder, users, 
 							 control ? 
 						<div>
 						<td>
-								<button className="orderID" name={id} onClick={(e) => {handleOnClick(e, "despachada", userId); handleSendEmailDesp(userId)}}>DESPACHAR</button>
+								<button className="despachar" name={id} onClick={(e) => {handleOnClick(e, "despachada", userId); handleSendEmailDesp(userId)}}>DESPACHAR</button>
 						</td>
 						<td>		
-								<button className="orderID" name={id} onClick={(e) => {handleOnClick(e, "cancelada", userId); handleSendEmailCan(userId); handleStock()}}>CANCELAR</button>
+								<button className="cancelar" name={id} onClick={(e) => {handleOnClick(e, "cancelada", userId); handleSendEmailCan(userId); handleStock()}}>CANCELAR</button>
 						</td>
 						</div>
 						: null

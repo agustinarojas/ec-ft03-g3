@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import './Form.css';
 import axios from 'axios';
 import {getUsers} from '../../Actions/index';
+import TextField from '@material-ui/core/TextField';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -57,16 +58,14 @@ const useStyles = makeStyles((theme) => ({
 
   var control;
   return (
-    <div className="Formm">
+    <div style ={{marginTop: '2%'}} className="Formm">
       <form onSubmit={e => handleSubmit(e, state)}>
         <div className="form-group">
-        <label htmlFor="exampleInputPassword">Ingrese su nueva contraseña</label>
-        <input
+        <TextField
           name='password'
-          placeholder='...'
+          placeholder='Nueva contraseña'
           type="password"
-          className="form-control"
-          id="exampleInputPassword"
+          id="standard-basic"
           onChange={e => handleOnChange(e)}
           //disabled={true}
         />
@@ -75,13 +74,11 @@ const useStyles = makeStyles((theme) => ({
           La contraseña debe contener almenos 6 caracteres
         </small> : ''
         }
-        <label htmlFor="exampleInputPassword">Confirme su nueva contraseña</label>
-        <input className={state.password2 != state.password && 'danger'}
+        <TextField className={state.password2 != state.password && 'danger'}
           name='password2'
-          placeholder='...'
+          placeholder='Confirmar contraseña'
           type="password"
-          className="form-control"
-          id="exampleInputPassword"
+          id="standard-basic"
           onChange={e => handleOnChange(e)}
           //disabled={true}
         />
@@ -99,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
         ? control = true : false
       }
       <button onClick = {handleClick} variant="contained" color="primary" type="submit"  value="Submit" disabled={control ? true : false}>
-        Submit
+        Actualizar
       </button>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success">
