@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ForgotPassword({users, getUsers}) {
-	var email = JSON.parse(localStorage.getItem('email'));
+	var email = localStorage.getItem('email');
 	console.log(email);
 	//var usuario = getUser();
 	//console.log(usuario)
@@ -34,10 +34,7 @@ function ForgotPassword({users, getUsers}) {
 	const handleSubmit = (event, state) => {
 		event.preventDefault();
 		axios
-			.post(`http://localhost:3005/users/forgotPassReset`, {
-				email: email.email,
-				password: state.password,
-			})
+			.post(`http://localhost:3005/users/forgotPassReset`, {email: email, password: state.password})
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
 	};

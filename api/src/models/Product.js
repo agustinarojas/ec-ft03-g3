@@ -38,7 +38,7 @@ module.exports = sequelize => {
 	});
 	const Carrito = sequelize.define('carrito', {
 		estado: {
-			type: DataTypes.ENUM('activo', 'cancelada', 'completa'),
+			type: DataTypes.ENUM('activo', 'cancelada', 'completa', 'despachada'),
 		},
 	});
 	const User = sequelize.define('user', {
