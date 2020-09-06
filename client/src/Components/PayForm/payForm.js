@@ -12,15 +12,16 @@ import Typography from '@material-ui/core/Typography';
 import './payForm.css';
 import { putProduct } from '../../Actions/index';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
+const useStyles = makeStyles(theme => ({
+	root: {
+		width: '100%',
+	},
+	heading: {
+		fontSize: theme.typography.pxToRem(15),
+		fontWeight: theme.typography.fontWeightRegular,
+	},
 }));
+
 
 
 function PayForm({ user, productsCar, putProduct }) {
