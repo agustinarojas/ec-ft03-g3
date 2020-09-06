@@ -179,20 +179,20 @@ function NavBar({
 				)}
 				<SearchBar search={search} />
 				{user.id && !productsCar.length && user.admin ?
-				 <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '30%' }}> {/* ADMIN / */}
+				 <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '80%' }}> {/* ADMIN / */}
 					<span className="material-icons"> remove_shopping_cart </span>
 				</Link> :
 					user.id && productsCar.length >= 1 && user.admin ?
-						<Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '30%' }}>
+						<Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '80%' }}>
 							<span className="material-icons">shopping_cart</span>  {/* / ADMIN / */}
 						</Link> : 
-						user.id && !productsCar.length ? <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '42%' }}>
+						user.id && !productsCar.length ? <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '80%' }}>
 							<span className="material-icons"> remove_shopping_cart </span> {/* / USER / */}
 						</Link> : 
-						user.id && productsCar.length >= 1 ? <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '42%' }}>
+						user.id && productsCar.length >= 1 ? <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '80%' }}>
 							<span className="material-icons">shopping_cart</span> {/* / USER /  */}
 						</Link> :
-						<Link to={`/cart/guest`} style={{ height: '65px', marginLeft: '30%' }}>
+						<Link to={`/cart/guest`} style={{ height: '65px', marginLeft: '80%' }}>
 									<span className="material-icons"> remove_shopping_cart </span> {/* / NO LOGEADO */}
 						</Link>}
 			</nav>
