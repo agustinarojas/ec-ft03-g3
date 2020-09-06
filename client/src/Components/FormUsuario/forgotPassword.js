@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
  function ForgotPassword({users, getUsers}) {
 
-	 var email = JSON.parse(localStorage.getItem('email'))
+	 var email = localStorage.getItem('email')
    console.log(email)
    //var usuario = getUser();
   //console.log(usuario)
@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
   const handleSubmit = (event, state, ) => {
     event.preventDefault();
 		axios
-			.post(`http://localhost:3005/users/forgotPassReset`, {email: email.email, password: state.password})
-			.then(res => console.log(res))
+			.post(`http://localhost:3005/users/forgotPassReset`, {email: email, password: state.password})
+      .then(res => console.log(res))
 			.catch(error => console.log(error));
   }
   const classes = useStyles();

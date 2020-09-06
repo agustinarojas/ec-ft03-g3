@@ -1,13 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
-import {getOrder} from '../../Actions/index';
+import {getOrder, putOrder, getUsers} from '../../Actions/index';
 import './order.css';
 import Button from '@material-ui/core/Button';
-function Orders({orders, getOrder, user}) {
+import OrderButtons from "./orderButtons";
+function Orders({orders, getOrder, user, putOrder, users, getUsers}) {
 	const [redir, setRedir] = useState(false);
-	const [error, setError] = useState(false)
-	console.log(orders);
+	const [error, setError] = useState(false);
+
+    useEffect(() => {
+      getUsers();
+	},[]);
+
+
 	var precios = [];
 	for (let i = 0; i < orders.length; i++) {
 		var total = 0;
@@ -17,10 +23,11 @@ function Orders({orders, getOrder, user}) {
 		}
 		precios.push(total);
 	}
+	
 	if (redir && !error) {
 		return <Redirect to="/settings" />;
 	}
-
+console.log(orders)
 	return (
 		<div>
 
@@ -35,20 +42,8 @@ function Orders({orders, getOrder, user}) {
 					<th scope="col">Fecha</th>
 				</tr>
 			</thead>
-			{orders?.map((o, i) => (
-				<tbody key={o.id}>
-					<tr>
-						<th scope="row">{o.id}</th>
-						<td>User</td>
-						<td> {precios[i]} </td>
-						<td>{o?.createdAt?.slice(0, 19)}</td>
-						<Link to={`/order/${o.id}`}>
-							<td>
-								<button className="orderID">DETALLE</button>
-							</td>
-						</Link>
-					</tr>
-				</tbody>
+			{orders?.map((o, i) => (<OrderButtons id={o.id} userId={o.userId} precio={o.precio} createdAt={o.createdAt} estado={o.estado} putOrder={putOrder} users={users} products={o.products}/>
+				
 			))}
 		</table>
 	</div>
@@ -66,8 +61,10 @@ function Orders({orders, getOrder, user}) {
 const mapStateToProps = (state) => {
 	return {
 		orders: state.orders,
-		user: state.user
+		user: state.user,
+		users: state.users,
+
 	};
 };
 
-export default connect(mapStateToProps, {getOrder})(Orders);
+export default connect(mapStateToProps, {getOrder, putOrder, getUsers})(Orders);

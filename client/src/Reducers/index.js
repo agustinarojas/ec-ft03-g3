@@ -27,6 +27,7 @@ import {
 	GET_ORDERS_USER,
 	GET_TOTALREVIEWS,
 	ERROR_LOGIN,
+	PUT_ORDER,
 } from '../Constants/ProductsConstants';
 const inicialState = {
 	products: [],
@@ -144,7 +145,6 @@ export default function rootReducer(state = inicialState, action) {
 			};
 
 		case SET_CANTIDAD:
-		case SET_CANTIDAD:
 			var newProdCart = state.productsCar.map(prod => {
 				if (prod.id === action.product.id) {
 					return action.product;
@@ -225,6 +225,18 @@ export default function rootReducer(state = inicialState, action) {
 			return {
 				...state,
 				totalreviews: action.totalreviews,
+			};
+		case PUT_ORDER:
+		    var newOrder = state.orders.map(ord => {
+				if (ord.id === action.order.id) {
+					return action.order;
+				} else {
+					return ord;
+				}
+			});
+			return {
+				...state,
+				orders: newOrder,
 			};
 		default:
 			return state;
