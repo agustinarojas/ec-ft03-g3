@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Redirect} from 'react-router';
 import MaterialTable from 'material-table';
 import {postCategory, putCategory, deleteCategory} from '../../Actions/index.js';
 import {connect} from 'react-redux';
 import TableProductCat from './TableProductCat';
+import Button from '@material-ui/core/Button';
+
 
 function TableCategory({categories, postCategory, putCategory, deleteCategory, user}) {
+	const [redir, setRedir] = useState(false);
+	const [error, setError] = useState(false)
 	const columns = [
 		{title: 'Titulo', field: 'titulo'},
 		{title: 'Descripción', field: 'descripcion'},
@@ -13,7 +17,12 @@ function TableCategory({categories, postCategory, putCategory, deleteCategory, u
 	let cats = [];
 	categories.map(category => {
 		if (category.titulo) cats.push(category);
+		return cats;
 	});
+	if (redir && !error) {
+		return <Redirect to="/settings" />;
+	}
+
 	return (
 		<div>
 			{user.admin ? (
@@ -34,6 +43,9 @@ function TableCategory({categories, postCategory, putCategory, deleteCategory, u
 			) : (
 				<Redirect to="/" />
 			)}
+			<Button style={{marginTop: '2%', marginLeft: '2%'}} color = "secondary" variant= "contained" onClick= {setRedir}>
+			Regresar
+			</Button>
 		</div>
 	);
 }

@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import {
 	GET_PRODUCTS,
 	PUT_PRODUCT,
@@ -27,6 +26,7 @@ import {
 	GET_ORDERS_USER,
 	GET_TOTALREVIEWS,
 	ERROR_LOGIN,
+	MAKE_ADMIN,
 } from '../Constants/ProductsConstants';
 
 //* PRODUCTS
@@ -215,6 +215,7 @@ export function getCarrito(userId) {
 	};
 }
 
+
 export function addToCart(userId, prodId, cant, carritoId) {
 	let cantidad;
 	if (cant) {
@@ -222,6 +223,7 @@ export function addToCart(userId, prodId, cant, carritoId) {
 	} else {
 		cantidad = 1;
 	}
+
 	return function (dispatch) {
 		return axios
 			.post(
@@ -287,7 +289,7 @@ export function deleteProdCart(userId, prodId) {
 export function emptyCart(id) {
 	console.log(id);
 	if (localStorage.getItem('productos') !== null) {
-		localStorage.clear();
+		localStorage.removeItem('productos');
 	}
 	return function (dispatch) {
 		return axios
@@ -353,6 +355,7 @@ export function login(user) {
 		return axios
 			.post('http://localhost:3005/auth/login', user, {withCredentials: true})
 			.then(res => {
+				alert("Sesion iniciada con exito")
 				if (prods) {
 					dispatch({type: LOGIN, user: res.data, prods});
 				} else {
@@ -360,6 +363,7 @@ export function login(user) {
 				}
 			})
 			.catch(error => {
+				alert ("Usuario o contraseña incorrecta")
 				dispatch({type: ERROR_LOGIN, user: false});
 			});
 	};
@@ -397,6 +401,15 @@ export function deleteUsers(id) {
 		return axios
 			.delete(`http://localhost:3005/users/${id}`, {withCredentials: true})
 			.then(res => dispatch({type: DELETE_USERS, deleteUser: res.data}))
+			.catch(err => console.log(err));
+	};
+}
+
+export function makeAdmin(id) {
+	return function (dispatch) {
+		return axios
+			.post(`http://localhost:3005/auth/promote/${id}`, null, {withCredentials: true})
+			.then(res => dispatch({type: MAKE_ADMIN, user: res.data}))
 			.catch(err => console.log(err));
 	};
 }

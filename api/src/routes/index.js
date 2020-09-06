@@ -7,6 +7,7 @@ const userRouter = require('./user');
 const orderRouter = require('./orders.js');
 const authRouter = require('./auth.js');
 const reviewRouter = require('./productReview.js');
+const sendemailRouter = require('./sendEmail.js');
 const {use} = require('./product.js');
 const router = Router();
 
@@ -20,5 +21,5 @@ router.use('/users', userRouter);
 router.use('/orders', orderRouter);
 router.use('/auth', authRouter);
 router.use('/products', reviewRouter);
-
+router.use('/sendemail', sendemailRouter);
 module.exports = router;

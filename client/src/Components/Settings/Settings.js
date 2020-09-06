@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,9 +9,12 @@ import {getOrders, getUsers} from '../../Actions/index';
 import {connect} from 'react-redux';
 import './setting.css'
 
-function SimpleList({getOrders, getUsers}) {
+function SimpleList({getOrders, getUsers, user}) {
 
 	return (
+		<div>
+			{user.admin? (
+		
 		<div className='fondo' style={{display: 'flex', justifyContent: 'center'}}>
 		<div className='panelad'  >
 			<List component="nav" aria-label="main mailbox folders">
@@ -56,6 +59,15 @@ function SimpleList({getOrders, getUsers}) {
 			</List>
 		</div>
 		</div>
+			):(
+				<Redirect to= "/"/>
+			)}
+		</div>
 	);
 }
-export default connect(null, {getUsers, getOrders})(SimpleList);
+const mapStateToProps = state => {
+	return {
+		user: state.user,
+	};
+};
+export default connect(mapStateToProps ,{getUsers,getOrders})(SimpleList);

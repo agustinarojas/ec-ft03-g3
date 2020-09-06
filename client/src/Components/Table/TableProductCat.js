@@ -1,9 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import MaterialTable from 'material-table';
 import {setCategory, deleteProdCategory, getProducts} from '../../Actions/index.js';
 import {connect} from 'react-redux';
-
-function TableProductCat({setCategory, deleteProdCategory, products, categories, getProducts}) {
+import Button from '@material-ui/core/Button';
+import {Redirect} from 'react-router';
+function TableProductCat({setCategory, deleteProdCategory, products, categories, getProducts, user}) {
+	
+	const [redir, setRedir] = useState(false);
+	const [error, setError] = useState(false)
 	useEffect(() => {
 		getProducts();
 	}, [categories]);
@@ -21,8 +25,15 @@ function TableProductCat({setCategory, deleteProdCategory, products, categories,
 		{title: 'Titulo Producto', field: 'titulo'},
 		{title: 'Categoría', field: 'category', lookup: catOptions},
 	];
+	if (redir && !error) {
+		return <Redirect to="/settings" />;
+	}
+
 
 	return (
+		<div>
+			{user.admin ? (			
+		
 		<MaterialTable
 			title="Producto-Categoría"
 			columns={columns}
@@ -40,6 +51,7 @@ function TableProductCat({setCategory, deleteProdCategory, products, categories,
 							console.log(products);
 						}
 						return (
+							<div>
 							<ul className="list-group"
 								style={{
 									fontSize: 18,
@@ -62,17 +74,27 @@ function TableProductCat({setCategory, deleteProdCategory, products, categories,
 										</li>
 									))}
 							</ul>
+							<Button style={{marginTop: '2%', marginLeft: '2%'}} color = "secondary" variant= "contained" onClick= {setRedir}>
+			Regresar
+			</Button>
+							</div>
 						);
 					},
 				},
 			]}
-		/>
+			
+			/>
+			):(
+				<Redirect to = "/"/>
+			)}
+			</div>
 	);
 }
 const mapStateToProps = state => {
 	return {
 		categories: state.categories,
 		products: state.products,
+		user: state.user,
 	};
 };
 export default connect(mapStateToProps, {

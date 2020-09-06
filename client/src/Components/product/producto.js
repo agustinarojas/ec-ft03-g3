@@ -1,49 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './producto.css';
-import { addToCart, getReviews } from '../../Actions/index';
-import { connect } from 'react-redux';
+import {addToCart, getReviews} from '../../Actions/index';
+import {connect} from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Axios from 'axios';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-const useStyles = makeStyles(theme => ({
-	root: {
-		width: '100%',
-		'& > * + *': {
-			marginTop: theme.spacing(2),
-		},
-	},
-}));
 
 function Products(producto) {
-	const classes = useStyles();
-	const [value, setValue] = useState(0);
 	const [open, setOpen] = React.useState(false);
-	const [state, setState] = useState(false);
-	const [tarea, setTarea] = useState('');
-	const [count, setCount] = useState(0);
 	const handleClick = () => {
 		setOpen(true);
 	};
-
-	const submitRate = (idUser, idProd) => {
-		// CAMBIAR DONDE HACE SUBMIT Y SACARLE EL HARDCODEO JAJA! AGREGAR COMENTARIOS. RENDERIZAR VALOR DE ESTRELLITA PROEDIO
-		return Axios.post(`http://localhost:3005/products/${idUser}/review`, {
-			rating: value,
-			descripcion: tarea,
-			productId: idProd,
-			userId: idUser,
-		})
-			.then(success => console.log(success))
-			.catch(err => console.log(err));
-	};
-
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return;
@@ -51,17 +24,6 @@ function Products(producto) {
 		setOpen(false);
 	};
 
-	const handleOnClick = () => {
-		setCount(count + 1);
-		console.log(count);
-		if (count < 1) {
-			setState(true);
-		} else {
-			setState(false);
-		}
-	};
-	console.log(state);
-	var control;
 	return (
 		<div className="wrapper">
 			<div>
@@ -72,16 +34,15 @@ function Products(producto) {
 				<div>
 					<p>{producto?.producto[0]?.descripcion}</p>
 					<div>
-						<p style={{ opacity: '0.6' }}>En stock: {producto?.producto[0]?.stock}</p>
+						<p style={{opacity: '0.6'}}>En stock: {producto?.producto[0]?.stock}</p>
 					</div>
-					<div className='califcs'>
-						<Link to={`/producto/${producto?.producto[0]?.id}/Calificaciones`} onClick={() => producto?.getReviews(producto?.producto[0]?.id)}>
-							<Button
-								variant="contained"
-								color="secondary"
-							>
+					<div className="califcs">
+						<Link
+							to={`/producto/${producto?.producto[0]?.id}/Calificaciones`}
+							onClick={() => producto?.getReviews(producto?.producto[0]?.id)}>
+							<Button variant="contained" color="secondary">
 								Calificaciones
-    					    </Button>
+							</Button>
 						</Link>
 					</div>
 				</div>
@@ -117,4 +78,4 @@ function mapStateToProps(state) {
 		user: state.user,
 	};
 }
-export default connect(mapStateToProps, { addToCart, getReviews })(Products);
+export default connect(mapStateToProps, {addToCart, getReviews})(Products);

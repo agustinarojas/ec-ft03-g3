@@ -1,13 +1,9 @@
 .contenedor {
-
 	background-color: rgb(6, 154, 246);
 }
 
 .form {
 	display: inline-flex;
-	justify-content: flex-end;
-	position: relative;
-	left: 30%;
 }
 
 .input3 {
