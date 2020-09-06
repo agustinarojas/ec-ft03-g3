@@ -35,10 +35,6 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	else {
 		cart = data;
 	}
-	console.log(cart);
-	// useEffect(() => {
-	// 	// setPrecio(total);
-	// }, [productsCar]);
 
 	const [open, setOpen] = React.useState(false);
 	const [abrir, setAbrir] = React.useState(false);

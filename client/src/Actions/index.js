@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {handleLogIn} from '../Components/FormUsuario/loginUser';
 import {
 	GET_PRODUCTS,
 	PUT_PRODUCT,
@@ -103,7 +104,7 @@ export function addProduct(product, img) {
 }
 
 export function putProduct(product, id) {
-	console.log(product, id)
+	console.log(product, id);
 	return function (dispatch) {
 		return axios
 			.put(`http://localhost:3005/products/${id}`, product, {withCredentials: true})
@@ -217,7 +218,6 @@ export function getCarrito(userId) {
 	};
 }
 
-
 export function addToCart(userId, prodId, cant, carritoId) {
 	let cantidad;
 	if (cant) {
@@ -330,14 +330,17 @@ export function getOrders() {
 export function putOrder(userId, estado, carritoId) {
 	return function (dispatch) {
 		return axios
-			.put(`http://localhost:3005/orders/${userId}`, {estado: estado, carritoId}, {withCredentials: true})
+			.put(
+				`http://localhost:3005/orders/${userId}`,
+				{estado: estado, carritoId},
+				{withCredentials: true},
+			)
 			.then(res => {
 				dispatch({type: PUT_ORDER, order: res.data});
 			})
 			.catch(err => console.log(err));
 	};
 }
-
 
 //* USERS
 
@@ -359,6 +362,7 @@ export function putOrder(userId, estado, carritoId) {
 // 			.catch(error => console.log(error));
 // 	};
 // }
+
 export function login(user) {
 	let prods;
 	if (localStorage.getItem('productos') !== null) {
@@ -369,15 +373,15 @@ export function login(user) {
 		return axios
 			.post('http://localhost:3005/auth/login', user, {withCredentials: true})
 			.then(res => {
-				alert("Sesion iniciada con exito")
 				if (prods) {
 					dispatch({type: LOGIN, user: res.data, prods});
 				} else {
 					dispatch({type: LOGIN, user: res.data, prods: false});
 				}
+				handleLogIn('success');
 			})
 			.catch(error => {
-				alert ("Usuario o contraseña incorrecta")
+				handleLogIn('error');
 				dispatch({type: ERROR_LOGIN, user: false});
 			});
 	};
