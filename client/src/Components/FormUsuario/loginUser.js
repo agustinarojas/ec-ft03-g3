@@ -78,6 +78,22 @@ function LoginUser({login}) {
 				console.log(inputEmail);
 				localStorage.setItem('email', inputEmail);
 			})
+
+			.catch(err => console.log(err));
+	};
+
+	const handleCerrar = () => {
+		setAbrir(false);
+	};
+
+	const handleSendEmail = () => {
+		axios
+			.post('http://localhost:3005/sendemail/forgottenPassword', {email: inputEmail})
+			.then(res => {
+				console.log(res);
+				console.log(inputEmail);
+				localStorage.setItem('email', inputEmail);
+			})
 			.catch(err => console.log(err));
 	};
 

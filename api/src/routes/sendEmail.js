@@ -15,7 +15,7 @@ server.post('/purchaseMade', (req, res) => {
 
 	// Definimos el email
 	var mailOptions = {
-		from: 'henrys toys <henrystoy123@gmail.com>',
+		from: 'Henrys toys <henrystoy123@gmail.com>',
 		to: req.body.email,
 		subject: 'Compra Realizada',
 		text: 'Su compra fue realizada con exito, muchas gracias por confiar en Henrys toys',
@@ -45,11 +45,42 @@ server.post('/purchaseDispatched', (req, res) => {
 
 	// Definimos el email
 	var mailOptions = {
-		from: 'henrys toys <henrystoy123@gmail.com>',
+		from: 'Henrys toys <henrystoy123@gmail.com>',
 		to: req.body.email,
 		subject: 'Compra Despachada',
 		text:
 			'Su compra fue despachada, por cualquier consulta estamos a su disposicion, muchas gracias por confiar en Henrys toys',
+	};
+	// Enviamos el email
+	transporter.sendMail(mailOptions, function (error, response) {
+		if (error) {
+			console.log(error);
+			res.sendStatus(500);
+		} else {
+			console.log('Email sent');
+			res.sendStatus(200);
+		}
+	});
+});
+
+server.post('/purchaseCancel', (req, res) => {
+	// Definimos el transporter
+	console.log(req.body.email);
+	var transporter = nodemailer.createTransport({
+		service: 'Gmail',
+		auth: {
+			user: USER,
+			pass: PASS,
+		},
+	});
+
+	// Definimos el email
+	var mailOptions = {
+		from: 'Henrys toys <henrystoy123@gmail.com>',
+		to: req.body.email,
+		subject: 'Compra Cancelada',
+		text:
+			'Su compra fue cancelada, por cualquier consulta estamos a su disposicion, lo esperamos pronto en Henrys toys',
 	};
 	// Enviamos el email
 	transporter.sendMail(mailOptions, function (error, response) {
@@ -76,7 +107,7 @@ server.post('/forgottenPassword', (req, res) => {
 
 	// Definimos el email
 	var mailOptions = {
-		from: 'henrys toys <henrystoy123@gmail.com>',
+		from: 'Henrys toys <henrystoy123@gmail.com>',
 		to: req.body.email,
 		subject: 'Recuperar contraseña',
 		text: 'Para resetear tu contraseña puedes ingresar a este link',

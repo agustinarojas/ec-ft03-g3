@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
-import {getOrder, getUsers} from '../../Actions/index';
+import {getOrder, putOrder, getUsers} from '../../Actions/index';
 import './order.css';
 import Button from '@material-ui/core/Button';
-function Orders({orders, getOrder, user, users, getUsers}) {
+import OrderButtons from './orderButtons';
+function Orders({orders, getOrder, user, putOrder, users, getUsers}) {
 	const [redir, setRedir] = useState(false);
+	const [error, setError] = useState(false);
+
 	useEffect(() => {
-		getOrder();
 		getUsers();
-	}, [orders]);
-	console.log(users);
+	}, []);
+
 	var precios = [];
 	for (let i = 0; i < orders.length; i++) {
 		var total = 0;
@@ -20,9 +22,11 @@ function Orders({orders, getOrder, user, users, getUsers}) {
 		}
 		precios.push(total);
 	}
-	if (redir) {
+
+	if (redir && !error) {
 		return <Redirect to="/settings" />;
 	}
+	console.log(orders);
 	return (
 		<div>
 			{user.admin ? (
@@ -37,26 +41,27 @@ function Orders({orders, getOrder, user, users, getUsers}) {
 							</tr>
 						</thead>
 						{orders?.map((o, i) => (
-							<tbody key={o.id}>
-								<tr>
-									<th scope="row">{o.id}</th>
-									<td>{users?.filter(user => user.id === o.userId)[0]?.email}</td>
-									<td> {precios[i]} </td>
-									<td>{o?.createdAt?.slice(0, 10)}</td>
-									<td>
-										<Link to={`/order/${o.id}`}>
-											<button className="orderID">DETALLE</button>
-										</Link>
-									</td>
-								</tr>
-							</tbody>
+							<OrderButtons
+								id={o.id}
+								userId={o.userId}
+								precio={o.precio}
+								createdAt={o.createdAt}
+								estado={o.estado}
+								putOrder={putOrder}
+								users={users}
+								products={o.products}
+							/>
 						))}
 					</table>
 				</div>
 			) : (
 				<Redirect to="/" />
 			)}
-			<Button color="secondary" variant="contained" onClick={setRedir}>
+			<Button
+				style={{marginTop: '2%', marginLeft: '2%'}}
+				color="secondary"
+				variant="contained"
+				onClick={setRedir}>
 				Regresar
 			</Button>
 		</div>
@@ -71,4 +76,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, {getOrder, getUsers})(Orders);
+export default connect(mapStateToProps, {getOrder, putOrder, getUsers})(Orders);

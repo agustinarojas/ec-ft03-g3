@@ -142,7 +142,6 @@ server.get('/:ids/cart', (req, res) => {
 	Carrito.findOne({
 		where: {
 			userId: ids,
-			// [Op.or]: [{estado: 'activo'}, {estado: 'completa'}],
 			estado: 'activo',
 		},
 		include: {
@@ -248,7 +247,7 @@ server.get('/:ids/orders', isAuthenticated, (req, res) => {
 	Carrito.findAll({
 		where: {
 			userId: req.params.ids,
-			estado: 'completa',
+			[Op.or]: [{estado: 'completa'}, {estado: 'despachada'}],
 		},
 		include: [{model: Product}],
 	})

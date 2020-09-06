@@ -1,9 +1,9 @@
 import React from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import './NavBar.css';
-import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {filterByCategory, getProducts, getUser, logout, getUsers} from '../../Actions/index';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { filterByCategory, getProducts, getUser, logout, getUsers, haveCart } from '../../Actions/index';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles(theme => ({
@@ -36,6 +36,7 @@ function NavBar({
 	logout,
 	productsCar,
 }) {
+
 	// const handleOnClick = () => {
 	// 	axios
 	// 		.get('http://localhost:3005/auth/logout', {withCredentials: true})
@@ -96,7 +97,7 @@ function NavBar({
 						Categorias
 						<i className="fa fa-caret-down"></i>
 					</button>
-					<div className="dropd-cont" style={{zIndex: '9999'}}>
+					<div className="dropd-cont" style={{ zIndex: '9999' }}>
 						{cats?.map((c, i) => (
 							<Link to={`/category/${c.titulo}`} onClick={e => filterByCategory(c.titulo)} key={i}>
 								{c.titulo}
@@ -107,21 +108,14 @@ function NavBar({
 				{!user.id && <Link to="/sign_up"> Registrarse </Link>}
 				{!user.id && <Link to="/login"> Iniciar Sesion </Link>}
 				{user.admin && (
-					<Link to="/settings" style={{display: 'flex'}}>
-						<span className="material-icons" style={{width: '25px'}}>
+					<Link to="/settings" style={{ display: 'flex' }}>
+						<span className="material-icons" style={{ width: '25px' }}>
 							settings_icon
 						</span>
 						<span> Administrar </span>
 					</Link>
 				)}
 				{/* {count ? <span className="num"> {count} </span> : null} */}
-				<Link to="/cart/1" style={{height: '65px'}}>
-					{productsCar?.length >= 1 || localStorage.length >= 1 ? (
-						<span className="material-icons">shopping_cart</span>
-					) : (
-						<span className="material-icons"> remove_shopping_cart </span>
-					)}
-				</Link>
 				{user.id && (
 					<Button
 						ref={anchorRef}
@@ -139,11 +133,11 @@ function NavBar({
 						role={undefined}
 						transition
 						disablePortal
-						style={{zIndex: 9999}}>
-						{({TransitionProps, placement}) => (
+						style={{ zIndex: 9999 }}>
+						{({ TransitionProps, placement }) => (
 							<Grow
 								{...TransitionProps}
-								style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}>
+								style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
 								<Paper>
 									<ClickAwayListener onClickAway={handleClose}>
 										<MenuList
@@ -156,23 +150,23 @@ function NavBar({
 												padding: '0px',
 												color: 'black',
 											}}>
-											<Link to="/me" style={{padding: '0px'}} onClick={() => getUser()}>
+											<Link to="/me" style={{ padding: '0px' }} onClick={() => getUser()}>
 												<MenuItem onClick={handleClose}>
-													<span style={{color: 'black'}}>Perfil</span>
+													<span style={{ color: 'black' }}>Perfil</span>
 												</MenuItem>
 											</Link>
-											<Link to={`/users/${user.id}/orders`} style={{padding: '0px'}}>
+											<Link to={`/users/${user.id}/orders`} style={{ padding: '0px' }}>
 												<MenuItem onClick={handleClose}>
-													<span style={{color: 'black'}}>Mis compras</span>
+													<span style={{ color: 'black' }}>Mis compras</span>
 												</MenuItem>
 											</Link>
-											<Link to="#" style={{padding: '0px'}}>
+											<Link to="#" style={{ padding: '0px' }}>
 												<MenuItem
 													onClick={() => {
 														handleClose();
 														logout();
 													}}>
-													<span style={{color: 'black'}}>Cerrar sesion</span>
+													<span style={{ color: 'black' }}>Cerrar sesion</span>
 												</MenuItem>
 											</Link>
 										</MenuList>
@@ -183,6 +177,23 @@ function NavBar({
 					</Popper>
 				)}
 				<SearchBar search={search} />
+				{user.id && !productsCar.length && user.admin ?
+				 <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '30%' }}> {/* ADMIN / */}
+					<span className="material-icons"> remove_shopping_cart </span>
+				</Link> :
+					user.id && productsCar.length >= 1 && user.admin ?
+						<Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '30%' }}>
+							<span className="material-icons">shopping_cart</span>  {/* / ADMIN / */}
+						</Link> : 
+						user.id && !productsCar.length ? <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '42%' }}>
+							<span className="material-icons"> remove_shopping_cart </span> {/* / USER / */}
+						</Link> : 
+						user.id && productsCar.length >= 1 ? <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '42%' }}>
+							<span className="material-icons">shopping_cart</span> {/* / USER /  */}
+						</Link> :
+						<Link to={`/cart/guest`} style={{ height: '65px', marginLeft: '30%' }}>
+									<span className="material-icons"> remove_shopping_cart </span> {/* / NO LOGEADO */}
+						</Link>}
 			</nav>
 		</div>
 	);

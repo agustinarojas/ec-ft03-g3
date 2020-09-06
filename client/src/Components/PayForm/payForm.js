@@ -10,6 +10,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import './payForm.css';
+import {putProduct} from '../../Actions/index';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function PayForm({user, productsCar}) {
+function PayForm({user, productsCar, putProduct}) {
 	const [state, setState] = useState({});
 	const [redirect, setRedirect] = useState(false);
 	const [redir, setRedir] = useState(false);
@@ -63,13 +64,21 @@ function PayForm({user, productsCar}) {
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	};
+	console.log(productsCar);
+	const handleStock = () => {
+		productsCar.map(p => {
+			p.stock = p.stock - p.lineorder.cantidad;
+			console.log(p, p.id);
+			putProduct(p, p.id);
+		});
+	};
 
 	return (
 		<div>
 			{user.id ? (
 				<div>
 					<div className="alls">
-						<h3>¿Cómo querés pagar?</h3>
+						<h3>Cómo querés pagar?</h3>
 					</div>
 					<div>
 						<Container className={classes.root}>
@@ -155,6 +164,7 @@ function PayForm({user, productsCar}) {
 													onClick={() => {
 														comprar();
 														handleSendEmail();
+														handleStock();
 														setRedir(true);
 													}}
 													style={{position: 'relative', top: '1em', left: '12em'}}>
@@ -229,4 +239,4 @@ function mapStateToProps(state) {
 		user: state.user,
 	};
 }
-export default connect(mapStateToProps)(PayForm);
+export default connect(mapStateToProps, {putProduct})(PayForm);
