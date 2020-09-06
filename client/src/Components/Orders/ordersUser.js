@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {getOrdersUser, getUser} from '../../Actions/index';
 import {Link} from 'react-router-dom';

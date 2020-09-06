@@ -17,6 +17,7 @@ function TableCategory({categories, postCategory, putCategory, deleteCategory, u
 	let cats = [];
 	categories.map(category => {
 		if (category.titulo) cats.push(category);
+		return cats;
 	});
 	if (redir && !error) {
 		return <Redirect to="/settings" />;
@@ -42,7 +43,7 @@ function TableCategory({categories, postCategory, putCategory, deleteCategory, u
 			) : (
 				<Redirect to="/" />
 			)}
-			<Button color = "secondary" variant= "contained" onClick= {setRedir}>
+			<Button style={{marginTop: '2%', marginLeft: '2%'}} color = "secondary" variant= "contained" onClick= {setRedir}>
 			Regresar
 			</Button>
 		</div>

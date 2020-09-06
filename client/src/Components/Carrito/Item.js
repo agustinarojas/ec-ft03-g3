@@ -25,15 +25,18 @@ function Item({
 	cantidad,
 	setCantidad,
 	user,
+	cantidadLocalStorage,
 }) {
 	const [cantidades, setCantidades] = useState(cantidad);
 	const handleOnCLickCantidad = (prodId, type) => {
 		if (type === 'menos' && cantidades > 1) {
 			setCantidades(cantidades - 1);
 			setCantidad(user.id, prodId, cantidades - 1);
+			cantidadLocalStorage();
 		} else if (type === 'mas' && stock > cantidades) {
 			setCantidades(cantidades + 1);
 			setCantidad(user.id, prodId, cantidades + 1);
+			cantidadLocalStorage();
 		}
 	};
 	const [open, setOpen] = React.useState(false);
@@ -73,7 +76,9 @@ function Item({
 							+
 						</button>
 					</div>
-					<small style={{position: 'relative', top: '13%', right: '8.15%', opacity: '0.6'}}>stock ({stock})</small>
+					<small style={{position: 'relative', top: '13%', right: '8.15%', opacity: '0.6'}}>
+						stock ({stock})
+					</small>
 					<div className="precioboton">
 						<p id="precio">$ {precio} </p>
 						<button
@@ -108,6 +113,7 @@ function Item({
 									onClick={e => {
 										deleteProdCart(user.id, e.target.name);
 										handleClose();
+										cantidadLocalStorage();
 									}}>
 									Aceptar
 								</button>

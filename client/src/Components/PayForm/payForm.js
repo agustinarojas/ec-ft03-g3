@@ -1,17 +1,16 @@
-import React, { useState, Fragment } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Button from '@material-ui/core/Button';
-import {FormControl, Container, InputLabel, Input, FormHelperText, FormControlLabel} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {FormControl, Container, InputLabel, Input, FormHelperText} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import './payForm.css';
 import {putProduct} from '../../Actions/index';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
  function PayForm({user,productsCar, putProduct}) {
 	const [state, setState] = useState({});
 	const [redirect, setRedirect] = useState(false);
-  const [redir, setRedir] = useState(false);
-  const [error, setError] = useState(false);
+	const [redir, setRedir] = useState(false);
+	const [error, setError] = useState(false);
 
-  const [expanded, setExpanded] = useState('panel1');
-  const classes = useStyles();
+	const [expanded, setExpanded] = useState('panel1');
+	const classes = useStyles();
 	const handleOnChange = e => {
 		setState({
 			...state,
@@ -50,16 +49,16 @@ const useStyles = makeStyles((theme) => ({
 			)
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
-      }
+	}
 
 	if (redirect && !error) {
 		return <Redirect to="/sendform" />;
 	}
 
-  if (redir && !error) {
-		return <Redirect to={`/users/${user.id}/orders`}/>;
+	if (redir && !error) {
+		return <Redirect to={`/users/${user.id}/orders`} />;
 	}
-
+    
    const handleSendEmail = () => {
      axios
      .post('http://localhost:3005/sendemail/purchaseMade', {email: user.email})
@@ -253,3 +252,4 @@ const useStyles = makeStyles((theme) => ({
     };
   }
   export default connect(mapStateToProps, {putProduct})(PayForm);
+
