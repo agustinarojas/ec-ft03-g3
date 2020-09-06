@@ -26,9 +26,7 @@ function PayForm({user, productsCar, putProduct}) {
 	const [state, setState] = useState({});
 	const [redirect, setRedirect] = useState(false);
 	const [redir, setRedir] = useState(false);
-	const [error, setError] = useState(false);
 
-	const [expanded, setExpanded] = useState('panel1');
 	const classes = useStyles();
 	const handleOnChange = e => {
 		setState({
@@ -50,11 +48,11 @@ function PayForm({user, productsCar, putProduct}) {
 			.catch(err => console.log(err));
 	}
 
-	if (redirect && !error) {
+	if (redirect) {
 		return <Redirect to="/sendform" />;
 	}
 
-	if (redir && !error) {
+	if (redir) {
 		return <Redirect to={`/users/${user.id}/orders`} />;
 	}
 
@@ -78,7 +76,7 @@ function PayForm({user, productsCar, putProduct}) {
 			{user.id ? (
 				<div>
 					<div className="alls">
-						<h3>Cómo querés pagar?</h3>
+						<h3>¿Cómo querés pagar?</h3>
 					</div>
 					<div>
 						<Container className={classes.root}>
