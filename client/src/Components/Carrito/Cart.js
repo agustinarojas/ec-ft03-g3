@@ -35,7 +35,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 	else {
 		cart = data;
 	}
-	console.log(cart);
+
 	// useEffect(() => {
 	// 	// setPrecio(total);
 	// }, [productsCar]);

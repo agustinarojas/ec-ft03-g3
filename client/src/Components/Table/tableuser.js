@@ -17,7 +17,7 @@ function TableUser({user, users, deleteUsers, makeAdmin, getUsers}) {
 	];
 	useEffect(() => {
 		getUsers();
-	}, [users]);
+	}, []);
 	if (redir && !error) {
 		return <Redirect to="/settings" />;
 	}

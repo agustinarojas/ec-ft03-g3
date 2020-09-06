@@ -35,7 +35,6 @@ function NavBar({
 	user,
 	logout,
 	productsCar,
-	localStorage
 }) {
 	// const handleOnClick = () => {
 	// 	axios
@@ -80,7 +79,6 @@ function NavBar({
 		if (prevOpen.current === true && open === false) {
 			anchorRef.current.focus();
 		}
-
 		prevOpen.current = open;
 	}, [open]);
 
@@ -193,7 +191,6 @@ function mapStateToProps(state) {
 	return {
 		user: state.user,
 		productsCar: state.productsCar,
-		localStorage: state.localStorage
 	};
 }
 export default connect(mapStateToProps, {
