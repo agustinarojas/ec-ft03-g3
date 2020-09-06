@@ -69,7 +69,7 @@ function PayForm({user, productsCar}) {
 			{user.id ? (
 				<div>
 					<div className="alls">
-						<h3>Cómo querés pagar?</h3>
+						<h3>¿Cómo querés pagar?</h3>
 					</div>
 					<div>
 						<Container className={classes.root}>
