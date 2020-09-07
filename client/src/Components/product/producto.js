@@ -38,6 +38,7 @@ function Products(producto) {
 					</div>
 					<div className="califcs">
 						<Link
+						    style={{textDecoration: 'none'}}
 							to={`/producto/${producto?.producto[0]?.id}/Calificaciones`}
 							onClick={() => producto?.getReviews(producto?.producto[0]?.id)}>
 							<Button variant="contained" color="secondary">

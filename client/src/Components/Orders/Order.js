@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import {getOrder, putOrder, getUsers} from '../../Actions/index';
+import {getOrder, putOrder, getUsers, getOrders} from '../../Actions/index';
 import './order.css';
 import Button from '@material-ui/core/Button';
 import OrderButtons from './orderButtons';
-function Orders({orders, user, putOrder, users, getUsers}) {
+function Orders({orders, user, putOrder, users, getUsers, getOrders}) {
 	const [redir, setRedir] = useState(false);
 	const [ordenes, setOrdenes] = useState(orders);
 	// let ordenes = orders;
 
 	useEffect(() => {
 		getUsers();
+		getOrders()
 	}, []);
 
 	var precios = [];
@@ -97,4 +98,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, {getOrder, putOrder, getUsers})(Orders);
+export default connect(mapStateToProps, {getOrder, putOrder, getUsers, getOrders})(Orders);

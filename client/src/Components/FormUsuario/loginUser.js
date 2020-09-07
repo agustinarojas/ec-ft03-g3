@@ -18,8 +18,8 @@ import swal from 'sweetalert';
 export const handleLogIn = type => {
 	if (type === 'success') {
 		return swal({
-			title: 'Correcto',
-			text: 'Usuario logueado exitosamente',
+			title: 'Exito',
+			text: 'Sesion iniciada',
 			icon: 'success',
 			button: 'Continuar',
 		});
