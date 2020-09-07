@@ -11,6 +11,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import './payForm.css';
 import { putProduct } from '../../Actions/index';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -22,6 +23,14 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
+const alerswal = () => {
+  return swal({
+    title: 'Exito',
+    text: 'Compra exitosa',
+    icon: 'success',
+    button: 'Continuar',
+  });
+}
 
 
 function PayForm({ user, productsCar, putProduct }) {
@@ -193,7 +202,7 @@ function PayForm({ user, productsCar, putProduct }) {
                         disabled={control ? true : false}
                           variant="contained"
                           color="primary"
-                          onClick={() => { comprar(); handleSendEmail(); handleStock(); setRedir(true); }}
+                          onClick={() => { comprar(); handleSendEmail(); handleStock(); setRedir(true); alerswal()}}
                           style={{ position: 'relative', top: '1em', left: '12em' }}
                         >
                           Comprar

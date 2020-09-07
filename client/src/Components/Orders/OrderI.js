@@ -25,7 +25,7 @@ function Order({orders, match}) {
 				</div>
 				<div id="hora">
 					<h3>Fecha: {ord[0]?.createdAt.slice(0, 10)}</h3>
-					<h3>Hora: {ord[0]?.createdAt.slice(11, 19)}</h3>
+					<h3>Hora: {ord[0]?.createdAt.slice(11, 19) }</h3>
 				</div>
 			</div>
 			<table className="table table-striped">

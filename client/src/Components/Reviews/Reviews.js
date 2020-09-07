@@ -35,9 +35,9 @@ function Reviews({reviews}) {
 				reviews?.map(r => (
 					<div key={r.user?.id} className="describe">
 						<div className="name1">
-							<h3>
+							{r.user?.nombre ? <h3>
 								{r.user?.nombre} {r.user?.apellido}
-							</h3>
+							</h3> : <h3>Usuario</h3>}						
 						</div>
 						<div className="descrip">
 							<h4>{r.descripcion}</h4>

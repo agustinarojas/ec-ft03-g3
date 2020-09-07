@@ -68,7 +68,7 @@ function OrderButtons({
 		<tbody key={id}>
 			<tr>
 				<th scope="row">{id}</th>
-				<td>{users.filter(u => u.id === userId)[0]?.email}</td>
+				<td>{users.filter(u => u.id === userId)[0]?.email ? users.filter(u => u.id === userId)[0]?.email : 'Usuario eliminado'}</td>
 				<td> {precios} </td>
 				<td>{createdAt?.slice(0, 10)}</td>
 				<td> {estado} </td>

@@ -8,8 +8,8 @@ server.post('/purchaseMade', (req, res) => {
 	var transporter = nodemailer.createTransport({
 		service: 'Gmail',
 		auth: {
-			user: USER,
-			pass: PASS,
+			user: 'henrystoy123@gmail.com',
+			pass: 'agusmarcosfrancomariano123',
 		},
 	});
 
@@ -38,8 +38,8 @@ server.post('/purchaseDispatched', (req, res) => {
 	var transporter = nodemailer.createTransport({
 		service: 'Gmail',
 		auth: {
-			user: USER,
-			pass: PASS,
+			user: 'henrystoy123@gmail.com',
+			pass: 'agusmarcosfrancomariano123',
 		},
 	});
 
@@ -69,8 +69,8 @@ server.post('/purchaseCancel', (req, res) => {
 	var transporter = nodemailer.createTransport({
 		service: 'Gmail',
 		auth: {
-			user: USER,
-			pass: PASS,
+			user: 'henrystoy123@gmail.com',
+			pass: 'agusmarcosfrancomariano123',
 		},
 	});
 
@@ -100,8 +100,8 @@ server.post('/forgottenPassword', (req, res) => {
 	var transporter = nodemailer.createTransport({
 		service: 'Gmail',
 		auth: {
-			user: USER,
-			pass: PASS,
+			user: 'henrystoy123@gmail.com',
+			pass: 'agusmarcosfrancomariano123',
 		},
 	});
 
