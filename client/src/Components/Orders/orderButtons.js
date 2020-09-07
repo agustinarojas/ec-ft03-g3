@@ -50,6 +50,7 @@ function OrderButtons({
 		});
 	};
 	const handleStock = () => {
+
 		products.map(p => {
 			p.stock = p.stock + p.lineorder.cantidad;
 			console.log(p, p.id);
@@ -78,9 +79,10 @@ function OrderButtons({
 				</td>
 				{control ? (
 					<div>
+
 						<td>
 							<button
-								className="orderID"
+								className="despachar"
 								name={id}
 								onClick={e => {
 									handleOnClick(e, 'despachada', userId);
@@ -91,7 +93,7 @@ function OrderButtons({
 						</td>
 						<td>
 							<button
-								className="orderID"
+								className="cancelar"
 								name={id}
 								onClick={e => {
 									handleOnClick(e, 'cancelada', userId);

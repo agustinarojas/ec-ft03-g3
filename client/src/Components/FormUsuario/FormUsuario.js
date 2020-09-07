@@ -62,6 +62,7 @@ function FormUsuario() {
 		return <Redirect to="/login" />;
 	}
 	var control;
+	var regEmail = new RegExp(/^\S+@\S+\.\S+$/)
 	return (
 		<div className="Formm">
 			<form
@@ -141,12 +142,13 @@ function FormUsuario() {
 				</div>
 
 				{!state.nombre ||
-				!state.apellido ||
-				!state.email ||
-				!state.password ||
-				!state.password2 ||
-				state.password2 != state.password ||
-				state.password.length < 6
+					!state.apellido ||
+					!state.email ||
+					!state.password ||
+					!state.password2 ||
+					state.password2 != state.password ||
+					state.password.length < 6 ||
+					!regEmail.test(state.email)
 					? (control = true)
 					: false}
 				<Button

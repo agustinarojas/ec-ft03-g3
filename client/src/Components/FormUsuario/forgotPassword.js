@@ -6,6 +6,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import './Form.css';
 import axios from 'axios';
 import {getUsers} from '../../Actions/index';
+import TextField from '@material-ui/core/TextField';
 
 export function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -64,72 +65,57 @@ function ForgotPassword({users, getUsers}) {
 		getUsers();
 	}, []);
 
-	var control;
-	return (
-		<div className="Formm">
-			<form onSubmit={e => handleSubmit(e, state)}>
-				<div className="form-group">
-					<label htmlFor="exampleInputPassword">Ingrese su nueva contraseña</label>
-					<input
-						name="password"
-						placeholder="..."
-						type="password"
-						className="form-control"
-						id="exampleInputPassword"
-						onChange={e => handleOnChange(e)}
-						//disabled={true}
-					/>
-					{state.password?.length < 6 || !state.password ? (
-						<small id="emailHelp" className="form-text text-muted">
-							La contraseña debe contener almenos 6 caracteres
-						</small>
-					) : (
-						''
-					)}
-					<label htmlFor="exampleInputPassword">Confirme su nueva contraseña</label>
-					<input
-						className={state.password2 != state.password && 'danger'}
-						name="password2"
-						placeholder="..."
-						type="password"
-						className="form-control"
-						id="exampleInputPassword"
-						onChange={e => handleOnChange(e)}
-						//disabled={true}
-					/>
-					{state.password2 != state.password || state.password2 == null ? (
-						<small id="emailHelp" className="form-text text-muted">
-							Las contraseñas deben ser las mismas
-						</small>
-					) : (
-						<small id="emailHelp" className="form-text text-muted">
-							Contraseña confirmada
-						</small>
-					)}
-				</div>
-				{
-					//  state.actualPassword != state.password ||
-					!state.password2 || state.password2 != state.password || state.password.length < 6
-						? (control = true)
-						: false
-				}
-				<button
-					onClick={handleClick}
-					variant="contained"
-					color="primary"
-					type="submit"
-					value="Submit"
-					disabled={control ? true : false}>
-					Submit
-				</button>
-				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-					<Alert onClose={handleClose} severity="success">
-						Contraseña actualizada!
-					</Alert>
-				</Snackbar>
-			</form>
-		</div>
-	);
+  var control;
+  return (
+    <div style ={{marginTop: '2%'}} className="Formm">
+      <form onSubmit={e => handleSubmit(e, state)}>
+        <div className="form-group">
+        <TextField
+          name='password'
+          placeholder='Nueva contraseña'
+          type="password"
+          id="standard-basic"
+          onChange={e => handleOnChange(e)}
+          //disabled={true}
+        />
+        { state.password?.length < 6 || !state.password ?
+        <small id="emailHelp" className="form-text text-muted">
+          La contraseña debe contener almenos 6 caracteres
+        </small> : ''
+        }
+        <TextField className={state.password2 != state.password && 'danger'}
+          name='password2'
+          placeholder='Confirmar contraseña'
+          type="password"
+          id="standard-basic"
+          onChange={e => handleOnChange(e)}
+          //disabled={true}
+        />
+        {
+          state.password2 != state.password || state.password2 == null ?
+         <small id="emailHelp" className="form-text text-muted">Las contraseñas deben ser las mismas</small> :
+         <small id="emailHelp" className="form-text text-muted">Contraseña confirmada</small>
+       }
+      </div>
+      {
+      //  state.actualPassword != state.password ||
+        !state.password2 ||
+        state.password2 != state.password ||
+        state.password.length < 6
+        ? control = true : false
+      }
+      <button onClick = {handleClick} variant="contained" color="primary" type="submit"  value="Submit" disabled={control ? true : false}>
+        Actualizar
+      </button>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success">
+              Contraseña actualizada!
+            </Alert>
+      </Snackbar>
+    </form>
+  </div>
+);
+
 }
 
 function mapStateToProps(state) {
