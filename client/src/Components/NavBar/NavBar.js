@@ -80,7 +80,6 @@ function NavBar({
 		if (prevOpen.current === true && open === false) {
 			anchorRef.current.focus();
 		}
-
 		prevOpen.current = open;
 	}, [open]);
 
@@ -90,7 +89,7 @@ function NavBar({
 				<Link to="/" id="chico" onClick={() => getProducts()}>
 					<img
 						className="logopp"
-						src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRur8gLuus9J0WluNX13m0OfezctZm3xcw2zw&usqp=CAU"
+						src="https://i.pinimg.com/originals/de/78/93/de7893b704177d24089a11af2bf2349a.png"
 					/>
 				</Link>
 				<div className="dropd">

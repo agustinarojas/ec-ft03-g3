@@ -23,3 +23,51 @@
     text-align: center;
     outline: none;
 }
+
+.despachar {
+    background-color: #44c767;
+    border-radius: 28px;
+    border: 1px solid #18ab29;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2f6627;
+    text-align: center;
+    outline: none;
+    font-size: 16px;
+    font-weight: 200;
+    padding: 4px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.despachar:hover {
+    background-color: #5cbf2a;
+}
+
+.cancelar {
+    background-color: #c51616;
+    border-radius: 28px;
+    border: 1px solid #b10a0a;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #661e1e;
+    text-align: center;
+    outline: none;
+    font-size: 16px;
+    font-weight: 200;
+    padding: 4px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.cancelar:hover {
+    background-color: #f80404;
+}

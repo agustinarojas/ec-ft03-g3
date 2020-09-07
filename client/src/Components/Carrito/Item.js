@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import './Item.css';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {deleteProdCart, setCantidad} from '../../Actions/index';
 import Dialog from '@material-ui/core/Dialog';

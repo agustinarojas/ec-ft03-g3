@@ -9,15 +9,17 @@ function Catalogo({products, totalreviews, getTotalReviews}) {
 		return totalreviews?.filter(rev => rev.productId == id);
 	};
 
+	
 	useEffect(() => {
 		getTotalReviews();
 	}, [products]);
 
 	return (
-		<div className="contcatal">
+		
+		<div className="contcatal">		
 			{products.length === 0 ? (
 				<p>Producto no encontrado</p>
-			) : (
+			) : (				
 				products?.map(p => {
 					return (
 						<ProductCard

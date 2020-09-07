@@ -1,6 +1,6 @@
 const server = require('express').Router();
 const {Product, Cat, Carrito} = require('../db.js');
-const {isAdmin} = require('./validations');
+const {isAdmin, isAuthenticated} = require('./validations');
 
 server.get('/', (req, res, next) => {
 	Product.findAll({
@@ -30,9 +30,10 @@ server.post('/', isAdmin, (req, res) => {
 	});
 });
 
-server.put('/:id', isAdmin, (req, res) => {
+server.put('/:id', isAuthenticated, (req, res) => {
 	var productId = req.params.id;
 	var data = req.body;
+	console.log(data)
 	Product.findOne({
 		where: {
 			id: productId,

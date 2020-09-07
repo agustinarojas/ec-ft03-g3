@@ -26,7 +26,7 @@ function SimpleList({getOrders, getUsers, user}) {
 						<ListItemText primary="Productos" />
 					</ListItem>
 				</Link>
-				<Link to="/settings/categories" style={{textDecoration: 'none', color: 'black'}}>
+				<Link to="/settings/categories" style={{textDecoration: 'none', color: 'black'}} >
 					<ListItem button>
 						<ListItemIcon>
 							<span className="material-icons">category_icon</span>
