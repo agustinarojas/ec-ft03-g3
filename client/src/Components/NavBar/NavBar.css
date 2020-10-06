@@ -31,13 +31,13 @@ body {
 	text-decoration: none;
 }
 
-.dropd {
-	float: left;
+.dropd  {
+	float: left ;
 	overflow: hidden;
 }
 
 .dropd .dropdbtn {
-	font-size: 16px;
+	font-size: 16px; 
 	border: none;
 	outline: none;
 	color: white;
