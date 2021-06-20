@@ -1,201 +1,152 @@
 import React from 'react';
-import SearchBar from '../SearchBar/SearchBar';
-import './NavBar.css';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { filterByCategory, getProducts, getUser, logout, getUsers, haveCart } from '../../Actions/index';
-import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
+import MenuList from './MenuList';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import { useStyles } from './UseStyles';
+import MobileMenu from './MobileMenu';
+import Icons from './Icons';
+import ProfileMenu from './ProfileMenu';
+import { Link } from 'react-router-dom';
+import MenuIcon from '@material-ui/icons/Menu';
 
-const useStyles = makeStyles(theme => ({
-	root: {
-		display: 'flex',
-		'& > *': {
-			margin: theme.spacing(1),
-		},
-		paper: {
-			marginRight: theme.spacing(2),
-		},
-	},
-}));
-
-function NavBar({
-	search,
-	category,
-	filterByCategory,
-	getProducts,
-	getUser,
-	user,
-	logout,
-	productsCar,
-}) {
-
-	// const handleOnClick = () => {
-	// 	axios
-	// 		.get('http://localhost:3005/auth/logout', {withCredentials: true})
-	// 		.then(res => console.log(res))
-	// 		.catch(error => console.log(error));
-	// };
-	const classes = useStyles();
-	const [open, setOpen] = React.useState(false);
-	const anchorRef = React.useRef(null);
-	// const [count, setCount] = useState(0);
+function NavBar({ search, category, filterByCategory, user, logout, productsCar,}) {
+	const [checked, setChecked] = React.useState(false);
 	let cats = [];
-	console.log(productsCar);
-	// useEffect(() => {
-	// 	if (productsCar.length) setCount(productsCar.length);
-	// }, [productsCar]);
 
 	category.map(category => {
 		if (category.titulo) cats.push(category);
 	});
-	const handleToggle = () => {
-		setOpen(prevOpen => !prevOpen);
+	
+	const handleCheck = () => {
+		setChecked((prev) => !prev);
+	};
+	const classes = useStyles();
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+	const [input, setInput] = React.useState('');
+
+	const isMenuOpen = Boolean(anchorEl);
+	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+	const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
+	const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
+
+	const handleMenuClose = () => {
+		setAnchorEl(null);
+		handleMobileMenuClose();
 	};
 
-	const handleClose = (event, reason) => {
-		if (reason === 'clickaway') {
-			return;
-		}
-		setOpen(false);
-	};
+	const handleMobileMenuOpen = (event) => setMobileMoreAnchorEl(event.currentTarget);
 
-	function handleListKeyDown(event) {
-		if (event.key === 'Tab') {
-			event.preventDefault();
-			setOpen(false);
-		}
+	const handleChange = (event) => setInput(event.currentTarget.value)
+
+	const handleClick = () => {
+		search(input)
+		setInput('')
 	}
-
-	// return focus to the button when we transitioned from !open -> open
-	const prevOpen = React.useRef(open);
-	React.useEffect(() => {
-		if (prevOpen.current === true && open === false) {
-			anchorRef.current.focus();
+	const handleKeyUp = (event) =>{
+		if(event.keyCode === 13){
+			search(input)
+			setInput('')
 		}
-		prevOpen.current = open;
-	}, [open]);
+		return 
+	} 
+
+	const menuId = 'primary-search-account-menu';
+	const renderMenu = (
+		<ProfileMenu 
+			anchorEl={anchorEl} 
+			menuId={menuId} 
+			isMenuOpen={isMenuOpen} 
+			handleMenuClose={handleMenuClose} 
+			user={user}
+			logout={logout}
+		/>
+	);
+
+	const mobileMenuId = 'primary-search-account-menu-mobile';
+	const renderMobileMenu = (
+		<MobileMenu 
+			mobileMenuId={mobileMenuId} 
+			isMobileMenuOpen={isMobileMenuOpen} 
+			mobileMoreAnchorEl={mobileMoreAnchorEl}
+			handleMobileMenuClose={handleMenuClose}
+			handleProfileMenuOpen={handleProfileMenuOpen}
+			user={user}
+			productsCar={productsCar}
+		/> 
+	);
 
 	return (
-		<div className="contenedor">
-			<nav className="navigatorbar">
-				<Link to="/" id="chico" onClick={() => getProducts()}>
-					<img
-						className="logopp"
-						src="https://i.pinimg.com/originals/de/78/93/de7893b704177d24089a11af2bf2349a.png"
-					/>
-				</Link>
-				<div className="dropd">
-					<button className="dropdbtn">
-						Categorias
-						<i className="fa fa-caret-down"></i>
-					</button>
-					<div className="dropd-cont" style={{ zIndex: '9999' }}>
-						{cats?.map((c, i) => (
-							<Link to={`/category/${c.titulo}`} onClick={e => filterByCategory(c.titulo)} key={i}>
-								{c.titulo}
-							</Link>
-						))}
+		<div> 
+		<div className={classes.grow}>
+			<AppBar position="static">
+				<Toolbar>
+					<div>
+						<IconButton
+							edge="start"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="open drawer"
+							onClick={handleCheck}
+						>
+							<MenuIcon />
+						</IconButton>
 					</div>
-				</div>
-				{!user.id && <Link to="/sign_up"> Registrarse </Link>}
-				{!user.id && <Link to="/login"> Iniciar Sesion </Link>}
-				{user.admin && (
-					<Link to="/settings" style={{ display: 'flex' }}>
-						<span className="material-icons" style={{ width: '25px' }}>
-							settings_icon
-						</span>
-						<span> Administrar </span>
+					<Link to="/" style={{ textDecoration: 'none', color: "white" }}> 
+						<Typography className={classes.title} variant="h6" noWrap>
+							Henry's Toys
+						</Typography>
 					</Link>
-				)}
-				{/* {count ? <span className="num"> {count} </span> : null} */}
-				{user.id && (
-					<Button
-						ref={anchorRef}
-						aria-controls={open ? 'menu-list-grow' : undefined}
+					<div className={classes.search}  >
+						<div className={classes.searchIcon} onClick={handleClick} style={{zIndex: '99'}} >
+							<SearchIcon />
+						</div>
+						<InputBase
+							placeholder="Buscar en Henry's…"
+							classes={{
+								root: classes.inputRoot,
+								input: classes.inputInput,
+							}}
+							inputProps={{ 'aria-label': 'search', 'value': input }}
+							onChange={handleChange}
+							onKeyUp={handleKeyUp}
+						/>
+					</div>
+					<div className={classes.grow} />
+					<div className={classes.sectionDesktop}> 
+						<Icons  
+							menuId={menuId} 
+							handleProfileMenuOpen={handleProfileMenuOpen}
+							user={user}
+							productsCar={productsCar}
+						/>
+					</div>
+					<div className={classes.sectionMobile}>
+						<IconButton
+						aria-label="show more"
+						aria-controls={mobileMenuId}
 						aria-haspopup="true"
-						onClick={handleToggle}>
-						<Avatar src="/broken-image.jpg"></Avatar>
-					</Button>
-				)}
-
-				{user.id && (
-					<Popper
-						open={open}
-						anchorEl={anchorRef.current}
-						role={undefined}
-						transition
-						disablePortal
-						style={{ zIndex: 9999 }}>
-						{({ TransitionProps, placement }) => (
-							<Grow
-								{...TransitionProps}
-								style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
-								<Paper>
-									<ClickAwayListener onClickAway={handleClose}>
-										<MenuList
-											autoFocusItem={open}
-											id="menu-list-grow"
-											onKeyDown={handleListKeyDown}
-											style={{
-												display: 'flex',
-												flexDirection: 'column',
-												padding: '0px',
-												color: 'black',
-											}}>
-											<Link to="/me" style={{ padding: '0px' }} onClick={() => getUser()}>
-												<MenuItem onClick={handleClose}>
-													<span style={{ color: 'black' }}>Perfil</span>
-												</MenuItem>
-											</Link>
-											<Link to={`/users/${user.id}/orders`} style={{ padding: '0px' }}>
-												<MenuItem onClick={handleClose}>
-													<span style={{ color: 'black' }}>Mis compras</span>
-												</MenuItem>
-											</Link>
-											<Link to="#" style={{ padding: '0px' }}>
-												<MenuItem
-													onClick={() => {
-														handleClose();
-														logout();
-													}}>
-													<span style={{ color: 'black' }}>Cerrar sesion</span>
-												</MenuItem>
-											</Link>
-										</MenuList>
-									</ClickAwayListener>
-								</Paper>
-							</Grow>
-						)}
-					</Popper>
-				)}
-				<SearchBar search={search} />
-				{user.id && !productsCar.length && user.admin ?
-				 <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '80%' }}> {/* ADMIN / */}
-					<span className="material-icons"> remove_shopping_cart </span>
-				</Link> :
-					user.id && productsCar.length >= 1 && user.admin ?
-						<Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '80%' }}>
-							<span className="material-icons">shopping_cart</span>  {/* / ADMIN / */}
-						</Link> : 
-						user.id && !productsCar.length ? <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '80%' }}>
-							<span className="material-icons"> remove_shopping_cart </span> {/* / USER / */}
-						</Link> : 
-						user.id && productsCar.length >= 1 ? <Link to={`/cart/${user.id}`} style={{ height: '65px', marginLeft: '80%' }}>
-							<span className="material-icons">shopping_cart</span> {/* / USER /  */}
-						</Link> :
-						<Link to={`/cart/guest`} style={{ height: '65px', marginLeft: '80%' }}>
-									<span className="material-icons"> remove_shopping_cart </span> {/* / NO LOGEADO */}
-						</Link>}
-			</nav>
+						onClick={handleMobileMenuOpen}
+						color="inherit"
+						>
+						<MoreIcon />
+						</IconButton>
+					</div>
+				</Toolbar>
+			</AppBar>
+			{renderMobileMenu}
+			{renderMenu}
 		</div>
+		<MenuList checked={checked} categories={cats} filterByCategory={filterByCategory} />
+		</div> 
 	);
 }
 function mapStateToProps(state) {

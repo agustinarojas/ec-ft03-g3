@@ -20,6 +20,7 @@ body {
 .navigatorbar {
 	overflow: hidden;
 	background-color: rgb(6, 154, 246);
+	display: flex;
 }
 
 .navigatorbar a {
