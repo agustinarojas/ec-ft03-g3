@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {getOrder, putOrder, getUsers, getOrders} from '../../Actions/index';
 import './order.css';
-import OrderButtons from './orderButtons';
+import OrderButtons from './OrderButtons';
 
 function Orders({orders, user, putOrder, users, getUsers, getOrders, clase}) {
 	const [ordenes, setOrdenes] = useState(orders);

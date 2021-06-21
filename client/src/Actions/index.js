@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {handleLogIn} from '../Components/FormUsuario/loginUser';
+import {handleLogIn} from '../Components/FormUsuario/LoginUser';
 import {
 	GET_PRODUCTS,
 	PUT_PRODUCT,

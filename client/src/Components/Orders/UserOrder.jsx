@@ -4,7 +4,7 @@ import {getOrdersUser, getUser} from '../../Actions/index';
 import {Link} from 'react-router-dom';
 import './order.css';
 
-function OrdersUser({user, ordersUser, getOrdersUser}) {
+function UserOrders({user, ordersUser, getOrdersUser}) {
 	useEffect(() => {
 		getOrdersUser(user.id);
 	}, [user]);
@@ -59,4 +59,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {getOrdersUser, getUser})(OrdersUser);
+export default connect(mapStateToProps, {getOrdersUser, getUser})(UserOrders);

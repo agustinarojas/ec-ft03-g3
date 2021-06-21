@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {Redirect} from 'react-router-dom';
 import {getOrders, getUsers} from '../../Actions/index';
 import {connect} from 'react-redux';
@@ -9,12 +9,11 @@ import CategoryIcon from '@material-ui/icons/Category';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import PeopleIcon from '@material-ui/icons/People';
-import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
 import UserTable from '../Table/UserTable';
 import CategoryTable from '../Table/CategoryTable';
 import ProductTable from '../Table/ProductTable';
 import Orders from '../Orders/Orders';
+import GenerateMenuItem from '../Common/GenerateMenuItem';
 
 function SimpleList({getOrders, getUsers, user}) {
 	const [switcher, setSwitcher] = useState('Productos');
@@ -28,30 +27,20 @@ function SimpleList({getOrders, getUsers, user}) {
 		setSwitcher(currentTable);
 	}
 
-	const generate = () => {		
-		return items.map((item, idx) => 
-			React.cloneElement(
-				<div></div>,
-				{ key: idx, onClick: item.function },
-				<MenuItem 
-				onClick={() => handleSwitch(item.text)} 
-				className={switcher === item.text ? classes.selected : ''} 
-				>
-					<IconButton> 
-						{item.icon}
-					</IconButton>
-					<p style={{marginTop: '16px'}} > {item.text} </p> 
-				</MenuItem> 
-			)
-		)
-	}
-
 	return (
 		<div>
 			{user.admin? (
 			<div className={classes.container} >  
-				<Paper className={ classes.background} >
-					{ generate() }
+				<Paper className={ classes.options} >
+					{items.map((item, idx) => (
+							<GenerateMenuItem item={item} 
+								handleSwitch={handleSwitch} 
+								switcher={switcher} 
+								classes={classes} 
+								key={idx} 
+							/>
+						)
+					)}
 				</Paper>
 				{switcher === 'Productos' && <ProductTable clase={classes.tables} />}
 				{switcher === 'Categorías' && <CategoryTable clase={classes.tables} />}

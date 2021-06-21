@@ -1,20 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
-import Catalogo from './Components/Catalogue/Catalogo';
-import Products from './Components/product/producto';
-import Cart from './Components/Carrito/Cart';
+import Catalogo from './Components/Catalogue/Catalogue';
+import Products from './Components/product/Product';
+import Cart from './Components/Cart/Cart';
 import NavBar from './Components/NavBar/NavBar';
 import Order from './Components/Orders/OrderById';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
-import LoginUser from './Components/FormUsuario/loginUser';
+import LoginUser from './Components/FormUsuario/LoginUser';
 import TableUser from './Components/Table/UserTable';
 import UserProfile from './Components/FormUsuario/UserProfile';
-import RestorePass from './Components/FormUsuario/restorePass.js';
-import ForgotPassword from './Components/FormUsuario/forgotPassword.js';
-import OrdersUser from './Components/Orders/UserOrder';
-import OrderProducts from './Components/Orders/orderProducts';
-import SendForm from './Components/PayForm/sendForm';
-import PayForm from './Components/PayForm/payForm';
+import RestorePass from './Components/FormUsuario/RestorePass';
+import ForgotPassword from './Components/FormUsuario/ForgotPassword';
+import UserOrders from './Components/Orders/UserOrder';
+import OrderProducts from './Components/Orders/OrderProducts';
+import SendForm from './Components/PayForm/SendForm';
+import PayForm from './Components/PayForm/PayForm';
 import Settings from './Components/Settings/Settings';
 import {
 	getProducts,
@@ -77,7 +77,7 @@ function App({
 			<Route path="/RestablecerContraseña" render={() => <RestorePass users={getUser} />} />
 			<Route path="/settings/users_table" component={TableUser} />
 			<Route path="/producto/:prodId/Calificaciones" component={Reviews} />
-			<Route path="/users/:userId/orders" component={OrdersUser} />
+			<Route path="/users/:userId/orders" component={UserOrders} />
 			<Route path="/user/order/:id" component={OrderProducts} />
 			<Route path="/" component={Footer} />
 			<Route path="/sendform" component={SendForm} />
