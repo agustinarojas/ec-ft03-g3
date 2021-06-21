@@ -1,11 +1,16 @@
 import { fade, makeStyles } from '@material-ui/core/styles';
+import { colors } from '../Common/Colors';
 
 export const useStyles = makeStyles((theme) => ({
    grow: {
       flexGrow: 1,
       },
+      navBar: {
+         backgroundColor: colors.primary,
+      },
       menuButton: {
          marginRight: theme.spacing(2),
+         color: colors.icons,
       },
       title: {
          display: 'none',
@@ -40,12 +45,15 @@ export const useStyles = makeStyles((theme) => ({
          justifyContent: 'center',
          cursor: 'pointer',
          width: '42px',
+         zIndex: '99',
+         color: colors.icons,
       },
       inputRoot: {
          color: 'inherit',
       },
       inputInput: {
          padding: theme.spacing(1, 1, 1, 0),
+         color: colors.icons,
          // vertical padding + font size from searchIcon
          paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
          transition: theme.transitions.create('width'),

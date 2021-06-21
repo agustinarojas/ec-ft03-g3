@@ -18,8 +18,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 function NavBar({ search, category, filterByCategory, user, logout, productsCar,}) {
 	const [checked, setChecked] = React.useState(false);
+	const classes = useStyles();
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+	const [input, setInput] = React.useState('');
+	
+	const isMenuOpen = Boolean(anchorEl);
+	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 	let cats = [];
-
+	
 	category.map(category => {
 		if (category.titulo) cats.push(category);
 	});
@@ -27,13 +34,6 @@ function NavBar({ search, category, filterByCategory, user, logout, productsCar,
 	const handleCheck = () => {
 		setChecked((prev) => !prev);
 	};
-	const classes = useStyles();
-	const [anchorEl, setAnchorEl] = React.useState(null);
-	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-	const [input, setInput] = React.useState('');
-
-	const isMenuOpen = Boolean(anchorEl);
-	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
 	const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
 	const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
@@ -87,7 +87,7 @@ function NavBar({ search, category, filterByCategory, user, logout, productsCar,
 	return (
 		<div> 
 		<div className={classes.grow}>
-			<AppBar position="static">
+			<AppBar className={classes.navBar} position="static" color='inherit' >
 				<Toolbar>
 					<div>
 						<IconButton
@@ -106,7 +106,7 @@ function NavBar({ search, category, filterByCategory, user, logout, productsCar,
 						</Typography>
 					</Link>
 					<div className={classes.search}  >
-						<div className={classes.searchIcon} onClick={handleClick} style={{zIndex: '99'}} >
+						<div className={classes.searchIcon} onClick={handleClick} >
 							<SearchIcon />
 						</div>
 						<InputBase
@@ -137,7 +137,7 @@ function NavBar({ search, category, filterByCategory, user, logout, productsCar,
 						onClick={handleMobileMenuOpen}
 						color="inherit"
 						>
-						<MoreIcon />
+						<MoreIcon style={{color: '#FFF'}} />
 						</IconButton>
 					</div>
 				</Toolbar>

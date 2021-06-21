@@ -5,13 +5,11 @@ import './table.css';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
 import {storage} from '../../firebase';
-import Button from '@material-ui/core/Button';
 
-function Table({products, addProduct, putProduct, deleteProduct, user}) {
+function Table({products, addProduct, putProduct, deleteProduct, user, clase}) {
 	const [image, setImage] = useState(null);
 	const [save, setSave] = useState(null);
-	const [redir, setRedir] = useState(false)
-	const [error, setError] = useState(false)
+	
 	const handleChange = e => {
 		if (e.target.files[0]) {
 			setImage(e.target.files[0]);
@@ -57,12 +55,9 @@ function Table({products, addProduct, putProduct, deleteProduct, user}) {
 			render: rowData => <img src={rowData.imagen} style={{width: 100}} />,
 		},
 	];
-	if (redir && !error) {
-		return <Redirect to="/settings" />;
-	}
 
 	return (
-		<div>
+		<div className={clase} >
 			{user.admin ? (
 				<MaterialTable
 					title="Productos"
@@ -77,9 +72,6 @@ function Table({products, addProduct, putProduct, deleteProduct, user}) {
 			) : (
 				<Redirect to="/" />
 			)}
-			<Button  style={{marginTop: '2%', marginLeft: '2%'}} color = "secondary" variant= "contained" onClick= {setRedir}>
-			Regresar
-			</Button>
 		</div>
 	);
 }

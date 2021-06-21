@@ -3,10 +3,9 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {getOrder, putOrder, getUsers, getOrders} from '../../Actions/index';
 import './order.css';
-import Button from '@material-ui/core/Button';
 import OrderButtons from './orderButtons';
-function Orders({orders, user, putOrder, users, getUsers, getOrders}) {
-	const [redir, setRedir] = useState(false);
+
+function Orders({orders, user, putOrder, users, getUsers, getOrders, clase}) {
 	const [ordenes, setOrdenes] = useState(orders);
 	// let ordenes = orders;
 
@@ -34,12 +33,10 @@ function Orders({orders, user, putOrder, users, getUsers, getOrders}) {
 		console.log(ordenes);
 	}
 	console.log(ordenes);
-	if (redir) {
-		return <Redirect to="/settings" />;
-	}
+
 	console.log(orders);
 	return (
-		<div>
+		<div className={clase} >
 			{user.admin ? (
 				<div>
 					<table className="table">
@@ -79,13 +76,6 @@ function Orders({orders, user, putOrder, users, getUsers, getOrders}) {
 			) : (
 				<Redirect to="/" />
 			)}
-			<Button
-				style={{marginTop: '2%', marginLeft: '2%'}}
-				color="secondary"
-				variant="contained"
-				onClick={setRedir}>
-				Regresar
-			</Button>
 		</div>
 	);
 }

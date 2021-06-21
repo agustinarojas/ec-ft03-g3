@@ -7,8 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import { useStyles } from './UseStyles';
 
 export default function Icons({handleProfileMenuOpen, menuId, user, productsCar }){
+   const classes = useStyles();
 
    return (
       <div>
@@ -20,32 +22,32 @@ export default function Icons({handleProfileMenuOpen, menuId, user, productsCar 
 				onClick={handleProfileMenuOpen}
 				color="inherit"
 			>
-				<AccountCircle />
+				<AccountCircle className={classes.menuButton} />
 			</IconButton>}
 
          { !user.id && 
-            <Link to="/login" style={{textDecoration:'none', marginRight: '10px'}} > 
-               <Button variant="outlined" style={{color: '#FFF' }}>INGRESAR</Button>
+            <Link to="/login" style={{textDecoration:'none'}} > 
+               <Button variant="outlined" className={classes.menuButton} >INGRESAR</Button>
             </Link>
          }
          { !user.id &&
          <Link to="/sign_up" style={{textDecoration:'none'}}> 
-            <Button variant="outlined" style={{color: '#FFF' }}>REGISTRARSE</Button>
+            <Button variant="outlined" className={classes.menuButton}>REGISTRARSE</Button>
          </Link>
          }
          { user.admin && 
-         <Link to="/settings" style={{textDecoration:'none', marginRight: '10px'}} > 
+         <Link to="/settings" style={{textDecoration:'none'}} > 
             <Tooltip title="Administrar" > 
                <IconButton color="inherit">
-                  <SettingsIcon style={{color: '#FFF' }}/>
+                  <SettingsIcon className={classes.menuButton}/>
                </IconButton>
             </Tooltip> 
          </Link>
          }
-         <Link to={`/cart/${user.id}`} style={{textDecoration:'none', marginRight: '10px'}} > 
+         <Link to={`/cart/${user.id}`} style={{textDecoration:'none'}} > 
             <IconButton aria-label="cart">
                <Badge badgeContent={productsCar.length} color="secondary">
-                  <ShoppingCartIcon style={{color: '#FFF' }} />
+                  <ShoppingCartIcon className={classes.menuButton} />
                </Badge>
             </IconButton>
          </Link>

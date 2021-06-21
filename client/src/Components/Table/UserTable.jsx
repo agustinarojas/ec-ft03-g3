@@ -3,11 +3,9 @@ import MaterialTable from 'material-table';
 import './table.css';
 import {connect} from 'react-redux';
 import {deleteUsers, makeAdmin, getUsers} from '../../Actions/index';
-import Button from '@material-ui/core/Button';
 import {Redirect} from 'react-router';
 
-function TableUser({user, users, deleteUsers, makeAdmin, getUsers}) {
-	const [redir, setRedir] = useState(false);
+function TableUser({user, users, deleteUsers, makeAdmin, getUsers, clase}) {
 	users.forEach(client => (client.cliente = client.nombre + ' ' + client.apellido));
 	const columns = [
 		{title: 'Cliente', field: 'cliente'},
@@ -17,12 +15,9 @@ function TableUser({user, users, deleteUsers, makeAdmin, getUsers}) {
 	useEffect(() => {
 		getUsers();
 	}, []);
-	if (redir) {
-		return <Redirect to="/settings" />;
-	}
 
 	return (
-		<div>
+		<div className={clase} >
 			{user.admin ? (
 				<div>
 					<MaterialTable
@@ -34,13 +29,6 @@ function TableUser({user, users, deleteUsers, makeAdmin, getUsers}) {
 							onRowDelete: oldData => deleteUsers(oldData.id),
 						}}
 					/>
-					<Button
-						style={{marginTop: '2%', marginLeft: '2%'}}
-						color="secondary"
-						variant="contained"
-						onClick={setRedir}>
-						Regresar
-					</Button>
 				</div>
 			) : (
 				<Redirect to="/" />

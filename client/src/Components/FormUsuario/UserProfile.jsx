@@ -15,7 +15,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function User({user, deleteUsers}) {
+function UserProfile({user, deleteUsers}) {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -105,4 +105,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {deleteUsers})(User);
+export default connect(mapStateToProps, {deleteUsers})(UserProfile);

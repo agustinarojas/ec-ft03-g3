@@ -2,19 +2,16 @@ import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import Catalogo from './Components/Catalogue/Catalogo';
 import Products from './Components/product/producto';
-import Table from './Components/Table/Table';
-import TableCategory from './Components/Table/TableCategory';
 import Cart from './Components/Carrito/Cart';
 import NavBar from './Components/NavBar/NavBar';
-import Orders from './Components/Orders/Order';
-import Order from './Components/Orders/OrderI';
+import Order from './Components/Orders/OrderById';
 import FormUsuario from './Components/FormUsuario/FormUsuario';
 import LoginUser from './Components/FormUsuario/loginUser';
-import TableUser from './Components/Table/tableuser';
-import user from './Components/FormUsuario/User';
+import TableUser from './Components/Table/UserTable';
+import UserProfile from './Components/FormUsuario/UserProfile';
 import RestorePass from './Components/FormUsuario/restorePass.js';
 import ForgotPassword from './Components/FormUsuario/forgotPassword.js';
-import OrdersUser from './Components/Orders/ordersUser';
+import OrdersUser from './Components/Orders/UserOrder';
 import OrderProducts from './Components/Orders/orderProducts';
 import SendForm from './Components/PayForm/sendForm';
 import PayForm from './Components/PayForm/payForm';
@@ -40,6 +37,7 @@ function App({
 	orders,
 	getUser,
 	getTotalReviews,
+	user,
 }) {
 	const [buscar, setBuscar] = useState('');
 
@@ -50,36 +48,32 @@ function App({
 	useEffect(() => {
 		getCategories();
 		searchProduct(buscar);
-		getUser();
 		getTotalReviews();
 	}, [buscar]);
+	
+	useEffect(() => {
+		getUser();
+	}, [])
 
 	const search = input => {
 		setBuscar(input);
 	};
-
+	console.log(user)
 	return (
 		<div className="product">
 			<NavBar search={search} category={categories} />
-			<Route
-				exact
-				path="/settings/products"
-				render={() => <Table products={productos} categories={categories} />}
-			/>
 			<Route exact path="/" render={() => <Catalogo products={productos} />} />
 			<Route path="/category/:category" render={() => <Catalogo products={catProducts} />} />
 			<Route
 				path="/product/:id"
 				render={({match}) => <Products producto={filtrar(match.params.id)} />}
 			/>
-			<Route path="/settings/categories" component={TableCategory} />
 			<Route exact path="/settings" component={Settings} />
-			<Route path="/settings/orders" render={() => <Orders orders={orders} />} />
 			<Route path="/order/:id" component={Order} />
 			<Route path="/cart/:userId" component={Cart} />
 			<Route path="/sign_up" component={FormUsuario} />
 			<Route path="/login" component={LoginUser} />
-			<Route path="/me" component={user} />
+			<Route path="/me" component={UserProfile} />
 			<Route path="/RestablecerContraseña" render={() => <RestorePass users={getUser} />} />
 			<Route path="/settings/users_table" component={TableUser} />
 			<Route path="/producto/:prodId/Calificaciones" component={Reviews} />
@@ -99,6 +93,7 @@ const mapStateToProps = state => {
 		catProducts: state.catProducts,
 		categories: state.categories,
 		orders: state.orders,
+		user: state.user,
 	};
 };
 export default connect(mapStateToProps, {
