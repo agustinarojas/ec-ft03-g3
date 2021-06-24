@@ -11,8 +11,10 @@ export const useStyles = makeStyles((theme) => ({
       menuButton: {
          marginRight: theme.spacing(2),
          color: colors.icons,
-         width: 35,
-         height: 35,
+      },
+      size: {
+         width: 30,
+         height: 30,
       },
       title: {
          display: 'none',

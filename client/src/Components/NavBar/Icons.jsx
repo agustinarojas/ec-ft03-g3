@@ -22,7 +22,7 @@ export default function Icons({handleProfileMenuOpen, menuId, user, productsCar 
 				onClick={handleProfileMenuOpen}
 				color="inherit"
 			>
-				<AccountCircle className={classes.menuButton} />
+				<AccountCircle className={classes.menuButton + ' ' + classes.size} />
 			</IconButton>}
 
          { !user.id && 
@@ -39,7 +39,7 @@ export default function Icons({handleProfileMenuOpen, menuId, user, productsCar 
          <Link to="/settings" style={{textDecoration:'none'}} > 
             <Tooltip title="Administrar" > 
                <IconButton color="inherit">
-                  <SettingsIcon className={classes.menuButton}/>
+                  <SettingsIcon className={classes.menuButton + ' ' + classes.size}/>
                </IconButton>
             </Tooltip> 
          </Link>
@@ -47,7 +47,7 @@ export default function Icons({handleProfileMenuOpen, menuId, user, productsCar 
          <Link to={`/cart/${user.id}`} style={{textDecoration:'none'}} > 
             <IconButton aria-label="cart">
                <Badge badgeContent={productsCar.length} color="secondary">
-                  <ShoppingCartIcon className={classes.menuButton} />
+                  <ShoppingCartIcon className={classes.menuButton + ' ' + classes.size} />
                </Badge>
             </IconButton>
          </Link>

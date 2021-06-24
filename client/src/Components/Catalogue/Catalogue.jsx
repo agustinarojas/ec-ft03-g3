@@ -3,6 +3,7 @@ import ProductCard from '../ProductCard/ProductCard';
 import './cat.css';
 import {getTotalReviews} from '../../Actions/index';
 import {connect} from 'react-redux';
+import Carrousel from '../Carrousel/Carrousel';
 
 function Catalogo({products, totalreviews, getTotalReviews}) {
 	const filtrar = id => {
@@ -16,7 +17,8 @@ function Catalogo({products, totalreviews, getTotalReviews}) {
 
 	return (
 		
-		<div className="contcatal">		
+		<div className="contcatal">
+			<Carrousel />		
 			{products.length === 0 ? (
 				<p>Producto no encontrado</p>
 			) : (				
