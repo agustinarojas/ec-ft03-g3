@@ -11,6 +11,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import IconButton from '../Common/IconButton';
+import { colors } from '../Common/Colors'; 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
@@ -54,6 +56,9 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 
 	const handleClick = () => {
 		setOpen(true);
+		setTimeout(function () {
+			setRedirect(true);
+		}, 1000);
 	};
 	const cantidadLocalStorage = () => {
 		setData(JSON.parse(localStorage.getItem('productos')));
@@ -91,9 +96,7 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 				<div className="noProducts">Aún no agregaste productos al carrito.</div>
 			)}
 			{cart?.length > 0 ? (
-				<button id="vaciar" onClick={() => handleClickOpen()}>
-					Vaciar
-				</button>
+				<IconButton  onClick={handleClickOpen} text='Vaciar carrito' bkColor={colors.danger} color={colors.icons} />
 			) : (
 				''
 			)}
@@ -125,16 +128,17 @@ function Cart({emptyCart, productsCar, getCarrito, user, localStor, addToCart}) 
 				</DialogActions>
 			</Dialog>
 			{cart?.length > 0 ? (
-				<button
-					id="compra"
-					onClick={() => {
-						handleClick();
-						setTimeout(function () {
-							setRedirect(true);
-						}, 1000);
-					}}>
-					Checkout
-				</button>
+				<IconButton text='Continuar compra' onClick={handleClick} bkColor={colors.primary} color={colors.icons} />
+				// <button
+				// 	id="compra"
+				// 	onClick={() => {
+				// 		handleClick();
+				// 		setTimeout(function () {
+				// 			setRedirect(true);
+				// 		}, 1000);
+				// 	}}>
+				// 	Checkout
+				// </button>
 			) : (
 				''
 			)}

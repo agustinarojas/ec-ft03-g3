@@ -3,5 +3,6 @@ export const colors = {
    secondary: '#b4bce6',
    hover: '#8b96d2',
    icons: '#FFF',
-   danger: '#f50057',
+   danger: '#d81f31',
+   dangerHover: '#a51212'
 }
